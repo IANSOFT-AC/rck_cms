@@ -27,7 +27,7 @@ jobs:
 
       #Update the server
       - name: update the server packages
-        run: sudo yum update -y
+        #run: sudo yum update -y
 
       # Runs composer install to add or update dependancies
       - name: Install dependancies via composer
