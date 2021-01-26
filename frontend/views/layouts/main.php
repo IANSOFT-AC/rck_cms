@@ -33,6 +33,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
 </head>
 
 <?php $this->beginBody() ?>
@@ -225,7 +226,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('refugee')?'active':'' ?>">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Refugee Registry
+                                    Client Biodata Registry
                                     <i class="fas fa-angle-left right"></i>
                                     <!--<span class="badge badge-info right">6</span>-->
                                 </p>
@@ -235,7 +236,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                     <a href="<?= $absoluteUrl ?>refugee" class="nav-link <?= Yii::$app->recruitment->currentaction('refugee','index')?'active':'' ?>">
                                         <i class="fa fa-check-square nav-icon"></i>
                         
-                                        <p>Refugee List</p>
+                                        <p>Biodata List</p>
                                     </a>
                                 </li>
 
@@ -300,6 +301,37 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             </ul>
                         </li>
 
+                        <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('t')?'menu-open':'' ?>">
+                            <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
+                                <i class="nav-icon fas fa-briefcase " ></i>
+                                <p>
+                                    Court Cases
+                                    <i class="fas fa-angle-left right"></i>
+                                    <!--<span class="badge badge-info right">6</span>-->
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>court-cases/create" class="nav-link <?= Yii::$app->recruitment->currentaction('court-cases','create')?'active':'' ?>">
+                                        <i class="fa fa-check-square nav-icon"></i>
+                                        <p>New Case </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>court-cases" class="nav-link <?= Yii::$app->recruitment->currentaction('court-cases','index')?'active':'' ?>">
+                                        <i class="fa fa-check-square nav-icon"></i>
+                                        <p>Cases
+                                        <span class="badge badge-info right">1</span>
+                                         </p>
+                                    </a>
+                                </li>
+
+                                
+                            </ul>
+                        </li>
+
                         <!--Police -->
                          <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('t')?'menu-open':'' ?>">
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
@@ -313,9 +345,9 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>police" class="nav-link <?= Yii::$app->recruitment->currentaction('t','e')?'active':'' ?>">
+                                    <a href="<?= $absoluteUrl ?>police-cases" class="nav-link <?= Yii::$app->recruitment->currentaction('police-cases','index')?'active':'' ?>">
                                         <i class="fa fa-check-square nav-icon"></i>
-                                        <p>Police
+                                        <p>Police Cases
                                             <span class="badge badge-info right">6</span>
                                          </p>
                                     </a>
@@ -399,9 +431,80 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('settings','index')?'active':'' ?>">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>Control Panel
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="<?= $absoluteUrl ?>police" class="nav-link <?= Yii::$app->recruitment->currentaction('police','index')?'active':'' ?>">
                                         <i class="fa fa-cog nav-icon"></i>
                                         <p>Police
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>police-uploads" class="nav-link <?= Yii::$app->recruitment->currentaction('police-uploads','index')?'active':'' ?>">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>Police Uploads
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>magistrate" class="nav-link <?= Yii::$app->recruitment->currentaction('magistrate','index')?'active':'' ?>">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>Magistrate
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>counsellors" class="nav-link <?= Yii::$app->recruitment->currentaction('counsellors','index')?'active':'' ?>">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>Counsellors
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>court-uploads" class="nav-link <?= Yii::$app->recruitment->currentaction('court-uploads','index')?'active':'' ?>">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>Court Uploads
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>court-case-category" class="nav-link <?= Yii::$app->recruitment->currentaction('court-case-category','index')?'active':'' ?>">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>Court Case Category
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>court-case-subcategory" class="nav-link <?= Yii::$app->recruitment->currentaction('court-case-subcategory','index')?'active':'' ?>">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>Court Case SubCategory
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>court-proceeding" class="nav-link <?= Yii::$app->recruitment->currentaction('court-proceeding','index')?'active':'' ?>">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>Court Case Proceeding
                                             <!--<span class="badge badge-info right">0</span>-->
                                         </p>
                                     </a>
@@ -442,6 +545,26 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                         <i class="fa fa-cog nav-icon"></i>
                                         <p>
                                             Lawyers
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>rck-offices" class="nav-link <?= Yii::$app->recruitment->currentaction('rck-offices','index')?'active':'' ?>">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>
+                                            RCK offices
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>relationship" class="nav-link <?= Yii::$app->recruitment->currentaction('relationship','index')?'active':'' ?>">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>
+                                            Relationships
                                             <!--<span class="badge badge-info right">0</span>-->
                                         </p>
                                     </a>
@@ -687,6 +810,28 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             <section class="content">
                 <div class="container-fluid">
 
+                    <?php if (Yii::$app->session->hasFlash('success')): ?>
+                        <div class="alert alert-success alert-dismissable">
+                             <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                             <h4><i class="icon fa fa-check"></i>Saved!</h4>
+                             <?= Yii::$app->session->getFlash('success') ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (Yii::$app->session->hasFlash('error')): ?>
+                        <div class="alert alert-danger alert-dismissable">
+                             <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                             <h4><i class="icon fa fa-check"></i>Saved!</h4>
+                             <?= Yii::$app->session->getFlash('error') ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php
+                    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+                        echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+                    }
+                    ?>
+
                     <?= $content ?>
                     
                 </div><!-- /.container-fluid -->
@@ -719,6 +864,11 @@ $absoluteUrl = \yii\helpers\Url::home(true);
     </div>
 
 <?php $this->endBody() ?>
+
+<!-- START OF ADD SWEET ALERT -->
+<?php $this->registerJsFile("https://unpkg.com/sweetalert/dist/sweetalert.min.js"); ?>
+<!-- END OF ADD SWEET ALERT -->
+
 </body>
 </html>
 <?php $this->endPage();

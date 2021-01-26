@@ -14,3 +14,6 @@
 .login-page :nth-child(1):hover {
   opacity: 1;
 }
+.setup-p{
+    line-height: 0.5em;
+}

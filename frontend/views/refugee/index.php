@@ -1,102 +1,83 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RefugeeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Refugees';
-$this->params['breadcrumbs'][] = ['label' => 'Refugees List', 'url' => 'index'];
+$this->title = 'Client Biodata';
+$this->params['breadcrumbs'][] = ['label' => 'Client Biodata List', 'url' => 'index'];
 ?>
 <div class="refugee-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Refugee', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Client Biodata', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="card">
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+        <div class="card-body">
+             <table class="table" id="refugees">
+                
+            </table>
+        </div>
 
-            //'id',
-            'first_name',
-            'middle_name',
-            'last_name',
-            //'user_group_id',
-            //'user_id',
-            //'image',
-            [
-                    'attribute' => 'camp',
-                    'value' => 'rcamp.name',
-            ],
-            //'cell_number',
-            //'email_address:email',
-            [
-                    'attribute' => 'gender',
-                    'value' => 'rgender.gender'
-            ],
-            [
-                    'attribute' => 'country_of_origin',
-                    'value' => 'rcountry.country'
-            ],
-           [
-                'attribute' => 'demography_id',
-                'value' => 'rdemography.demography',
-           ],
-
-            //'date_of_birth',
-            //'id_type',
-            //'conflict',
-            //'created_at',
-            //'updated_at',
-            //'created_by',
-            //'updated_by',
-
-            ['class' => 'yii\grid\ActionColumn',
-
-                    'buttons' => [
-
-                        'view' => function( $url )
-                        {
-                            return Html::a('<i class="fa fa-eye"></i>', $url,[]);
-                        },
-
-                        'update' => function( $url )
-                        {
-                            return Html::a('<i class="fa fa-edit"></i>', $url,[]);
-                        },
-
-                        'delete' => function( $url )
-                        {
-                            return Html::a('<i class="fa fa-trash"></i>', $url,[
-
-                                'data' => [
-                                    'confirm' => 'Are you sure you wanna delete this record ?',
-                                    'method' => 'POST',
-                                    'params' => [
-                                        '_csrf-frontend' => Yii::$app->request->csrfToken
-                                    ]
-
-                                ]
-                            ]);
-                        }
-
-                    ],
-
-
-
-                ],
-        ],
-    ]); ?>
-
+    </div>
 
 </div>
+
+<div class="service-container" data-viewurl="<?= Url::to(['refugee/view']); ?>" data-editurl="<?= Url::to(['refugee/update']); ?>">
+
+<?php
+
+$script = <<<JS
+
+    let viewUrl = ''
+    let editUrl = ''
+    $('.service-container').each(function() {
+        var container = $(this);
+        viewUrl = container.data('viewurl');
+        editUrl = container.data('editurl');
+        console.log(viewUrl)
+    });
+
+    $('#refugees').DataTable({
+        ajax: '/refugee/list',
+        paging: true,
+        columns: [
+            {title : 'Id', data: 'id'},
+            {title : 'First Name', data: 'first_name'},
+            {title : 'Middle Name', data: 'middle_name'},
+            {title : 'Last Name', data: 'last_name'},
+            {title : 'RSD Appointment Date', data: 'rsd_appointment_date'},
+            {title : 'Cell Number', data : 'cell_number'},
+            {title : 'Gender', data : 'gender'},
+            {title : 'Email', data : 'email'},
+            {title : 'RCK No', data : 'rck_no'},
+            {title : 'Country', data : 'country'},
+            {title : 'created At', data: 'created_at'},
+            {
+                data: function ( row, type, val, meta ) {
+                    return '<div class="d-inline-flex"><a href="'+viewUrl+'/?id='+row.id+'" class="p-1" title="View Record"><i class="far fa-eye"></i></a><a href="'+editUrl+'/?id='+row.id+'" title="Edit Record" class="p-1"><i class="far fa-edit"></i></a></div>'
+                },
+                className: "center",
+                defaultContent: ''
+            }
+        ],
+        "columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+                "searchable": false
+            }
+        ],
+        order: [[0, "desc"]]
+    });
+JS;
+
+$this->registerJs($script);

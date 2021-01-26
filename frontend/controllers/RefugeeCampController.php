@@ -7,6 +7,7 @@ use app\models\Subcounties;
 use Yii;
 use app\models\RefugeeCamp;
 use app\models\RefugeeCampSearch;
+use app\models\RckOffices;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -71,6 +72,7 @@ class RefugeeCampController extends Controller
 
         $counties = ArrayHelper::map(Counties::find()->all(),'CountyID','CountyName');
         $subCounties = ArrayHelper::map(Subcounties::find()->all(),'SubCountyID','SubCountyName');
+        $rckOffices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -79,7 +81,8 @@ class RefugeeCampController extends Controller
         return $this->render('create', [
             'model' => $model,
             'counties' => $counties,
-            'subCounties' => $subCounties
+            'subCounties' => $subCounties,
+            'rckOffices' => $rckOffices
         ]);
     }
 
@@ -95,6 +98,7 @@ class RefugeeCampController extends Controller
         $model = $this->findModel($id);
         $counties = ArrayHelper::map(Counties::find()->all(),'CountyID','CountyName');
         $subCounties = ArrayHelper::map(Subcounties::find()->all(),'SubCountyID','SubCountyName');
+        $rckOffices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -103,7 +107,8 @@ class RefugeeCampController extends Controller
         return $this->render('update', [
             'model' => $model,
             'counties' => $counties,
-            'subCounties' => $subCounties
+            'subCounties' => $subCounties,
+            'rckOffices' => $rckOffices
         ]);
     }
 

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RefugeeCampSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Refugee Camps';
+$this->title = 'Camps';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="refugee-camp-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Refugee Camp', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Camp', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -28,9 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
            // 'id',
             'name',
+            [
+                'label' => 'RCK office',
+                'value'=>'rckOffice.name'
+            ],
             'countyname.CountyName',
             'subcountyname.SubCountyName',
             'locality_description:ntext',
+
             //'created_at',
             //'updated_at',
             //'created_by',

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use frontend\models\Gender;
+use frontend\models\Conflict;
 use Yii;
 use common\models\User;
 use yii\behaviors\BlameableBehavior;
@@ -11,7 +12,7 @@ use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "refugee".
  *
- * @property string|null $id
+ * @property int $id
  * @property string $first_name
  * @property string|null $middle_name
  * @property string $last_name
@@ -31,15 +32,45 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
+ * @property string|null $nhcr_case_no
+ * @property int|null $return_refugee
+ * @property string|null $rck_no
+ * @property int $rck_office_id
+ * @property int|null $arrival_date
+ * @property int|null $has_disability
+ * @property string|null $disability_desc
+ * @property int|null $asylum_status
+ * @property int|null $rsd_appointment_date
+ * @property string|null $reason_for_rsd_appointment
+ * @property string|null $source_of_info_abt_rck
+ * @property int $mode_of_entry_id
+ * @property int|null $victim_of_turture
+ * @property string|null $form_of_torture
+ * @property string|null $source_of_income
+ * @property string|null $job_details
+ * @property int|null $has_work_permit
+ * @property int|null $arrested_due_to_lack_of_work_permit
+ * @property int|null $interested_in_work_permit
+ * @property int|null $interested_in_citizenship
  *
+ * @property Dependant[] $dependants
  * @property RefugeeCamp $camp0
+ * @property ModeOfEntry $modeOfEntry
+ * @property RckOffices $rckOffice
  * @property UserGroup $userGroup
  * @property User $user
  */
 class Refugee extends \yii\db\ActiveRecord
 {
+    /**
+     * {@inheritdoc}
+     */
+    public $full_names;
 
-
+    public static function tableName()
+    {
+        return 'refugee';
+    }
 
     public function behaviors()
     {
@@ -52,27 +83,75 @@ class Refugee extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
-        return 'refugee';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'user_group_id', 'gender'], 'required'],
-            [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['id', 'first_name', 'middle_name', 'last_name', 'email_address'], 'string', 'max' => 50],
+            [['first_name', 'last_name', 'user_group_id', 'gender', 'rck_office_id', 'mode_of_entry_id'], 'required'],
+            [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at', 'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status', 'mode_of_entry_id', 'victim_of_turture', 'has_work_permit', 'arrested_due_to_lack_of_work_permit', 'interested_in_work_permit', 'interested_in_citizenship'], 'integer'],
+            [['disability_desc', 'reason_for_rsd_appointment', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date','arrival_date', 'date_of_birth','physical_address'], 'string'],
+            [['first_name', 'middle_name', 'last_name', 'email_address'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 150],
-            [['date_of_birth'], 'safe'],
             [['cell_number'], 'string', 'max' => 15],
+
+            [['nhcr_case_no', 'rck_no', 'source_of_income'], 'string', 'max' => 255],
             [['camp'], 'exist', 'skipOnError' => true, 'targetClass' => RefugeeCamp::className(), 'targetAttribute' => ['camp' => 'id']],
+            [['mode_of_entry_id'], 'exist', 'skipOnError' => true, 'targetClass' => ModeOfEntry::className(), 'targetAttribute' => ['mode_of_entry_id' => 'id']],
+            [['rck_office_id'], 'exist', 'skipOnError' => true, 'targetClass' => RckOffices::className(), 'targetAttribute' => ['rck_office_id' => 'id']],
             [['user_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserGroup::className(), 'targetAttribute' => ['user_group_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['conflict'], 'exist', 'skipOnError' => true, 'targetClass' => Conflict::className(), 'targetAttribute' => ['conflict' => 'id']],
+
+            //Conditional Validation
+            [  
+                ['disability_desc'], 
+                'required', 
+                'when' => function($model){
+                    return ($model->has_disability == 1) ? true : false;
+                },
+                'whenClient' => "function(attribute, value){
+                    //alert('has disability')
+                    if( $('#refugee-has_disability').val() == 1){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }"
+            ],[  
+                ['rsd_appointment_date','reason_for_rsd_appointment'], 
+                'required', 
+                'when' => function($model){
+                    return ($model->asylum_status == 1) ? true : false;
+                },
+                'whenClient' => "function(attribute, value){
+                    if( $('#refugee-asylum_status').val() == true){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }"
+            ],[  
+                ['form_of_torture'], 
+                'required', 
+                'when' => function($model){
+                    return ($model->victim_of_turture == 1) ? true : false;
+                },
+                'whenClient' => "function(attribute, value){
+                    if( $('#refugee-victim_of_turture').val() == 1){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }"
+            ],
         ];
+    }
+
+
+    public function beforeSave($insert)
+    {
+        $this->arrival_date = strtotime($this->arrival_date);
+        $this->rsd_appointment_date = strtotime($this->rsd_appointment_date);
+        return parent::beforeSave($insert);
     }
 
     /**
@@ -88,40 +167,61 @@ class Refugee extends \yii\db\ActiveRecord
             'user_group_id' => 'User Group ID',
             'user_id' => 'User ID',
             'image' => 'Image',
-            'camp' => 'Camp Name',
+            'camp' => 'Camp',
             'cell_number' => 'Cell Number',
             'email_address' => 'Email Address',
             'gender' => 'Gender',
-            'country_of_origin' => 'Country Of Origin',
-            'demography_id' => 'Demography ID',
+            'country_of_origin' => 'Nationality',
+            'demography_id' => 'Demography',
             'date_of_birth' => 'Date Of Birth',
             'id_type' => 'Id Type',
-            'conflict' => 'Conflict',
+            'conflict' => 'Reason for Fleeing',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'nhcr_case_no' => 'NHCR/RAS Case No',
+            'return_refugee' => 'Return Refugee',
+            'rck_no' => 'RCK No',
+            'rck_office_id' => 'RCK Office',
+            'arrival_date' => 'Arrival Date',
+            'has_disability' => 'Has Disability',
+            'disability_desc' => 'Disability Description',
+            'asylum_status' => 'Asylum Status',
+            'rsd_appointment_date' => 'RSD Appointment Date',
+            'reason_for_rsd_appointment' => 'Reason For RSD Appointment',
+            'source_of_info_abt_rck' => 'Source of info about Rck',
+            'mode_of_entry_id' => 'Mode Of Entry',
+            'victim_of_turture' => 'Is a victim of turture',
+            'form_of_torture' => 'Form Of Torture',
+            'source_of_income' => 'Source Of Income',
+            'physical_address' => 'Physical Address',
+            'job_details' => 'Job Details',
+            'has_work_permit' => 'Has Work Permit?',
+            'arrested_due_to_lack_of_work_permit' => 'Arrested Due To Lack Of Work Permit?',
+            'interested_in_work_permit' => 'Interested In Getting a Work Permit?',
+            'interested_in_citizenship' => 'Interested In Getting Kenyan Citizenship?',
         ];
+    }
+
+    /**
+     * Gets query for [[Dependants]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDependants()
+    {
+        return $this->hasMany(Dependant::className(), ['refugee_id' => 'id']);
     }
 
     /**
      * Gets query for [[Camp0]].
      *
-     * @return \yii\db\ActiveQuery|\app\models\query\RefugeeCampQuery
+     * @return \yii\db\ActiveQuery
      */
-    public function getCamp0()
+    public function getCamp()
     {
         return $this->hasOne(RefugeeCamp::className(), ['id' => 'camp']);
-    }
-
-    /**
-     * Gets query for [[UserGroup]].
-     *
-     * @return \yii\db\ActiveQuery|\app\models\query\UserGroupQuery
-     */
-    public function getUserGroup()
-    {
-        return $this->hasOne(UserGroup::className(), ['id' => 'user_group_id']);
     }
 
     public function getRcamp()
@@ -129,9 +229,49 @@ class Refugee extends \yii\db\ActiveRecord
         return $this->hasOne(RefugeeCamp::className(), ['id' => 'camp']);
     }
 
+    /**
+     * Gets query for [[ModeOfEntry]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModeOfEntry()
+    {
+        return $this->hasOne(ModeOfEntry::className(), ['id' => 'mode_of_entry_id']);
+    }
+
+    public function getRconflict()
+    {
+        return $this->hasOne(Conflict::className(), ['id' => 'conflict']);
+    }
+
+    /**
+     * Gets query for [[RckOffice]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRckOffice()
+    {
+        return $this->hasOne(RckOffices::className(), ['id' => 'rck_office_id']);
+    }
+
+    /**
+     * Gets query for [[UserGroup]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserGroup()
+    {
+        return $this->hasOne(UserGroup::className(), ['id' => 'user_group_id']);
+    }
+
     public function getRgender()
     {
         return $this->hasOne(Gender::className(), ['id' => 'gender']);
+    }
+
+    public function getIdType()
+    {
+        return $this->hasOne(IdentificationType::className(), ['id' => 'id_type']);
     }
 
     public function getRcountry()
@@ -145,23 +285,22 @@ class Refugee extends \yii\db\ActiveRecord
         return $this->hasOne(Demographics::className(), ['id' => 'demography_id']);
     }
 
-
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery|\app\models\query\UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-    /**
-     * {@inheritdoc}
-     * @return \app\models\query\RefugeeQuery the active query used by this AR class.
-     */
-    public static function find()
+    public function getUploads()
     {
-        return new \app\models\query\RefugeeQuery(get_called_class());
+        return $this->hasMany(RefugeeDocsUpload::className(), ['model_id' => 'id']);
+    }
+
+    public function getFullNames(){
+        return $this->first_name." ".$this->middle_name." ".$this->last_name;
     }
 }

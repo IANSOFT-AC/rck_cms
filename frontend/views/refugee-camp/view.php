@@ -7,8 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model app\models\RefugeeCamp */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Refugee Camps', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Refugee Camp', 'url' => ['view','id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Camps', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Camp', 'url' => ['view','id' => $model->id]];
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="refugee-camp-view">

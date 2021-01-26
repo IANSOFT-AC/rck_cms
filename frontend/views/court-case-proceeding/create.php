@@ -1,0 +1,36 @@
+<?php
+
+use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\CourtCaseProceeding */
+
+$this->title = Yii::t('app', 'Create Court Case Proceeding');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Court Case Proceedings'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="court-case-proceeding-create">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <?= $this->render('_form', [
+        'model' => $model,
+        'court' => $court
+    ]) ?>
+
+</div>
+<?php
+
+$script = <<<JS
+
+    $('#courtcaseproceeding-case_status').on('change', function(e){
+        if(e.target.value == "open"){
+            $('.field-courtcaseproceeding-next_court_date').fadeIn('slow')
+        }else{
+            $('.field-courtcaseproceeding-next_court_date').fadeOut('slow')
+        }
+    });
+JS;
+
+$this->registerJs($script);
+?>

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model frontend\models\Conflict */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Conflicts', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Reasons for fleeing', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

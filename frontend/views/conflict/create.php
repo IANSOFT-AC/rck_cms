@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Conflict */
 
-$this->title = 'Register Conflict';
-$this->params['breadcrumbs'][] = ['label' => 'Conflicts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Register Conflict', 'url' => ['create']];
+$this->title = 'Create Reason for Fleeing';
+$this->params['breadcrumbs'][] = ['label' => 'Fleeings', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Register flee reason', 'url' => ['create']];
 ?>
 <div class="conflict-create">
 

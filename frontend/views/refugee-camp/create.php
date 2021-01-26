@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefugeeCamp */
 
-$this->title = 'Create Refugee Camp';
-$this->params['breadcrumbs'][] = ['label' => 'Refugee Camps', 'url' => ['index']];
+$this->title = 'Create Camp';
+$this->params['breadcrumbs'][] = ['label' => 'Camps', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="refugee-camp-create">
@@ -16,7 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
         'counties' => $counties,
-        'subCounties' => $subCounties
+        'subCounties' => $subCounties,
+        'rckOffices' => $rckOffices
     ]) ?>
 
 </div>

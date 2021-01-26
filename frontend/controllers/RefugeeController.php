@@ -9,6 +9,11 @@ use app\models\IdentificationType;
 use app\models\RefugeeCamp;
 use frontend\models\Conflict;
 use frontend\models\Gender;
+use app\models\Dependant;
+use app\models\Relationship;
+use app\models\UploadForm;
+use yii\web\UploadedFile;
+use app\models\RefugeeUploads;
 use Yii;
 use app\models\Refugee;
 use app\models\RefugeeSearch;
@@ -16,6 +21,8 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\ModeOfEntry;
+use app\models\RckOffices;
 
 /**
  * RefugeeController implements the CRUD actions for Refugee model.
@@ -60,9 +67,119 @@ class RefugeeController extends Controller
      */
     public function actionView($id)
     {
+        // print_r(Dependant::find()->where(['refugee_id' => $id])->all());
+        // exit;
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dependant' => new Dependant(),
+            'dependants' => Dependant::find()->where(['refugee_id' => $id])->all(),
+            'relationships' => ArrayHelper::map(Relationship::find()->all(),'id','name')  
         ]);
+    }
+
+    public function actionCamps($id)
+    {
+        $posts = RefugeeCamp::find()
+         ->where(['rck_office' => $id])
+         ->orderBy('id DESC')
+         ->all();
+
+         if($posts){
+         echo "<option value=''>--Select Camp--</option>";
+         foreach($posts as $post){
+            echo "<option value='".$post->id."'>".$post->name."</option>";
+         }
+         }
+         else{
+         }
+
+    }
+
+    //Add Dependant
+    public function actionDependant()
+    {
+        $model = new Dependant();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', 'Dependant successfully added');
+            return $this->redirect(['view', 'id' => Yii::$app->request->post()['refugee_id']]);
+        }
+    }
+
+    public function actionFiles($id){
+        $model = $this->findModel($id);
+        $uploads = RefugeeUploads::find()->where(['type'=> $model->asylum_status])->all();
+        
+
+        //HANDLE POST OF FILES.
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('files', [
+            'list' => $uploads,
+            'model' => $model
+        ]);
+    }
+
+    public function actionUpload()
+    {
+        // return json_encode($_POST);
+        // die();
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+
+            $rst = $model->upload("refugees", Yii::$app->request->post()['id'], Yii::$app->request->post()['refugee_upload_id']);
+
+            if ($rst) {
+                //Yii::$app->session->setFlash('success', "You have successfully uploaded the files and created a record");
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                Yii::$app->response->statusCode = 200;
+                return $this->asJson(['msg' => "file uploaded successfully"]);
+            }else{
+                //Yii::$app->session->setFlash('error', "Sorry, something went wrong. Try again");
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                Yii::$app->response->statusCode = 400;
+                return $this->asJson(['msg' => "file upload failed"]);
+            }
+        }
+    }
+
+    public function actionList()
+    {
+        $clients = Refugee::find()
+            ->joinWith('rcountry')
+            ->joinWith('rgender')
+            ->asArray()
+            ->all();
+
+         // echo "<pre>";
+         // print_r($clients);
+         // exit;
+
+        $result =[];
+
+        foreach ($clients as $case) {
+            # code...
+            $result['data'][] = [
+                'id' => $case['id'],
+                'first_name' => $case['first_name'],
+                'middle_name' => $case['middle_name'],
+                'last_name' => $case['last_name'],
+                'rsd_appointment_date' => date("l M j, Y",$case['rsd_appointment_date']),
+                'cell_number' => $case['cell_number'],
+                'rck_no' => $case['rck_no'],
+                'gender' => $case['rgender']['gender'],
+                'email' => $case['email_address'],
+                'country' => $case['rcountry']['country'],
+                'created_at' => date("H:ia l M j, Y",$case['created_at'])
+            ];
+        }
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $result;
     }
 
     /**
@@ -79,6 +196,8 @@ class RefugeeController extends Controller
         $countries = ArrayHelper::map(Country::find()->all(),'id','country');
         $demographics = ArrayHelper::map(Demographics::find()->all(),'id','demography');
         $gender = ArrayHelper::map(Gender::find()->all(),'id','gender');
+        $modeOfEntry = ArrayHelper::map(ModeOfEntry::find()->all(),'id','name');
+        $rck_offices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
 
 
 
@@ -87,7 +206,8 @@ class RefugeeController extends Controller
 
             $model->date_of_birth = date('Y-m-d H:i:s',strtotime(Yii::$app->request->post()['Refugee']['date_of_birth']));
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            //print_r($model->errors);
+            return $this->redirect(['files', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -97,10 +217,17 @@ class RefugeeController extends Controller
             'conflicts' => $conflicts,
             'countries' => $countries,
             'demographics' => $demographics,
-            'gender' => $gender
-
+            'gender' => $gender,
+            'modeOfEntry' => $modeOfEntry,
+            'rck_offices' => $rck_offices,
         ]);
     }
+
+    /***
+
+        
+
+    */
 
     /**
      * Updates an existing Refugee model.
@@ -118,6 +245,8 @@ class RefugeeController extends Controller
         $countries = ArrayHelper::map(Country::find()->all(),'id','country');
         $demographics = ArrayHelper::map(Demographics::find()->all(),'id','demography');
         $gender = ArrayHelper::map(Gender::find()->all(),'id','gender');
+        $modeOfEntry = ArrayHelper::map(ModeOfEntry::find()->all(),'id','name');
+        $rck_offices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -130,7 +259,9 @@ class RefugeeController extends Controller
             'conflicts' => $conflicts,
             'countries' => $countries,
             'demographics' => $demographics,
-            'gender' => $gender
+            'gender' => $gender,            
+            'modeOfEntry' => $modeOfEntry,
+            'rck_offices' => $rck_offices,
         ]);
     }
 

@@ -21,7 +21,9 @@ use yii\widgets\ActiveForm;
             })'
         ]) ?>
 
-    <?= $form->field($model, 'subcounty')->dropDownList($subCounties, ['prompt' => 'select sub county']) ?>
+    <?= $form->field($model, 'subcounty')->dropDownList($subCounties, ['prompt' => 'select Sub County']) ?>
+
+    <?= $form->field($model, 'rck_office')->dropDownList($rckOffices, ['prompt' => 'select RCK Office']) ?>
 
     <?= $form->field($model, 'locality_description')->textarea(['rows' => 6]) ?>
 

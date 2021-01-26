@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Conflict */
 
-$this->title = 'Update Conflict: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Conflicts', 'url' => ['index']];
+$this->title = 'Update flee reason: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'reasons for fleeing', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
