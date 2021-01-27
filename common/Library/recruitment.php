@@ -24,7 +24,6 @@ use Office365\PHP\Client\SharePoint\ListTemplateType;
 
 
 
-
 class Recruitment extends Component
 {
     public function absoluteUrl(){
