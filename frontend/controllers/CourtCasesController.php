@@ -116,9 +116,6 @@ class CourtCasesController extends Controller
 
     public function actionIndex()
     {
-        /*$dataProvider = new ActiveDataProvider([
-            'query' => CourtCases::find(),
-        ]);*/
 
         return $this->render('index', [
            //  'dataProvider' => $dataProvider,
@@ -134,38 +131,39 @@ class CourtCasesController extends Controller
             ->joinWith('courtCaseCategory')
             ->joinWith('courtCaseSubcategory')
             ->asArray()
-            ->all();
-
-        // echo "<pre>";
-        // print_r($cases);
-        // exit;
-
-        $result =[];
-
-        foreach ($cases as $case) {
-            # code...
-            $result['data'][] = [
-                'id' => $case['id'],
-                'name' => $case['name'],
-                'no_of_refugees' => $case['no_of_refugees'],
-                'first_instance_interview' => $case['first_instance_interview'] == 1 ? true : false,
-                'next_court_date' => date("l M j, Y",$case['next_court_date']),
-                'offence' => $case['offence'],
-                //'magistrate' => $case['magistrate']['names'],
-                //'counsellor' => $case['counsellor']['counsellor'],
-                //'legal_officer' => $case['legalOfficer']['lawfirmName'],
-                'date_of_arrainment' => date("l M j, Y",$case['date_of_arrainment']),
-                //'case_status' => $case['case_status'],
-                'court_case_category' => $case['courtCaseCategory']['name'],
-                'created_at' => date("H:ia l M j, Y",$case['created_at'])
-            ];
-        }
+            ->all();        
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return $result;
+        return $this->prepareDatatable($cases);
        // print '<pre>'; print_r($cases);
 
     }
+
+    public function actionClientList($id)
+    {
+        $cases = CourtCases::find()
+            ->where([
+                'court_cases.refugee_id'=>$id
+            ])
+            ->joinWith('legalOfficer')
+            ->joinWith('counsellor')
+            ->joinWith('courtCaseCategory')
+            ->joinWith('courtCaseSubcategory')
+            ->asArray()
+            ->all();  
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $this->prepareDatatable($cases);
+    }
+
+    public function actionClient($id)
+    {
+        return $this->render('index', [
+            'refugee_id' => $id,
+        ]);
+    }
+
+
     /**
      * Displays a single CourtCases model.
      * @param integer $id
@@ -273,5 +271,30 @@ class CourtCasesController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    protected function prepareDatatable($data){
+        $result =[];
+
+        foreach ($data as $case) {
+            # code...
+            $result['data'][] = [
+                'id' => $case['id'],
+                'name' => $case['name'],
+                'no_of_refugees' => $case['no_of_refugees'],
+                'first_instance_interview' => $case['first_instance_interview'] == 1 ? true : false,
+                'next_court_date' => date("l M j, Y",$case['next_court_date']),
+                'offence' => $case['offence'],
+                //'magistrate' => $case['magistrate']['names'],
+                //'counsellor' => $case['counsellor']['counsellor'],
+                //'legal_officer' => $case['legalOfficer']['lawfirmName'],
+                'date_of_arrainment' => date("l M j, Y",$case['date_of_arrainment']),
+                //'case_status' => $case['case_status'],
+                'court_case_category' => $case['courtCaseCategory']['name'],
+                'created_at' => date("H:ia l M j, Y",$case['created_at'])
+            ];
+        }
+
+        return $result;
     }
 }

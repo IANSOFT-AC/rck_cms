@@ -10,21 +10,31 @@ use yii\behaviors\TimestampBehavior;
  * This is the model class for table "intervention".
  *
  * @property int $id
- * @property int $intervention_type_id
+ * @property string|null $intervention_type_id
  * @property int|null $case_id
  * @property string|null $situation_description
  * @property int|null $created_at
  * @property int|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
+ * @property int|null $court_case
+ * @property int|null $police_case
+ * @property int|null $client_id
  *
- * @property InterventionType $interventionType
+ * @property Refugee $client
+ * @property CourtCases $courtCase
+ * @property PoliceCases $policeCase
  * @property InterventionAttachment[] $interventionAttachments
  */
 class Intervention extends \yii\db\ActiveRecord
 {
-
-
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'intervention';
+    }
 
     public function behaviors()
     {
@@ -37,21 +47,15 @@ class Intervention extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
-        return 'intervention';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
-            [['intervention_type_id'], 'required'],
-            [['intervention_type_id', 'case_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['case_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id'], 'integer'],
             [['situation_description'], 'string'],
-            [['intervention_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => InterventionType::className(), 'targetAttribute' => ['intervention_type_id' => 'id']],
+            [['intervention_type_id'], 'string', 'max' => 255],
+            [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Refugee::className(), 'targetAttribute' => ['client_id' => 'id']],
+            [['court_case'], 'exist', 'skipOnError' => true, 'targetClass' => CourtCases::className(), 'targetAttribute' => ['court_case' => 'id']],
+            [['police_case'], 'exist', 'skipOnError' => true, 'targetClass' => PoliceCases::className(), 'targetAttribute' => ['police_case' => 'id']],
         ];
     }
 
@@ -62,42 +66,61 @@ class Intervention extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'intervention_type_id' => 'Intervention Type',
+            'intervention_type_id' => 'Intervention Type ID',
             'case_id' => 'Case ID',
             'situation_description' => 'Situation Description',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'court_case' => 'Court Case',
+            'police_case' => 'Police Case',
+            'client_id' => 'Client ID',
         ];
     }
 
     /**
-     * Gets query for [[InterventionType]].
+     * Gets query for [[Client]].
      *
-     * @return \yii\db\ActiveQuery|\app\models\query\InterventionTypeQuery
+     * @return \yii\db\ActiveQuery
      */
-    public function getInterventionType()
+    public function getClient()
     {
-        return $this->hasOne(InterventionType::className(), ['id' => 'intervention_type_id']);
+        return $this->hasOne(Refugee::className(), ['id' => 'client_id']);
+    }
+
+    public function getCasetype()
+    {
+        return $this->hasOne(Casetype::className(), ['id' => 'case_id']);
+    }
+
+    /**
+     * Gets query for [[CourtCase]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCourtCase()
+    {
+        return $this->hasOne(CourtCases::className(), ['id' => 'court_case']);
+    }
+
+    /**
+     * Gets query for [[PoliceCase]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPoliceCase()
+    {
+        return $this->hasOne(PoliceCases::className(), ['id' => 'police_case']);
     }
 
     /**
      * Gets query for [[InterventionAttachments]].
      *
-     * @return \yii\db\ActiveQuery|\app\models\query\InterventionAttachmentQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getInterventionAttachments()
     {
         return $this->hasMany(InterventionAttachment::className(), ['intervention_id' => 'id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \app\models\query\InterventionQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \app\models\query\InterventionQuery(get_called_class());
     }
 }

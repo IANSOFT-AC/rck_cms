@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\InterventionSearch */
@@ -19,27 +20,59 @@ $this->params['breadcrumbs'][] = ['label' => 'interventions', 'url' => 'index'];
 
         <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
     </p>
+    <div class="card">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        <div class="card-body">
+             <table class="table" id="interventions">
+                
+            </table>
+        </div>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'intervention_type_id',
-            'case_id',
-            'situation_description:ntext',
-            'created_at',
-            //'updated_at',
-            //'created_by',
-            //'updated_by',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
+    </div>
 
 </div>
+
+<div class="service-container" data-viewurl="<?= Url::to(['intervention/view']); ?>" data-editurl="<?= Url::to(['intervention/update']); ?>" data-ajaxurl=<?= isset($refugee_id) ? "/intervention/client-list?id=".$refugee_id : "/intervention/list" ?>>
+
+<?php
+
+$script = <<<JS
+
+    let viewUrl = ''
+    let editUrl = ''
+    let ajaxUrl = ''
+    $('.service-container').each(function() {
+        var container = $(this);
+        viewUrl = container.data('viewurl');
+        editUrl = container.data('editurl');
+        ajaxUrl = container.data('ajaxurl')
+        console.log(ajaxUrl)
+    });
+
+    $('#interventions').DataTable({
+        ajax: ajaxUrl,
+        paging: true,
+        columns: [
+            {title : 'Id', data: 'id'},
+            {title : 'Name', data: 'name'},
+            {title : 'Created At', data: 'created_at'},
+            {
+                data: function ( row, type, val, meta ) {
+                    return '<div class="d-inline-flex"><a href="'+viewUrl+'/?id='+row.id+'" class="p-1" title="View Record"><i class="far fa-eye"></i></a><a href="'+editUrl+'/?id='+row.id+'" title="Edit Record" class="p-1"><i class="far fa-edit"></i></a></div>'
+                },
+                className: "center",
+                defaultContent: ''
+            }
+        ],
+        "columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+                "searchable": false
+            }
+        ],
+        order: [[0, "desc"]]
+    });
+JS;
+
+$this->registerJs($script);

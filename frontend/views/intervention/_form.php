@@ -12,9 +12,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'intervention_type_id')->dropDownList($interventionType,['prompt' => 'Select ...']) ?>
+    <?= $form->field($model, 'case_id')->dropDownList($cases,['prompt' => '-- Select Case or Issue --']) ?>
 
-    <?= $form->field($model, 'case_id')->textInput() ?>
+    <?= $form->field($model, 'client_id')->dropDownList($clients,['prompt' => 'Select Court Case']) ?>
+
+    <?= $form->field($model, 'intervention_type_id')->dropDownList($interventionType,['prompt' => 'Select ...','multiple'=>'multiple']) ?>
+
+    <?= $form->field($model, 'court_case')->dropDownList($court_cases,['prompt' => 'Select Court Case']) ?>
+
+    <?= $form->field($model, 'police_case')->dropDownList($police_cases,['prompt' => 'Select Police Case']) ?>
 
     <?= $form->field($model, 'situation_description')->textarea(['rows' => 6]) ?>
 

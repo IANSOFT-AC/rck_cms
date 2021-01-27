@@ -17,13 +17,21 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $created_by
  * @property int|null $updated_by
  * @property string|null $mime
+ * @property string|null $doc_path
+ * @property int|null $upload_id
  *
  * @property Intervention $intervention
+ * @property InterventionUpload $upload
  */
 class InterventionAttachment extends \yii\db\ActiveRecord
 {
-
-
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'intervention_attachment';
+    }
 
     public function behaviors()
     {
@@ -33,25 +41,17 @@ class InterventionAttachment extends \yii\db\ActiveRecord
         ];
     }
 
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'intervention_attachment';
-    }
-
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['intervention_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['intervention_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'upload_id'], 'integer'],
             [['filename'], 'string', 'max' => 150],
-            [['mime'], 'string', 'max' => 255],
+            [['mime', 'doc_path'], 'string', 'max' => 255],
             [['intervention_id'], 'exist', 'skipOnError' => true, 'targetClass' => Intervention::className(), 'targetAttribute' => ['intervention_id' => 'id']],
+            [['upload_id'], 'exist', 'skipOnError' => true, 'targetClass' => InterventionUpload::className(), 'targetAttribute' => ['upload_id' => 'id']],
         ];
     }
 
@@ -69,13 +69,15 @@ class InterventionAttachment extends \yii\db\ActiveRecord
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'mime' => 'Mime',
+            'doc_path' => 'Doc Path',
+            'upload_id' => 'Upload ID',
         ];
     }
 
     /**
      * Gets query for [[Intervention]].
      *
-     * @return \yii\db\ActiveQuery|\app\models\query\InterventionQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getIntervention()
     {
@@ -83,11 +85,12 @@ class InterventionAttachment extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
-     * @return \app\models\query\InterventionAttachmentQuery the active query used by this AR class.
+     * Gets query for [[Upload]].
+     *
+     * @return \yii\db\ActiveQuery
      */
-    public static function find()
+    public function getUpload()
     {
-        return new \app\models\query\InterventionAttachmentQuery(get_called_class());
+        return $this->hasOne(InterventionUpload::className(), ['id' => 'upload_id']);
     }
 }

@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<div class="service-container" data-viewurl="<?= Url::to(['court-cases/view']); ?>" data-editurl="<?= Url::to(['court-cases/update']); ?>">
+<div class="service-container" data-viewurl="<?= Url::to(['court-cases/view']); ?>" data-editurl="<?= Url::to(['court-cases/update']); ?>" data-ajaxurl=<?= isset($refugee_id) ? "/court-cases/client-list?id=".$refugee_id : "/court-cases/list" ?> >
 
 <?php
 
@@ -41,15 +41,17 @@ $script = <<<JS
 
     let viewUrl = ''
     let editUrl = ''
+    let ajaxUrl = ''
     $('.service-container').each(function() {
         var container = $(this);
         viewUrl = container.data('viewurl');
         editUrl = container.data('editurl');
-        console.log(viewUrl)
+        ajaxUrl = container.data('ajaxurl')
+        console.log(ajaxUrl)
     });
 
     $('#court_cases').DataTable({
-        ajax: '/court-cases/list',
+        ajax: ajaxUrl,
         paging: true,
         columns: [
             {title : 'Id', data: 'id'},

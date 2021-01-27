@@ -160,4 +160,37 @@ use yii\helpers\Html;
 	        </div>
 	    </div>
 	</div>
+	<div class="card">
+	    <div class="card-body">
+	        <div class="box box-primary">
+	            <div class="box-header with-border">
+	              <h3 class="box-title" data-speechify-sentence="">Intervention Setups</h3>
+	            </div>
+	        <!-- /.box-header -->
+	            <div class="box-body row" data-read-aloud-multi-block="true">
+	                <div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b>Case Type Setup</b>',['casetype/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+	                <div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b> Intervention Type Setup</b>',['intervention-type/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+	                <div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b> Intervention Uploads Setup</b>',['intervention-upload/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 </div>

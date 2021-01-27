@@ -81,42 +81,38 @@ class PoliceCasesController extends Controller
     }
 
 
-        public function actionList()
+    public function actionList()
     {
         $cases = PoliceCases::find()
             ->joinWith('policeStation')
             ->asArray()
             ->all();
 
-         // echo "<pre>";
-         // print_r($cases);
-         // exit;
+        
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $this->prepareDatatable($cases);
+    }
 
-        $result =[];
 
-        foreach ($cases as $case) {
-            # code...
-            $result['data'][] = [
-                'id' => $case['id'],
-                'name' => $case['name'],
-                'gender' => $case['gender'],
-                'contacts' => $case['contacts'],
-                'age' => $case['age'],
-                'offence' => $case['offence'],
-                'complainant' => $case['complainant'],
-                'policeStation' => $case['policeStation']['name'],
-                'first_instance_interview' => $case['first_instance_interview'] == 1 ? true : false,                
-                'created_at' => date("H:ia l M j, Y",$case['created_at'])
-            ];
-        }
+    public function actionClientList($id)
+    {
+        $cases = PoliceCases::find()
+            ->where([
+                'police_cases.refugee_id'=>$id
+            ])
+            ->joinWith('policeStation')
+            ->asArray()
+            ->all();
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return $result;
+        return $this->prepareDatatable($cases);
+    }
 
-
-
-       // print '<pre>'; print_r($cases);
-
+    public function actionClient($id)
+    {
+        return $this->render('index', [
+            'refugee_id' => $id,
+        ]);
     }
 
     /**
@@ -260,5 +256,27 @@ class PoliceCasesController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    protected function prepareDatatable($data){
+        $result =[];
+
+        foreach ($data as $case) {
+            # code...
+            $result['data'][] = [
+                'id' => $case['id'],
+                'name' => $case['name'],
+                'gender' => $case['gender'],
+                'contacts' => $case['contacts'],
+                'age' => $case['age'],
+                'offence' => $case['offence'],
+                'complainant' => $case['complainant'],
+                'policeStation' => $case['policeStation']['name'],
+                'first_instance_interview' => $case['first_instance_interview'] == 1 ? true : false,                
+                'created_at' => date("H:ia l M j, Y",$case['created_at'])
+            ];
+        }
+
+        return $result;
     }
 }

@@ -17,7 +17,7 @@ class m201202_113116_create_intervention_table extends Migration
     {
         $this->createTable('{{%intervention}}', [
             'id' => $this->primaryKey(),
-            'intervention_type_id' => $this->integer()->notNull(),
+            'intervention_type_id' => $this->string(),
             'case_id' => $this->integer(),
             'situation_description' => $this->text(),
             'created_at' => $this->integer(),

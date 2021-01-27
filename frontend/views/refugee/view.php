@@ -17,13 +17,18 @@ $this->params['breadcrumbs'][] = ['label' => 'View Biodata', 'url' => ['view']];
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Interventions', ['/intervention/client', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Police Cases', ['/police-cases/client', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Court Cases', ['/court-cases/client', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
+        <?php 
+        Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ]) 
+        ?>
 
         <?= Html::a('view All', ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
