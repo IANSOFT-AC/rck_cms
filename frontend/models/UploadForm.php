@@ -12,29 +12,64 @@ class UploadForm extends Model
      * @var UploadedFile[]
      */
     public $imageFile;
+    public $multipleFiles;
 
     public function rules()
     {
         return [
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, docx, pdf, doc, odt'],
+            [['multipleFiles'], 'file', 'maxFiles' => 10,'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, docx, pdf, doc, odt'],
         ];
     }
-    
+
+    //Upload of single file
     public function upload($model,$id,$upload_id)
     {
         if ($this->validate()) {
-            $BasePath = Yii::getAlias('@webroot').'/uploads/'.$model.'/';
+            if($this->imageFile){                
+                $BasePath = Yii::getAlias('@webroot').'/uploads/'.$model.'/';
 
-            $filename = time().'-'.$this->imageFile->baseName.'.'.$this->imageFile->extension;
+                $filename = time().'-'.$this->imageFile->baseName.'.'.$this->imageFile->extension;
 
-            $this->imageFile->saveAs($BasePath.$filename);
+                $this->imageFile->saveAs($BasePath.$filename);
 
-            self::insertData($filename, $id, $upload_id, $model);
+                self::insertData($filename, $id, $upload_id, $model);
+            }
             return true;
-        } else {
-            
+        } else {            
             print_r($this->errors);
             return false;
+        }
+    }
+
+    //Upload Multiple Files
+    public function multipleUpload($model,$model_id,$upload_id){
+
+        if ($this->multipleFiles) {
+            foreach ($this->multipleFiles as $file) {
+                $BasePath = Yii::getAlias('@webroot').'/uploads/multiple/'.$model.'/';
+                $filename = time().'-'.$file->baseName.'.'.$file->extension;
+                //$model->media = $filename;
+                $rst = self::insertMultipleData($filename,$model,$model_id,$upload_id);
+                if($rst){
+                    $file->saveAs($BasePath.$filename);
+                }
+            }
+            return true; 
+        }else{
+            return false;
+        }
+    }
+
+    public static function insertMultipleData($filename,$model,$model_id,$upload_id){
+        $BasePath = '/uploads/multiple/'.$model.'/';
+        if($model == "training"){
+            $d = new TrainingUpload();
+            $d->doc_path = $BasePath.$filename;
+            $d->training_id = $model_id;
+            $d->filename = $filename;
+            $rst = $d->save();
+            return $rst;
         }
     }
 
@@ -68,6 +103,12 @@ class UploadForm extends Model
             $doc->intervention_id = $case_id;
             $doc->upload_id = $uploads_id;
             $doc->save();
+        }else if($model == "training"){
+            $doc = Training::findOne($case_id);
+            $doc->participants_scan = $filename;
+            //False due to date must be a string validation rule
+            $doc->save(false);
+            //print_r($doc->errors());
         } 
     }
 }

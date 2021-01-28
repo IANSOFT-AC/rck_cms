@@ -4,10 +4,12 @@ namespace frontend\controllers;
 
 use Yii;
 use app\models\Training;
-use app\models\TrainingSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use app\models\UploadForm;
 
 /**
  * TrainingController implements the CRUD actions for Training model.
@@ -35,13 +37,16 @@ class TrainingController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new TrainingSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('index');
+    }
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+    public function actionList(){
+        $cases = Training::find()
+            ->asArray()
+            ->all();
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $this->prepareDatatable($cases);
     }
 
     /**
@@ -65,8 +70,20 @@ class TrainingController extends Controller
     public function actionCreate()
     {
         $model = new Training();
+        $upload = new UploadForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->save();
+            
+            //Upload participants scan
+            $upload->imageFile = UploadedFile::getInstance($model, 'participants_scan');
+            $rst = $upload->upload("training",$model->id, 2 );
+            
+            //Upload photos scans
+            $upload->multipleFiles = UploadedFile::getInstances($model, 'photos');
+            $rst2 = $upload->multipleUpload("training",$model->id, 2 );
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,7 +103,16 @@ class TrainingController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            
+            //Upload participants scan
+            $upload->imageFile = UploadedFile::getInstance($model, 'participants_scan');
+            $rst = $upload->upload("training",$model->id, 2 );
+            
+            //Upload photos scans
+            $upload->multipleFiles = UploadedFile::getInstances($model, 'photos');
+            $rst2 = $upload->multipleUpload("training",$model->id, 2 );
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -122,6 +148,26 @@ class TrainingController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    protected function prepareDatatable($data){
+        $result =[];
+
+        foreach ($data as $case) {
+            # code...
+            $result['data'][] = [
+                'id' => $case['id'],
+                'organizer' => $case['organizer'],
+                'date' => date("l M j, Y",$case['date']),
+                'topic' => $case['topic'],
+                'venue' => $case['venue'],
+                'facilitators' => $case['facilitators'],
+                'no_of_participants' => $case['no_of_participants'],               
+                'created_at' => date("H:ia l M j, Y",$case['created_at'])
+            ];
+        }
+
+        return $result;
     }
 }

@@ -10,22 +10,31 @@ use yii\behaviors\TimestampBehavior;
  * This is the model class for table "training".
  *
  * @property int $id
- * @property string $_training_description
- * @property string $training_need
- * @property int|null $start_date
- * @property int|null $end_date
- * @property int|null $status
- * @property int|null $target
- * @property string $facilitator
- * @property string $venue
- * @property int|null $created_at
- * @property int|null $updated_at
+ * @property string|null $organizer
+ * @property int|null $date
+ * @property string|null $topic
+ * @property string|null $venue
+ * @property string|null $facilitators
+ * @property string|null $no_of_participants
+ * @property string|null $participants_scan
  * @property int|null $created_by
  * @property int|null $updated_by
+ * @property int|null $created_at
+ * @property int|null $updated_at
+ *
+ * @property TrainingUpload[] $trainingUploads
  */
 class Training extends \yii\db\ActiveRecord
 {
+    /**
+     * {@inheritdoc}
+     */
+    public $photos;
 
+    public static function tableName()
+    {
+        return 'training';
+    }
 
     public function behaviors()
     {
@@ -38,23 +47,20 @@ class Training extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
-        return 'training';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
-            [['_training_description', 'training_need', 'facilitator', 'venue'], 'required'],
-            [['training_need', 'facilitator'], 'string'],
-            [['start_date', 'end_date', 'status', 'target', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['_training_description'], 'string', 'max' => 250],
-            [['venue'], 'string', 'max' => 255],
+            [['created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['facilitators', 'no_of_participants','date'], 'string'],
+            [['organizer', 'topic', 'venue', 'participants_scan'], 'string', 'max' => 255],
         ];
+    }
+
+     public function beforeSave($insert)
+    {
+        $this->date = strtotime($this->date);
+        echo $this->date;
+        return parent::beforeSave($insert);
     }
 
     /**
@@ -64,27 +70,27 @@ class Training extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            '_training_description' => 'Training Description',
-            'training_need' => 'Training Need',
-            'start_date' => 'Start Date',
-            'end_date' => 'End Date',
-            'status' => 'Status',
-            'target' => 'Target',
-            'facilitator' => 'Facilitator',
+            'organizer' => 'Organizer',
+            'date' => 'Date',
+            'topic' => 'Topic',
             'venue' => 'Venue',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'facilitators' => 'Facilitators',
+            'no_of_participants' => 'No Of Participants',
+            'participants_scan' => 'Participants Scan',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 
     /**
-     * {@inheritdoc}
-     * @return \app\models\query\TrainingQuery the active query used by this AR class.
+     * Gets query for [[TrainingUploads]].
+     *
+     * @return \yii\db\ActiveQuery
      */
-    public static function find()
+    public function getTrainingUploads()
     {
-        return new \app\models\query\TrainingQuery(get_called_class());
+        return $this->hasMany(TrainingUpload::className(), ['training_id' => 'id']);
     }
 }
