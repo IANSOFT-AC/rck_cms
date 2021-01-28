@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\InterventionType;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Intervention */
@@ -17,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?php Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -26,18 +27,122 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'intervention_type_id',
-            'case_id',
-            'situation_description:ntext',
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
-        ],
-    ]) ?>
+    <div class="card">
+        <div class="card-body">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title" data-speechify-sentence="">About This Intervention Case</h3>
+                </div>
+            <!-- /.box-header -->
+                <div class="box-body row" data-read-aloud-multi-block="true">
+                    <div class="col-md-6">
+                        <strong data-speechify-sentence=""><i class="fas fa-address-card"></i> Case Type</strong>
+
+                        <p class="text-muted" data-speechify-sentence="">
+                            <?= $model->casetype->type ?>
+                        </p>
+                        <br>
+                    </div>
+                  
+                    <div class="col-md-6">
+                        <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Created At</strong>
+
+                      <p class="text-muted" data-speechify-sentence=""><?= date("H:ia l M j, Y",$model->created_at)?></p>
+
+                      <br>
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Interventions</strong>
+
+                        <?php 
+
+                        $interventions = explode(",", $model->intervention_type_id);
+                        foreach ($interventions as $key => $value) {
+                            # code...
+                            ?>
+                            <p ><?= InterventionType::findOne($value)->intervention_type ?></p>
+                            <?php
+                        }
+
+                        ?>
+
+                      <br>
+                    </div>
+
+                    <?php 
+                    if($model->police_case){
+                        ?>
+                        <div class="col-md-6">
+                            <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Police Case</strong>
+
+                          <p><?= Html::a('Link to Police Case', ['police-cases/view', 'id' => $model->police_case], ['class' => 'profile-link']) ?></p>
+
+                          <br>
+                        </div>
+                        <?php
+                    }
+                    ?>
+
+                    <?php 
+                    if($model->court_case){
+                        ?>
+                        <div class="col-md-6">
+                            <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Court Case</strong>
+
+                          <p><?= Html::a('Link to Court Case', ['court-cases/view', 'id' => $model->court_case], ['class' => 'profile-link']) ?></p>
+
+                          <br>
+                        </div>
+                        <?php
+                    }
+                    ?>
+
+                    <div class="col-md-12">
+                        <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Situation</strong>
+
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->situation_description?></p>
+
+                      <br>
+                    </div>
+
+                    
+            <!-- /.box-body -->
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Files</h4>
+        </div>
+        <div class="card-body">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title" data-speechify-sentence="">Uploads for this Intervention</h3>
+                </div>
+            <!-- /.box-header -->
+                <div class="box-body row" data-read-aloud-multi-block="true">
+                    <?php
+                    foreach ($model->interventionAttachments as $file) {
+                    ?>
+                        <div class="col-md-6">
+                            <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= $file->upload->name ?></strong>
+
+                            <p class="text-muted" data-speechify-sentence="">
+                                <?= Html::a('Preview Document: '.$file->filename, ['/uploads/interventions/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
+                            </p>
+                            <hr>
+                        </div>
+                    <?php 
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>

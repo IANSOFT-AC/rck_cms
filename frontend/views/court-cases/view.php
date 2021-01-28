@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Court Case Proceedings'), ['/court-case-proceeding\list', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a(Yii::t('app', 'View Client Biodata'), ['/refugee\view', 'id' => $model->refugee_id], ['class' => 'btn btn-warning']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+        <?php Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),

@@ -16,7 +16,7 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, docx, pdf, doc, odt'],
         ];
     }
     
@@ -59,6 +59,13 @@ class UploadForm extends Model
             $doc->doc_path = $BasePath.$filename;
             $doc->filename = $filename;
             $doc->model_id = $case_id;
+            $doc->upload_id = $uploads_id;
+            $doc->save();
+        }else if($model == "interventions"){
+            $doc = new InterventionAttachment();
+            $doc->doc_path = $BasePath.$filename;
+            $doc->filename = $filename;
+            $doc->intervention_id = $case_id;
             $doc->upload_id = $uploads_id;
             $doc->save();
         } 

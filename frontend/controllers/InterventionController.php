@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use app\models\InterventionType;
+use app\models\InterventionUpload;
+use app\models\UploadForm;
 use Yii;
 use app\models\Intervention;
 use app\models\Casetype;
@@ -14,6 +16,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * InterventionController implements the CRUD actions for Intervention model.
@@ -109,6 +112,13 @@ class InterventionController extends Controller
 
             $model->intervention_type_id = implode(",",Yii::$app->request->post()['Intervention']['intervention_type_id']);
             $model->save();
+
+            //check if the record has uploads in the interventions upload part
+            $uploads = InterventionType::find()->where(['case_id' => Yii::$app->request->post()['Intervention']['issue_id'] ]);
+            if($uploads){
+                return $this->redirect(['files', 'id' => $model->id, 'uploads' => $uploads]);
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -126,6 +136,55 @@ class InterventionController extends Controller
             'police_cases' => $police_cases,
             'court_cases' => $court_cases
         ]);
+    }
+
+    public function actionFiles($id)
+    {
+        $model = $this->findModel($id);
+        $uploads = InterventionUpload::find()->where(['issue_id' => $model->case_id])->all();
+        
+
+        //HANDLE POST OF FILES.
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        if(!$uploads){
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('files', [
+            'list' => $uploads,
+            'model' => $model
+        ]);
+    }
+
+    //Upload files
+    public function actionUpload()
+    {
+        // return json_encode($_POST);
+        // die();
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+
+            $rst = $model->upload("interventions", Yii::$app->request->post()['id'], Yii::$app->request->post()['intervention_upload_id'] );
+
+            if ($rst) {
+                //Yii::$app->session->setFlash('success', "You have successfully uploaded the files and created a record");
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                Yii::$app->response->statusCode = 200;
+                return $this->asJson(['msg' => "file uploaded successfully"]);
+            }else{
+                //Yii::$app->session->setFlash('error', "Sorry, something went wrong. Try again");
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                Yii::$app->response->statusCode = 400;
+                return $this->asJson(['msg' => "file upload failed"]);
+            }
+        }
+        
+        //return $this->redirect(['police-cases/index']);
     }
 
     /**

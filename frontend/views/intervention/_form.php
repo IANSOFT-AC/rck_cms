@@ -39,3 +39,25 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<<JS
+
+    //hide initially
+    $('.field-intervention-court_case, .field-intervention-police_case').hide();
+
+    $('#intervention-case_id').on('change', function(e){
+        //Hide elements on change
+        $('.field-intervention-court_case, .field-intervention-police_case').fadeOut('slow');
+
+        //Then make necessary changes
+        if(e.target.value == "11"){
+            $('.field-intervention-court_case').fadeIn('slow')
+        }else if(e.target.value == "12"){
+            $('.field-intervention-police_case').fadeIn('slow')
+        }
+    });
+JS;
+
+$this->registerJs($script);

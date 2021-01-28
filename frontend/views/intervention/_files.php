@@ -3,9 +3,6 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use app\models\Policestation;
-use app\models\Lawyer;
-use app\models\PoliceUploads;
 use app\models\UploadForm;
 
 /* @var $this yii\web\View */
@@ -18,7 +15,7 @@ $uploadModel = new UploadForm();
 //echo "</pre>";
 ?>
 
-<div class="court-cases-form">
+<div class="intervention-form">
 
     <?php
     foreach ($list as $key => $value) {
@@ -27,12 +24,12 @@ $uploadModel = new UploadForm();
     <?php $form = ActiveForm::begin([
         'action' =>'upload',
         'method' => 'post',
-        'options' => ['enctype' => 'multipart/form-data', 'class' => 'form-inline caseFileUpload', 'id' => $value->name.'Form']
+        'options' => ['enctype' => 'multipart/form-data', 'class' => 'form-inline interventionFileUpload', 'id' => $value->name.'Form']
     ]); ?>
 
         <?= $form->field($uploadModel, 'imageFile')->fileInput([ 'accept' => '*/*'])->label($value->name) ?>
         <input type="hidden" name="id" value="<?= $model->id?>">
-        <input type="hidden" name="court_upload_id" value="<?= $value->id ?>">
+        <input type="hidden" name="intervention_upload_id" value="<?= $value->id ?>">
 
 	    <div class="form-group mt-3">
 	        <?= Html::submitButton(Yii::t('app', 'Upload and Finish'), ['class' => 'btn btn-success']) ?>
