@@ -9,7 +9,8 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Police Cases');
-$this->params['breadcrumbs'][] = $this->title;
+isset($refugee_id) ? $this->params['breadcrumbs'][] = ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $refugee_id]] : null ;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 ?>
 <div class="police-cases-index">
 

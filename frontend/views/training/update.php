@@ -10,7 +10,6 @@ $this->title = Yii::t('app', 'Update Training: {name}', [
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Trainings'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="training-update">
 

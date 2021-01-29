@@ -9,6 +9,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Interventions';
+isset($refugee_id) ? $this->params['breadcrumbs'][] = ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $refugee_id]] : null ;
 $this->params['breadcrumbs'][] = ['label' => 'interventions', 'url' => 'index'];
 ?>
 <div class="intervention-index">
@@ -54,7 +55,8 @@ $script = <<<JS
         paging: true,
         columns: [
             {title : 'Id', data: 'id'},
-            {title : 'Name', data: 'name'},
+            {title : 'Case/Issue', data: 'name'},
+            {title : 'Client', data: 'client'},
             {title : 'Created At', data: 'created_at'},
             {
                 data: function ( row, type, val, meta ) {

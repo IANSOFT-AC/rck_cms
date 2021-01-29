@@ -293,35 +293,37 @@ $this->params['breadcrumbs'][] = ['label' => 'View Biodata', 'url' => ['view']];
                 </div>
             </div>
 
-            <div class="card">
-              <div class="card-header">
-                  <h4 class="card-title">Files</h4>
-              </div>
-              <div class="card-body">
-                  <div class="box box-primary">
-                      <div class="box-header with-border">
-                        <h3 class="box-title" data-speechify-sentence="">Uploads for this Client</h3>
-                      </div>
-                  <!-- /.box-header -->
-                      <div class="box-body row" data-read-aloud-multi-block="true">
-                          <?php
-                          foreach ($model->uploads as $file) {
-                          ?>
-                              <div class="col-md-6">
-                                  <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= $file->upload->desc ?></strong>
+            <?php if(count($model->uploads) > 0){ ?>
+              <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Files</h4>
+                </div>
+                <div class="card-body">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                          <h3 class="box-title" data-speechify-sentence="">Uploads for this Client</h3>
+                        </div>
+                    <!-- /.box-header -->
+                        <div class="box-body row" data-read-aloud-multi-block="true">
+                            <?php
+                            foreach ($model->uploads as $file) {
+                            ?>
+                                <div class="col-md-6">
+                                    <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= $file->upload->desc ?></strong>
 
-                                  <p class="text-muted" data-speechify-sentence="">
-                                      <?= Html::a('Preview Document: '.$file->filename, ['/uploads/refugees/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
-                                  </p>
-                                  <hr>
-                              </div>
-                          <?php 
-                          }
-                          ?>
-                      </div>
-                  </div>
+                                    <p class="text-muted" data-speechify-sentence="">
+                                        <?= Html::a('Preview Document: '.$file->filename, ['/uploads/refugees/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
+                                    </p>
+                                    <hr>
+                                </div>
+                            <?php 
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
               </div>
-          </div>
+            <?php } ?>
         </div>
     </div>
 </div>

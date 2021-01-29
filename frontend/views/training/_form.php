@@ -9,37 +9,52 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="training-form">
+    <div class="card">
+        <div class="card-body">
 
-    <?php $form = ActiveForm::begin(); ?>
+            <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'organizer')->textInput(['maxlength' => true]) ?>
+            <div class="row">
+                <div class="col-md-6">
+                    <?= $form->field($model, 'organizer')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'date')->textInput(['type' => 'date']) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'topic')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'venue')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'facilitators')->textarea(['rows' => 3]) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'no_of_participants')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'participants_scan')->fileInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'photos[]')->fileInput(['multiple'=> true]) ?>
+                </div>
 
-    <?= $form->field($model, 'date')->textInput(['type' => 'date']) ?>
+                    <?php $form->field($model, 'created_by')->textInput() ?>
 
-    <?= $form->field($model, 'topic')->textInput(['maxlength' => true]) ?>
+                    <?php $form->field($model, 'updated_by')->textInput() ?>
 
-    <?= $form->field($model, 'venue')->textInput(['maxlength' => true]) ?>
+                    <?php $form->field($model, 'created_at')->textInput() ?>
 
-    <?= $form->field($model, 'facilitators')->textarea(['rows' => 6]) ?>
+                    <?php $form->field($model, 'updated_at')->textInput() ?>
 
-    <?= $form->field($model, 'no_of_participants')->textInput() ?>
+                <div class="form-group">
+                    <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+                </div>
+            </div>
 
-    <?= $form->field($model, 'participants_scan')->fileInput() ?>
-
-    <?= $form->field($model, 'photos[]')->fileInput(['multiple'=> true]) ?>
-
-    <?php $form->field($model, 'created_by')->textInput() ?>
-
-    <?php $form->field($model, 'updated_by')->textInput() ?>
-
-    <?php $form->field($model, 'created_at')->textInput() ?>
-
-    <?php $form->field($model, 'updated_at')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+            <?php ActiveForm::end(); ?>
+        </div>
     </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>

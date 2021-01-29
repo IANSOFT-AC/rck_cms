@@ -9,7 +9,7 @@ use app\models\PoliceCases;
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Police Cases'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 yii\web\YiiAsset::register($this);
 
 ?>

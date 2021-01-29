@@ -9,7 +9,7 @@ use app\models\InterventionType;
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Interventions', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="intervention-view">
@@ -113,36 +113,37 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 
+    <?php if(count($model->interventionAttachments) > 0){ ?>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Files</h4>
+            </div>
+            <div class="card-body">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                      <h3 class="box-title" data-speechify-sentence="">Uploads for this Intervention</h3>
+                    </div>
+                <!-- /.box-header -->
+                    <div class="box-body row" data-read-aloud-multi-block="true">
+                        <?php
+                        foreach ($model->interventionAttachments as $file) {
+                        ?>
+                            <div class="col-md-6">
+                                <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= $file->upload->name ?></strong>
 
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Files</h4>
-        </div>
-        <div class="card-body">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                  <h3 class="box-title" data-speechify-sentence="">Uploads for this Intervention</h3>
-                </div>
-            <!-- /.box-header -->
-                <div class="box-body row" data-read-aloud-multi-block="true">
-                    <?php
-                    foreach ($model->interventionAttachments as $file) {
-                    ?>
-                        <div class="col-md-6">
-                            <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= $file->upload->name ?></strong>
-
-                            <p class="text-muted" data-speechify-sentence="">
-                                <?= Html::a('Preview Document: '.$file->filename, ['/uploads/interventions/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
-                            </p>
-                            <hr>
-                        </div>
-                    <?php 
-                    }
-                    ?>
+                                <p class="text-muted" data-speechify-sentence="">
+                                    <?= Html::a('Preview Document: '.$file->filename, ['/uploads/interventions/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
+                                </p>
+                                <hr>
+                            </div>
+                        <?php 
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    <?php } ?>
 
 
 </div>

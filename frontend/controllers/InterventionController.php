@@ -82,6 +82,7 @@ class InterventionController extends Controller
             ->asArray()
             ->all();
 
+
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $this->prepareDatatable($cases);
     }
@@ -114,7 +115,7 @@ class InterventionController extends Controller
             $model->save();
 
             //check if the record has uploads in the interventions upload part
-            $uploads = InterventionType::find()->where(['case_id' => Yii::$app->request->post()['Intervention']['issue_id'] ]);
+            $uploads = InterventionType::find()->where(['case_id' => Yii::$app->request->post()['Intervention']['case_id'] ]);
             if($uploads){
                 return $this->redirect(['files', 'id' => $model->id, 'uploads' => $uploads]);
             }
@@ -259,6 +260,7 @@ class InterventionController extends Controller
             $result['data'][] = [
                 'id' => $case['id'],
                 'name' => $case['casetype']['type'],
+                'client' => isset($case['client']) ? $case['client']['first_name']." ".$case['client']['middle_name']." ".$case['client']['last_name'] : "No client",
                 'created_at' => date("H:ia l M j, Y",$case['created_at'])
             ];
         }

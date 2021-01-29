@@ -101,34 +101,36 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Files</h4>
-        </div>
-        <div class="card-body">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                  <h3 class="box-title" data-speechify-sentence="">Uploads for this Training</h3>
-                </div>
-            <!-- /.box-header -->
-                <div class="box-body row" data-read-aloud-multi-block="true">
-                    <?php
-                    foreach ($model->trainingUploads as $file) {
-                    ?>
-                        <div class="col-md-6">
-                            <strong data-speechify-sentence=""><i class="fas fa-file"></i> </strong>
+    <?php if(count($model->trainingUploads) > 0){ ?>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Files</h4>
+            </div>
+            <div class="card-body">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                      <h3 class="box-title" data-speechify-sentence="">Uploads for this Training</h3>
+                    </div>
+                <!-- /.box-header -->
+                    <div class="box-body row" data-read-aloud-multi-block="true">
+                        <?php
+                        foreach ($model->trainingUploads as $file) {
+                        ?>
+                            <div class="col-md-6">
+                                <strong data-speechify-sentence=""><i class="fas fa-file"></i> </strong>
 
-                            <p class="text-muted" data-speechify-sentence="">
-                                <?= Html::a('Preview Document: '.$file->filename, ['/uploads/multiple/training/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
-                            </p>
-                            <hr>
-                        </div>
-                    <?php 
-                    }
-                    ?>
+                                <p class="text-muted" data-speechify-sentence="">
+                                    <?= Html::a('Preview Document: '.$file->filename, ['/uploads/multiple/training/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
+                                </p>
+                                <hr>
+                            </div>
+                        <?php 
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    <?php } ?>
 
 </div>

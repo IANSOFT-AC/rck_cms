@@ -11,28 +11,43 @@ use yii\widgets\ActiveForm;
 <div class="court-case-proceeding-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'court_case_id')->hiddenInput(['value' => $court->id])->label(false) ?>
-
-    <?= $form->field($model, 'case_status')->dropDownList(['open' => 'Open', 'closed' => 'Closed'],
-                            ['prompt' => '-- Select Case Status --']) ?>
-
-    <?= $form->field($model, 'next_court_date')->textInput(['type' => 'date']) ?>
-
-    <?php $form->field($model, 'created_at')->textInput() ?>
-
-    <?php $form->field($model, 'updated_at')->textInput() ?>
-
-    <?php $form->field($model, 'created_by')->textInput() ?>
-
-    <?php $form->field($model, 'updated_by')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+    <div class="card">
+        <div class="card-header"><h5 class="card-title">Court Case</h5></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                </div>
+                
+                    <?= $form->field($model, 'court_case_id')->hiddenInput(['value' => $court->id])->label(false) ?>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'case_status')->dropDownList(['open' => 'Open', 'closed' => 'Closed'],
+                                            ['prompt' => '-- Select Case Status --']) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'next_court_date')->textInput(['type' => 'date']) ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
+                </div>
+                <div class="col-md-6">
+                    <?php $form->field($model, 'created_at')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?php $form->field($model, 'updated_at')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?php $form->field($model, 'created_by')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?php $form->field($model, 'updated_by')->textInput() ?>
+                </div>
+                    <div class="form-group">
+                        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

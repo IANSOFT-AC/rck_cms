@@ -52,7 +52,7 @@ class Intervention extends \yii\db\ActiveRecord
         return [
             [['case_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id'], 'integer'],
             [['situation_description'], 'string'],
-            [['intervention_type_id'], 'string', 'max' => 255],
+            //[['intervention_type_id'], 'string', 'max' => 255],
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Refugee::className(), 'targetAttribute' => ['client_id' => 'id']],
             [['court_case'], 'exist', 'skipOnError' => true, 'targetClass' => CourtCases::className(), 'targetAttribute' => ['court_case' => 'id']],
             [['police_case'], 'exist', 'skipOnError' => true, 'targetClass' => PoliceCases::className(), 'targetAttribute' => ['police_case' => 'id']],
@@ -66,16 +66,16 @@ class Intervention extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'intervention_type_id' => 'Intervention Type ID',
-            'case_id' => 'Case ID',
-            'situation_description' => 'Situation Description',
+            'intervention_type_id' => 'Intervention Type',
+            'case_id' => 'Intervention Issue',
+            'situation_description' => 'Case Details',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'court_case' => 'Court Case',
             'police_case' => 'Police Case',
-            'client_id' => 'Client ID',
+            'client_id' => 'Client',
         ];
     }
 
