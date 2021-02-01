@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   build_and_deploy:
     # The type of runner that the job will run on
-    runs-on: self-hosted
+    runs-on: self-hosted 
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,3 +40,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: Run PHP Init
+        run: |
+          php init
