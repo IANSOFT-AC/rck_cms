@@ -30,8 +30,9 @@ jobs:
         run: git pull origin master
 
       #Update the server
-      - name: update the server packages
-        run: sudo yum update -y
+      #- name: update the server packages
+        #run: sudo yum update -y
+
 
       # Runs composer install to add or update dependancies
       - name: Install dependancies via composer
