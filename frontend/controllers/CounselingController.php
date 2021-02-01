@@ -39,7 +39,7 @@ class CounselingController extends Controller
 
     public function actionIndex($id)
     {
-        //index page
+        //index page is awesome
         $data = Counseling::find()->where(['intervention_id' => $id])->all();
         $model = new Intervention();
         $intervention = Intervention::findOne($id);
