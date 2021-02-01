@@ -39,7 +39,7 @@ class CounselingController extends Controller
 
     public function actionIndex($id)
     {
-        //index page is awesome, testing permissions
+        //index page is awesome, testing permissions. Now fully working cd workflow
 
         $data = Counseling::find()->where(['intervention_id' => $id])->all();
         $model = new Intervention();
