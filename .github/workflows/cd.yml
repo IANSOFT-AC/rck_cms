@@ -44,3 +44,4 @@ jobs:
       - name: Run PHP Init
         run: |
           php init
+        with: 
