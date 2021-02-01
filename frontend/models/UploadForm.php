@@ -110,6 +110,13 @@ class UploadForm extends Model
             $doc->save(false);
             //print_r($doc->errors());
         } 
+        else if($model == "counseling"){
+            $doc = Intervention::findOne($case_id);
+            $doc->counseling_intake_form = $filename;
+            //False due to date must be a string validation rule
+            $doc->save(false);
+            //print_r($doc->errors());
+        } 
     }
 }
 

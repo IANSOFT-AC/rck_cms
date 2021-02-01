@@ -13,6 +13,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string|null $intervention_type_id
  * @property int|null $case_id
  * @property string|null $situation_description
+ * @property string|null counseling_intake_form
  * @property int|null $created_at
  * @property int|null $updated_at
  * @property int|null $created_by
@@ -52,7 +53,7 @@ class Intervention extends \yii\db\ActiveRecord
         return [
             [['case_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id'], 'integer'],
             [['situation_description'], 'string'],
-            //[['intervention_type_id'], 'string', 'max' => 255],
+            [['counseling_intake_form'], 'string', 'max' => 255],
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Refugee::className(), 'targetAttribute' => ['client_id' => 'id']],
             [['court_case'], 'exist', 'skipOnError' => true, 'targetClass' => CourtCases::className(), 'targetAttribute' => ['court_case' => 'id']],
             [['police_case'], 'exist', 'skipOnError' => true, 'targetClass' => PoliceCases::className(), 'targetAttribute' => ['police_case' => 'id']],
@@ -69,6 +70,7 @@ class Intervention extends \yii\db\ActiveRecord
             'intervention_type_id' => 'Intervention Type',
             'case_id' => 'Intervention Issue',
             'situation_description' => 'Case Details',
+            'counseling_intake_form' => 'Counseling Intake Form',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

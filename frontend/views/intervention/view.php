@@ -54,19 +54,28 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Interventions</strong>
-
+                        <ul>
                         <?php 
 
                         $interventions = explode(",", $model->intervention_type_id);
                         foreach ($interventions as $key => $value) {
                             # code...
                             ?>
-                            <p ><?= InterventionType::findOne($value)->intervention_type ?></p>
+                            <li><?php
+                             if(InterventionType::findOne($value)->id == 2){
+                                ?>
+                                <?= Html::a('Counselling ', ['/counseling/index', 'id' => $model->id ], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> 'Counselling details']) ?>
+                                <?php
+                             }else{
+                                echo InterventionType::findOne($value)->intervention_type;
+                             }
+                             ?></li>
                             <?php
                         }
 
                         ?>
-
+                        </ul>
+                        
                       <br>
                     </div>
 

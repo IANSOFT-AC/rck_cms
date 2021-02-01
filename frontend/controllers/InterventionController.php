@@ -111,8 +111,18 @@ class InterventionController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
+            // echo "<pre>";
+            // print_r(Yii::$app->request->post()['Intervention']['intervention_type_id']);
+            // if(in_array("2", Yii::$app->request->post()['Intervention']['intervention_type_id'])){
+            //     echo "Counseling Found";
+            //     return $this->redirect(['counseling/create', 'id' => $model->id]);
+            // }else{
+            //     echo "Counseling not found";
+            // }
+            // exit;
             $model->intervention_type_id = implode(",",Yii::$app->request->post()['Intervention']['intervention_type_id']);
             $model->save();
+            return $this->redirect(['counseling/create', 'id' => $model->id]);
 
             //check if the record has uploads in the interventions upload part
             $uploads = InterventionType::find()->where(['case_id' => Yii::$app->request->post()['Intervention']['case_id'] ]);
@@ -120,7 +130,11 @@ class InterventionController extends Controller
                 return $this->redirect(['files', 'id' => $model->id, 'uploads' => $uploads]);
             }
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            if(in_array("2", Yii::$app->request->post()['Intervention']['intervention_type_id'])){
+                return $this->redirect(['counseling/create', 'id' => $model->id]);
+            }else{
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         $cases = ArrayHelper::map(Casetype::find()->all(),'id','type');
