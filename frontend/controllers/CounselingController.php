@@ -36,9 +36,10 @@ class CounselingController extends Controller
      * Lists all Counseling models.
      * @return mixed
      */
-    
+
     public function actionIndex($id)
     {
+        //index page
         $data = Counseling::find()->where(['intervention_id' => $id])->all();
         $model = new Intervention();
         $intervention = Intervention::findOne($id);
