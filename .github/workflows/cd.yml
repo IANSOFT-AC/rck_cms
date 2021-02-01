@@ -23,11 +23,15 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      #- uses: actions/checkout@v2
+
+      # use git pull to master branch instead of git checkout like indicated above
+      - name: Pull new changes with git
+        run: git pull origin master
 
       #Update the server
-      #- name: update the server packages
-        #run: sudo yum update -y
+      - name: update the server packages
+        run: sudo yum update -y
 
       # Runs composer install to add or update dependancies
       - name: Install dependancies via composer
