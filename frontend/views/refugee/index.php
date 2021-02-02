@@ -10,28 +10,30 @@ use yii\helpers\Url;
 $this->title = 'Client Biodata';
 $this->params['breadcrumbs'][] = ['label' => 'Client Biodata List', 'url' => 'index'];
 ?>
-<div class="refugee-index">
+<div class="row">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title"><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Client Biodata', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
-    </p>
+                <p>
+                    <?= Html::a('Create Client Biodata', ['create'], ['class' => 'btn btn-success']) ?>
+                    <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
+                </p>
+            </div>
+            <div class="card-body">
+                 <table class="table" id="refugees">
+                    
+                </table>
+            </div>
 
-    <div class="card">
-
-        <div class="card-body">
-             <table class="table" id="refugees">
-                
-            </table>
         </div>
-
     </div>
 
 </div>
 
-<div class="service-container" data-viewurl="<?= Url::to(['refugee/view']); ?>" data-editurl="<?= Url::to(['refugee/update']); ?>">
+<div class="service-container" data-viewurl="<?= Url::to(['refugee/view']); ?>" data-editurl="<?= Url::to(['refugee/update']); ?>"></div>
 
 <?php
 
