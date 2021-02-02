@@ -3,6 +3,8 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 
+$this->title = "RCK: Control Panel";
+
 ?>
 <h1>settings/index</h1>
 
