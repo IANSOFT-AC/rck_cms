@@ -149,12 +149,18 @@ use yii\helpers\Html;
 	        <!-- /.box-header -->
 	            <div class="box-body row" data-read-aloud-multi-block="true">
 	                <div class="col-md-6">
-	                    <strong data-speechify-sentence=""><i class="fas fa-address-card"></i> Name</strong>
-
-	                    <p class="text-muted" data-speechify-sentence="">
-	                        
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b>Police Uploads Setup</b>',['police-uploads/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
-	                    <hr>
+	                    <br>
+	                </div>
+	                <div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b>Police Station Setup</b>',['policestation/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
 	                </div>
 	            </div>
 	        </div>
