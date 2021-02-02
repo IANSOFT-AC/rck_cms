@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Client Biodata List', 'url' => 'in
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h1 class="card-title"><?= Html::encode($this->title) ?></h1>
+                <h1 class="card-title"><?= Html::encode($this->title) ?></h1><br>
 
                 <p>
                     <?= Html::a('Create Client Biodata', ['create'], ['class' => 'btn btn-success']) ?>

@@ -7,8 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model app\models\ModeOfEntry */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Mode Of Entries'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Mode Of Entry'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="mode-of-entry-view">
@@ -32,8 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'desc:ntext',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
+            'updated_at:datetime',
             'created_by',
             'updated_by',
         ],

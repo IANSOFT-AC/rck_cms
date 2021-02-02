@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Nature Of Proceedings'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="nature-of-proceeding-view">
@@ -32,10 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'desc:ntext',
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
+            'created_at:datetime',
+            'updated_at:datetime',
+            //'created_by',
+            //'updated_by',
         ],
     ]) ?>
 

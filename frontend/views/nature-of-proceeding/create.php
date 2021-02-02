@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Create Nature Of Proceeding');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Nature Of Proceedings'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 ?>
 <div class="nature-of-proceeding-create">
 

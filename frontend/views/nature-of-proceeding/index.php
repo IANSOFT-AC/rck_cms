@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Nature Of Proceedings');
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 ?>
 <div class="nature-of-proceeding-index">
 
@@ -26,8 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'desc:ntext',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
+            'updated_at:datetime',
             //'created_by',
             //'updated_by',
 

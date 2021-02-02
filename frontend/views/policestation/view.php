@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Policestation */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Policestations', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Police Station', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -34,10 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'location',
             'closest_camp',
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
+            'created_at:datetime',
+            'updated_at:datetime',
+            //'created_by',
+            //'updated_by',
         ],
     ]) ?>
 

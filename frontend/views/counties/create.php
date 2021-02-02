@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Counties */
 
-$this->title = 'Create Counties';
+$this->title = 'Add County';
 $this->params['breadcrumbs'][] = ['label' => 'Counties', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

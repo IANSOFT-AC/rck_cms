@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PolicestationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Policestations';
+$this->title = 'Police Stations';
 $this->params['breadcrumbs'][] = ['label' => 'police Stations', 'url' => 'index'];
 ?>
 <div class="policestation-index">
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = ['label' => 'police Stations', 'url' => 'index'
             'location',
             'closest_camp',
             'created_at:datetime',
-            //'updated_at',
+            'updated_at',
             //'created_by',
             //'updated_by',
 
