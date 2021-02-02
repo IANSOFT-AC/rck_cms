@@ -13,15 +13,17 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 ?>
 <div class="court-cases-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    
+
+
+<div class="card">
+<div class="card-header">
+    <h1 class="header-title"><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Court Cases'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-
-<div class="card">
-
+</div>
 <div class="card-body">
      <table class="table" id="court_cases">
         

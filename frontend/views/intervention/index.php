@@ -14,15 +14,17 @@ $this->params['breadcrumbs'][] = ['label' => 'interventions', 'url' => 'index'];
 ?>
 <div class="intervention-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    
+    <div class="card">
+        <div class="card-header">
+            <h1 class="header-title"><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Create Intervention', ['create'], ['class' => 'btn btn-success']) ?>
 
         <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
     </p>
-    <div class="card">
-
+        </div>
         <div class="card-body">
              <table class="table" id="interventions">
                 

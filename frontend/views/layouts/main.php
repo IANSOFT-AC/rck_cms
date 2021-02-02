@@ -821,15 +821,23 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                     <?php if (Yii::$app->session->hasFlash('error')): ?>
                         <div class="alert alert-danger alert-dismissable">
                              <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                             <h4><i class="icon fa fa-check"></i>Saved!</h4>
+                             <h4><i class="icon fa fa-exclamation-circle"></i>Saved!</h4>
                              <?= Yii::$app->session->getFlash('error') ?>
                         </div>
                     <?php endif; ?>
 
+                    <?php if (Yii::$app->session->hasFlash('info')): ?>
+                        <div class="alert alert-info alert-dismissable">
+                             <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                             <h4><i class="icon fa fa-info"></i>Saved!</h4>
+                             <?= Yii::$app->session->getFlash('info') ?>
+                        </div>
+                    <?php endif; ?>
+
                     <?php
-                    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
-                        echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
-                    }
+                    // foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+                    //     echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+                    // }
                     ?>
 
                     <?= $content ?>

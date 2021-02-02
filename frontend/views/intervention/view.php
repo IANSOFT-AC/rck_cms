@@ -14,7 +14,11 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 ?>
 <div class="intervention-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    
+
+    <div class="card">
+        <div class="card-header">
+            <h1 class="header-title"><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -25,14 +29,14 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
-
-    <div class="card">
-        <div class="card-body">
-            <div class="box box-primary">
-                <div class="box-header with-border">
+        <div class="box-header with-border">
                   <h3 class="box-title" data-speechify-sentence="">About This Intervention Case</h3>
                 </div>
+    </p>
+        </div>
+        <div class="card-body">
+            <div class="box box-primary">
+                
             <!-- /.box-header -->
                 <div class="box-body row" data-read-aloud-multi-block="true">
                     <div class="col-md-6">
