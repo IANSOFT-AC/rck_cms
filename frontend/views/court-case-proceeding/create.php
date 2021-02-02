@@ -11,7 +11,12 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 ?>
 <div class="court-case-proceeding-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card">
+    <div class="card-header">
+        <h1><?= Html::encode($this->title) ?></h1>
+    </div>
+</div>
+    
 
     <?= $this->render('_form', [
         'model' => $model,

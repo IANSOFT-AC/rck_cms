@@ -270,36 +270,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
 
 
-                        <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('t')?'menu-open':'' ?>">
-                            <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
-                                <i class="nav-icon fas fa-briefcase " ></i>
-                                <p>
-                                    Court
-                                    <i class="fas fa-angle-left right"></i>
-                                    <!--<span class="badge badge-info right">6</span>-->
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>case-register/create" class="nav-link <?= Yii::$app->recruitment->currentaction('t','e')?'active':'' ?>">
-                                        <i class="fa fa-check-square nav-icon"></i>
-                                        <p>New Case </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>case-register" class="nav-link <?= Yii::$app->recruitment->currentaction('t','e')?'active':'' ?>">
-                                        <i class="fa fa-check-square nav-icon"></i>
-                                        <p>Cases
-                                        <span class="badge badge-info right">1</span>
-                                         </p>
-                                    </a>
-                                </li>
-
-                                
-                            </ul>
-                        </li>
+                        
 
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('t')?'menu-open':'' ?>">
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
