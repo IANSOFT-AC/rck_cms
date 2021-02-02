@@ -65,6 +65,7 @@ class Recruitment extends Component
             return false;
         }
     }
+    
 
     public function getProfileID(){
         if(Yii::$app->session->has('HRUSER')){            
