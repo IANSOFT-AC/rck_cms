@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RckOfficesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Rck Offices');
+$this->title = Yii::t('app', 'RCK Offices');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rck-offices-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create RCK Offices'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Add RCK Office'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
