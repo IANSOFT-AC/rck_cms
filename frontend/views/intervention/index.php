@@ -53,6 +53,10 @@ $script = <<<JS
     });
 
     $('#interventions').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         ajax: ajaxUrl,
         paging: true,
         columns: [

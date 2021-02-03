@@ -49,6 +49,10 @@ $script = <<<JS
     });
 
     $('#refugees').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         ajax: '/refugee/list',
         paging: true,
         columns: [
