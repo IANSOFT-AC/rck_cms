@@ -12,8 +12,8 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="policestation-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card">
+    <div class="card-header">    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -25,9 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
         <?= Html::a('View All', ['index'], ['class' => 'btn btn-warning']) ?>
-    </p>
-
-    <?= DetailView::widget([
+    </p></div>
+    <div class="card-body">    <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
@@ -39,6 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'created_by',
             //'updated_by',
         ],
-    ]) ?>
+    ]) ?></div>
+</div>
+
+
+
 
 </div>

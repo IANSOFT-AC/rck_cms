@@ -10,11 +10,14 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Nature Of Proceeding
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 ?>
 <div class="nature-of-proceeding-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card">
+    <div class="card-header">    <h1><?= Html::encode($this->title) ?></h1></div>
+    <div class="card-body">
 
     <?= $this->render('_form', [
         'model' => $model,
-    ]) ?>
+    ]) ?></div>
+</div>
+
 
 </div>

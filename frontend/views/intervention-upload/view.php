@@ -12,8 +12,8 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="intervention-upload-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card">
+    <div class="card-header"><h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -24,7 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+    </p></div>
+    <div class="card-body"></div>
+</div>
+    
 
     <?= DetailView::widget([
         'model' => $model,
@@ -33,10 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'issue_id',
             'name',
             'description:ntext',
-            'created_by',
-            'updated_by',
-            'created_at',
-            'updated_at',
+            'created_by:datetime',
+            'updated_by:datetime',
+            //'created_at',
+            //'updated_at',
         ],
     ]) ?>
 

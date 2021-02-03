@@ -12,7 +12,10 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="casetype-view">
-
+<div class="card">
+    <div class="card-header"></div>
+    <div class="card-body"></div>
+</div>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -34,10 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'type',
             'description:ntext',
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
+            'created_at:datetime',
+            //'updated_at:datetime',
+            //'created_by',
+            //'updated_by',
         ],
     ]) ?>
 

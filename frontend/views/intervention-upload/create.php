@@ -10,12 +10,15 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Intervention Uploads
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="intervention-upload-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
+<div class="card">
+	<div class="card-header">    <h1><?= Html::encode($this->title) ?></h1></div>
+	<div class="card-body">    <?= $this->render('_form', [
         'model' => $model,
         'casetypes' => $casetypes
-    ]) ?>
+    ]) ?></div>
+</div>
+
+
+
 
 </div>

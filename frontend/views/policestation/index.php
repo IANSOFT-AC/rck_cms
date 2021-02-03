@@ -11,12 +11,13 @@ $this->title = 'Police Stations';
 $this->params['breadcrumbs'][] = ['label' => 'police Stations', 'url' => 'index'];
 ?>
 <div class="policestation-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card">
+    <div class="card-header">    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Policestation', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <?= Html::a('Create Police Station', ['create'], ['class' => 'btn btn-success']) ?>
+    </p></div>
+    <div class="card-body">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -35,9 +36,38 @@ $this->params['breadcrumbs'][] = ['label' => 'police Stations', 'url' => 'index'
             //'created_by',
             //'updated_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',                'buttons' => [
+
+                            'view' => function( $url )
+                            {
+                                return Html::a('<i class="fa fa-eye"></i>', $url,[]);
+                            },
+
+                            'update' => function( $url )
+                            {
+                                return Html::a('<i class="fa fa-edit"></i>', $url,[]);
+                            },
+
+                            'delete' => function( $url )
+                            {
+                                return Html::a('<i class="fa fa-trash"></i>', $url,[
+
+                                    'data' => [
+                                        'confirm' => 'Are you sure you wanna delete this record ?',
+                                        'method' => 'POST',
+                                        'params' => [
+                                            '_csrf-frontend' => Yii::$app->request->csrfToken
+                                        ]
+
+                                    ]
+                                ]);
+                            }
+
+                        ],],
         ],
-    ]); ?>
+    ]); ?></div>
+</div>
+
 
 
 </div>
