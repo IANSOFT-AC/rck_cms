@@ -13,10 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="casetype-view">
 <div class="card">
-    <div class="card-header"></div>
-    <div class="card-body"></div>
-</div>
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="card-header">    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -29,9 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
 
         <?= Html::a('View All', ['index'], ['class' => 'btn btn-warning']) ?>
-    </p>
-
-    <?= DetailView::widget([
+    </p></div>
+    <div class="card-body">    <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
@@ -42,6 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'created_by',
             //'updated_by',
         ],
-    ]) ?>
+    ]) ?></div>
+</div>
+
+
+
 
 </div>

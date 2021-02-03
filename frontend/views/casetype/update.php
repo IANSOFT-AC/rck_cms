@@ -12,13 +12,13 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="casetype-update">
 <div class="card">
-	<div class="card-header"></div>
-	<div class="card-body"></div>
-</div>
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
+	<div class="card-header">    <h1><?= Html::encode($this->title) ?></h1></div>
+	<div class="card-body">    <?= $this->render('_form', [
         'model' => $model,
-    ]) ?>
+    ]) ?></div>
+</div>
+
+
+
 
 </div>

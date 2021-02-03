@@ -7,7 +7,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\RefugeeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Client Biodata';
+$this->title = 'Clients Biodata';
 $this->params['breadcrumbs'][] = ['label' => 'Client Biodata List', 'url' => 'index'];
 ?>
 <div class="row">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Client Biodata List', 'url' => 'in
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h1 class="card-title"><?= Html::encode($this->title) ?></h1><br>
+                <h1 class="header-title"><?= Html::encode($this->title) ?></h1><br>
 
                 <p>
                     <?= Html::a('Create Client Biodata', ['create'], ['class' => 'btn btn-success']) ?>
