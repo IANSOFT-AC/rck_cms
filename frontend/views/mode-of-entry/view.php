@@ -13,7 +13,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 ?>
 <div class="mode-of-entry-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card">
+    <div class="card-header">    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -24,9 +25,9 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
-
-    <?= DetailView::widget([
+    </p></div>
+    <div class="card-body">
+        <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
@@ -38,5 +39,10 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
             'updated_by',
         ],
     ]) ?>
+    </div>
+</div>
+
+
+    
 
 </div>

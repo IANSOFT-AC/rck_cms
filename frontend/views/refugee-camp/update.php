@@ -12,13 +12,18 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="refugee-camp-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+	<div class="card">
+        <div class="card-header">
+    		<h1><?= Html::encode($this->title) ?></h1>
+    	</div>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-        'counties' => $counties,
-        'subCounties' => $subCounties,
-        'rckOffices' => $rckOffices
-    ]) ?>
+    	<div class="card-body">
+		    <?= $this->render('_form', [
+		        'model' => $model,
+		        'counties' => $counties,
+		        'subCounties' => $subCounties,
+		        'rckOffices' => $rckOffices
+		    ]) ?>
+		</div>
 
 </div>

@@ -14,10 +14,18 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="mode-of-entry-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+	<div class="card">
+		<div class="card-header">
+			<h1><?= Html::encode($this->title) ?></h1>
+		</div>
+		<div class="card-body">
+		    <?= $this->render('_form', [
+		        'model' => $model,
+		    ]) ?>
+		</div>
+	</div>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+
+
 
 </div>
