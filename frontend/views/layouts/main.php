@@ -197,6 +197,8 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             <a href="<?= $absoluteUrl ?>site" class="brand-link navbar-light logo-switch " >
                 <img src="<?= $webroot ?>/images/rck-logo.jpg" alt="RCK Logo" class="brand-image-xs logo-xl img-responsive elevation-0 ml-4  d-flex flex-column align-content-center"
                      style="opacity: 1; transform: scale(1.4); ">
+                <img src="<?= $webroot ?>/images/rck-logo.jpg" alt="RCK Logo" class="brand-image-xs logo-mini img-responsive elevation-0 ml-4  d-flex flex-column align-content-center"
+                     style="">
                <!-- <span class="brand-text font-weight-light">AAS</span>-->
             </a>
 

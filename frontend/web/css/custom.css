@@ -17,3 +17,9 @@
 .setup-p{
     line-height: 0.5em;
 }
+.main-sidebar .brand-link .logo-mini{
+	visibility: hidden;
+}
+.sidebar-collapse .main-sidebar .logo-mini{
+	visibility: visible;
+}

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Create Identification Type';
 $this->params['breadcrumbs'][] = ['label' => 'Identification Types', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 ?>
 <div class="identification-type-create">
 
