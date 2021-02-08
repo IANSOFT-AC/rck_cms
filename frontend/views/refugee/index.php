@@ -23,8 +23,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Client Biodata List', 'url' => 'in
                 </p>
             </div>
             <div class="card-body">
-                 <table class="table" id="refugees">
-                    
+                 <table class="table" id="refugees">                    
                 </table>
             </div>
 

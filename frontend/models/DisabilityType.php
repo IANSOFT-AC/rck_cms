@@ -7,23 +7,30 @@ use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 
 /**
- * This is the model class for table "rck_offices".
+ * This is the model class for table "disability_type".
  *
  * @property int $id
  * @property string|null $name
- * @property string|null $desc
+ * @property string|null $description
  * @property int|null $created_at
  * @property int|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
+ *
+ * @property Refugee[] $refugees
  */
-class RckOffices extends \yii\db\ActiveRecord
+
+class DisabilityType extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
 
-    
+     public static function tableName()
+    {
+        return 'disability_type';
+    }
+
     public function behaviors()
     {
         return [
@@ -32,21 +39,15 @@ class RckOffices extends \yii\db\ActiveRecord
         ];
     }
 
-
-    public static function tableName()
-    {
-        return 'rck_offices';
-    }
-
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['desc'], 'string'],
+            [['description'], 'string'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['name','code'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 255],
         ];
     }
 
@@ -58,12 +59,21 @@ class RckOffices extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'desc' => 'Desc',
+            'description' => 'Description',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
-            'code' => 'Code',
         ];
+    }
+
+    /**
+     * Gets query for [[Refugees]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefugees()
+    {
+        return $this->hasMany(Refugee::className(), ['disability_type_id' => 'id']);
     }
 }

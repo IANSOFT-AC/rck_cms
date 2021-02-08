@@ -5,7 +5,7 @@ $(function(){
     // send data to actionSave by ajax request.
     console.log("submit button clicked");
     let form = $(this)[0];
-    console.log(form)
+    //console.log(form)
     //return false; // Cancel form submitting.
 	// if (form.find('.has-error').length) 
 	// {
@@ -16,7 +16,15 @@ $(function(){
 
     let formJS = document.querySelector('IDForm');
     formData = new FormData(form);
-    formData.append('imageFile', $(form).find('#uploadform-imagefile')[0].files[0])
+	console.log($(form).find('#uploadform-imagefile'))
+	console.log($(form).find('#uploadform-multipleFiles'))
+
+	if($(form).find('#uploadform-imagefile').files){
+		formData.append('imageFile', $(form).find('#uploadform-imagefile')[0].files[0])
+	}else if($(form).find('#uploadform-multipleFiles').files){
+		formData.append('multipleFiles', $(form).find('#uploadform-multipleFiles').files)
+	}
+
     //console.log(formData)
     //console.log(form.find('#uploadform-imagefile')[0].files[0])
     //console.log(formData.get('id'))

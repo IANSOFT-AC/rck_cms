@@ -11,15 +11,15 @@ $this->title = Yii::t('app', 'RCK Offices');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rck-offices-index">
+<div class="card">
+    <div class="card-header">
+        <h1><?= Html::encode($this->title) ?></h1>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Add RCK Office'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+        <p>
+            <?= Html::a(Yii::t('app', 'Add RCK Office'), ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+    </div>
+    <div class="card-body">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
+            'code',
             'desc:ntext',
             'created_at:datetime',
             'updated_at:datetime',
@@ -66,6 +67,13 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         ],
     ]); ?>
+    </div>
+</div>
+
+
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    
 
 
 </div>

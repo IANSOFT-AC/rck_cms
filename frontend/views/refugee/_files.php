@@ -48,6 +48,26 @@ $uploadModel = new UploadForm();
     <?php
        }
     ?>
+<hr>
+<?php $form = ActiveForm::begin([
+        'action' =>'upload',
+        'method' => 'post',
+        'options' => ['enctype' => 'multipart/form-data', 'class' => 'form-inline caseFileUpload'],
+        //'enableAjaxValidation' => true,
+        //'validationUrl' => '/police_cases/upload',
+    ]); ?>
+        <div class="row">
+            <div class="form-group mt-3 col-md-5">
+                <?= $form->field($uploadModel, 'multipleFiles[]')->fileInput([ 'accept' => 'image/*','multiple' => true])->label("Other Uploads") ?>
+                <input type="hidden" name="id" value="<?= $model->id?>">
+            </div>
+            <div class="form-group mx-sm-3 mb-2 mt-3 col-md-12 pull-right">
+                <?= Html::submitButton(Yii::t('app', 'Upload Multiple files'), ['class' => 'btn btn-warning uploadFile form-control']) ?>
+            </div>
+        </div>
+        <hr>
+
+        <?php ActiveForm::end(); ?>
 
 
 </div>

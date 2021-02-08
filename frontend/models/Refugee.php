@@ -8,6 +8,7 @@ use Yii;
 use common\models\User;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use DateTime;
 
 /**
  * This is the model class for table "refugee".
@@ -44,6 +45,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string|null $reason_for_rsd_appointment
  * @property string|null $source_of_info_abt_rck
  * @property int $mode_of_entry_id
+ * @property string|null $id_no
  * @property int|null $victim_of_turture
  * @property string|null $form_of_torture
  * @property string|null $source_of_income
@@ -52,6 +54,10 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $arrested_due_to_lack_of_work_permit
  * @property int|null $interested_in_work_permit
  * @property int|null $interested_in_citizenship
+ * @property int|null $source_of_info_id
+ * @property int|null $source_of_income_id
+ * @property int|null $form_of_torture_id
+ * @property int|null $disability_type_id
  *
  * @property Dependant[] $dependants
  * @property RefugeeCamp $camp0
@@ -86,12 +92,17 @@ class Refugee extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'user_group_id', 'gender', 'rck_office_id', 'mode_of_entry_id'], 'required'],
-            [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at', 'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status', 'mode_of_entry_id', 'victim_of_turture', 'has_work_permit', 'arrested_due_to_lack_of_work_permit', 'interested_in_work_permit', 'interested_in_citizenship'], 'integer'],
+            [['first_name', 'last_name', 'user_group_id', 'gender', 'rck_office_id', 'mode_of_entry_id','country_of_origin','arrival_date'], 'required'],
+            [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at', 
+                'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status',
+                 'mode_of_entry_id', 'victim_of_turture', 'has_work_permit', 'arrested_due_to_lack_of_work_permit',
+                  'interested_in_work_permit', 'interested_in_citizenship','source_of_info_id','source_of_income_id',
+                  'form_of_torture_id','disability_type_id'
+                ], 'integer'],
             [['disability_desc', 'reason_for_rsd_appointment', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date','arrival_date', 'date_of_birth','physical_address'], 'string'],
             [['first_name', 'middle_name', 'last_name', 'email_address'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 150],
-            [['cell_number'], 'string', 'max' => 15],
+            [['cell_number','id_no'], 'string', 'max' => 15],
 
             [['nhcr_case_no', 'rck_no', 'source_of_income'], 'string', 'max' => 255],
             [['camp'], 'exist', 'skipOnError' => true, 'targetClass' => RefugeeCamp::className(), 'targetAttribute' => ['camp' => 'id']],
@@ -100,23 +111,28 @@ class Refugee extends \yii\db\ActiveRecord
             [['user_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserGroup::className(), 'targetAttribute' => ['user_group_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['conflict'], 'exist', 'skipOnError' => true, 'targetClass' => Conflict::className(), 'targetAttribute' => ['conflict' => 'id']],
+            [['source_of_info_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfInfo::className(), 'targetAttribute' => ['source_of_info_id' => 'id']],
+            [['source_of_income_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfIncome::className(), 'targetAttribute' => ['source_of_income_id' => 'id']],
+            [['form_of_torture_id'], 'exist', 'skipOnError' => true, 'targetClass' => FormOfTorture::className(), 'targetAttribute' => ['form_of_torture_id' => 'id']],
+            [['disability_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DisabilityType::className(), 'targetAttribute' => ['disability_type_id' => 'id']],
 
             //Conditional Validation
             [  
                 ['disability_desc'], 
                 'required', 
                 'when' => function($model){
-                    return ($model->has_disability == 1) ? true : false;
+                    return ($model->disability_type_id == 'other') ? true : false;
                 },
                 'whenClient' => "function(attribute, value){
                     //alert('has disability')
-                    if( $('#refugee-has_disability').val() == 1){
+                    if( $('#refugee-disability_type_id').val() == 'other'){
                         return true;
                     }else{
                         return false;
                     }
                 }"
-            ],[  
+            ],
+            [  
                 ['rsd_appointment_date','reason_for_rsd_appointment'], 
                 'required', 
                 'when' => function($model){
@@ -129,14 +145,15 @@ class Refugee extends \yii\db\ActiveRecord
                         return false;
                     }
                 }"
-            ],[  
+            ],
+            [  
                 ['form_of_torture'], 
                 'required', 
                 'when' => function($model){
-                    return ($model->victim_of_turture == 1) ? true : false;
+                    return ($model->form_of_torture_id == 'other') ? true : false;
                 },
                 'whenClient' => "function(attribute, value){
-                    if( $('#refugee-victim_of_turture').val() == 1){
+                    if( $('#refugee-form_of_torture_id').val() == 'other'){
                         return true;
                     }else{
                         return false;
@@ -146,12 +163,38 @@ class Refugee extends \yii\db\ActiveRecord
         ];
     }
 
+    //Active Record hooks
 
     public function beforeSave($insert)
     {
         $this->arrival_date = strtotime($this->arrival_date);
         $this->rsd_appointment_date = strtotime($this->rsd_appointment_date);
+
         return parent::beforeSave($insert);
+    }
+
+    //Other fields for updating
+    public function beforeValidate(){
+        if (parent::beforeValidate()) {
+            //Nullify the values if the value is other for the following fields
+            $this->source_of_info_id = ($this->source_of_info_id == 0) ? null : $this->source_of_info_id;
+            $this->source_of_income_id = ($this->source_of_income_id == 0) ? null : $this->source_of_income_id;
+            $this->form_of_torture_id = ($this->form_of_torture_id == 0) ? null : $this->form_of_torture_id;
+        $this->disability_type_id = ($this->disability_type_id == 0) ? null : $this->disability_type_id;
+            return true;
+        }
+        return false;
+    }
+
+    //WORK ON RCK NUMBER
+    public function afterSave($insert, $changedAttributes){
+        //Create the RCK id number
+        if($insert){
+            $date = new DateTime();
+            $this->rck_no = $this->rckOffice->code ."-". $this->id."-".$date->format('Y');
+            $this->updateAttributes(['rck_no' => $this->rck_no]);
+        }
+        //parent::afterSave($insert, $changedAttributes);
     }
 
     /**
@@ -174,18 +217,19 @@ class Refugee extends \yii\db\ActiveRecord
             'country_of_origin' => 'Nationality',
             'demography_id' => 'Demography',
             'date_of_birth' => 'Date Of Birth',
-            'id_type' => 'Id Type',
+            'id_type' => 'ID Type',
             'conflict' => 'Reason for Fleeing',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
-            'nhcr_case_no' => 'NHCR/RAS Case No',
+            'nhcr_case_no' => 'UNHCR/RAS Case No',
             'return_refugee' => 'Return Refugee',
             'rck_no' => 'RCK No',
             'rck_office_id' => 'RCK Office',
             'arrival_date' => 'Arrival Date',
             'has_disability' => 'Has Disability',
+            'disability_type_id' => 'Disablity Type',
             'disability_desc' => 'Disability Description',
             'asylum_status' => 'Asylum Status',
             'rsd_appointment_date' => 'RSD Appointment Date',
@@ -197,10 +241,16 @@ class Refugee extends \yii\db\ActiveRecord
             'source_of_income' => 'Source Of Income',
             'physical_address' => 'Physical Address',
             'job_details' => 'Job Details',
+            'id_no' => 'ID number',
             'has_work_permit' => 'Has Work Permit?',
             'arrested_due_to_lack_of_work_permit' => 'Arrested Due To Lack Of Work Permit?',
             'interested_in_work_permit' => 'Interested In Getting a Work Permit?',
             'interested_in_citizenship' => 'Interested In Getting Kenyan Citizenship?',
+
+            'source_of_info_id' => 'Source of Info',
+            'source_of_income_id' => 'Source of Income',
+            'form_of_torture_id' => 'Form of Torture',
+            'disability_type_id' => 'Disability Type'
         ];
     }
 
@@ -237,6 +287,26 @@ class Refugee extends \yii\db\ActiveRecord
     public function getModeOfEntry()
     {
         return $this->hasOne(ModeOfEntry::className(), ['id' => 'mode_of_entry_id']);
+    }
+
+    public function getDisabilityType()
+    {
+        return $this->hasOne(DisabilityType::className(), ['id' => 'disability_type_id']);
+    }
+
+    public function getSourceOfIncome()
+    {
+        return $this->hasOne(SourceOfIncome::className(), ['id' => 'source_of_income_id']);
+    }
+
+    public function getFormOfTorture()
+    {
+        return $this->hasOne(FormOfTorture::className(), ['id' => 'form_of_torture_id']);
+    }
+
+    public function getSourceOfInfo()
+    {
+        return $this->hasOne(SourceOfInfo::className(), ['id' => 'source_of_info_id']);
     }
 
     public function getRconflict()

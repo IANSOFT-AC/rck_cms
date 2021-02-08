@@ -15,7 +15,7 @@ class m210128_092012_create_training_table extends Migration
         $this->createTable('{{%training}}', [
             'id' => $this->primaryKey(),
             'organizer' => $this->string(),
-            'date' => $this->integer(),
+            'date' => $this->bigInteger(100),
             'topic' => $this->string(),
             'venue' => $this->string(),
             'facilitators' => $this->text(),

@@ -70,6 +70,13 @@ class UploadForm extends Model
             $d->filename = $filename;
             $rst = $d->save();
             return $rst;
+        }else if($model == "refugees"){
+            $d = new RefugeeDocsUpload();
+            $d->doc_path = $BasePath.$filename;
+            $d->model_id = $model_id;
+            $d->filename = $filename;
+            $rst = $d->save();
+            return $rst;
         }
     }
 

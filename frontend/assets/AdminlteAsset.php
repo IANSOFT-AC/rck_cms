@@ -84,6 +84,9 @@ class AdminlteAsset extends AssetBundle
         'https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js',
         'https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js',
 
+        //Dates
+        'js/dates.js'
+
     ];
     public $depends = [
         'yii\web\YiiAsset',

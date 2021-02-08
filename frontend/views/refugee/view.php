@@ -309,10 +309,10 @@ $this->params['breadcrumbs'][] = ['label' => 'View Biodata', 'url' => ['view']];
                             foreach ($model->uploads as $file) {
                             ?>
                                 <div class="col-md-6">
-                                    <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= $file->upload->desc ?></strong>
+                                    <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= (!empty($file->upload->desc) ? $file->upload->desc :"Öther" ) ?></strong>
 
                                     <p class="text-muted" data-speechify-sentence="">
-                                        <?= Html::a('Preview Document: '.$file->filename, ['/uploads/refugees/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
+                                        <?= Html::a('Preview Document: '.$file->filename, [$file->doc_path], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
                                     </p>
                                     <hr>
                                 </div>

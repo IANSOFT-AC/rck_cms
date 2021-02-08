@@ -3,20 +3,20 @@
 namespace frontend\controllers;
 
 use Yii;
-use app\models\CasestatusSearch;
+use app\models\DisabilityType;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CasestatusController implements the CRUD actions for Casestatus model.
+ * DisabilityTypeController implements the CRUD actions for DisabilityType model.
  */
-class CasestatusController extends Controller
+class DisabilityTypeController extends Controller
 {
     /**
      * {@inheritdoc}
      */
-
     public function behaviors()
     {
         return [
@@ -30,27 +30,26 @@ class CasestatusController extends Controller
     }
 
     /**
-     * Lists all Casestatus models.
+     * Lists all DisabilityType models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CasestatusSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => DisabilityType::find(),
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Casestatus model.
+     * Displays a single DisabilityType model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-
     public function actionView($id)
     {
         return $this->render('view', [
@@ -59,14 +58,13 @@ class CasestatusController extends Controller
     }
 
     /**
-     * Creates a new Casestatus model.
+     * Creates a new DisabilityType model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    
     public function actionCreate()
     {
-        $model = new Casestatus();
+        $model = new DisabilityType();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -78,7 +76,7 @@ class CasestatusController extends Controller
     }
 
     /**
-     * Updates an existing Casestatus model.
+     * Updates an existing DisabilityType model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +96,7 @@ class CasestatusController extends Controller
     }
 
     /**
-     * Deletes an existing Casestatus model.
+     * Deletes an existing DisabilityType model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -112,18 +110,18 @@ class CasestatusController extends Controller
     }
 
     /**
-     * Finds the Casestatus model based on its primary key value.
+     * Finds the DisabilityType model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Casestatus the loaded model
+     * @return DisabilityType the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Casestatus::findOne($id)) !== null) {
+        if (($model = DisabilityType::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

@@ -4,7 +4,6 @@ namespace frontend\controllers;
 
 use app\models\Counties;
 use app\models\Country;
-use app\models\Demographics;
 use app\models\IdentificationType;
 use app\models\RefugeeCamp;
 use frontend\models\Conflict;
@@ -12,6 +11,7 @@ use frontend\models\Gender;
 use app\models\Dependant;
 use app\models\Relationship;
 use app\models\UploadForm;
+use app\models\AsylumType;
 use yii\web\UploadedFile;
 use app\models\RefugeeUploads;
 use Yii;
@@ -23,6 +23,11 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\ModeOfEntry;
 use app\models\RckOffices;
+use app\models\SourceOfIncome;
+use app\models\SourceOfInfo;
+use app\models\FormOfTorture;
+use app\models\DisabilityType;
+use DateTime;
 
 /**
  * RefugeeController implements the CRUD actions for Refugee model.
@@ -129,9 +134,17 @@ class RefugeeController extends Controller
         $model = new UploadForm();
 
         if (Yii::$app->request->isPost) {
+            $rst = 5;
+            
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if($model->imageFile){
+                $rst = $model->upload("refugees", Yii::$app->request->post()['id'], Yii::$app->request->post()['refugee_upload_id']); 
+            }   
 
-            $rst = $model->upload("refugees", Yii::$app->request->post()['id'], Yii::$app->request->post()['refugee_upload_id']);
+            $model->multipleFiles = UploadedFile::getInstances($model, 'multipleFiles');
+            if($model->multipleFiles){
+                $rst = $model->multipleUpload("refugees", Yii::$app->request->post()['id'], 0);
+            }
 
             if ($rst) {
                 //Yii::$app->session->setFlash('success', "You have successfully uploaded the files and created a record");
@@ -142,7 +155,7 @@ class RefugeeController extends Controller
                 //Yii::$app->session->setFlash('error', "Sorry, something went wrong. Try again");
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 Yii::$app->response->statusCode = 400;
-                return $this->asJson(['msg' => "file upload failed"]);
+                return $this->asJson(['msg' => "file upload failed",'error'=> $rst]);
             }
         }
     }
@@ -182,6 +195,16 @@ class RefugeeController extends Controller
         return $result;
     }
 
+    public function actionTest(){
+        $date = new DateTime();
+        $model = Refugee::findOne(2);
+        // echo "<pre>";
+        // print_r($model->rckOffice->code);
+        // exit();
+        $rck_no = $model->rckOffice->code ."-". $model->id."-".$date->format('Y');
+        echo $rck_no;
+    }
+
     /**
      * Creates a new Refugee model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -194,19 +217,34 @@ class RefugeeController extends Controller
         $camps = ArrayHelper::map(RefugeeCamp::find()->all(),'id','name');
         $conflicts = ArrayHelper::map(Conflict::find()->all(),'id','conflict');
         $countries = ArrayHelper::map(Country::find()->all(),'id','country');
-        $demographics = ArrayHelper::map(Demographics::find()->all(),'id','demography');
         $gender = ArrayHelper::map(Gender::find()->all(),'id','gender');
         $modeOfEntry = ArrayHelper::map(ModeOfEntry::find()->all(),'id','name');
         $rck_offices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
+        $asylum_types = ArrayHelper::map(AsylumType::find()->all(),'id','name');
 
-
-
+        $sourceOfInfo = ArrayHelper::map(SourceOfInfo::find()->all(), 'id', 'name');
+        $sourceOfIncome = ArrayHelper::map(SourceOfIncome::find()->all(), 'id', 'name');
+        $formOfTorture = ArrayHelper::map(FormOfTorture::find()->all(), 'id', 'name');
+        $disabilityType = ArrayHelper::map(DisabilityType::find()->all(), 'id', 'name');
+        $formOfTorture[0] = 'other';
+        $sourceOfInfo[0] = 'other';
+        $sourceOfIncome[0] = 'other';
+        $disabilityType[0] = 'other';
 
         if ($model->load(Yii::$app->request->post()) ) {
 
-            $model->date_of_birth = date('Y-m-d H:i:s',strtotime(Yii::$app->request->post()['Refugee']['date_of_birth']));
+            $model->date_of_birth = date('Y-m-d',strtotime(Yii::$app->request->post()['Refugee']['date_of_birth']));
             $model->save();
-            //print_r($model->errors);
+
+            // echo "<pre>";
+            // print_r($model);
+            // exit();
+
+            // $uploads = RefugeeUploads::find()->where(['type'=> $model->asylum_status])->all();
+            // if($uploads){
+            //     return $this->redirect(['files', 'id' => $model->id]);
+            // }
+            
             return $this->redirect(['files', 'id' => $model->id]);
         }
 
@@ -216,10 +254,14 @@ class RefugeeController extends Controller
             'camps' => $camps ,
             'conflicts' => $conflicts,
             'countries' => $countries,
-            'demographics' => $demographics,
             'gender' => $gender,
             'modeOfEntry' => $modeOfEntry,
             'rck_offices' => $rck_offices,
+            'asylum_types' => $asylum_types,
+            'sourceOfIncome' => $sourceOfIncome,
+            'sourceOfInfo' => $sourceOfInfo,
+            'formOfTorture' => $formOfTorture,
+            'disabilityType' => $disabilityType
         ]);
     }
 
@@ -243,10 +285,19 @@ class RefugeeController extends Controller
         $camps = ArrayHelper::map(RefugeeCamp::find()->all(),'id','name');
         $conflicts = ArrayHelper::map(Conflict::find()->all(),'id','conflict');
         $countries = ArrayHelper::map(Country::find()->all(),'id','country');
-        $demographics = ArrayHelper::map(Demographics::find()->all(),'id','demography');
         $gender = ArrayHelper::map(Gender::find()->all(),'id','gender');
         $modeOfEntry = ArrayHelper::map(ModeOfEntry::find()->all(),'id','name');
         $rck_offices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
+        $asylum_types = ArrayHelper::map(AsylumType::find()->all(),'id','name');
+
+        $sourceOfInfo = ArrayHelper::map(SourceOfInfo::find()->all(), 'id', 'name');
+        $sourceOfIncome = ArrayHelper::map(SourceOfIncome::find()->all(), 'id', 'name');
+        $formOfTorture = ArrayHelper::map(FormOfTorture::find()->all(), 'id', 'name');
+        $disabilityType = ArrayHelper::map(DisabilityType::find()->all(), 'id', 'name');
+        $formOfTorture[0] = 'other';
+        $sourceOfInfo[0] = 'other';
+        $sourceOfIncome[0] = 'other';
+        $disabilityType[0] = 'other';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -258,10 +309,14 @@ class RefugeeController extends Controller
             'camps' => $camps ,
             'conflicts' => $conflicts,
             'countries' => $countries,
-            'demographics' => $demographics,
             'gender' => $gender,            
             'modeOfEntry' => $modeOfEntry,
             'rck_offices' => $rck_offices,
+            'asylum_types' => $asylum_types,
+            'sourceOfIncome' => $sourceOfIncome,
+            'sourceOfInfo' => $sourceOfInfo,
+            'formOfTorture' => $formOfTorture,
+            'disabilityType' => $disabilityType
         ]);
     }
 
