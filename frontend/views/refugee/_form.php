@@ -167,7 +167,7 @@ use yii\helpers\Url;
                             <?= $form->field($model, 'disability_desc')->textarea() ?>
 
                             <?= $form->field($model, 'victim_of_turture')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Select Yes or No --']) ?>
-                            <?= $form->field($model, 'form_of_torture_id')->dropDownList($formOfTorture,['prompt' => '-- Select Form of Torture --']) ?>
+                            <?= $form->field($model, 'form_of_torture_id')->dropDownList($formOfTorture,['prompt' => '-- Select Form of Torture --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
                             <?= $form->field($model, 'form_of_torture')->textarea() ?>
                         </div>
                         <div class="col-md-6">
