@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\FormOfTorture;
+use app\models\SourceOfIncome;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Refugee */
@@ -192,29 +194,61 @@ $this->params['breadcrumbs'][] = ['label' => 'View Biodata', 'url' => ['view']];
                             if($model->victim_of_turture){
                             ?>
                                 <div class="col-md-6">
-                                      <strong data-speechify-sentence=""> Form of Torture</strong>
+                                    <strong data-speechify-sentence=""> Form of Torture</strong>
+                                    <ul>
+                                    <?php 
 
-                                      <p class="text-muted" data-speechify-sentence=""><?= $model->form_of_torture ?></p>
+                                    $tortures = explode(",", $model->form_of_torture_id);
+                                    foreach ($tortures as $key => $value) {
+                                        # code...
+                                        ?>
+                                        <li><?php
+                                        $record = FormOfTorture::findOne($value);
+                                        if($record){
+                                            ?>
+                                            <?= $record->name; ?>
+                                            <?php
+                                        }
+                                        ?></li>
+                                        <?php
+                                    }
 
-                                      <hr>
+                                    ?>
+                                    </ul>
+                                    
+                                <br>
                                 </div>
                             <?php
                             }
                             ?>
-                            <div class="col-md-6">
-                                  <strong data-speechify-sentence=""> Form of Torture</strong>
-
-                                  <p class="text-muted" data-speechify-sentence=""><?= $model->form_of_torture ?></p>
-
-                                  <hr>
-                            </div>
-                            <div class="col-md-6">
-                                  <strong data-speechify-sentence=""> Source of Income</strong>
-
-                                  <p class="text-muted" data-speechify-sentence=""><?= $model->source_of_income ?></p>
-
-                                  <hr>
-                            </div>
+                            
+                            <?php 
+                            $incomes = explode(",", $model->source_of_income_id);
+                            if(count($incomes) > 0){
+                            ?>
+                                <div class="col-md-6">
+                                    <strong data-speechify-sentence=""> Sources of Income</strong>
+                                    <ul>
+                                    <?php                                 
+                                        foreach ($incomes as $key => $value) {
+                                            # code...
+                                            $record = SourceOfIncome::findOne($value);
+                                            if($record){
+                                            ?>
+                                            <li>
+                                                <?= $record->name; ?>
+                                            </li>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                    </ul>
+                                    
+                                <br>
+                                </div>
+                            <?php 
+                            }
+                            ?>
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Job Details</strong>
 

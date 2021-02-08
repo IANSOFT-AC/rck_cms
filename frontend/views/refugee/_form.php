@@ -141,7 +141,7 @@ use yii\helpers\Url;
                         </div>
                         <div class="col-md-6">
 
-                            <?= $form->field($model, 'rck_no')->textInput() ?>
+                            <?php $form->field($model, 'rck_no')->textInput() ?>
                             
                             <?= $form->field($model, 'camp')->dropDownList([], ['prompt' => 'Select']) ?>
 
@@ -161,23 +161,20 @@ use yii\helpers\Url;
 
                     <div class="row">
                         <div class="col-md-6">
-
-                            <?= $form->field($model, 'has_disability')->dropDownList(['1' => 'Yes' , '0' => 'No'],['prompt' => '-- Has Disability? --']) ?>
+                            <?= $form->field($model, 'has_disability')->dropDownList([1 => 'Yes' , 0 => 'No'],['prompt' => '-- Has Disability? --']) ?>
                             <?= $form->field($model, 'disability_type_id')->dropDownList($disabilityType,['prompt' => '-- Select Disability --']) ?>
                             <?= $form->field($model, 'disability_desc')->textarea() ?>
 
                             <?= $form->field($model, 'victim_of_turture')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Select Yes or No --']) ?>
-                            <?= $form->field($model, 'form_of_torture_id')->dropDownList($formOfTorture,['prompt' => '-- Select Form of Torture --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
+                            <?= $form->field($model, 'form_of_torture_id[]')->dropDownList($formOfTorture,['prompt' => '-- Select Form of Torture --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
                             <?= $form->field($model, 'form_of_torture')->textarea() ?>
                         </div>
                         <div class="col-md-6">
-                            
                             <?= $form->field($model, 'source_of_info_id')->dropDownList($sourceOfInfo,['prompt' => '-- Select source of Information --']) ?>
                             <?= $form->field($model, 'source_of_info_abt_rck')->textarea() ?>
 
-                            <?= $form->field($model, 'source_of_income_id')->dropDownList($sourceOfIncome,['prompt' => '-- Select source of Income --']) ?>
-                            <?= $form->field($model, 'source_of_income')->textInput() ?>
-                            <?= $form->field($model, 'job_details')->textarea() ?>
+                            <?= $form->field($model, 'source_of_income_id[]')->dropDownList($sourceOfIncome,['prompt' => '-- Select source of Income --']) ?>
+                            <?= $form->field($model, 'source_of_income')->textarea() ?>
                             <?= $form->field($model, 'mode_of_entry_id')->dropDownList($modeOfEntry,['prompt' => '-- Select Mode Of Entry --']) ?>
 
                         </div>
@@ -214,16 +211,6 @@ use yii\helpers\Url;
         </div><!--Rwo Three-->
 
     </div>
-
-
-
-
-
-
-
-
-
-
 
     <?php $form->field($model, 'created_at')->textInput() ?>
 

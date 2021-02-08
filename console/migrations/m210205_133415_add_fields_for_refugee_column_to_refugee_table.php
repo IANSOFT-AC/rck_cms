@@ -19,8 +19,8 @@ class m210205_133415_add_fields_for_refugee_column_to_refugee_table extends Migr
     public function safeUp()
     {
         $this->addColumn('{{%refugee}}', 'source_of_info_id', $this->integer());
-        $this->addColumn('{{%refugee}}', 'source_of_income_id', $this->integer());
-        $this->addColumn('{{%refugee}}', 'form_of_torture_id', $this->integer());
+        $this->addColumn('{{%refugee}}', 'source_of_income_id', $this->string());
+        $this->addColumn('{{%refugee}}', 'form_of_torture_id', $this->string());
         $this->addColumn('{{%refugee}}', 'disability_type_id', $this->integer());
 
         // creates index for column `source_of_info_id`
@@ -40,39 +40,39 @@ class m210205_133415_add_fields_for_refugee_column_to_refugee_table extends Migr
             'CASCADE'
         );
 
-        // creates index for column `source_of_income_id`
-        $this->createIndex(
-            '{{%idx-refugee-source_of_income_id}}',
-            '{{%refugee}}',
-            'source_of_income_id'
-        );
+        // // creates index for column `source_of_income_id`
+        // $this->createIndex(
+        //     '{{%idx-refugee-source_of_income_id}}',
+        //     '{{%refugee}}',
+        //     'source_of_income_id'
+        // );
 
-        // add foreign key for table `{{%source_of_income}}`
-        $this->addForeignKey(
-            '{{%fk-refugee-source_of_income_id}}',
-            '{{%refugee}}',
-            'source_of_income_id',
-            '{{%source_of_income}}',
-            'id',
-            'CASCADE'
-        );
+        // // add foreign key for table `{{%source_of_income}}`
+        // $this->addForeignKey(
+        //     '{{%fk-refugee-source_of_income_id}}',
+        //     '{{%refugee}}',
+        //     'source_of_income_id',
+        //     '{{%source_of_income}}',
+        //     'id',
+        //     'CASCADE'
+        // );
 
-        // creates index for column `form_of_torture_id`
-        $this->createIndex(
-            '{{%idx-refugee-form_of_torture_id}}',
-            '{{%refugee}}',
-            'form_of_torture_id'
-        );
+        // // creates index for column `form_of_torture_id`
+        // $this->createIndex(
+        //     '{{%idx-refugee-form_of_torture_id}}',
+        //     '{{%refugee}}',
+        //     'form_of_torture_id'
+        // );
 
-        // add foreign key for table `{{%form_of_torture}}`
-        $this->addForeignKey(
-            '{{%fk-refugee-form_of_torture_id}}',
-            '{{%refugee}}',
-            'form_of_torture_id',
-            '{{%form_of_torture}}',
-            'id',
-            'CASCADE'
-        );
+        // // add foreign key for table `{{%form_of_torture}}`
+        // $this->addForeignKey(
+        //     '{{%fk-refugee-form_of_torture_id}}',
+        //     '{{%refugee}}',
+        //     'form_of_torture_id',
+        //     '{{%form_of_torture}}',
+        //     'id',
+        //     'CASCADE'
+        // );
 
         // creates index for column `disability_type_id`
         $this->createIndex(

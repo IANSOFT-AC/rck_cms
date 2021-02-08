@@ -100,7 +100,7 @@ $script = <<<JS
     });
 
     $('#refugee-form_of_torture_id').on('change', function(){
-        if(this.value == 0){
+        if($('#refugee-form_of_torture_id option[value=0]:selected').length > 0){
             $('.field-refugee-form_of_torture').fadeIn('slow');
         }else{
             $('.field-refugee-form_of_torture').fadeOut('slow');
@@ -108,6 +108,7 @@ $script = <<<JS
     });
 
     $('#refugee-source_of_info_id').on('change', function(){
+        
         if(this.value == 0){
             $('.field-refugee-source_of_info_abt_rck').fadeIn('slow');
         }else{
@@ -116,7 +117,7 @@ $script = <<<JS
     });
 
     $('#refugee-source_of_income_id').on('change', function(){
-        if(this.value == 0){
+        if($('#refugee-source_of_income_id option[value=0]:selected').length > 0){
             $('.field-refugee-source_of_income').fadeIn('slow');
         }else{
             $('.field-refugee-source_of_income').fadeOut('slow');

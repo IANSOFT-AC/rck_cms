@@ -96,8 +96,7 @@ class Refugee extends \yii\db\ActiveRecord
             [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at', 
                 'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status',
                  'mode_of_entry_id', 'victim_of_turture', 'has_work_permit', 'arrested_due_to_lack_of_work_permit',
-                  'interested_in_work_permit', 'interested_in_citizenship','source_of_info_id','source_of_income_id',
-                  'form_of_torture_id','disability_type_id'
+                  'interested_in_work_permit', 'interested_in_citizenship','source_of_info_id','disability_type_id'
                 ], 'integer'],
             [['disability_desc', 'reason_for_rsd_appointment', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date','arrival_date', 'date_of_birth','physical_address'], 'string'],
             [['first_name', 'middle_name', 'last_name', 'email_address'], 'string', 'max' => 50],
@@ -112,8 +111,8 @@ class Refugee extends \yii\db\ActiveRecord
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['conflict'], 'exist', 'skipOnError' => true, 'targetClass' => Conflict::className(), 'targetAttribute' => ['conflict' => 'id']],
             [['source_of_info_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfInfo::className(), 'targetAttribute' => ['source_of_info_id' => 'id']],
-            [['source_of_income_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfIncome::className(), 'targetAttribute' => ['source_of_income_id' => 'id']],
-            [['form_of_torture_id'], 'exist', 'skipOnError' => true, 'targetClass' => FormOfTorture::className(), 'targetAttribute' => ['form_of_torture_id' => 'id']],
+            //[['source_of_income_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfIncome::className(), 'targetAttribute' => ['source_of_income_id' => 'id']],
+            //[['form_of_torture_id'], 'exist', 'skipOnError' => true, 'targetClass' => FormOfTorture::className(), 'targetAttribute' => ['form_of_torture_id' => 'id']],
             [['disability_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DisabilityType::className(), 'targetAttribute' => ['disability_type_id' => 'id']],
 
             //Conditional Validation
@@ -146,20 +145,20 @@ class Refugee extends \yii\db\ActiveRecord
                     }
                 }"
             ],
-            [  
-                ['form_of_torture'], 
-                'required', 
-                'when' => function($model){
-                    return ($model->form_of_torture_id == 'other') ? true : false;
-                },
-                'whenClient' => "function(attribute, value){
-                    if( $('#refugee-form_of_torture_id').val() == 'other'){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }"
-            ],
+            // [  
+            //     ['form_of_torture'], 
+            //     'required', 
+            //     'when' => function($model){
+            //         return ($model->form_of_torture_id == 'other') ? true : false;
+            //     },
+            //     'whenClient' => "function(attribute, value){
+            //         if( $('#refugee-form_of_torture_id').val() == 'other'){
+            //             return true;
+            //         }else{
+            //             return false;
+            //         }
+            //     }"
+            // ],
         ];
     }
 
@@ -169,6 +168,8 @@ class Refugee extends \yii\db\ActiveRecord
     {
         $this->arrival_date = strtotime($this->arrival_date);
         $this->rsd_appointment_date = strtotime($this->rsd_appointment_date);
+        //$this->source_of_income_id = implode(',',$this->source_of_income_id);
+        //$this->form_of_torture_id = implode(',',$this->form_of_torture_id);
 
         return parent::beforeSave($insert);
     }
@@ -178,9 +179,8 @@ class Refugee extends \yii\db\ActiveRecord
         if (parent::beforeValidate()) {
             //Nullify the values if the value is other for the following fields
             $this->source_of_info_id = ($this->source_of_info_id == 0) ? null : $this->source_of_info_id;
-            $this->source_of_income_id = ($this->source_of_income_id == 0) ? null : $this->source_of_income_id;
-            $this->form_of_torture_id = ($this->form_of_torture_id == 0) ? null : $this->form_of_torture_id;
-        $this->disability_type_id = ($this->disability_type_id == 0) ? null : $this->disability_type_id;
+            
+            $this->disability_type_id = ($this->disability_type_id == 0) ? null : $this->disability_type_id;
             return true;
         }
         return false;
@@ -238,7 +238,7 @@ class Refugee extends \yii\db\ActiveRecord
             'mode_of_entry_id' => 'Mode Of Entry',
             'victim_of_turture' => 'Is a victim of turture',
             'form_of_torture' => 'Form Of Torture',
-            'source_of_income' => 'Source Of Income',
+            'source_of_income' => 'Source Of Income Details',
             'physical_address' => 'Physical Address',
             'job_details' => 'Job Details',
             'id_no' => 'ID number',
@@ -294,15 +294,15 @@ class Refugee extends \yii\db\ActiveRecord
         return $this->hasOne(DisabilityType::className(), ['id' => 'disability_type_id']);
     }
 
-    public function getSourceOfIncome()
-    {
-        return $this->hasOne(SourceOfIncome::className(), ['id' => 'source_of_income_id']);
-    }
+    // public function getSourceOfIncome()
+    // {
+    //     return $this->hasOne(SourceOfIncome::className(), ['id' => 'source_of_income_id']);
+    // }
 
-    public function getFormOfTorture()
-    {
-        return $this->hasOne(FormOfTorture::className(), ['id' => 'form_of_torture_id']);
-    }
+    // public function getFormOfTorture()
+    // {
+    //     return $this->hasOne(FormOfTorture::className(), ['id' => 'form_of_torture_id']);
+    // }
 
     public function getSourceOfInfo()
     {

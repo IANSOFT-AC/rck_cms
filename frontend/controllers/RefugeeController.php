@@ -234,16 +234,9 @@ class RefugeeController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
 
             $model->date_of_birth = date('Y-m-d',strtotime(Yii::$app->request->post()['Refugee']['date_of_birth']));
+            $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_income_id']);
+            $model->form_of_torture_id = implode(',',Yii::$app->request->post()['Refugee']['form_of_torture_id']);
             $model->save();
-
-            // echo "<pre>";
-            // print_r($model);
-            // exit();
-
-            // $uploads = RefugeeUploads::find()->where(['type'=> $model->asylum_status])->all();
-            // if($uploads){
-            //     return $this->redirect(['files', 'id' => $model->id]);
-            // }
             
             return $this->redirect(['files', 'id' => $model->id]);
         }
@@ -299,7 +292,14 @@ class RefugeeController extends Controller
         $sourceOfIncome[0] = 'other';
         $disabilityType[0] = 'other';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            // echo "<pre>";
+            // print_r(Yii::$app->request->post()['Refugee']);
+            // exit();
+            $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_income_id']);
+            $model->form_of_torture_id = implode(',',Yii::$app->request->post()['Refugee']['form_of_torture_id']);
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
