@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 02, 2021 at 06:52 AM
+-- Generation Time: Feb 09, 2021 at 03:56 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -37,6 +37,15 @@ CREATE TABLE `asylum_type` (
   `created_by` int(11) DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `asylum_type`
+--
+
+INSERT INTO `asylum_type` (`id`, `name`, `desc`, `type`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 'Asylum', 'Seeking asylum', NULL, 1612527150, 1612527150, NULL, NULL),
+(2, 'Refugee', 'Refugee ', NULL, 1612527173, 1612527173, NULL, NULL),
+(3, 'Kenyan', 'Description of a kenyan citizen', NULL, 1612527194, 1612527194, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -451,7 +460,8 @@ CREATE TABLE `court_docs_uploads` (
 --
 
 INSERT INTO `court_docs_uploads` (`id`, `doc_path`, `filename`, `court_case_id`, `court_uploads_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(3, '/uploads/court_cases/1611819671-1545326756_codes_story.jpg', '1611819671-1545326756_codes_story.jpg', 22, 3, 1611819671, 1611819671, 2, 2);
+(3, '/uploads/court_cases/1611819671-1545326756_codes_story.jpg', '1611819671-1545326756_codes_story.jpg', 22, 3, 1611819671, 1611819671, 2, 2),
+(4, '/uploads/court_cases/1612869384-960x0.jpg', '1612869384-960x0.jpg', 22, 3, 1612869384, 1612869384, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -525,6 +535,30 @@ CREATE TABLE `dependant` (
 
 INSERT INTO `dependant` (`id`, `names`, `relationship_id`, `refugee_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
 (8, 'aSs', 2, 2, 1611302235, 1611302235, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `disability_type`
+--
+
+CREATE TABLE `disability_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `disability_type`
+--
+
+INSERT INTO `disability_type` (`id`, `name`, `description`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 'Mental', 'mental inability', 1612766890, 1612766890, 2, 2),
+(2, 'Physical', 'physical gift', 1612766914, 1612766914, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -668,7 +702,11 @@ INSERT INTO `intervention` (`id`, `intervention_type_id`, `case_id`, `situation_
 (11, '2', 5, ',mjhnbvc', 1612128091, 1612128091, 2, 2, NULL, NULL, 2, NULL),
 (12, '1,2', 5, ',mjhnbvc', 1612128239, 1612128239, 2, 2, NULL, NULL, 2, NULL),
 (13, '1,2', 5, ',mjhnbvc', 1612128258, 1612244635, 2, 2, NULL, NULL, 2, '1612244635-JD Product & Technology  Manager.docx.pdf'),
-(14, '1,2', 5, ',mjhnbvc', 1612129021, 1612165658, 2, 2, NULL, NULL, 2, '1612165658-960x0.jpg');
+(14, '1,2', 5, ',mjhnbvc', 1612129021, 1612165658, 2, 2, NULL, NULL, 2, '1612165658-960x0.jpg'),
+(15, '1', 4, 'test', 1612864445, 1612864445, 2, 2, NULL, NULL, NULL, NULL),
+(16, '1', 4, 'test', 1612864605, 1612864605, 2, 2, NULL, NULL, NULL, NULL),
+(17, '1', 4, 'test', 1612864615, 1612864615, 2, 2, NULL, NULL, NULL, NULL),
+(18, '1', 4, 'test', 1612865007, 1612865007, 2, 2, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -694,7 +732,16 @@ CREATE TABLE `intervention_attachment` (
 --
 
 INSERT INTO `intervention_attachment` (`id`, `intervention_id`, `filename`, `created_at`, `updated_at`, `created_by`, `updated_by`, `mime`, `doc_path`, `upload_id`) VALUES
-(1, 3, '1611821409-Best-Code-and-Text-Editors.png', 1611821409, 1611821409, 2, 2, NULL, '/uploads/interventions/1611821409-Best-Code-and-Text-Editors.png', 2);
+(31, 3, '1612880380-960x0.jpg', 1612880380, 1612880380, 2, 2, NULL, '/uploads/multiple/interventions/1612880380-960x0.jpg', NULL),
+(32, 3, '1612880380-1545326756_codes_story.jpg', 1612880380, 1612880380, 2, 2, NULL, '/uploads/multiple/interventions/1612880380-1545326756_codes_story.jpg', NULL),
+(33, 3, '1612880401-960x0.jpg', 1612880401, 1612880401, 2, 2, NULL, '/uploads/interventions/1612880401-960x0.jpg', 6),
+(34, 3, '1612880690-code-1.jpg.optimal.jpg', 1612880690, 1612880690, 2, 2, NULL, '/uploads/multiple/interventions/1612880690-code-1.jpg.optimal.jpg', NULL),
+(35, 3, '1612880690-design test.png', 1612880690, 1612880690, 2, 2, NULL, '/uploads/multiple/interventions/1612880690-design test.png', NULL),
+(36, 3, '1612880713-design test.png', 1612880713, 1612880713, 2, 2, NULL, '/uploads/multiple/interventions/1612880713-design test.png', NULL),
+(37, 3, '1612882136-960x0.jpg', 1612882136, 1612882136, 2, 2, NULL, '/uploads/interventions/1612882136-960x0.jpg', 2),
+(38, 3, '1612882166-design test.png', 1612882166, 1612882166, 2, 2, NULL, '/uploads/interventions/1612882166-design test.png', 6),
+(39, 3, '1612882196-design test.png', 1612882196, 1612882196, 2, 2, NULL, '/uploads/interventions/1612882196-design test.png', 8),
+(40, 3, '1612882236-960x0.jpg', 1612882236, 1612882236, 2, 2, NULL, '/uploads/interventions/1612882236-960x0.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -898,7 +945,13 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m210128_092012_create_training_table', 1611825778),
 ('m210128_094002_create_training_upload_table', 1611826810),
 ('m210131_210242_create_counseling_table', 1612127114),
-('m210201_072236_add_counseling_intake_column_to_intervention_table', 1612164164);
+('m210201_072236_add_counseling_intake_column_to_intervention_table', 1612164164),
+('m210205_122659_add_id_no_column_to_refugee_table', 1612528039),
+('m210205_133256_create_disability_type_table', 1612532066),
+('m210205_133415_add_fields_for_refugee_column_to_refugee_table', 1612532075),
+('m210208_092443_add_column_code_to_rck_offices_table', 1612776297),
+('m210208_092811_add_code_column_to_rck_offices_table', 1612776516),
+('m210209_090353_create_offence_table', 1612861452);
 
 -- --------------------------------------------------------
 
@@ -946,6 +999,29 @@ CREATE TABLE `nature_of_proceeding` (
 INSERT INTO `nature_of_proceeding` (`id`, `name`, `desc`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
 (1, 'Mention', 'A mention in court', 1611323477, 1611323477, 2, 2),
 (2, 'Judgement', 'judgement of a case', 1611323497, 1611323497, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `offence`
+--
+
+CREATE TABLE `offence` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `offence`
+--
+
+INSERT INTO `offence` (`id`, `name`, `description`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 'Theft', 'this is it', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1056,6 +1132,13 @@ CREATE TABLE `police_docs_upload` (
   `updated_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `police_docs_upload`
+--
+
+INSERT INTO `police_docs_upload` (`id`, `doc_path`, `filename`, `police_case_id`, `police_uploads_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(36, '/uploads/police_cases/1612869542-960x0.jpg', '1612869542-960x0.jpg', 8, 1, 1612869542, 1612869542, 2, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -1095,15 +1178,16 @@ CREATE TABLE `rck_offices` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
+  `updated_by` int(11) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rck_offices`
 --
 
-INSERT INTO `rck_offices` (`id`, `name`, `desc`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Westlands, Nairobi', 'This offices belong in Westlands near mpaka road', 1611127642, 1611127642, 2, 2);
+INSERT INTO `rck_offices` (`id`, `name`, `desc`, `created_at`, `updated_at`, `created_by`, `updated_by`, `code`) VALUES
+(1, 'Westlands, Nairobi', 'This offices belong in Westlands near mpaka road', 1611127642, 1612776826, 2, 2, 'NRB');
 
 -- --------------------------------------------------------
 
@@ -1153,15 +1237,24 @@ CREATE TABLE `refugee` (
   `interested_in_work_permit` int(11) DEFAULT NULL,
   `interested_in_citizenship` int(11) DEFAULT NULL,
   `physical_address` varchar(255) DEFAULT NULL,
-  `client_id` int(11) DEFAULT NULL
+  `client_id` int(11) DEFAULT NULL,
+  `id_no` varchar(255) DEFAULT NULL,
+  `source_of_info_id` int(11) DEFAULT NULL,
+  `disability_type_id` int(11) DEFAULT NULL,
+  `source_of_income_id` varchar(255) DEFAULT NULL,
+  `form_of_torture_id` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `refugee`
 --
 
-INSERT INTO `refugee` (`id`, `first_name`, `middle_name`, `last_name`, `user_group_id`, `user_id`, `image`, `camp`, `cell_number`, `email_address`, `gender`, `country_of_origin`, `demography_id`, `date_of_birth`, `id_type`, `conflict`, `created_at`, `updated_at`, `created_by`, `updated_by`, `nhcr_case_no`, `return_refugee`, `rck_no`, `rck_office_id`, `arrival_date`, `has_disability`, `disability_desc`, `asylum_status`, `rsd_appointment_date`, `reason_for_rsd_appointment`, `source_of_info_abt_rck`, `mode_of_entry_id`, `victim_of_turture`, `form_of_torture`, `source_of_income`, `job_details`, `has_work_permit`, `arrested_due_to_lack_of_work_permit`, `interested_in_work_permit`, `interested_in_citizenship`, `physical_address`, `client_id`) VALUES
-(2, 'Mohammed', 'Razak', 'Abdul', 4, NULL, '', NULL, '0787654321', 'abdul@gmail.com', 1, 1, 2, 2021, 1, 1, 1611302130, 1611302130, 2, 2, 'NHCR65478', NULL, 'RCK345', 1, 1610064000, 1, 'asdasd', 1, 1609459200, 'asd', 'source of infor', 1, 1, 'toture', 'farmer', 'yes', 0, 0, 0, 0, 'kangethe', NULL);
+INSERT INTO `refugee` (`id`, `first_name`, `middle_name`, `last_name`, `user_group_id`, `user_id`, `image`, `camp`, `cell_number`, `email_address`, `gender`, `country_of_origin`, `demography_id`, `date_of_birth`, `id_type`, `conflict`, `created_at`, `updated_at`, `created_by`, `updated_by`, `nhcr_case_no`, `return_refugee`, `rck_no`, `rck_office_id`, `arrival_date`, `has_disability`, `disability_desc`, `asylum_status`, `rsd_appointment_date`, `reason_for_rsd_appointment`, `source_of_info_abt_rck`, `mode_of_entry_id`, `victim_of_turture`, `form_of_torture`, `source_of_income`, `job_details`, `has_work_permit`, `arrested_due_to_lack_of_work_permit`, `interested_in_work_permit`, `interested_in_citizenship`, `physical_address`, `client_id`, `id_no`, `source_of_info_id`, `disability_type_id`, `source_of_income_id`, `form_of_torture_id`) VALUES
+(2, 'Mohammed', 'Razak', 'Abdul', 4, NULL, '', NULL, '0787654321', 'abdul@gmail.com', 1, 1, 2, 2021, 1, 1, 1611302130, 1611302130, 2, 2, 'NHCR65478', NULL, 'RCK345', 1, 1610064000, 1, 'asdasd', 1, 1609459200, 'asd', 'source of infor', 1, 1, 'toture', 'farmer', 'yes', 0, 0, 0, 0, 'kangethe', NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'Mohammed', 'Razak', 'Abdul', 4, NULL, '', 3, '0787654321', 'abdulkorir@gmail.com', 1, 1, NULL, 2021, 1, 1, 1612769654, 1612769654, 2, 2, 'NHCR65478', NULL, 'RCK345', 1, 1612310400, 1, 'wah', 1, 1612742400, 'test', 'saw a flier on the road', 1, 1, 'cant describe', 'hawking', 'exchanging clouds', 1, NULL, NULL, NULL, 'kangemi', NULL, '', NULL, NULL, NULL, NULL),
+(16, 'david', 'mark', 'mwangi', 4, NULL, '', NULL, '0787654334', 'abdulkorir@gmail.com', 1, 1, NULL, 2021, 1, 1, 1612782226, 1612782226, 2, 2, 'NHCR65423', NULL, 'NRB-16-2021', 1, 1612224000, NULL, '', 2, 0, '', '', 1, NULL, '', '', '', 1, NULL, NULL, NULL, 'rwanda', NULL, '', NULL, NULL, NULL, NULL),
+(17, 'david', 'mark', 'mwangi', 4, NULL, '', NULL, '0787654334', 'abdulkorir@gmail.com', 1, 1, NULL, 2021, 1, 1, 1612782291, 1612782291, 2, 2, 'NHCR65423', NULL, 'RCK345', 1, 1612224000, NULL, '', 2, 0, '', '', 1, NULL, '', '', '', 1, NULL, NULL, NULL, 'rwanda', NULL, '', NULL, NULL, NULL, NULL),
+(18, 'david', 'mark', 'mwangi', 4, NULL, '', NULL, '0787654334', 'abdulkorir@gmail.com', 1, 1, NULL, 2021, 1, 1, 1612782312, 1612792357, 2, 2, 'NHCR65423', NULL, 'NRB-18-2021', 1, 1612224000, NULL, '', 2, 0, '', '', 1, 1, '', '', '', 1, NULL, NULL, NULL, 'rwanda', NULL, '', NULL, NULL, '', '1,0');
 
 -- --------------------------------------------------------
 
@@ -1199,7 +1292,7 @@ CREATE TABLE `refugee_docs_upload` (
   `id` int(11) NOT NULL,
   `doc_path` text DEFAULT NULL,
   `filename` varchar(255) DEFAULT NULL,
-  `model_id` int(11) NOT NULL,
+  `model_id` int(11) DEFAULT NULL,
   `upload_id` int(11) DEFAULT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
@@ -1212,9 +1305,10 @@ CREATE TABLE `refugee_docs_upload` (
 --
 
 INSERT INTO `refugee_docs_upload` (`id`, `doc_path`, `filename`, `model_id`, `upload_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(4, '/uploads/refugees/1611302139-960x0.jpg', '1611302139-960x0.jpg', 2, 3, NULL, NULL, NULL, NULL),
-(5, '/uploads/refugees/1611302146-design test.png', '1611302146-design test.png', 2, 7, NULL, NULL, NULL, NULL),
-(6, '/uploads/refugees/1611302153-code-1.jpg.optimal.jpg', '1611302153-code-1.jpg.optimal.jpg', 2, 9, NULL, NULL, NULL, NULL);
+(74, '/uploads/refugees/1612872956-960x0.jpg', '1612872956-960x0.jpg', 3, 9, NULL, NULL, NULL, NULL),
+(75, '/uploads/refugees/1612872967-960x0.jpg', '1612872967-960x0.jpg', 3, 8, NULL, NULL, NULL, NULL),
+(76, '/uploads/multiple/refugees/1612873078-960x0.jpg', '1612873078-960x0.jpg', 3, NULL, NULL, NULL, NULL, NULL),
+(77, '/uploads/multiple/refugees/1612873078-design test.png', '1612873078-design test.png', 3, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1238,13 +1332,13 @@ CREATE TABLE `refugee_uploads` (
 --
 
 INSERT INTO `refugee_uploads` (`id`, `name`, `desc`, `type`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'refugee_id', 'refugee id', 0, NULL, NULL, NULL, NULL),
-(2, 'minor_pass', 'minor pass', 0, NULL, NULL, NULL, NULL),
+(1, 'refugee_id', 'Refugee Id', 0, NULL, NULL, NULL, NULL),
+(2, 'minor_pass', 'Minor Pass', 0, NULL, NULL, NULL, NULL),
 (3, 'asylumSeekerPass', 'Asylum Seeker Pass', 1, NULL, NULL, NULL, NULL),
 (4, 'asylumSeekerCertificate', 'Asylum Seeker Certificate', 1, 1611216105, 1611216105, 2, 2),
 (5, 'proofOfRegistration', 'Proof of Registration', 1, 1611216134, 1611216134, 2, 2),
 (6, 'UNHCRMandate', 'UNHCR Mandate', 1, 1611216180, 1611216180, 2, 2),
-(7, 'waitingSlip', 'waiting slip', 1, 1611216202, 1611216202, 2, 2),
+(7, 'waitingSlip', 'Waiting Slip', 1, 1611216202, 1611216202, 2, 2),
 (8, 'UNHCRLetterOfRecognition', 'UNHCR Letter Of Recognition', 1, 1611216245, 1611216245, 2, 2),
 (9, 'movementPass', 'Movement Pass', 1, 1611216339, 1611216339, 2, 2);
 
@@ -1309,6 +1403,13 @@ CREATE TABLE `source_of_income` (
   `updated_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `source_of_income`
+--
+
+INSERT INTO `source_of_income` (`id`, `name`, `desc`, `type`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 'Jobless', 'A state where a human being doesn\'t have a job', NULL, 1612774329, 1612774329, 2, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -1325,6 +1426,13 @@ CREATE TABLE `source_of_info` (
   `created_by` int(11) DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `source_of_info`
+--
+
+INSERT INTO `source_of_info` (`id`, `name`, `desc`, `type`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 'Social Media', 'socials', NULL, 1612852380, 1612852380, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -1714,7 +1822,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`) VALUES
-(2, 'kievo23', 'D9IPoRei3nk2nh1KHNVE0Igyp1-mcg5J', '$2y$13$GYwRtc3fha/SiwXdwtfywuxV3rHTrQzsErB0dyhOZ6rado6r5PAUG', NULL, 'kelvinchege@gmail.com', 10, 1610540084, 1610540084, 'Q_oTvuBv1X0sFG1fJBfQR69Hl5OTB_oW_1610540084');
+(2, 'kievo23', 'D9IPoRei3nk2nh1KHNVE0Igyp1-mcg5J', '$2y$13$GYwRtc3fha/SiwXdwtfywuxV3rHTrQzsErB0dyhOZ6rado6r5PAUG', NULL, 'kelhege@gmail.com', 10, 1610540084, 1610540084, 'Q_oTvuBv1X0sFG1fJBfQR69Hl5OTB_oW_1610540084'),
+(15, 'kievo', '29belvvNtDtpOmNR-Dqrwrt5euQMBAH2', '$2y$13$mv7HMZj.da1dz7FrqyTRkeVXtwyntdIW478KdOc1kzIZNx0qhHx6K', NULL, 'kelvinchege@gmail.com', 9, 1612429700, 1612429700, '7-Hu5OyFfeHmjyjDnhbBmPJkU2nWQSum_1612429700'),
+(16, 'ki', '1O-q_JpbERzVj6yfBRb3hHvrxqRQbl2N', '$2y$13$ctu8u7pZg2fh7FyZ7VM3quDaTXonK.C8RMViQqSoku6ilkcyNZrAm', NULL, 'bytesavage@protonmail.com', 9, 1612429848, 1612429848, 'M1Fqbgu67V4ApnuhJfc-sN_6oXnaF0gN_1612429848');
 
 -- --------------------------------------------------------
 
@@ -1915,6 +2025,12 @@ ALTER TABLE `dependant`
   ADD KEY `idx-dependant-refugee_id` (`refugee_id`);
 
 --
+-- Indexes for table `disability_type`
+--
+ALTER TABLE `disability_type`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `form_of_torture`
 --
 ALTER TABLE `form_of_torture`
@@ -2011,6 +2127,12 @@ ALTER TABLE `nature_of_proceeding`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `offence`
+--
+ALTER TABLE `offence`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `police`
 --
 ALTER TABLE `police`
@@ -2068,7 +2190,8 @@ ALTER TABLE `refugee`
   ADD KEY `idx-refugee-user_id` (`user_id`),
   ADD KEY `idx-refugee-camp` (`camp`),
   ADD KEY `idx-refugee-rck_office_id` (`rck_office_id`),
-  ADD KEY `idx-refugee-mode_of_entry_id` (`mode_of_entry_id`);
+  ADD KEY `idx-refugee-mode_of_entry_id` (`mode_of_entry_id`),
+  ADD KEY `idx-refugee-disability_type_id` (`disability_type_id`);
 
 --
 -- Indexes for table `refugee_camp`
@@ -2173,7 +2296,7 @@ ALTER TABLE `work_station`
 -- AUTO_INCREMENT for table `asylum_type`
 --
 ALTER TABLE `asylum_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `caseoutcomes`
@@ -2263,7 +2386,7 @@ ALTER TABLE `court_case_subcategory`
 -- AUTO_INCREMENT for table `court_docs_uploads`
 --
 ALTER TABLE `court_docs_uploads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `court_uploads`
@@ -2282,6 +2405,12 @@ ALTER TABLE `demographics`
 --
 ALTER TABLE `dependant`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `disability_type`
+--
+ALTER TABLE `disability_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `form_of_torture`
@@ -2317,13 +2446,13 @@ ALTER TABLE `identification_type`
 -- AUTO_INCREMENT for table `intervention`
 --
 ALTER TABLE `intervention`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `intervention_attachment`
 --
 ALTER TABLE `intervention_attachment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `intervention_type`
@@ -2368,6 +2497,12 @@ ALTER TABLE `nature_of_proceeding`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `offence`
+--
+ALTER TABLE `offence`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `police`
 --
 ALTER TABLE `police`
@@ -2395,7 +2530,7 @@ ALTER TABLE `police_case_proceeding`
 -- AUTO_INCREMENT for table `police_docs_upload`
 --
 ALTER TABLE `police_docs_upload`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `police_uploads`
@@ -2413,7 +2548,7 @@ ALTER TABLE `rck_offices`
 -- AUTO_INCREMENT for table `refugee`
 --
 ALTER TABLE `refugee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `refugee_camp`
@@ -2425,7 +2560,7 @@ ALTER TABLE `refugee_camp`
 -- AUTO_INCREMENT for table `refugee_docs_upload`
 --
 ALTER TABLE `refugee_docs_upload`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `refugee_uploads`
@@ -2449,13 +2584,13 @@ ALTER TABLE `rsvp_status`
 -- AUTO_INCREMENT for table `source_of_income`
 --
 ALTER TABLE `source_of_income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `source_of_info`
 --
 ALTER TABLE `source_of_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `subcounties`
@@ -2479,7 +2614,7 @@ ALTER TABLE `training_upload`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `user_group`
@@ -2603,10 +2738,9 @@ ALTER TABLE `police_docs_upload`
 --
 ALTER TABLE `refugee`
   ADD CONSTRAINT `fk-refugee-camp` FOREIGN KEY (`camp`) REFERENCES `refugee_camp` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk-refugee-disability_type_id` FOREIGN KEY (`disability_type_id`) REFERENCES `disability_type` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk-refugee-mode_of_entry_id` FOREIGN KEY (`mode_of_entry_id`) REFERENCES `mode_of_entry` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk-refugee-rck_office_id` FOREIGN KEY (`rck_office_id`) REFERENCES `rck_offices` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk-refugee-user_group_id` FOREIGN KEY (`user_group_id`) REFERENCES `user_group` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk-refugee-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk-refugee-rck_office_id` FOREIGN KEY (`rck_office_id`) REFERENCES `rck_offices` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `refugee_camp`
