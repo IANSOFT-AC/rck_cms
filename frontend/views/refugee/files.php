@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['#']];
 
 </div>
 <hr>
-<?= Html::a('Proceed to view page', ['view','id' => $model->id], ['class' => 'btn btn-success form-control']) ?>
+
 <?php
 
 $this->registerJsFile(

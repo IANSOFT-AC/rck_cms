@@ -71,6 +71,7 @@ $uploadModel = new UploadForm();
         <hr>
 
         <?php ActiveForm::end(); ?>
-
+        
+        <?= Html::a('Proceed to view page', ['view','id' => $model->id], ['class' => 'btn btn-success form-control']) ?>
 
 </div>
