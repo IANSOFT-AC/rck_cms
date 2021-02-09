@@ -142,7 +142,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
                         foreach ($model->interventionAttachments as $file) {
                         ?>
                             <div class="col-md-6">
-                                <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= $file->upload->name ?></strong>
+                                <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?=  (!empty($file->upload->desc) ? $file->upload->desc :"Öther" ) ?></strong>
 
                                 <p class="text-muted" data-speechify-sentence="">
                                     <?= Html::a('Preview Document: '.$file->filename, ['/uploads/interventions/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
