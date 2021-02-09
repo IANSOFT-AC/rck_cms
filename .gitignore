@@ -10,7 +10,7 @@
 nbproject
 
 # Project credentials
-#.env
+.env
 
 # zend studio for eclipse project files
 .buildpath
