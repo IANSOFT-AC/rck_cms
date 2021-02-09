@@ -19,6 +19,7 @@ use app\models\CourtCaseCategory;
 use app\models\UploadForm;
 use yii\web\UploadedFile;
 use app\models\NatureOfProceeding;
+use app\models\Offence;
 
 /**
  * CourtCasesController implements the CRUD actions for CourtCases model.
@@ -201,6 +202,7 @@ class CourtCasesController extends Controller
         $counsellors = ArrayHelper::map(Counsellors::find()->all(), 'id', 'counsellor');
         $courtCaseCategories = ArrayHelper::map(CourtCaseCategory::find()->all(), 'id', 'name');
         $refugees = ArrayHelper::map(Refugee::find()->all(), 'id', 'fullNames');
+        $offences = ArrayHelper::map(Offence::find()->all(), 'id', 'name');
 
         return $this->render('create', [
             'model' => $model,
@@ -208,7 +210,8 @@ class CourtCasesController extends Controller
             'lawyers' => $lawyers,
             'counsellors' => $counsellors,
             'courtCaseCategories' => $courtCaseCategories,
-            'refugees' => $refugees
+            'refugees' => $refugees,
+            'offences' => $offences
         ]);
     }
 
@@ -232,6 +235,7 @@ class CourtCasesController extends Controller
         $counsellors = ArrayHelper::map(Counsellors::find()->all(), 'id', 'counsellor');
         $courtCaseCategories = ArrayHelper::map(CourtCaseCategory::find()->all(), 'id', 'name');
         $refugees = ArrayHelper::map(Refugee::find()->all(), 'id', 'fullNames');
+        $offences = ArrayHelper::map(Offence::find()->all(), 'id', 'name');
 
         return $this->render('update', [
             'model' => $model,
@@ -239,7 +243,8 @@ class CourtCasesController extends Controller
             'lawyers' => $lawyers,
             'counsellors' => $counsellors,
             'courtCaseCategories' => $courtCaseCategories,
-            'refugees' => $refugees
+            'refugees' => $refugees,
+            'offences' => $offences
         ]);
     }
 

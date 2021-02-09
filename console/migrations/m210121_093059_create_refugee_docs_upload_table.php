@@ -20,7 +20,7 @@ class m210121_093059_create_refugee_docs_upload_table extends Migration
             'id' => $this->primaryKey(),
             'doc_path' => $this->text(),
             'filename' => $this->string(),
-            'model_id' => $this->integer()->notNull(),
+            'model_id' => $this->integer(),
             'upload_id' => $this->integer(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),

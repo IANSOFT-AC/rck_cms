@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
                 </div>
                 
                 <div class="col-md-6">
-                    <?= $form->field($model, 'client_id')->dropDownList($clients,['prompt' => 'Select Client']) ?>
+                    <?= $form->field($model, 'client_id')->dropDownList($client,['disabled' => $model->isNewRecord ? true : true]) ?>
                 </div>
                 
                 <div class="col-md-12">

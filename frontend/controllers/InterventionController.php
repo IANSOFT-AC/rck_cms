@@ -105,7 +105,7 @@ class InterventionController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Intervention();
 
@@ -122,34 +122,30 @@ class InterventionController extends Controller
             // exit;
             $model->intervention_type_id = implode(",",Yii::$app->request->post()['Intervention']['intervention_type_id']);
             $model->save();
-            return $this->redirect(['counseling/create', 'id' => $model->id]);
+            //return $this->redirect(['counseling/create', 'id' => $model->id]);
 
             //check if the record has uploads in the interventions upload part
             $uploads = InterventionType::find()->where(['case_id' => Yii::$app->request->post()['Intervention']['case_id'] ]);
             if($uploads){
                 return $this->redirect(['files', 'id' => $model->id, 'uploads' => $uploads]);
             }
-
-            if(in_array("2", Yii::$app->request->post()['Intervention']['intervention_type_id'])){
-                return $this->redirect(['counseling/create', 'id' => $model->id]);
-            }else{
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            return $this->redirect(['view', 'id' => $model->id]);
+            
         }
 
         $cases = ArrayHelper::map(Casetype::find()->all(),'id','type');
         $interventionType = ArrayHelper::map(InterventionType::find()->all(),'id','intervention_type');
-        $clients = ArrayHelper::map(Refugee::find()->all(),'id','fullNames');
         $court_cases = ArrayHelper::map(CourtCases::find()->all(),'id','name');
         $police_cases = ArrayHelper::map(PoliceCases::find()->all(),'id','name');
+        $client = ArrayHelper::map(Refugee::find()->where(['id'=>$id])->all(),'id','fullNames');
 
         return $this->render('create', [
             'model' => $model,
             'interventionType'=> $interventionType,
             'cases' => $cases,
-            'clients' => $clients,
             'police_cases' => $police_cases,
-            'court_cases' => $court_cases
+            'court_cases' => $court_cases,
+            'client' => $client
         ]);
     }
 
@@ -182,25 +178,33 @@ class InterventionController extends Controller
         $model = new UploadForm();
 
         if (Yii::$app->request->isPost) {
+            $rst = 5;
+            
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if($model->imageFile){
+                $rst = $model->upload("interventions", Yii::$app->request->post()['id'], Yii::$app->request->post()['intervention_upload_id']); 
+            }   
 
-            $rst = $model->upload("interventions", Yii::$app->request->post()['id'], Yii::$app->request->post()['intervention_upload_id'] );
+            $model->multipleFiles = UploadedFile::getInstances($model, 'multipleFiles');
+            if($model->multipleFiles){
+                $rst = $model->multipleUpload("interventions", Yii::$app->request->post()['id'], 0);
+            }
 
-            if ($rst) {
+            if ($rst == true) {
                 //Yii::$app->session->setFlash('success', "You have successfully uploaded the files and created a record");
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 Yii::$app->response->statusCode = 200;
-                return $this->asJson(['msg' => "file uploaded successfully"]);
-            }else{
+                return $this->asJson(['msg' => "file uploaded successfully",'error'=> $rst]);
+            }else if($rst == false){
                 //Yii::$app->session->setFlash('error', "Sorry, something went wrong. Try again");
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 Yii::$app->response->statusCode = 400;
-                return $this->asJson(['msg' => "file upload failed"]);
+                return $this->asJson(['msg' => "file upload failed",'error'=> $rst]);
             }
         }
-        
         //return $this->redirect(['police-cases/index']);
     }
+    
 
     /**
      * Updates an existing Intervention model.
@@ -222,7 +226,7 @@ class InterventionController extends Controller
 
         $cases = ArrayHelper::map(Casetype::find()->all(),'id','type');
         $interventionType = ArrayHelper::map(InterventionType::find()->all(),'id','intervention_type');
-        $clients = ArrayHelper::map(Refugee::find()->all(),'id','fullNames');
+        $clients = ArrayHelper::map(Refugee::find()->where(['id' => $model->client_id])->all(),'id','fullNames');
         $court_cases = ArrayHelper::map(CourtCases::find()->all(),'id','name');
         $police_cases = ArrayHelper::map(PoliceCases::find()->all(),'id','name');
 
@@ -230,7 +234,7 @@ class InterventionController extends Controller
             'model' => $model,
             'interventionType'=> $interventionType,
             'cases' => $cases,
-            'clients' => $clients,
+            'client' => $clients,
             'police_cases' => $police_cases,
             'court_cases' => $court_cases
         ]);

@@ -108,7 +108,6 @@ $script = <<<JS
     });
 
     $('#refugee-source_of_info_id').on('change', function(){
-        
         if(this.value == 0){
             $('.field-refugee-source_of_info_abt_rck').fadeIn('slow');
         }else{

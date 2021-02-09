@@ -8,7 +8,7 @@ use app\models\InterventionType;
 /* @var $model app\models\Intervention */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Interventions', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Interventions', 'url' => ['client','id' => $model->client_id]];
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
 \yii\web\YiiAsset::register($this);
 ?>

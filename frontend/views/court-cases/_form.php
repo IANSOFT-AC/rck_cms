@@ -16,9 +16,6 @@ use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model app\models\CourtCases */
 /* @var $form yii\widgets\ActiveForm */
-$this->registerCssFile("https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-], 'css-select-picker');
 ?>
 
 <div class="court-cases-form">
@@ -34,7 +31,8 @@ $this->registerCssFile("https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/di
 
                         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-                        <?= $form->field($model, 'offence')->textInput(['maxlength' => true]) ?>
+                        <?= $form->field($model, 'offence')->dropDownList($offences,
+                            ['prompt' => '-- Choose Offence --']) ?>
 
                         <?= $form->field($model, 'first_instance_interview')->textarea() ?>
 
@@ -49,7 +47,7 @@ $this->registerCssFile("https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/di
                         <?= $form->field($model, 'case_status')->dropDownList(['open' => 'Open', 'closed' => 'Closed'],
                             ['prompt' => '-- Select Case Status --']) ?>
 
-                        <?= $form->field($model, 'next_court_date')->textInput(['type' => 'date']) ?>
+                        <?= $form->field($model, 'next_court_date')->textInput(['type' => 'date','class' => 'form-control no-past']) ?>
 
                         <?= $form->field($model, 'legal_officer_id')->dropDownList($lawyers,
                             ['prompt' => '-- Choose Legal Office --']) ?>
@@ -86,10 +84,7 @@ $this->registerCssFile("https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/di
     <?php 
 
     ActiveForm::end(); 
-    $this->registerJsFile(
-        'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js',
-        ['depends' => [\yii\web\JqueryAsset::className()]]
-    );
+   
 
     ?>
 
@@ -99,7 +94,6 @@ $this->registerCssFile("https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/di
 
 $script = <<<JS
 
-    $('#courtcases-refugee_id').selectpicker();
     $('.field-courtcases-name, .field-courtcases-next_court_date').hide();
 
     $('#courtcases-no_of_refugees').on('focusout', function(e){

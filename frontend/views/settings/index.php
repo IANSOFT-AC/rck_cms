@@ -24,77 +24,77 @@ $this->title = "RCK: Control Panel";
 	                <div class="col-md-6">
 	                    <p class="m-0 setup-p">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Nationalities Setup</b>',['country/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Nationalities Settings</b>',['country/index'],['class' => 'profile-link']) ?></p>
 	                    <br>
 	                </div>
 	              
 	                <div class="col-md-6">
 	                    <p class="setup-p">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Gender Setup</b>',['gender/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Gender Settings</b>',['gender/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div> 
 	                <div class="col-md-6">
 	                    <p  class="setup-p">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Identification Type Setup</b>',['identification-type/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Identification Type Settings</b>',['identification-type/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Camps Setup</b>',['refugee-camp/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Camps Settings</b>',['refugee-camp/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Reason for Fleeing Setup</b>',['conflict/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Reason for Fleeing Settings</b>',['conflict/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>RCK offices Setup</b>',['rck-offices/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>RCK offices Settings</b>',['rck-offices/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Modes of Entry Setup</b>',['mode-of-entry/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Modes of Entry Settings</b>',['mode-of-entry/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Asylum Types Setup</b>',['asylum-type/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Asylum Types Settings</b>',['asylum-type/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Source of infomation about RCK Setup</b>',['source-of-info/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Source of infomation about RCK Settings</b>',['source-of-info/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Forms of torture Setup</b>',['form-of-torture/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Forms of torture Settings</b>',['form-of-torture/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Source of Income Setup</b>',['source-of-income/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Source of Income Settings</b>',['source-of-income/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
@@ -102,6 +102,13 @@ $this->title = "RCK: Control Panel";
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
 	                    	<?= Html::a('<b>Disability Settings</b>',['disability-type/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b>Relationship Settings</b>',['relationship/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
@@ -120,28 +127,28 @@ $this->title = "RCK: Control Panel";
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Nature of Proceeding Setup</b>',['nature-of-proceeding/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Nature of Proceeding Settings</b>',['nature-of-proceeding/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Court Uploads Setup</b>',['court-uploads/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Court Uploads Settings</b>',['court-uploads/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Court Case Status Setup</b>',['casestatus/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Court Case Status Settings</b>',['casestatus/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Court Case Category Setup</b>',['court-case-category/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Court Case Category Settings</b>',['court-case-category/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
@@ -160,14 +167,14 @@ $this->title = "RCK: Control Panel";
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Police Uploads Setup</b>',['police-uploads/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Police Uploads Settings</b>',['police-uploads/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Police Station Setup</b>',['policestation/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Police Station Settings</b>',['policestation/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
@@ -186,21 +193,21 @@ $this->title = "RCK: Control Panel";
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b>Case Type Setup</b>',['casetype/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Case Type Settings</b>',['casetype/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b> Intervention Type Setup</b>',['intervention-type/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b> Intervention Type Settings</b>',['intervention-type/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b> Intervention Uploads Setup</b>',['intervention-upload/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b> Intervention Uploads Settings</b>',['intervention-upload/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Intervention */
 
 $this->title = 'Update Intervention: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Interventions', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Interventions', 'url' => ['client','id' => $model->client_id]];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 ?>
 <div class="intervention-update">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' 
     <?= $this->render('_form', [
         'model' => $model,
         'cases' => $cases,
-        'clients' => $clients,
+        'client' => $client,
         'interventionType'=> $interventionType,
         'police_cases' => $police_cases,
         'court_cases' => $court_cases

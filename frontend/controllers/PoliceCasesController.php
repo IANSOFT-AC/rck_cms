@@ -16,6 +16,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\ArrayHelper;
+use app\models\Offence;
 
 /**
  * PoliceCasesController implements the CRUD actions for PoliceCases model.
@@ -175,12 +176,14 @@ class PoliceCasesController extends Controller
         $policeStationsArray = ArrayHelper::map(Policestation::find()->all(), 'id', 'name');
         $lawyersArray = ArrayHelper::map(Lawyer::find()->all(), 'id', 'full_names');
         $refugees = ArrayHelper::map(Refugee::find()->all(), 'id', 'fullNames');
+        $offences = ArrayHelper::map(Offence::find()->all(), 'id', 'name');
 
         return $this->render('create', [
             'model' => $model,
             'lawyers' => $lawyersArray,
             'policeStations' => $policeStationsArray,
-            'refugees' => $refugees
+            'refugees' => $refugees,
+            'offences' => $offences
         ]);
     }
 
@@ -219,12 +222,14 @@ class PoliceCasesController extends Controller
         $policeStationsArray = ArrayHelper::map(Policestation::find()->all(), 'id', 'name');
         $lawyersArray = ArrayHelper::map(Lawyer::find()->all(), 'id', 'full_names');
         $refugees = ArrayHelper::map(Refugee::find()->all(), 'id', 'fullNames');
+        $offences = ArrayHelper::map(Offence::find()->all(), 'id', 'name');
 
         return $this->render('update', [
             'model' => $model,
             'lawyers' => $lawyersArray,
             'policeStations' => $policeStationsArray,
-            'refugees' => $refugees
+            'refugees' => $refugees,
+            'offences' => $offences
         ]);
     }
 

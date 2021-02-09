@@ -1,26 +1,29 @@
 $(function(){
 
-	$("form").submit(function(e){
+	$('body').on("beforeSubmit", ".caseFileUpload", function(e){
         e.preventDefault();
 
         console.log("submit button clicked");
 
 	    let form = $(this)[0];
 	    console.log(form)
-	    //return false; // Cancel form submitting.
-		// if (form.find('.has-error').length) 
-		// {
-		// 	console.log("There is an error");
-		//     return false;
-		// }
 
-
+		let fileExists = false;
 	    let formJS = document.querySelector('IDForm');
 	    formData = new FormData(form);
-	    formData.append('imageFile', $(form).find('#uploadform-imagefile')[0].files[0])
-	    //console.log(formData)
-	    //console.log(form.find('#uploadform-imagefile')[0].files[0])
-	    //console.log(formData.get('id'))
+
+	    if($.trim($(form).find('.uploadform-imagefile').val())){
+			formData.append('imageFile', $(form).find('.uploadform-imagefile')[0].files[0])
+			fileExists = true
+		}else if($.trim($(form).find('.uploadform-multipleFiles').val())){
+			formData.append('multipleFiles', $(form).find('.uploadform-multipleFiles').files)
+			fileExists = true
+		}
+	
+		if(fileExists == false){
+			swal("Sorry!", "You have not loaded any file for upload", "error");
+			return false;
+		}
 
 	    $.ajax({
 		    url    : '/intervention/upload',
@@ -34,6 +37,7 @@ $(function(){
 		        // $.pjax.reload('#note_update_id'); for pjax update
 		        //$('#yiiikap').html(getupdatedata);
 		        console.log("success console")
+				console.log(response)
 		        
 			    // Animation complete.
 			    swal({

@@ -5,8 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Intervention */
 
+
 $this->title = 'Create Intervention';
-$this->params['breadcrumbs'][] = ['label' => 'Interventions', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Interventions', 'url' => ['client','id' => array_key_first($client)]];
 $this->params['breadcrumbs'][] = ['label' => $this->title,'url' => '#'];
 ?>
 <div class="intervention-create">
@@ -17,9 +18,9 @@ $this->params['breadcrumbs'][] = ['label' => $this->title,'url' => '#'];
         'model' => $model,
         'interventionType'=> $interventionType,
         'cases' => $cases,
-        'clients' => $clients,
         'police_cases' => $police_cases,
-        'court_cases' => $court_cases
+        'court_cases' => $court_cases,
+        'client' => $client
     ]) ?>
 
 </div>

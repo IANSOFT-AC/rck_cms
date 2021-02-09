@@ -34,8 +34,12 @@ class UploadForm extends Model
                 $this->imageFile->saveAs($BasePath.$filename);
 
                 self::insertData($filename, $id, $upload_id, $model);
+                return true;
             }
-            return true;
+            else{
+                print_r($this->imageFile);
+                return false; 
+            }
         } else {            
             print_r($this->errors);
             return false;
@@ -74,6 +78,13 @@ class UploadForm extends Model
             $d = new RefugeeDocsUpload();
             $d->doc_path = $BasePath.$filename;
             $d->model_id = $model_id;
+            $d->filename = $filename;
+            $rst = $d->save();
+            return $rst;
+        }else if($model == "interventions"){
+            $d = new InterventionAttachment();
+            $d->doc_path = $BasePath.$filename;
+            $d->intervention_id = $model_id;
             $d->filename = $filename;
             $rst = $d->save();
             return $rst;

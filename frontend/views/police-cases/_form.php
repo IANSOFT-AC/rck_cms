@@ -51,7 +51,8 @@ $this->registerCssFile("https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/di
 
                     <?= $form->field($model, 'ob_details')->textarea() ?>
 
-                    <?= $form->field($model, 'offence')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'offence')->dropDownList($offences,
+                            ['prompt' => '-- Choose Offence --']) ?>
 
                     <?= $form->field($model, 'complainant')->textInput(['maxlength' => true]) ?>
 

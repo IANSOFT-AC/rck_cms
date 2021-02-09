@@ -6,21 +6,28 @@ use yii\helpers\Html;
 /* @var $model app\models\PoliceCases */
 
 $this->title = Yii::t('app', 'Upload Files to Intervention');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Court Cases'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Interventions'), 'url' => ['client','id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="intervention-create">
-	
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="card">
+        <div class="card-header">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+        <div class="card-body">
+            <?= $this->render('_files', [
+                'list' => $list,
+                'model' => $model
+            ]) ?>
+        </div>
+    </div>
+    
 
-    <?= $this->render('_files', [
-        'list' => $list,
-        'model' => $model
-    ]) ?>
+    
 
 </div>
-
+<hr>
 
 <?php
 

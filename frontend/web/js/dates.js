@@ -12,4 +12,5 @@ $(function(){
 
     var maxDate = year + '-' + month + '-' + day;    
     $('.no-future').attr('max', maxDate);
+    $('.no-past').attr('min', maxDate);
 });

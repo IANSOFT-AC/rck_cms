@@ -5,24 +5,25 @@ $(function(){
     // send data to actionSave by ajax request.
     console.log("submit button clicked");
     let form = $(this)[0];
-    //console.log(form)
-    //return false; // Cancel form submitting.
-	// if (form.find('.has-error').length) 
-	// {
-	// 	console.log("There is an error");
-	//     return false;
-	// }
-
 
     let formJS = document.querySelector('IDForm');
     formData = new FormData(form);
-	console.log($(form).find('#uploadform-imagefile'))
-	console.log($(form).find('#uploadform-multipleFiles'))
+	console.log($(form).find('.uploadform-imagefile'))
+	console.log($(form).find('.uploadform-multipleFiles'))
 
-	if($(form).find('#uploadform-imagefile').files){
-		formData.append('imageFile', $(form).find('#uploadform-imagefile')[0].files[0])
-	}else if($(form).find('#uploadform-multipleFiles').files){
-		formData.append('multipleFiles', $(form).find('#uploadform-multipleFiles').files)
+	
+	let fileExists = false;
+	if($.trim($(form).find('.uploadform-imagefile').val())){
+		formData.append('imageFile', $(form).find('.uploadform-imagefile')[0].files[0])
+		fileExists = true
+	}else if($.trim($(form).find('.uploadform-multipleFiles').val())){
+		formData.append('multipleFiles', $(form).find('.uploadform-multipleFiles').files)
+		fileExists = true
+	}
+
+	if(fileExists == false){
+		swal("Sorry!", "You have not loaded any file for upload", "error");
+		return false;
 	}
 
     //console.log(formData)

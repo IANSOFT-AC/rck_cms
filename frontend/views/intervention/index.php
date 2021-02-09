@@ -20,7 +20,12 @@ $this->params['breadcrumbs'][] = ['label' => 'interventions', 'url' => 'index'];
             <h1 class="header-title"><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Intervention', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+        if(isset($refugee_id)){
+            echo Html::a('Create Intervention', ['create','id'=> $refugee_id], ['class' => 'btn btn-success']);
+        }else{
+            echo Html::a('Create Intervention', ['create'], ['class' => 'btn btn-success']);
+        } ?>
 
         <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
     </p>

@@ -33,16 +33,19 @@ $uploadModel = new UploadForm();
         //'enableAjaxValidation' => true,
         //'validationUrl' => '/police_cases/upload',
     ]); ?>
-        <div class="row">
-            <div class="form-group mt-3 col-md-5">
-                <?= $form->field($uploadModel, 'imageFile')->fileInput([ 'accept' => 'image/*'])->label($value->desc) ?>
-                <input type="hidden" name="id" value="<?= $model->id?>">
-                <input type="hidden" name="refugee_upload_id" value="<?= $value->id ?>">
+        <div class="row container-fluid">
+                <div class="custom-file m-1 col-md-9">
+                    <?= $form->field($uploadModel, 'imageFile',['options' => [
+                'class' => 'custom-file-label has-icon has-label'
+            ]])->fileInput([ 'accept' => '*/*', 'class' => 'custom-file-input uploadform-imagefile','id' => $value->name])->label($value->desc) ?>
+                    <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    <input type="hidden" name="id" value="<?= $model->id?>">
+                    <input type="hidden" name="refugee_upload_id" value="<?= $value->id ?>">
+                </div>
+                <div class="pull-right col-md-2">
+                <?= Html::submitButton(Yii::t('app', 'Upload and Finish'), ['class' => 'btn btn-success text-center uploadFile']) ?>
+                </div>
             </div>
-            <div class="form-group mx-sm-3 mb-2 mt-3 col-md-5 pull-right">
-                <?= Html::submitButton(Yii::t('app', 'Upload and Finish'), ['class' => 'btn btn-success uploadFile']) ?>
-            </div>
-        </div>
 
         <?php ActiveForm::end(); ?>
     <?php
@@ -56,14 +59,14 @@ $uploadModel = new UploadForm();
         //'enableAjaxValidation' => true,
         //'validationUrl' => '/police_cases/upload',
     ]); ?>
-        <div class="row">
-            <div class="form-group mt-3 col-md-5">
-                <?= $form->field($uploadModel, 'multipleFiles[]')->fileInput([ 'accept' => 'image/*','multiple' => true])->label("Other Uploads") ?>
-                <input type="hidden" name="id" value="<?= $model->id?>">
-            </div>
-            <div class="form-group mx-sm-3 mb-2 mt-3 col-md-12 pull-right">
-                <?= Html::submitButton(Yii::t('app', 'Upload Multiple files'), ['class' => 'btn btn-warning uploadFile form-control']) ?>
-            </div>
+        <div class="custom-file m-1">
+            <?= $form->field($uploadModel, 'multipleFiles[]',['options' => [
+'class' => 'custom-file-label has-icon has-label'
+]])->fileInput([ 'accept' => '*/*','multiple' => true, 'class' => 'custom-file-input uploadform-multipleFiles'])->label("Other Uploads") ?>
+            <input type="hidden" name="id" value="<?= $model->id?>">
+        </div>
+        <div class="form-group mx-sm-3 mb-2 mt-3 col-md-12 pull-right">
+            <?= Html::submitButton(Yii::t('app', 'Upload Multiple files'), ['class' => 'btn btn-warning uploadFile form-control']) ?>
         </div>
         <hr>
 
