@@ -9,6 +9,9 @@
 # netbeans project files
 nbproject
 
+# Project credentials
+.env
+
 # zend studio for eclipse project files
 .buildpath
 .project
