@@ -135,8 +135,9 @@ class CourtCasesController extends Controller
     public function actionList()
     {
         $cases = CourtCases::find()
-            ->joinWith('legalOfficer')
-            ->joinWith('counsellor')
+            ->joinWith('rLegalOfficer')
+            ->joinWith('rCounsellor')
+            ->joinWith('rOffence')
             ->joinWith('courtCaseCategory')
             ->joinWith('courtCaseSubcategory')
             ->asArray()
@@ -154,8 +155,9 @@ class CourtCasesController extends Controller
             ->where([
                 'court_cases.refugee_id'=>$id
             ])
-            ->joinWith('legalOfficer')
-            ->joinWith('counsellor')
+            ->joinWith('rLegalOfficer')
+            ->joinWith('rCounsellor')
+            ->joinWith('rOffence')
             ->joinWith('courtCaseCategory')
             ->joinWith('courtCaseSubcategory')
             ->asArray()
@@ -211,6 +213,9 @@ class CourtCasesController extends Controller
         $courtCaseCategories = ArrayHelper::map(CourtCaseCategory::find()->all(), 'id', 'name');
         $refugees = ArrayHelper::map(Refugee::find()->all(), 'id', 'fullNames');
         $offences = ArrayHelper::map(Offence::find()->all(), 'id', 'name');
+        $offences[0] = 'other';
+        $lawyers[0] = 'other';
+        $counsellors[0] = 'other';
 
         return $this->render('create', [
             'model' => $model,
@@ -244,6 +249,9 @@ class CourtCasesController extends Controller
         $courtCaseCategories = ArrayHelper::map(CourtCaseCategory::find()->all(), 'id', 'name');
         $refugees = ArrayHelper::map(Refugee::find()->all(), 'id', 'fullNames');
         $offences = ArrayHelper::map(Offence::find()->all(), 'id', 'name');
+        $offences[0] = 'other';
+        $lawyers[0] = 'other';
+        $counsellors[0] = 'other';
 
         return $this->render('update', [
             'model' => $model,
@@ -297,10 +305,10 @@ class CourtCasesController extends Controller
                 'no_of_refugees' => $case['no_of_refugees'],
                 'first_instance_interview' => $case['first_instance_interview'] == 1 ? true : false,
                 'next_court_date' => date("l M j, Y",$case['next_court_date']),
-                'offence' => $case['offence'],
+                'offence' => is_null($case['offence_id']) ? $case['offence'] : $case['rOffence']['name'],
                 //'magistrate' => $case['magistrate']['names'],
-                //'counsellor' => $case['counsellor']['counsellor'],
-                //'legal_officer' => $case['legalOfficer']['lawfirmName'],
+                'counsellor' => is_null($case['counsellor_id']) ? $case['counsellor'] : $case['rCounsellor']['counsellor'],
+                'legal_officer' => is_null($case['legal_officer_id']) ? $case['legal_officer'] : $case['rLegalOfficer']['lawfirmName'],
                 'date_of_arrainment' => date("l M j, Y",$case['date_of_arrainment']),
                 //'case_status' => $case['case_status'],
                 'court_case_category' => $case['courtCaseCategory']['name'],

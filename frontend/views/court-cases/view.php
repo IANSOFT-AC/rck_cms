@@ -60,7 +60,9 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
                     <div class="col-md-6">
                       <strong data-speechify-sentence=""><i class="fas fa-exclamation-circle"></i> Offence</strong>
 
-                      <p class="text-muted" data-speechify-sentence=""><?= $model->offence ?></p>
+                      <p class="text-muted" data-speechify-sentence="">
+                      <?= is_null($model->offence_id) ? $model->offence : $model->rOffence->name ?>
+                      </p>
 
                       <hr>
                     </div>
@@ -109,14 +111,18 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
                     <div class="col-md-6">
                       <strong data-speechify-sentence=""> <i class="fas fa-balance-scale"></i> Legal Officer</strong>
 
-                      <p class="text-muted" data-speechify-sentence=""><?= $model->legalOfficer->lawfirmName ?></p>
+                      <p class="text-muted" data-speechify-sentence="">
+                        <?= is_null($model->legal_officer_id) ? $model->legal_officer : $model->rLegalOfficer->lawfirmName ?>
+                      </p>
 
                       <hr>
                     </div>
                     <div class="col-md-6">
                       <strong data-speechify-sentence=""> <i class="fas fa-pills"></i> Counsellor</strong>
 
-                      <p class="text-muted" data-speechify-sentence=""><?= $model->counsellor->counsellor ?></p>
+                      <p class="text-muted" data-speechify-sentence="">
+                      <?= is_null($model->counsellor_id) ? $model->counsellor : $model->rCounsellor->counsellor ?>
+                      </p>
 
                       <hr>
                   </div>

@@ -31,8 +31,10 @@ use kartik\select2\Select2;
 
                         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-                        <?= $form->field($model, 'offence')->dropDownList($offences,
+                        <?= $form->field($model, 'offence_id')->dropDownList($offences,
                             ['prompt' => '-- Choose Offence --']) ?>
+
+                        <?= $form->field($model, 'offence')->textInput(['maxlength' => true]) ?>
 
                         <?= $form->field($model, 'first_instance_interview')->textarea() ?>
 
@@ -52,8 +54,12 @@ use kartik\select2\Select2;
                         <?= $form->field($model, 'legal_officer_id')->dropDownList($lawyers,
                             ['prompt' => '-- Choose Legal Office --']) ?>
 
+                        <?= $form->field($model, 'legal_officer')->textInput() ?>
+
                         <?= $form->field($model, 'counsellor_id')->dropDownList($counsellors,
                             ['prompt' => '-- Choose Counsellor --']) ?>
+
+                        <?= $form->field($model, 'counsellor')->textInput() ?>
 
                         <?= $form->field($model, 'court_case_category_id')->dropDownList($courtCaseCategories,
                             ['prompt' => '-- Choose Court Category --','onchange'=>'
@@ -94,7 +100,35 @@ use kartik\select2\Select2;
 
 $script = <<<JS
 
-    $('.field-courtcases-name, .field-courtcases-next_court_date').hide();
+    $('.field-courtcases-name, \
+    .field-courtcases-next_court_date, \
+    .field-courtcases-offence, \
+    .field-courtcases-legal_officer,\
+    .field-courtcases-counsellor').hide();
+
+    $('#courtcases-offence_id').on('change', function(){
+        if(this.value == 0){
+            $('.field-courtcases-offence').fadeIn('slow');
+        }else{
+            $('.field-courtcases-offence').fadeOut('slow');
+        }
+    });
+
+    $('#courtcases-legal_officer_id').on('change', function(){
+        if(this.value == 0){
+            $('.field-courtcases-legal_officer').fadeIn('slow');
+        }else{
+            $('.field-courtcases-legal_officer').fadeOut('slow');
+        }
+    });
+
+    $('#courtcases-counsellor_id').on('change', function(){
+        if(this.value == 0){
+            $('.field-courtcases-counsellor').fadeIn('slow');
+        }else{
+            $('.field-courtcases-counsellor').fadeOut('slow');
+        }
+    });
 
     $('#courtcases-no_of_refugees').on('focusout', function(e){
         if(e.target.value > 1){

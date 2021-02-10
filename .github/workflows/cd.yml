@@ -33,13 +33,6 @@ jobs:
       #- name: update the server packages
         #run: sudo yum update -y
 
-      #Run migrations
-      - name: Running yii migrations
-        run: |
-          echo Running migrations
-          php yii migrate
-
-
       # Runs composer install to add or update dependancies
       - name: Install dependancies via composer
         run: |

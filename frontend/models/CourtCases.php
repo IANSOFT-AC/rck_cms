@@ -60,8 +60,8 @@ class CourtCases extends \yii\db\ActiveRecord
     {
         return [
             [['no_of_refugees', 'court_proceeding_id', 'legal_officer_id', 'counsellor_id', 'court_case_category_id', 'court_case_subcategory_id', 'refugee_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['first_instance_interview'],'string'],
-            [['name', 'offence', 'case_status','date_of_arrainment','next_court_date','magistrate'], 'string', 'max' => 255],
+            [['first_instance_interview','counsellor','legal_officer'],'string'],
+            [['name', 'offence', 'case_status','date_of_arrainment','next_court_date','magistrate','counsellor','legal_officer'], 'string', 'max' => 255],
             [['counsellor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Counsellors::className(), 'targetAttribute' => ['counsellor_id' => 'id']],
             [['court_case_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => CourtCaseCategory::className(), 'targetAttribute' => ['court_case_category_id' => 'id']],
             [['court_case_subcategory_id'], 'exist', 'skipOnError' => true, 'targetClass' => CourtCaseSubcategory::className(), 'targetAttribute' => ['court_case_subcategory_id' => 'id']],
@@ -83,6 +83,7 @@ class CourtCases extends \yii\db\ActiveRecord
             'no_of_refugees' => 'No Of Refugees',
             'name' => 'Name',
             'offence' => 'Offence',
+            'offence_id' => 'Offence',
             'first_instance_interview' => 'First Instance Interview',
             'magistrate' => 'Magistrate',
             'court_proceeding_id' => 'Nature of Proceeding',
@@ -91,6 +92,8 @@ class CourtCases extends \yii\db\ActiveRecord
             'next_court_date' => 'Next Court Date',
             'legal_officer_id' => 'Legal Officer',
             'counsellor_id' => 'Counsellor',
+            'legal_officer' => 'Legal Officer Names',
+            'counsellor' => 'Counsellor Names',
             'refugee_id' => 'Client',
             'court_case_category_id' => 'Court Case Category',
             'court_case_subcategory_id' => 'Court Case Subcategory',
@@ -108,14 +111,37 @@ class CourtCases extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 
+    //Other fields for updating
+    public function beforeValidate(){
+        if (parent::beforeValidate()) {
+            //Nullify the values if the value is other for the following fields
+            $this->offence_id = ($this->offence_id == 0) ? null : $this->offence_id;
+            $this->counsellor_id = ($this->counsellor_id == 0) ? null : $this->counsellor_id;             
+            $this->legal_officer_id = ($this->legal_officer_id == 0) ? null : $this->legal_officer_id;
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Gets query for [[Counsellor]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCounsellor()
+    public function getRCounsellor()
     {
         return $this->hasOne(Counsellors::className(), ['id' => 'counsellor_id']);
+    }
+
+    /**
+     * Gets query for [[Offence]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getROffence()
+    {
+        return $this->hasOne(Offence::className(), ['id' => 'offence_id']);
     }
 
     /**
@@ -153,7 +179,7 @@ class CourtCases extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLegalOfficer()
+    public function getRLegalOfficer()
     {
         return $this->hasOne(Lawyer::className(), ['id' => 'legal_officer_id']);
     }
