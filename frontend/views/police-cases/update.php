@@ -19,7 +19,8 @@ $this->params['breadcrumbs'][] = $model->name;
     <?= $this->render('_form', [
         'model' => $model,
         'policeStations' => $policeStations,
-        'offences' => $offences
+        'offences' => $offences,
+        'refugee_id' => $model->refugee_id
     ]) ?>
 
 </div>

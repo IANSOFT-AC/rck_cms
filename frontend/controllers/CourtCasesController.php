@@ -95,11 +95,19 @@ class CourtCasesController extends Controller
         $model = new UploadForm();
 
         if (Yii::$app->request->isPost) {
+            $rst = 5;
+            
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if($model->imageFile){
+                $rst = $model->upload("court_cases", Yii::$app->request->post()['id'], Yii::$app->request->post()['court_upload_id']); 
+            }   
 
-            $rst = $model->upload("court_cases", Yii::$app->request->post()['id'], Yii::$app->request->post()['court_upload_id'] );
+            $model->multipleFiles = UploadedFile::getInstances($model, 'multipleFiles');
+            if($model->multipleFiles){
+                $rst = $model->multipleUpload("court_cases", Yii::$app->request->post()['id'], 0);
+            }
 
-            if ($rst) {
+            if ($rst == true) {
                 //Yii::$app->session->setFlash('success', "You have successfully uploaded the files and created a record");
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 Yii::$app->response->statusCode = 200;
@@ -299,7 +307,6 @@ class CourtCasesController extends Controller
                 'created_at' => date("H:ia l M j, Y",$case['created_at'])
             ];
         }
-
         return $result;
     }
 }

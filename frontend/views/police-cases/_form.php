@@ -59,6 +59,11 @@ use app\models\Lawyer;
 
                     <?= $form->field($model, 'first_instance_interview')->textarea() ?>
 
+                    <?php 
+                    if($refugee_id){
+                        echo $form->field($model, 'refugee_id')->hiddenInput(['value' => $refugee_id ])->label(false); 
+                    }
+                    ?>
 
                 </div>
             </div>

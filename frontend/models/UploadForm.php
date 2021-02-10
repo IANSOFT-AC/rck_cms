@@ -95,6 +95,13 @@ class UploadForm extends Model
             $d->filename = $filename;
             $rst = $d->save();
             return $rst;
+        }else if($model == "court_cases"){
+            $d = new CourtDocsUploads();
+            $d->doc_path = $BasePath.$filename;
+            $d->court_case_id = $model_id;
+            $d->filename = $filename;
+            $rst = $d->save();
+            return $rst;
         }
     }
 
