@@ -37,7 +37,7 @@ jobs:
       - name: Running yii migrations
         run: |
           echo Running migrations
-          yii migrate
+          php yii migrate
 
 
       # Runs composer install to add or update dependancies
