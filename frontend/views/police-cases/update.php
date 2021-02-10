@@ -8,9 +8,9 @@ use yii\helpers\Html;
 $this->title = Yii::t('app', 'Update Police Cases: {name}', [
     'name' => $model->name,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Police Cases'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = is_null($model->refugee_id) ? null : ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $model->refugee_id]];
+$this->params['breadcrumbs'][] = is_null($model->refugee_id) ? ['label' => 'Police Cases', 'url' => ['index']] : ['label' => 'Police Cases', 'url' => ['client', 'id' => $model->refugee_id]];
+$this->params['breadcrumbs'][] = $model->name;
 ?>
 <div class="police-cases-update">
 
@@ -18,9 +18,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
-        'lawyers' => $lawyers,
         'policeStations' => $policeStations,
-        'refugees' => $refugees
+        'offences' => $offences
     ]) ?>
 
 </div>

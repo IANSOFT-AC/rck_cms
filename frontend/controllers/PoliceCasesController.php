@@ -61,11 +61,19 @@ class PoliceCasesController extends Controller
         $model = new UploadForm();
 
         if (Yii::$app->request->isPost) {
+            $rst = 5;
+            
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if($model->imageFile){
+                $rst = $model->upload("police_cases", Yii::$app->request->post()['id'], Yii::$app->request->post()['police_upload_id']); 
+            }   
 
-            $rst = $model->upload("police_cases", Yii::$app->request->post()['id'], Yii::$app->request->post()['police_upload_id']);
+            $model->multipleFiles = UploadedFile::getInstances($model, 'multipleFiles');
+            if($model->multipleFiles){
+                $rst = $model->multipleUpload("police_cases", Yii::$app->request->post()['id'], 0);
+            }
 
-            if ($rst) {
+            if ($rst == true) {
                 //Yii::$app->session->setFlash('success', "You have successfully uploaded the files and created a record");
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 Yii::$app->response->statusCode = 200;
@@ -85,10 +93,21 @@ class PoliceCasesController extends Controller
     public function actionList()
     {
         $cases = PoliceCases::find()
-            ->joinWith('policeStation')
+            ->joinWith('rPoliceStation')
+            ->joinWith('rOffence')
             ->asArray()
             ->all();
 
+        foreach ($cases as $key => $value) {
+            # code...
+            // if(isset($value['organizer_id'])){
+            //     $cases[$key]['organizer'] = $cases[$key]['rOrganizer']['name'];
+            // }
+        }
+
+        // echo "<pre>";
+        // print_r($cases);
+        // exit();
         
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $this->prepareDatatable($cases);
@@ -101,7 +120,8 @@ class PoliceCasesController extends Controller
             ->where([
                 'police_cases.refugee_id'=>$id
             ])
-            ->joinWith('policeStation')
+            ->joinWith('rPoliceStation')
+            ->joinWith('rOffence')
             ->asArray()
             ->all();
 
@@ -173,17 +193,18 @@ class PoliceCasesController extends Controller
             return $this->redirect(['files', 'id' => $model->id]);
         }
 
+        $refugee_id = is_null(Yii::$app->request->get('id')) ? null : Yii::$app->request->get('id');
+
         $policeStationsArray = ArrayHelper::map(Policestation::find()->all(), 'id', 'name');
-        $lawyersArray = ArrayHelper::map(Lawyer::find()->all(), 'id', 'full_names');
-        $refugees = ArrayHelper::map(Refugee::find()->all(), 'id', 'fullNames');
         $offences = ArrayHelper::map(Offence::find()->all(), 'id', 'name');
+        $policeStationsArray[0] = 'other';
+        $offences[0] = 'other';
 
         return $this->render('create', [
             'model' => $model,
-            'lawyers' => $lawyersArray,
             'policeStations' => $policeStationsArray,
-            'refugees' => $refugees,
-            'offences' => $offences
+            'offences' => $offences,
+            'refugee_id' => $refugee_id
         ]);
     }
 
@@ -220,15 +241,13 @@ class PoliceCasesController extends Controller
         }
 
         $policeStationsArray = ArrayHelper::map(Policestation::find()->all(), 'id', 'name');
-        $lawyersArray = ArrayHelper::map(Lawyer::find()->all(), 'id', 'full_names');
-        $refugees = ArrayHelper::map(Refugee::find()->all(), 'id', 'fullNames');
         $offences = ArrayHelper::map(Offence::find()->all(), 'id', 'name');
+        $policeStationsArray[0] = 'other';
+        $offences[0] = 'other';
 
         return $this->render('update', [
             'model' => $model,
-            'lawyers' => $lawyersArray,
             'policeStations' => $policeStationsArray,
-            'refugees' => $refugees,
             'offences' => $offences
         ]);
     }
@@ -274,9 +293,9 @@ class PoliceCasesController extends Controller
                 'gender' => $case['gender'],
                 'contacts' => $case['contacts'],
                 'age' => $case['age'],
-                'offence' => $case['offence'],
+                'offence' => is_null($case['offence_id']) ? $case['offence'] : $case['rOffence']['name'],
                 'complainant' => $case['complainant'],
-                'policeStation' => $case['policeStation']['name'],
+                'policeStation' => is_null($case['police_station_id']) ? $case['policestation'] : $case['rPoliceStation']['name'],
                 'first_instance_interview' => $case['first_instance_interview'] == 1 ? true : false,                
                 'created_at' => date("H:ia l M j, Y",$case['created_at'])
             ];

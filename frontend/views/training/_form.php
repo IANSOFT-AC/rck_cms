@@ -71,8 +71,6 @@ $script = <<<JS
             $('.field-training-organizer').fadeOut('slow');
         }
     });
-
-    
     
 JS;
 

@@ -29,7 +29,7 @@ $uploadModel = new UploadForm();
     <?php $form = ActiveForm::begin([
         'action' =>'upload',
         'method' => 'post',
-        'options' => ['enctype' => 'multipart/form-data', 'class' => 'form-inline caseFileUpload', 'id' => $value->name.'Form'],
+        'options' => ['enctype' => 'multipart/form-data', 'class' => 'form-inline caseFileUpload'],
         //'enableAjaxValidation' => true,
         //'validationUrl' => '/police_cases/upload',
     ]); ?>
@@ -37,7 +37,7 @@ $uploadModel = new UploadForm();
             <div class="custom-file m-1 col-md-9">
                 <?= $form->field($uploadModel, 'imageFile',['options' => [
             'class' => 'custom-file-label has-icon has-label'
-        ]])->fileInput([ 'accept' => '*/*', 'class' => 'custom-file-input','id' => $value->name])->label($value->desc) ?>
+        ]])->fileInput([ 'accept' => '*/*', 'class' => 'custom-file-input uploadform-imagefile','id' => $value->name])->label($value->desc) ?>
                 <input type="hidden" name="id" value="<?= $model->id?>">
                 <input type="hidden" name="police_upload_id" value="<?= $value->id ?>">
             </div>
@@ -61,7 +61,7 @@ $uploadModel = new UploadForm();
                 <div class="custom-file m-1">
                     <?= $form->field($uploadModel, 'multipleFiles[]',['options' => [
         'class' => 'custom-file-label has-icon has-label'
-    ]])->fileInput([ 'accept' => '*/*','multiple' => true, 'class' => 'custom-file-input'])->label("Other Uploads") ?>
+    ]])->fileInput([ 'accept' => '*/*','multiple' => true, 'class' => 'custom-file-input uploadform-multipleFiles'])->label("Other Uploads") ?>
                     <input type="hidden" name="id" value="<?= $model->id?>">
                 </div>
                 <div class="form-group mx-sm-3 mb-2 mt-3 col-md-12 pull-right">

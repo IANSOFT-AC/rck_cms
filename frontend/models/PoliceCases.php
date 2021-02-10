@@ -55,12 +55,13 @@ class PoliceCases extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['police_station_id', 'offence', 'complainant'], 'required'],
-            [['first_instance_interview'],'string'],
+            [['complainant','gender','age','name'], 'required'],
+            [['first_instance_interview','policestation'],'string'],
             [['police_station_id','refugee_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name', 'gender', 'contacts', 'age', 'investigating_officer', 'ob_number', 'ob_details', 'offence', 'complainant'], 'string', 'max' => 255],
             [['investigating_officer_contacts'], 'string', 'max' => 100],
             [['police_station_id'], 'exist', 'skipOnError' => true, 'targetClass' => Policestation::className(), 'targetAttribute' => ['police_station_id' => 'id']],
+            [['offence_id'], 'exist', 'skipOnError' => true, 'targetClass' => Offence::className(), 'targetAttribute' => ['offence_id' => 'id']],
         ];
     }
 
@@ -88,7 +89,20 @@ class PoliceCases extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'policestation' => 'Police Station',
+            'offence_id' => 'Offence ID'
         ];
+    }
+
+    //Other fields for updating
+    public function beforeValidate(){
+        if (parent::beforeValidate()) {
+            //Nullify the values if the value is other for the following fields
+            $this->offence_id = ($this->offence_id == 0) ? null : $this->offence_id;            
+            $this->police_station_id = ($this->police_station_id == 0) ? null : $this->police_station_id;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -106,9 +120,20 @@ class PoliceCases extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPoliceStation()
+    public function getRPoliceStation()
     {
         return $this->hasOne(Policestation::className(), ['id' => 'police_station_id']);
+    }
+
+    /**
+     * Gets query for [[Offence]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getROffence()
+    {
+        return $this->hasOne(Offence::className(), ['id' => 'offence_id']);
     }
 
     /**

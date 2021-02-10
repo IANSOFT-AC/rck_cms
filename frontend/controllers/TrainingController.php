@@ -48,14 +48,10 @@ class TrainingController extends Controller
             ->asArray()
             ->all();
             
-        $newCases=[];
         foreach ($cases as $key => $value) {
             # code...
             if(isset($value['organizer_id'])){
                 $cases[$key]['organizer'] = $cases[$key]['rOrganizer']['name'];
-                $newCases[$key] = $cases[$key];
-            }else{
-                $newCases[$key] = $cases[$key];
             }
         }
 

@@ -733,9 +733,10 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                 Breadcrumbs::widget([
                                 'itemTemplate' => "<li class=\"breadcrumb-item\"><i>{link}</i></li>\n", // template for all links
                                 'homeLink' => [
-                                'label' => Yii::t('yii', 'Home'),
-                                'url' => Yii::$app->homeUrl,
+                                    'label' => Yii::t('yii', 'Home'),
+                                    'url' => Yii::$app->homeUrl,
                                 ],
+                                'activeItemTemplate' => "<li class=\"breadcrumb-item active\" aria-current=\"page\">{link}</li>\n",
                                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                                 ])
                                 ?>

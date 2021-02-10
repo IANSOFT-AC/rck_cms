@@ -8,8 +8,9 @@ use app\models\PoliceCases;
 /* @var $model app\models\PoliceCases */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Police Cases'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
+is_null($model->refugee_id) ? null : $this->params['breadcrumbs'][] = ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $model->refugee_id]];
+$this->params['breadcrumbs'][] = is_null($model->refugee_id) ? ['label' => 'Police Cases', 'url' => ['index']] : ['label' => 'Police Cases', 'url' => ['client', 'id' => $model->refugee_id]];
+$this->params['breadcrumbs'][] = ['label' => $this->title];
 yii\web\YiiAsset::register($this);
 
 ?>
@@ -67,7 +68,7 @@ yii\web\YiiAsset::register($this);
                         <strong data-speechify-sentence=""> Police Station</strong>
 
                         <p class="text-muted" data-speechify-sentence="">
-                            <?= $model->policeStation->name ?>
+                            <?= ($model->police_station_id) ? $model->rPoliceStation->name : $model->policestation ?>
                         </p>
                         <hr>
                     </div>  
@@ -107,7 +108,7 @@ yii\web\YiiAsset::register($this);
                         <strong data-speechify-sentence=""> Offence</strong>
 
                         <p class="text-muted" data-speechify-sentence="">
-                            <?= $model->offence ?>
+                            <?= ($model->offence_id) ? $model->rOffence->name : $model->offence ?>
                         </p>
                         <hr>
                     </div>  
@@ -152,7 +153,7 @@ yii\web\YiiAsset::register($this);
                     foreach ($model->uploads as $file) {
                     ?>
                         <div class="col-md-6">
-                            <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= $file->policeUploads->name ?></strong>
+                            <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= ($file->policeUploads) ? $file->policeUploads->name : "Other" ?></strong>
 
                             <p class="text-muted" data-speechify-sentence="">
                                 <?= Html::a('Preview Document: '.$file->filename, ['/uploads/police_cases/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>

@@ -9,9 +9,6 @@ use app\models\Lawyer;
 /* @var $this yii\web\View */
 /* @var $model app\models\PoliceCases */
 /* @var $form yii\widgets\ActiveForm */
-$this->registerCssFile("https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-], 'css-select-picker');
 ?>
 
 <div class="police-cases-form">
@@ -39,7 +36,9 @@ $this->registerCssFile("https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/di
                     <?= $form->field($model, 'police_station_id')->dropDownList($policeStations,
                         ['prompt'=> '-- Select Police Station --']) ?>
 
-                    <?= $form->field($model, 'investigating_officer')->textInput(['maxlength' => true])->label('Names ofInvestigation Officer') ?>
+                    <?= $form->field($model, 'policestation')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'investigating_officer')->textInput(['maxlength' => true])->label('Names of Investigation Officer') ?>
                         
                     <?= $form->field($model, 'investigating_officer_contacts')->textInput(['maxlength' => true]) ?>
 
@@ -51,21 +50,17 @@ $this->registerCssFile("https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/di
 
                     <?= $form->field($model, 'ob_details')->textarea() ?>
 
-                    <?= $form->field($model, 'offence')->dropDownList($offences,
+                    <?= $form->field($model, 'offence_id')->dropDownList($offences,
                             ['prompt' => '-- Choose Offence --']) ?>
+
+                    <?= $form->field($model, 'offence')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'complainant')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'first_instance_interview')->textarea() ?>
 
-                    <?= $form->field($model, 'refugee_id')->dropDownList($refugees,
-                            ['prompt' => '-- Choose Client --','data-live-search' => 'true' ]) ?>
 
                 </div>
-
-
-
-                
             </div>
         </div>
 
@@ -80,19 +75,34 @@ $this->registerCssFile("https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/di
     </div>
 
     <?php ActiveForm::end();
-    $this->registerJsFile(
-        'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js',
-        ['depends' => [\yii\web\JqueryAsset::className()]]
-    ); ?>
+     ?>
 
 </div>
 
 <?php
-$script = <<<JS
 
-    $('#policecases-refugee_id').selectpicker();
+$script = <<<JS
+    //Hide fields initially
+    $('.field-policecases-policestation, .field-policecases-offence').hide()
+
+    $('#policecases-police_station_id').on('change', function(){
+        if(this.value == 0){
+            $('.field-policecases-policestation').fadeIn('slow');
+        }else{
+            $('.field-policecases-policestation').fadeOut('slow');
+        }
+    });
+
+    $('#policecases-offence_id').on('change', function(){
+        if(this.value == 0){
+            $('.field-policecases-offence').fadeIn('slow');
+        }else{
+            $('.field-policecases-offence').fadeOut('slow');
+        }
+    });
     
 JS;
 
 $this->registerJs($script);
-?>
+
+

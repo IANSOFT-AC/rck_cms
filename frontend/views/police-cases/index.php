@@ -10,16 +10,20 @@ use yii\helpers\Url;
 
 $this->title = Yii::t('app', 'Police Cases');
 isset($refugee_id) ? $this->params['breadcrumbs'][] = ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $refugee_id]] : null ;
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
+$this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 <div class="police-cases-index">
-
     <div class="card">
         <div class="card-header">
             <h1 class="header-title"><?= Html::encode($this->title) ?></h1>
-
             <p>
-                <?= Html::a('Create Police Case', ['create'], ['class' => 'btn btn-success']) ?>
+                <?php
+                if(isset($refugee_id)){
+                    echo Html::a('Add Police Case', ['create','id'=> $refugee_id], ['class' => 'btn btn-success']);
+                }else{
+                    echo Html::a('Add Police Case', ['create'], ['class' => 'btn btn-success']);
+                } 
+                ?>
 
                 <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
             </p>
@@ -29,10 +33,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
                 
             </table>
         </div>
-
     </div>
-
-
 </div>
 
 <div class="service-container" data-viewurl="<?= Url::to(['police-cases/view']); ?>" data-editurl="<?= Url::to(['police-cases/update']); ?>" data-ajaxurl=<?= isset($refugee_id) ? "/police-cases/client-list?id=".$refugee_id : "/police-cases/list" ?> >
@@ -47,8 +48,8 @@ $script = <<<JS
         var container = $(this);
         viewUrl = container.data('viewurl');
         editUrl = container.data('editurl');
-        ajaxUrl = container.data('ajaxurl')
-        console.log(ajaxUrl)
+        ajaxUrl = container.data('ajaxurl');
+        console.log(ajaxUrl);
     });
 
     $('#police_cases').DataTable({

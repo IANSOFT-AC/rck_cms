@@ -21,7 +21,7 @@ class m210112_100944_create_police_cases_table extends Migration
             'gender' => $this->string(),
             'contacts' => $this->string(),
             'age' => $this->string(),
-            'police_station_id' => $this->integer()->notNull(),
+            'police_station_id' => $this->integer(),
             'investigating_officer' => $this->string(255),
             'investigating_officer_contacts' => $this->string(100),
             'ob_number' => $this->string(),
