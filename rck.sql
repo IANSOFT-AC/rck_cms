@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2021 at 03:56 PM
+-- Generation Time: Feb 10, 2021 at 09:15 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -348,15 +348,18 @@ CREATE TABLE `court_cases` (
   `updated_at` int(11) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `refugee_id` int(11) DEFAULT NULL
+  `refugee_id` int(11) DEFAULT NULL,
+  `legal_officer` varchar(255) DEFAULT NULL,
+  `counsellor` varchar(255) DEFAULT NULL,
+  `offence_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `court_cases`
 --
 
-INSERT INTO `court_cases` (`id`, `no_of_refugees`, `name`, `offence`, `first_instance_interview`, `magistrate`, `court_proceeding_id`, `date_of_arrainment`, `case_status`, `next_court_date`, `legal_officer_id`, `counsellor_id`, `court_case_category_id`, `court_case_subcategory_id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `refugee_id`) VALUES
-(22, 1, 'wamwangi', 'sexual offence', 'qwertgh', 'kamau wa ngoroge', 2, 1610668800, 'closed', 0, 1, 1, 3, NULL, 1611324060, 1611324060, 2, 2, 2);
+INSERT INTO `court_cases` (`id`, `no_of_refugees`, `name`, `offence`, `first_instance_interview`, `magistrate`, `court_proceeding_id`, `date_of_arrainment`, `case_status`, `next_court_date`, `legal_officer_id`, `counsellor_id`, `court_case_category_id`, `court_case_subcategory_id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `refugee_id`, `legal_officer`, `counsellor`, `offence_id`) VALUES
+(22, 1, 'wamwangi', 'sexual offence', 'qwertgh', 'kamau wa ngoroge', 2, 1610668800, 'closed', 0, 1, 1, 3, NULL, 1611324060, 1611324060, 2, 2, 2, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -951,7 +954,11 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m210205_133415_add_fields_for_refugee_column_to_refugee_table', 1612532075),
 ('m210208_092443_add_column_code_to_rck_offices_table', 1612776297),
 ('m210208_092811_add_code_column_to_rck_offices_table', 1612776516),
-('m210209_090353_create_offence_table', 1612861452);
+('m210209_090353_create_offence_table', 1612861452),
+('m210210_063050_create_organizer_table', 1612938665),
+('m210210_063833_add_organizer_id_column_to_training_table', 1612939122),
+('m210210_065405_add_legal_counselor_column_to_court_cases_table', 1612940102),
+('m210210_065450_add_police_station_column_to_police_cases_table', 1612940104);
 
 -- --------------------------------------------------------
 
@@ -1026,6 +1033,29 @@ INSERT INTO `offence` (`id`, `name`, `description`, `created_at`, `updated_at`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `organizer`
+--
+
+CREATE TABLE `organizer` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `organizer`
+--
+
+INSERT INTO `organizer` (`id`, `name`, `description`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 'RCK ', 'rck office', 1612942660, 1612942660, 2, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `police`
 --
 
@@ -1087,15 +1117,17 @@ CREATE TABLE `police_cases` (
   `updated_at` int(11) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `refugee_id` int(11) DEFAULT NULL
+  `refugee_id` int(11) DEFAULT NULL,
+  `policestation` varchar(255) DEFAULT NULL,
+  `offence_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `police_cases`
 --
 
-INSERT INTO `police_cases` (`id`, `name`, `gender`, `contacts`, `age`, `police_station_id`, `investigating_officer`, `investigating_officer_contacts`, `ob_number`, `ob_details`, `offence`, `complainant`, `first_instance_interview`, `created_at`, `updated_at`, `created_by`, `updated_by`, `refugee_id`) VALUES
-(8, 'Mr. Kamau', 'male', '0710345130', '28', 1, 'korir', '0734123123', 'N009', ';olikjhgf', 'changes', 'kamau', 'wertyu', 1611322066, 1611322066, 2, 2, 2);
+INSERT INTO `police_cases` (`id`, `name`, `gender`, `contacts`, `age`, `police_station_id`, `investigating_officer`, `investigating_officer_contacts`, `ob_number`, `ob_details`, `offence`, `complainant`, `first_instance_interview`, `created_at`, `updated_at`, `created_by`, `updated_by`, `refugee_id`, `policestation`, `offence_id`) VALUES
+(8, 'Mr. Kamau', 'male', '0710345130', '28', 1, 'korir', '0734123123', 'N009', ';olikjhgf', 'changes', 'kamau', 'wertyu', 1611322066, 1611322066, 2, 2, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1764,15 +1796,19 @@ CREATE TABLE `training` (
   `created_by` int(11) DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL
+  `updated_at` int(11) DEFAULT NULL,
+  `organizer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `training`
 --
 
-INSERT INTO `training` (`id`, `organizer`, `date`, `topic`, `venue`, `facilitators`, `no_of_participants`, `participants_scan`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(31, 'korir', 0, 'the best test', 'Karen', 'maina,\r\nmwangi', '4', '1611838188-960x0.jpg', 2, 2, 1611838188, 1611838188);
+INSERT INTO `training` (`id`, `organizer`, `date`, `topic`, `venue`, `facilitators`, `no_of_participants`, `participants_scan`, `created_by`, `updated_by`, `created_at`, `updated_at`, `organizer_id`) VALUES
+(31, 'korir', 0, 'the best test', 'Karen', 'maina,\r\nmwangi', '4', '1611838188-960x0.jpg', 2, 2, 1611838188, 1611838188, NULL),
+(33, '', 0, 'the best test', '', 'francis', '30', '1612942936-cicd.png', 2, 2, 1612942936, 1612942936, NULL),
+(34, '', 2147483647, 'the best test', 'Karen', 'francies', '30', '1612943251-design test.png', 2, 2, 1612943251, 1612943251, 1),
+(35, '', 2147483647, 'the best test', 'Karen', 'francies', '30', '1612943267-design test.png', 2, 2, 1612943267, 1612943267, 1);
 
 -- --------------------------------------------------------
 
@@ -1796,7 +1832,10 @@ CREATE TABLE `training_upload` (
 --
 
 INSERT INTO `training_upload` (`id`, `doc_path`, `filename`, `training_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(7, '/uploads/multiple/training/1611838188-code-1.jpg.optimal.jpg', '1611838188-code-1.jpg.optimal.jpg', 31, NULL, NULL, NULL, NULL);
+(7, '/uploads/multiple/training/1611838188-code-1.jpg.optimal.jpg', '1611838188-code-1.jpg.optimal.jpg', 31, NULL, NULL, NULL, NULL),
+(8, '/uploads/multiple/training/1612942936-code-1.jpg.optimal.jpg', '1612942936-code-1.jpg.optimal.jpg', 33, NULL, NULL, NULL, NULL),
+(9, '/uploads/multiple/training/1612943267-code-1.jpg.optimal.jpg', '1612943267-code-1.jpg.optimal.jpg', 35, NULL, NULL, NULL, NULL),
+(10, '/uploads/multiple/training/1612943267-design test.png', '1612943267-design test.png', 35, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1974,7 +2013,8 @@ ALTER TABLE `court_cases`
   ADD KEY `idx-court_cases-counsellor_id` (`counsellor_id`),
   ADD KEY `idx-court_cases-court_case_category_id` (`court_case_category_id`),
   ADD KEY `idx-court_cases-court_case_subcategory_id` (`court_case_subcategory_id`),
-  ADD KEY `idx-court_cases-refugee_id` (`refugee_id`);
+  ADD KEY `idx-court_cases-refugee_id` (`refugee_id`),
+  ADD KEY `idx-court_cases-offence_id` (`offence_id`);
 
 --
 -- Indexes for table `court_case_category`
@@ -2133,6 +2173,12 @@ ALTER TABLE `offence`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `organizer`
+--
+ALTER TABLE `organizer`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `police`
 --
 ALTER TABLE `police`
@@ -2151,7 +2197,8 @@ ALTER TABLE `policestation`
 ALTER TABLE `police_cases`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx-police_cases-police_station_id` (`police_station_id`),
-  ADD KEY `idx-police_cases-refugee_id` (`refugee_id`);
+  ADD KEY `idx-police_cases-refugee_id` (`refugee_id`),
+  ADD KEY `idx-police_cases-offence_id` (`offence_id`);
 
 --
 -- Indexes for table `police_case_proceeding`
@@ -2249,7 +2296,8 @@ ALTER TABLE `subcounties`
 -- Indexes for table `training`
 --
 ALTER TABLE `training`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx-training-organizer_id` (`organizer_id`);
 
 --
 -- Indexes for table `training_upload`
@@ -2503,6 +2551,12 @@ ALTER TABLE `offence`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `organizer`
+--
+ALTER TABLE `organizer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `police`
 --
 ALTER TABLE `police`
@@ -2602,13 +2656,13 @@ ALTER TABLE `subcounties`
 -- AUTO_INCREMENT for table `training`
 --
 ALTER TABLE `training`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `training_upload`
 --
 ALTER TABLE `training_upload`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -2658,6 +2712,7 @@ ALTER TABLE `court_cases`
   ADD CONSTRAINT `fk-court_cases-court_case_category_id` FOREIGN KEY (`court_case_category_id`) REFERENCES `court_case_category` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk-court_cases-court_case_subcategory_id` FOREIGN KEY (`court_case_subcategory_id`) REFERENCES `court_case_subcategory` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk-court_cases-legal_officer_id` FOREIGN KEY (`legal_officer_id`) REFERENCES `lawyer` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk-court_cases-offence_id` FOREIGN KEY (`offence_id`) REFERENCES `offence` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk-court_cases-refugee_id` FOREIGN KEY (`refugee_id`) REFERENCES `refugee` (`id`) ON DELETE CASCADE;
 
 --
@@ -2717,6 +2772,7 @@ ALTER TABLE `police`
 -- Constraints for table `police_cases`
 --
 ALTER TABLE `police_cases`
+  ADD CONSTRAINT `fk-police_cases-offence_id` FOREIGN KEY (`offence_id`) REFERENCES `offence` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk-police_cases-police_station_id` FOREIGN KEY (`police_station_id`) REFERENCES `policestation` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk-police_cases-refugee_id` FOREIGN KEY (`refugee_id`) REFERENCES `refugee` (`id`) ON DELETE CASCADE;
 
@@ -2754,6 +2810,12 @@ ALTER TABLE `refugee_camp`
 ALTER TABLE `refugee_docs_upload`
   ADD CONSTRAINT `fk-refugee_docs_upload-model_id` FOREIGN KEY (`model_id`) REFERENCES `refugee` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk-refugee_docs_upload-upload_id` FOREIGN KEY (`upload_id`) REFERENCES `refugee_uploads` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `training`
+--
+ALTER TABLE `training`
+  ADD CONSTRAINT `fk-training-organizer_id` FOREIGN KEY (`organizer_id`) REFERENCES `organizer` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `training_upload`

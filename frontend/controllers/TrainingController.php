@@ -4,12 +4,14 @@ namespace frontend\controllers;
 
 use Yii;
 use app\models\Training;
+use app\models\Organizer;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\UploadForm;
+use yii\helpers\ArrayHelper;
 
 /**
  * TrainingController implements the CRUD actions for Training model.
@@ -42,8 +44,20 @@ class TrainingController extends Controller
 
     public function actionList(){
         $cases = Training::find()
+            ->joinWith('rOrganizer')
             ->asArray()
             ->all();
+            
+        $newCases=[];
+        foreach ($cases as $key => $value) {
+            # code...
+            if(isset($value['organizer_id'])){
+                $cases[$key]['organizer'] = $cases[$key]['rOrganizer']['name'];
+                $newCases[$key] = $cases[$key];
+            }else{
+                $newCases[$key] = $cases[$key];
+            }
+        }
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $this->prepareDatatable($cases);
@@ -87,8 +101,12 @@ class TrainingController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $organizers = ArrayHelper::map(Organizer::find()->all(), 'id', 'name');
+        $organizers[0] = 'other';
+
         return $this->render('create', [
             'model' => $model,
+            'organizers' => $organizers
         ]);
     }
 
@@ -116,8 +134,12 @@ class TrainingController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $organizers = ArrayHelper::map(Organizer::find()->all(), 'id', 'name');
+        $organizers[0] = 'other';
+
         return $this->render('update', [
             'model' => $model,
+            'organizers' => $organizers
         ]);
     }
 

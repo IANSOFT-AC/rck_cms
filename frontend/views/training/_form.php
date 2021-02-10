@@ -9,17 +9,17 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="training-form">
-    <div class="card">
-        <div class="card-body">
+
 
             <?php $form = ActiveForm::begin(); ?>
 
             <div class="row">
                 <div class="col-md-6">
+                    <?= $form->field($model, 'organizer_id')->dropDownList($organizers,['prompt' => '-- Select Organizer? --']) ?>
                     <?= $form->field($model, 'organizer')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'date')->textInput(['type' => 'date']) ?>
+                    <?= $form->field($model, 'date')->textInput(['type' => 'date','class' => 'form-control no-past']) ?>
                 </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'topic')->textInput(['maxlength' => true]) ?>
@@ -54,7 +54,26 @@ use yii\widgets\ActiveForm;
             </div>
 
             <?php ActiveForm::end(); ?>
-        </div>
-    </div>
 
 </div>
+<?php
+
+
+$script = <<<JS
+
+    //Hide fields initially
+    $('.field-training-organizer').hide()
+
+    $('#training-organizer_id').on('change', function(){
+        if(this.value == 0){
+            $('.field-training-organizer').fadeIn('slow');
+        }else{
+            $('.field-training-organizer').fadeOut('slow');
+        }
+    });
+
+    
+    
+JS;
+
+$this->registerJs($script);

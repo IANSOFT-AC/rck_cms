@@ -7,7 +7,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 
 /**
- * This is the model class for table "offence".
+ * This is the model class for table "organizer".
  *
  * @property int $id
  * @property string|null $name
@@ -17,14 +17,14 @@ use yii\behaviors\BlameableBehavior;
  * @property int|null $created_by
  * @property int|null $updated_by
  */
-class Offence extends \yii\db\ActiveRecord
+class Organizer extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'offence';
+        return 'organizer';
     }
 
     public function behaviors()

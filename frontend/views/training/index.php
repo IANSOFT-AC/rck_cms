@@ -56,7 +56,7 @@ $script = <<<JS
             {title : 'Organizer', data: 'organizer'},
             {title : 'Date', data: 'date'},
             {title : 'Topic', data: 'topic'},
-            {title : 'Vanue', data: 'venue'},
+            {title : 'Venue', data: 'venue'},
             {title : 'Facilitators', data: 'facilitators'},
             {title : 'No. of participants', data: 'no_of_participants'},
             {title : 'Created At', data: 'created_at'},

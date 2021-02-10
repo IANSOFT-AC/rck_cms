@@ -152,6 +152,13 @@ $this->title = "RCK: Control Panel";
 	                    </p>
 	                    <br>
 	                </div>
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b> Offences Settings</b>',['offence/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
 	            </div>
 	        </div>
 	    </div>
@@ -175,6 +182,13 @@ $this->title = "RCK: Control Panel";
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
 	                    	<?= Html::a('<b>Police Station Settings</b>',['policestation/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b> Offences Settings</b>',['offence/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
@@ -208,6 +222,13 @@ $this->title = "RCK: Control Panel";
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
 	                    	<?= Html::a('<b> Intervention Uploads Settings</b>',['intervention-upload/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b> Organizer Settings</b>',['organizer/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>

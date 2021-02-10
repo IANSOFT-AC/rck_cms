@@ -50,17 +50,29 @@ class Training extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['no_of_participants','topic', 'venue','date'],'required'],
+            [['organizer_id', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['facilitators', 'no_of_participants','date'], 'string'],
             [['organizer', 'topic', 'venue', 'participants_scan'], 'string', 'max' => 255],
+            [['organizer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organizer::className(), 'targetAttribute' => ['organizer_id' => 'id']],
         ];
     }
 
      public function beforeSave($insert)
     {
         $this->date = strtotime($this->date);
-        echo $this->date;
+        //echo $this->date;
         return parent::beforeSave($insert);
+    }
+
+    //Other fields for updating
+    public function beforeValidate(){
+        if (parent::beforeValidate()) {
+            //Nullify the values if the value is other for the following fields
+            $this->organizer_id = ($this->organizer_id == 0) ? null : $this->organizer_id;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -70,12 +82,13 @@ class Training extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'organizer' => 'Organizer',
+            'organizer' => 'Organizer Name',
             'date' => 'Date',
             'topic' => 'Topic',
             'venue' => 'Venue',
+            'organizer_id' => 'Organizer ID',
             'facilitators' => 'Facilitators',
-            'no_of_participants' => 'No Of Participants',
+            'no_of_participants' => 'Participants List',
             'participants_scan' => 'Participants Scan',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
@@ -92,5 +105,10 @@ class Training extends \yii\db\ActiveRecord
     public function getTrainingUploads()
     {
         return $this->hasMany(TrainingUpload::className(), ['training_id' => 'id']);
+    }
+
+    public function getROrganizer()
+    {
+        return $this->hasOne(Organizer::className(), ['id' => 'organizer_id']);
     }
 }
