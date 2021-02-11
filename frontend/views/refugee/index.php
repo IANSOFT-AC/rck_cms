@@ -7,8 +7,8 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\RefugeeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Clients Biodata';
-$this->params['breadcrumbs'][] = ['label' => 'Client Biodata List', 'url' => 'index'];
+$this->title = 'Clients';
+$this->params['breadcrumbs'][] = ['label' => 'Client List', 'url' => 'index'];
 ?>
 <div class="row">
 
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Client Biodata List', 'url' => 'in
                 <h1 class="header-title"><?= Html::encode($this->title) ?></h1><br>
 
                 <p>
-                    <?= Html::a('Create Client Biodata', ['create'], ['class' => 'btn btn-success']) ?>
+                    <?= Html::a('Create Client', ['create'], ['class' => 'btn btn-success']) ?>
                     <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
                 </p>
             </div>

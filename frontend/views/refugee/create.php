@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Refugee */
 
 $this->title = 'Add Client Biodata';
-$this->params['breadcrumbs'][] = ['label' => 'Client Biodata List', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Refugee Bio Data', 'url' => ['create']];
+$this->params['breadcrumbs'][] = ['label' => 'Client List', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['create']];
 ?>
 <div class="refugee-create">
 

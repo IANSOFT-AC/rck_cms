@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Refugee */
 
-$this->title = 'Update Client BioData: ' . $model->fullNames;
-$this->params['breadcrumbs'][] = ['label' => 'Client Biodata', 'url' => ['index']];
+$this->title = 'Update Client: ' . $model->fullNames;
+$this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
