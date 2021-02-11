@@ -74,6 +74,7 @@ class CourtCasesController extends Controller
     {
         $uploads = CourtUploads::find()->all();
         $model = $this->findModel($id);
+        $categoryUploads = CourtCaseSubcategory::find()->where(['category_id' => $model->court_case_category_id])->all();
         
 
         //HANDLE POST OF FILES.
@@ -83,7 +84,8 @@ class CourtCasesController extends Controller
 
         return $this->render('files', [
             'list' => $uploads,
-            'model' => $model
+            'model' => $model,
+            'categoryUploads' => $categoryUploads
         ]);
     }
 
@@ -99,8 +101,13 @@ class CourtCasesController extends Controller
             
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if($model->imageFile){
-                $rst = $model->upload("court_cases", Yii::$app->request->post()['id'], Yii::$app->request->post()['court_upload_id']); 
-            }   
+                //Edit here to accomodate subcategory uploads
+                if(isset(Yii::$app->request->post()['court_upload_id'])){
+                    $rst = $model->upload("court_cases", Yii::$app->request->post()['id'], Yii::$app->request->post()['court_upload_id']); 
+                }else if(isset(Yii::$app->request->post()['subcat_upload_id'])){
+                    $rst = $model->upload("court_cases", Yii::$app->request->post()['id'], Yii::$app->request->post()['subcat_upload_id'], 'subcat'); 
+                }
+            }
 
             $model->multipleFiles = UploadedFile::getInstances($model, 'multipleFiles');
             if($model->multipleFiles){
@@ -207,6 +214,8 @@ class CourtCasesController extends Controller
             return $this->redirect(['files', 'id' => $model->id]);
         }
 
+        $refugee_id = is_null(Yii::$app->request->get('id')) ? null : Yii::$app->request->get('id');
+
         $natureOfProceedings = ArrayHelper::map(NatureOfProceeding::find()->all(), 'id', 'name');
         $lawyers = ArrayHelper::map(Lawyer::find()->all(), 'id', 'full_names');
         $counsellors = ArrayHelper::map(Counsellors::find()->all(), 'id', 'counsellor');
@@ -224,7 +233,8 @@ class CourtCasesController extends Controller
             'counsellors' => $counsellors,
             'courtCaseCategories' => $courtCaseCategories,
             'refugees' => $refugees,
-            'offences' => $offences
+            'offences' => $offences,
+            'refugee_id' => $refugee_id
         ]);
     }
 

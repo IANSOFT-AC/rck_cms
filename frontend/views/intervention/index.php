@@ -22,9 +22,7 @@ $this->params['breadcrumbs'][] = ['label' => 'interventions', 'url' => 'index'];
     <p>
         <?php
         if(isset($refugee_id)){
-            echo Html::a('Create Intervention', ['create','id'=> $refugee_id], ['class' => 'btn btn-success']);
-        }else{
-            echo Html::a('Create Intervention', ['create'], ['class' => 'btn btn-success']);
+            echo Html::a('Add Intervention', ['create','id'=> $refugee_id], ['class' => 'btn btn-success']);
         } ?>
 
         <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>

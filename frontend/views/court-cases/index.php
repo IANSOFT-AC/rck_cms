@@ -9,7 +9,7 @@ use yii\helpers\Url;
 
 $this->title = Yii::t('app', 'Court Cases');
 isset($refugee_id) ? $this->params['breadcrumbs'][] = ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $refugee_id]] : null ;
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
+$this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 <div class="court-cases-index">
 
@@ -18,7 +18,13 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
             <h1 class="header-title"><?= Html::encode($this->title) ?></h1>
 
             <p>
-                <?= Html::a(Yii::t('app', 'Create Court Cases'), ['create'], ['class' => 'btn btn-success']) ?>
+            <?php
+                if(isset($refugee_id)){
+                    echo Html::a('Add Court Case', ['create','id'=> $refugee_id], ['class' => 'btn btn-success']);
+                }else{
+                    echo Html::a('Add Court Case', ['create'], ['class' => 'btn btn-success']);
+                } 
+                ?>
             </p>
         </div>
         <div class="card-body">

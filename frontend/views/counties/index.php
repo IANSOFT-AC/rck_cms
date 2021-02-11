@@ -11,31 +11,35 @@ $this->title = 'Counties';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="counties-index">
+    <div class="card">
+        <div class="card-header">
+            <h1><?= Html::encode($this->title) ?></h1>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+            <p>
+                <?= Html::a('Create Counties', ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
+        </div>
+        <div class="card-body">
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-    <p>
-        <?= Html::a('Create Counties', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+                    'CountyID',
+                    'CountyName',
+                    'Notes:ntext',
+                    'RegionID',
+                    'CreatedDate',
+                    //'CreatedBy',
+
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+            ]); ?>
+        </div>
+    </div>
+
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'CountyID',
-            'CountyName',
-            'Notes:ntext',
-            'RegionID',
-            'CreatedDate',
-            //'CreatedBy',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
 
 </div>

@@ -48,6 +48,41 @@ $uploadModel = new UploadForm();
     <?php
        }
     ?>
+
+
+
+       <!-- category specific uploads -->
+       <?php
+        foreach ($categoryUploads as $key => $value) {
+            # code...
+        ?>
+        <?php $form = ActiveForm::begin([
+            'action' =>'upload',
+            'method' => 'post',
+            'options' => ['enctype' => 'multipart/form-data', 'class' => 'form-inline caseFileUpload']
+        ]); ?>
+
+                <div class="row container-fluid">
+                    <div class="custom-file m-1 col-md-9">
+                        <?= $form->field($uploadModel, 'imageFile',['options' => [
+                    'class' => 'custom-file-label has-icon has-label'
+                ]])->fileInput([ 'accept' => '*/*', 'class' => 'custom-file-input uploadform-imagefile','id' => $value->name])->label($value->name) ?>
+                        <input type="hidden" name="id" value="<?= $model->id?>">
+                        <input type="hidden" name="subcat_upload_id" value="<?= $value->id ?>">
+                    </div>
+                    <div class="pull-right col-md-2">
+                    <?= Html::submitButton(Yii::t('app', 'Upload and Finish'), ['class' => 'btn btn-success text-center']) ?>
+                    </div>
+                </div>
+
+        <?php ActiveForm::end(); ?>
+
+        <?php
+        }
+        ?>
+
+
+
     <div class="card-footer">
         <?php $form = ActiveForm::begin([
             'action' =>'upload',

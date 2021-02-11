@@ -42,10 +42,12 @@ use kartik\select2\Select2;
 
                         <?= $form->field($model, 'court_proceeding_id')->dropDownList($natureOfProceedings,
                             ['prompt' => '-- Nature of Proceeding --']) ?>
-
-                        <?= $form->field($model, 'date_of_arrainment')->textInput(['type' => 'date']) ?>
+                        
                 </div>
                 <div class="col-md-6">
+
+                        <?= $form->field($model, 'date_of_arrainment')->textInput(['type' => 'date']) ?>
+
                         <?= $form->field($model, 'case_status')->dropDownList(['open' => 'Open', 'closed' => 'Closed'],
                             ['prompt' => '-- Select Case Status --']) ?>
 
@@ -62,18 +64,26 @@ use kartik\select2\Select2;
                         <?= $form->field($model, 'counsellor')->textInput() ?>
 
                         <?= $form->field($model, 'court_case_category_id')->dropDownList($courtCaseCategories,
-                            ['prompt' => '-- Choose Court Category --','onchange'=>'
+                            ['prompt' => '-- Choose Court Category --']) ?>
+
+                            <!--
+                                //after prompt
+                                ,'onchange'=>'
                                  $.get( "'.Url::toRoute('court-cases/catlists').'", { id: $(this).val() } )
                                                 .done(function( data )
                                        {
                                                   $( "select#courtcases-court_case_subcategory_id" ).html( data );
                                                 });
-                                            ']) ?>
+                                            '
+                             -->
 
-                        <?= $form->field($model, 'court_case_subcategory_id')->dropDownList([],['prompt' => '--Select SubCategory']) ?>
+                        <?php $form->field($model, 'court_case_subcategory_id')->dropDownList([],['prompt' => '--Select SubCategory']) ?>
 
-                        <?= $form->field($model, 'refugee_id')->dropDownList($refugees,
-                            ['prompt' => '-- Choose Client --','data-live-search' => 'true' ]) ?>
+                        <?php 
+                            if($refugee_id){
+                                echo $form->field($model, 'refugee_id')->hiddenInput(['value' => $refugee_id ])->label(false); 
+                            }
+                        ?>
 
                 </div>
             </div>

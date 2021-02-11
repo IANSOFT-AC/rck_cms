@@ -185,12 +185,6 @@ class CourtCases extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Magistrate]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-
-    /**
      * Gets query for [[CourtDocsUploads]].
      *
      * @return \yii\db\ActiveQuery

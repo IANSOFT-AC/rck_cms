@@ -9,7 +9,8 @@ $this->title = Yii::t('app', 'Update Court Cases: {name}', [
     'name' => $model->name,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Court Cases'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = is_null($model->refugee_id) ? null : ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $model->refugee_id]];
+$this->params['breadcrumbs'][] = is_null($model->refugee_id) ? ['label' => 'Court Cases', 'url' => ['index']] : ['label' => 'Court Cases', 'url' => ['client', 'id' => $model->refugee_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="court-cases-update">

@@ -34,10 +34,18 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'no_of_participants')->textInput() ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'participants_scan')->fileInput() ?>
+                    <div class="custom-file">
+                        <?= $form->field($model, 'participants_scan',['options' => [
+                            'class' => 'custom-file-label has-icon has-label'
+                        ]])->fileInput(['class' => 'custom-file-input']) ?>
+                    </div>                    
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'photos[]')->fileInput(['multiple'=> true]) ?>
+                    <div class="custom-file">
+                        <?= $form->field($model, 'photos[]',['options' => [
+                        'class' => 'custom-file-label has-icon has-label'
+                    ]])->fileInput(['multiple'=> true, 'class' => 'custom-file-input uploadform-imagefile']) ?>
+                    </div>                    
                 </div>
 
                     <?php $form->field($model, 'created_by')->textInput() ?>

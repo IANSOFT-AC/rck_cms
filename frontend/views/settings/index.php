@@ -155,6 +155,13 @@ $this->title = "RCK: Control Panel";
 					<div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b>Court Case SubCategory Settings</b>',['court-case-subcategory/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
 	                    	<?= Html::a('<b> Offences Settings</b>',['offence/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>

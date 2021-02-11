@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
             <h1 class="header-title"><?= Html::encode($this->title) ?></h1>
 
             <p>
-                <?= Html::a(Yii::t('app', 'Create Training'), ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a(Yii::t('app', 'Add Training'), ['create'], ['class' => 'btn btn-success']) ?>
             </p>
         </div>
         <div class="card-body">

@@ -5,8 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\CourtCases */
 
-$this->title = Yii::t('app', 'Create Court Case');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Court Cases'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Add Court Case');
+$this->params['breadcrumbs'][] = is_null($refugee_id) ? null : ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $refugee_id]];
+$this->params['breadcrumbs'][] = is_null($refugee_id) ? ['label' => 'Court Cases', 'url' => ['index']] : ['label' => 'Court Cases', 'url' => ['client', 'id' => $refugee_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Create');
 ?>
 <div class="court-cases-create">
@@ -20,7 +21,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Create');
         'counsellors' => $counsellors,
         'courtCaseCategories' => $courtCaseCategories,
         'refugees' => $refugees,
-        'offences' => $offences
+        'offences' => $offences,
+        'refugee_id' => $refugee_id
     ]) ?>
 
 </div>

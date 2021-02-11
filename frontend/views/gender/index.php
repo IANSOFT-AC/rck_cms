@@ -11,7 +11,10 @@ $this->title = 'Genders';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gender-index">
-
+<div class="card">
+        <div class="card-header"></div>
+        <div class="card-body"></div>
+    </div>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

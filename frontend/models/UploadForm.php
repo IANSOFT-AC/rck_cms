@@ -23,7 +23,7 @@ class UploadForm extends Model
     }
 
     //Upload of single file
-    public function upload($model,$id,$upload_id)
+    public function upload($model, $id, $upload_id, $subcat = null)
     {
         if ($this->validate()) {
             if($this->imageFile){                
@@ -33,7 +33,7 @@ class UploadForm extends Model
 
                 $this->imageFile->saveAs($BasePath.$filename);
 
-                self::insertData($filename, $id, $upload_id, $model);
+                self::insertData($filename, $id, $upload_id, $model, $subcat);
                 return true;
             }
             else{
@@ -105,7 +105,7 @@ class UploadForm extends Model
         }
     }
 
-    public static function insertData($filename, $case_id, $uploads_id, $model){
+    public static function insertData($filename, $case_id, $uploads_id, $model, $subcat){
         $BasePath = '/uploads/'.$model.'/';
         if($model == "police_cases"){
             $doc = new PoliceDocsUpload();
@@ -115,12 +115,22 @@ class UploadForm extends Model
             $doc->police_uploads_id = $uploads_id;
             $doc->save();
         }else if($model == "court_cases"){
-            $doc = new CourtDocsUploads();
-            $doc->doc_path = $BasePath.$filename;
-            $doc->filename = $filename;
-            $doc->court_case_id = $case_id;
-            $doc->court_uploads_id = $uploads_id;
-            $doc->save();
+            if(is_null($subcat)){
+                $doc = new CourtDocsUploads();
+                $doc->doc_path = $BasePath.$filename;
+                $doc->filename = $filename;
+                $doc->court_case_id = $case_id;
+                $doc->court_uploads_id = $uploads_id;
+                $doc->save();
+            }else{
+                $doc = new CourtDocsUploads();
+                $doc->doc_path = $BasePath.$filename;
+                $doc->filename = $filename;
+                $doc->court_case_id = $case_id;
+                $doc->subcat_id = $uploads_id;
+                $doc->save();
+            }
+            
         }else if($model == "refugees"){
             $doc = new RefugeeDocsUpload();
             $doc->doc_path = $BasePath.$filename;

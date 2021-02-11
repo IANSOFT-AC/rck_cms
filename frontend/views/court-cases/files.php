@@ -16,7 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_files', [
         'list' => $list,
-        'model' => $model
+        'model' => $model,
+        'categoryUploads' => $categoryUploads
     ]) ?>
 
 </div>

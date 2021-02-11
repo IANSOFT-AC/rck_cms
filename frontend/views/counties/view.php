@@ -12,30 +12,33 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="counties-view">
+<div class="card">
+        <div class="card-header">
+            <h1><?= Html::encode($this->title) ?></h1>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->CountyID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->CountyID], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'CountyID',
-            'CountyName',
-            'Notes:ntext',
-            'RegionID',
-            'CreatedDate',
-            'CreatedBy',
-        ],
-    ]) ?>
-
+            <p>
+                <?= Html::a('Update', ['update', 'id' => $model->CountyID], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Delete', ['delete', 'id' => $model->CountyID], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </p>
+        </div>
+        <div class="card-body">
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'CountyID',
+                    'CountyName',
+                    'Notes:ntext',
+                    'RegionID',
+                    'CreatedDate',
+                    'CreatedBy',
+                ],
+            ]) ?>
+        </div>
+    </div>
 </div>

@@ -35,7 +35,34 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => 'index'];
             //'created_by',
             //'updated_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn','buttons' => [
+
+                'view' => function( $url )
+                {
+                    return Html::a('<i class="fa fa-eye"></i>', $url,[]);
+                },
+
+                'update' => function( $url )
+                {
+                    return Html::a('<i class="fa fa-edit"></i>', $url,[]);
+                },
+
+                'delete' => function( $url )
+                {
+                    return Html::a('<i class="fa fa-trash"></i>', $url,[
+
+                        'data' => [
+                            'confirm' => 'Are you sure you wanna delete this record ?',
+                            'method' => 'POST',
+                            'params' => [
+                                '_csrf-frontend' => Yii::$app->request->csrfToken
+                            ]
+
+                        ]
+                    ]);
+                }
+
+            ],],
         ],
     ]); ?>
 

@@ -7,8 +7,9 @@ use yii\widgets\DetailView;
 /* @var $model app\models\CourtCases */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Court Cases'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
+is_null($model->refugee_id) ? null : $this->params['breadcrumbs'][] = ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $model->refugee_id]];
+$this->params['breadcrumbs'][] = is_null($model->refugee_id) ? ['label' => 'Court Cases', 'url' => ['index']] : ['label' => 'Court Cases', 'url' => ['client', 'id' => $model->refugee_id]];
+$this->params['breadcrumbs'][] = ['label' => $this->title];
 
 \yii\web\YiiAsset::register($this);
 ?>
@@ -161,7 +162,15 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
                     foreach ($model->uploads as $file) {
                     ?>
                         <div class="col-md-6">
-                            <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= $file->courtUploads->name ?></strong>
+                            <strong data-speechify-sentence=""><i class="fas fa-file"></i> 
+                            <?php 
+                              if($file->courtCaseSubcategory || $file->courtUploads){
+                                echo isset($file->courtUploads) ? $file->courtUploads->desc : null ; 
+                                echo isset($file->courtCaseSubcategory) ? $file->courtCaseSubcategory->name : null ; 
+                              }else{
+                                echo "Other";
+                              }                      
+                            ?></strong>
 
                             <p class="text-muted" data-speechify-sentence="">
                                 <?= Html::a('Preview Document: '.$file->filename, ['/uploads/court_cases/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
