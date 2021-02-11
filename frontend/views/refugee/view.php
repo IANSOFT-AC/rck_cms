@@ -120,7 +120,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View Biodata', 'url' => ['view']];
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Reason for Fleeing</strong>
 
-                                  <p class="text-muted" data-speechify-sentence=""><?= $model->rconflict->conflict ?></p>
+                                  <p class="text-muted" data-speechify-sentence=""><?= isset($model->rconflict) ? $model->rconflict->conflict : "None" ?></p>
 
                                   <hr>
                             </div>
