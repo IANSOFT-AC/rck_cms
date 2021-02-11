@@ -228,7 +228,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('refugee')?'active':'' ?>">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Client Biodata Registry
+                                    All Clients
                                     <i class="fas fa-angle-left right"></i>
                                     <!--<span class="badge badge-info right">6</span>-->
                                 </p>
@@ -238,7 +238,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                     <a href="<?= $absoluteUrl ?>refugee" class="nav-link <?= Yii::$app->recruitment->currentaction('refugee','index')?'active':'' ?>">
                                         <i class="fa fa-check-square nav-icon"></i>
                         
-                                        <p>Biodata List</p>
+                                        <p>Client List</p>
                                     </a>
                                 </li>
 

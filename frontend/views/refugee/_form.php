@@ -37,7 +37,6 @@ use yii\helpers\Url;
                         <div class="col-md-6">
                             <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?>
                             <?= $form->field($model, 'user_group_id')->hiddenInput(['value' => 4])->label(false) ?>
-                            <?= $form->field($model, 'physical_address')->textInput(['maxlength' => true]) ?>
                         </div>
                     </div>
 
@@ -144,6 +143,8 @@ use yii\helpers\Url;
                             <?php $form->field($model, 'rck_no')->textInput() ?>
                             
                             <?= $form->field($model, 'camp')->dropDownList([], ['prompt' => 'Select']) ?>
+                            
+                            <?= $form->field($model, 'physical_address')->textInput(['maxlength' => true]) ?>
 
                         </div>
                     </div>
@@ -175,6 +176,7 @@ use yii\helpers\Url;
 
                             <?= $form->field($model, 'source_of_income_id[]')->dropDownList($sourceOfIncome,['prompt' => '-- Select source of Income --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
                             <?= $form->field($model, 'source_of_income')->textarea() ?>
+                            <?= $form->field($model, 'job_details')->textarea() ?>
                             <?= $form->field($model, 'mode_of_entry_id')->dropDownList($modeOfEntry,['prompt' => '-- Select Mode Of Entry --']) ?>
 
                         </div>
@@ -197,12 +199,12 @@ use yii\helpers\Url;
 
                             <?= $form->field($model, 'has_work_permit')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Has work permit? --']) ?>
 
-                            <?= $form->field($model, 'arrested_due_to_lack_of_work_permit')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Has work permit? --']) ?>
+                            <?= $form->field($model, 'arrested_due_to_lack_of_work_permit')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Arrested due to lack of a Work Permit? --']) ?>
                         </div>
                         <div class="col-md-6">
-                            <?= $form->field($model, 'interested_in_work_permit')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Has work permit? --']) ?>
+                            <?= $form->field($model, 'interested_in_work_permit')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Interested in getting a Work Permit? --']) ?>
                         
-                            <?= $form->field($model, 'interested_in_citizenship')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Has work permit? --']) ?>
+                            <?= $form->field($model, 'interested_in_citizenship')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- interested in getting Kenyan Citizenship? --']) ?>
                         </div>
                     </div>
 
@@ -221,7 +223,7 @@ use yii\helpers\Url;
     <?php $form->field($model, 'updated_by')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Next', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -252,7 +254,7 @@ $script = <<<JS
         $('.field-refugee-reason_for_rsd_appointment, .field-refugee-rsd_appointment_date').fadeOut('slow')
       }
 
-      if(this.value == 3){
+      if(this.value == 3 || this.value == 2){
         $('.field-refugee-id_no').fadeIn('slow');
       }else{
         $('.field-refugee-id_no').fadeOut('slow');
