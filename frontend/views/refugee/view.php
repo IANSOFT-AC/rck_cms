@@ -112,7 +112,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View Biodata', 'url' => ['view']];
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Identification Type</strong>
 
-                                  <p class="text-muted" data-speechify-sentence=""><?= $model->idType->identification; ?></p>
+                                  <p class="text-muted" data-speechify-sentence=""><?= isset($model->idType) ? $model->idType->identification : "None"; ?></p>
 
                                   <hr>
                             </div>
