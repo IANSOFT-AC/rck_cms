@@ -10,7 +10,7 @@ use app\models\SourceOfIncome;
 
 $this->title = "RCK: ".$model->fullNames;
 $this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'View', 'url' => ['view']];
+$this->params['breadcrumbs'][] = ['label' => 'View'];
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="refugee-view">

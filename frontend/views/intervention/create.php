@@ -7,8 +7,10 @@ use yii\helpers\Html;
 
 
 $this->title = 'Create Intervention';
+$this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['refugee/view', 'id' => array_key_first($client)]];
 $this->params['breadcrumbs'][] = ['label' => 'Interventions', 'url' => ['client','id' => array_key_first($client)]];
-$this->params['breadcrumbs'][] = ['label' => $this->title,'url' => '#'];
+
+$this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 <div class="intervention-create">
 

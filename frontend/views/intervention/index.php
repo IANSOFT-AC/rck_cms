@@ -9,7 +9,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Interventions';
-isset($refugee_id) ? $this->params['breadcrumbs'][] = ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $refugee_id]] : null ;
+isset($refugee_id) ? $this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['refugee/view', 'id' => $refugee_id]] : null ;
 $this->params['breadcrumbs'][] = ['label' => 'interventions', 'url' => 'index'];
 ?>
 <div class="intervention-index">
