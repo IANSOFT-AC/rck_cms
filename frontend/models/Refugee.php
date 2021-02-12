@@ -96,9 +96,9 @@ class Refugee extends \yii\db\ActiveRecord
             [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at', 
                 'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status',
                  'mode_of_entry_id', 'victim_of_turture', 'has_work_permit', 'arrested_due_to_lack_of_work_permit',
-                  'interested_in_work_permit', 'interested_in_citizenship','source_of_info_id','disability_type_id'
+                  'interested_in_work_permit', 'dependants','interested_in_citizenship','source_of_info_id','disability_type_id'
                 ], 'integer'],
-            [['disability_desc', 'reason_for_rsd_appointment', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date','arrival_date', 'date_of_birth','physical_address'], 'string'],
+            [['disability_desc', 'reason_for_rsd_appointment', 'custom_language', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date','arrival_date', 'date_of_birth', 'physical_address', 'languages', 'old_rck'], 'string'],
             [['first_name', 'middle_name', 'last_name', 'email_address'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 150],
             [['cell_number','id_no'], 'string', 'max' => 15],
@@ -180,7 +180,7 @@ class Refugee extends \yii\db\ActiveRecord
             //Nullify the values if the value is other for the following fields
             $this->source_of_info_id = ($this->source_of_info_id == 0) ? null : $this->source_of_info_id;
             
-            $this->disability_type_id = ($this->disability_type_id == 0) ? null : $this->disability_type_id;
+            //$this->disability_type_id = ($this->disability_type_id == 0) ? null : $this->disability_type_id;
             return true;
         }
         return false;
@@ -250,7 +250,13 @@ class Refugee extends \yii\db\ActiveRecord
             'source_of_info_id' => 'Source of Info',
             'source_of_income_id' => 'Source of Income',
             'form_of_torture_id' => 'Form of Torture',
-            'disability_type_id' => 'Disability Type'
+            'disability_type_id' => 'Disability Type',
+
+            'languages' => 'Languages',
+            'interpreter' => 'Client needs an interpreter?',
+            'dependants' => 'No. of Dependants',
+            'old_rck' => 'Old RCK No',
+            'custom_language' => 'Custom Language'
         ];
     }
 

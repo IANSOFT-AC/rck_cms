@@ -33,10 +33,14 @@ use yii\helpers\Url;
                             <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
                             <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
                             <?php $form->field($model, 'user_id')->textInput() ?>
+                            <?= $form->field($model, 'gender')->dropDownList($gender, ['prompt' => 'Select ...']) ?>
+                            <?= $form->field($model, 'dependants')->textInput() ?>
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?>
                             <?= $form->field($model, 'user_group_id')->hiddenInput(['value' => 4])->label(false) ?>
+                            <?= $form->field($model, 'date_of_birth')->textInput(['type' => 'date', 'class' => 'form-control no-future']) ?>
+                            <?= $form->field($model, 'country_of_origin')->dropDownList($countries, ['prompt' => 'select..']) ?>
                         </div>
                     </div>
 
@@ -46,20 +50,20 @@ use yii\helpers\Url;
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Personal Data</h3>
+                    <h3 class="card-title">Contact Information</h3>
                 </div>
                 <div class="card-body">
 
                     <div class="row">
                         <div class="col-md-6">
                             <?= $form->field($model, 'cell_number')->textInput(['maxlength' => true]) ?>
-                            <?= $form->field($model, 'gender')->dropDownList($gender, ['prompt' => 'Select ...']) ?>
+                            <?= $form->field($model, 'email_address')->textInput(['maxlength' => true]) ?>
                             <?= $form->field($model, 'arrival_date')->textInput(['type' => 'date', 'class' => 'form-control no-future']) ?>
                         </div>
                         <div class="col-md-6">
-                            <?= $form->field($model, 'email_address')->textInput(['maxlength' => true]) ?>
-                            <?= $form->field($model, 'country_of_origin')->dropDownList($countries, ['prompt' => 'select..']) ?>
-                            <?= $form->field($model, 'date_of_birth')->textInput(['type' => 'date', 'class' => 'form-control no-future']) ?>
+                            <?= $form->field($model, 'interpreter')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Needs an interpreter? --']) ?>
+                            <?= $form->field($model, 'languages')->dropDownList($languages, ['prompt' => '--Select The Languages--']) ?>
+                            <?= $form->field($model, 'custom_language')->textInput(['maxlength' => true]) ?>
                         </div>
                     </div>
 
@@ -137,6 +141,7 @@ use yii\helpers\Url;
                                                   $( "select#refugee-camp" ).html( data );
                                                 });
                                             ']) ?>
+                            <?= $form->field($model, 'old_rck')->textInput()->label("Old RCK No (if any)") ?>
                         </div>
                         <div class="col-md-6">
 
@@ -163,7 +168,7 @@ use yii\helpers\Url;
                     <div class="row">
                         <div class="col-md-6">
                             <?= $form->field($model, 'has_disability')->dropDownList([1 => 'Yes' , 0 => 'No'],['prompt' => '-- Has Disability? --']) ?>
-                            <?= $form->field($model, 'disability_type_id')->dropDownList($disabilityType,['prompt' => '-- Select Disability --']) ?>
+                            <?= $form->field($model, 'disability_type_id[]')->dropDownList($disabilityType,['prompt' => '-- Select Disability --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
                             <?= $form->field($model, 'disability_desc')->textarea() ?>
 
                             <?= $form->field($model, 'victim_of_turture')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Select Yes or No --']) ?>
@@ -244,7 +249,9 @@ $script = <<<JS
         .field-refugee-rsd_appointment_date,\
         .field-refugee-source_of_info_abt_rck,\
         .field-refugee-source_of_income,\
-        .field-refugee-form_of_torture_id').hide()
+        .field-refugee-form_of_torture_id,\
+        .field-refugee-languages, \
+        .field-refugee-custom_language').hide()
 
     $('#refugee-asylum_status').on('change', function() {
       //alert( this.value );
@@ -261,6 +268,22 @@ $script = <<<JS
       }
 
     });
+
+    $('#refugee-interpreter').on('change', function(){
+        if(this.value == 1){
+            $('.field-refugee-languages').fadeIn('slow');
+        }else{
+            $('.field-refugee-languages').fadeOut('slow');
+        }
+    });
+
+    $('#refugee-languages').on('change', function(){
+        if($('#refugee-languages option[value=0]:selected').length > 0){
+            $('.field-refugee-custom_language').fadeIn('slow');
+        }else{
+            $('.field-refugee-custom_language').fadeOut('slow');
+        }
+    })
 
     $('#refugee-has_work_permit').on('change', function(){
         if(this.value == 1){
@@ -279,7 +302,7 @@ $script = <<<JS
     });
 
     $('#refugee-disability_type_id').on('change', function(){
-        if(this.value == 0){
+        if($('#refugee-disability_type_id option[value=0]:selected').length > 0){
             $('.field-refugee-disability_desc').fadeIn('slow');
         }else{
             $('.field-refugee-disability_desc').fadeOut('slow');

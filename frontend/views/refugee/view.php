@@ -86,6 +86,14 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             </div>
 
                             <div class="col-md-6">
+                                  <strong data-speechify-sentence=""> Dependants</strong>
+
+                                  <p class="text-muted" data-speechify-sentence=""><?= $model->dependants ?></p>
+
+                                  <hr>
+                            </div>
+
+                            <div class="col-md-6">
                                   <strong data-speechify-sentence=""> NHCR Case No</strong>
 
                                   <p class="text-muted" data-speechify-sentence=""><?= $model->nhcr_case_no ?></p>
@@ -97,6 +105,14 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                   <strong data-speechify-sentence=""> RCK No</strong>
 
                                   <p class="text-muted" data-speechify-sentence=""><?= $model->rck_no ?></p>
+
+                                  <hr>
+                            </div>
+
+                            <div class="col-md-6">
+                                  <strong data-speechify-sentence=""> Old RCK No</strong>
+
+                                  <p class="text-muted" data-speechify-sentence=""><?= $model->old_rck ?></p>
 
                                   <hr>
                             </div>

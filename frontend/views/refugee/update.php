@@ -27,7 +27,8 @@ $this->params['breadcrumbs'][] = 'Update';
         'sourceOfIncome' => $sourceOfIncome,
         'sourceOfInfo' => $sourceOfInfo,
         'formOfTorture' => $formOfTorture,
-        'disabilityType' => $disabilityType
+        'disabilityType' => $disabilityType,
+        'languages' => $languages
     ]) ?>
 
 </div>

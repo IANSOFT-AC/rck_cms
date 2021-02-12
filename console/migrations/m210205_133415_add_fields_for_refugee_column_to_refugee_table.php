@@ -21,7 +21,7 @@ class m210205_133415_add_fields_for_refugee_column_to_refugee_table extends Migr
         $this->addColumn('{{%refugee}}', 'source_of_info_id', $this->integer());
         $this->addColumn('{{%refugee}}', 'source_of_income_id', $this->string());
         $this->addColumn('{{%refugee}}', 'form_of_torture_id', $this->string());
-        $this->addColumn('{{%refugee}}', 'disability_type_id', $this->integer());
+        $this->addColumn('{{%refugee}}', 'disability_type_id', $this->string());
 
         // creates index for column `source_of_info_id`
         $this->createIndex(
@@ -75,21 +75,21 @@ class m210205_133415_add_fields_for_refugee_column_to_refugee_table extends Migr
         // );
 
         // creates index for column `disability_type_id`
-        $this->createIndex(
-            '{{%idx-refugee-disability_type_id}}',
-            '{{%refugee}}',
-            'disability_type_id'
-        );
+        // $this->createIndex(
+        //     '{{%idx-refugee-disability_type_id}}',
+        //     '{{%refugee}}',
+        //     'disability_type_id'
+        // );
 
-        // add foreign key for table `{{%disability_type}}`
-        $this->addForeignKey(
-            '{{%fk-refugee-disability_type_id}}',
-            '{{%refugee}}',
-            'disability_type_id',
-            '{{%disability_type}}',
-            'id',
-            'CASCADE'
-        );
+        // // add foreign key for table `{{%disability_type}}`
+        // $this->addForeignKey(
+        //     '{{%fk-refugee-disability_type_id}}',
+        //     '{{%refugee}}',
+        //     'disability_type_id',
+        //     '{{%disability_type}}',
+        //     'id',
+        //     'CASCADE'
+        // );
     }
 
     /**

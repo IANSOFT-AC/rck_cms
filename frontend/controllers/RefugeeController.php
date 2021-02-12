@@ -17,6 +17,7 @@ use app\models\RefugeeUploads;
 use Yii;
 use app\models\Refugee;
 use app\models\RefugeeSearch;
+use app\models\Language;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -105,9 +106,20 @@ class RefugeeController extends Controller
     {
         $model = new Dependant();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', 'Dependant successfully added');
-            return $this->redirect(['view', 'id' => Yii::$app->request->post()['refugee_id']]);
+        
+
+        if ($model->load(Yii::$app->request->post())) {
+            $existingDependantsCount = Dependant::find()->where(['refugee_id' => Yii::$app->request->post()['refugee_id'] ])->count();
+            $client = $this->findModel(Yii::$app->request->post()['refugee_id']);
+            if($client->dependants > $existingDependantsCount){
+                $model->save();
+                Yii::$app->getSession()->setFlash('success', 'Dependant successfully added');
+                return $this->redirect(['view', 'id' => Yii::$app->request->post()['refugee_id']]);
+            }else{
+                Yii::$app->getSession()->setFlash('error', 'You can only add upto 2 dependants');
+                return $this->redirect(['view', 'id' => Yii::$app->request->post()['refugee_id']]);
+            }
+            
         }
     }
 
@@ -226,6 +238,8 @@ class RefugeeController extends Controller
         $sourceOfIncome = ArrayHelper::map(SourceOfIncome::find()->all(), 'id', 'name');
         $formOfTorture = ArrayHelper::map(FormOfTorture::find()->all(), 'id', 'name');
         $disabilityType = ArrayHelper::map(DisabilityType::find()->all(), 'id', 'name');
+        $languages = ArrayHelper::map(Language::find()->all(), 'id', 'name');
+        $languages[0] = 'other';
         $formOfTorture[0] = 'other';
         $sourceOfInfo[0] = 'other';
         $sourceOfIncome[0] = 'other';
@@ -234,8 +248,19 @@ class RefugeeController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
 
             $model->date_of_birth = date('Y-m-d',strtotime(Yii::$app->request->post()['Refugee']['date_of_birth']));
-            $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_income_id']);
-            $model->form_of_torture_id = implode(',',Yii::$app->request->post()['Refugee']['form_of_torture_id']);
+            if(isset(Yii::$app->request->post()['Refugee']['source_of_income_id'])){
+                $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_income_id']);
+            }
+            if(isset(Yii::$app->request->post()['Refugee']['form_of_torture_id'])){
+                $model->form_of_torture_id = implode(',',Yii::$app->request->post()['Refugee']['form_of_torture_id']);
+            }
+            if(isset(Yii::$app->request->post()['Refugee']['disability_type_id'])){
+                $model->disability_type_id = implode(',',Yii::$app->request->post()['Refugee']['disability_type_id']);
+            }
+            // if(isset(Yii::$app->request->post()['Refugee']['languages'])){
+            //     $model->languages = implode(',',Yii::$app->request->post()['Refugee']['languages']);
+            // }
+
             $model->save();
             
             return $this->redirect(['files', 'id' => $model->id]);
@@ -254,7 +279,8 @@ class RefugeeController extends Controller
             'sourceOfIncome' => $sourceOfIncome,
             'sourceOfInfo' => $sourceOfInfo,
             'formOfTorture' => $formOfTorture,
-            'disabilityType' => $disabilityType
+            'disabilityType' => $disabilityType,
+            'languages' => $languages
         ]);
     }
 
@@ -287,6 +313,8 @@ class RefugeeController extends Controller
         $sourceOfIncome = ArrayHelper::map(SourceOfIncome::find()->all(), 'id', 'name');
         $formOfTorture = ArrayHelper::map(FormOfTorture::find()->all(), 'id', 'name');
         $disabilityType = ArrayHelper::map(DisabilityType::find()->all(), 'id', 'name');
+        $languages = ArrayHelper::map(Language::find()->all(), 'id', 'name');
+        $languages[0] = 'other';
         $formOfTorture[0] = 'other';
         $sourceOfInfo[0] = 'other';
         $sourceOfIncome[0] = 'other';
@@ -296,8 +324,20 @@ class RefugeeController extends Controller
             // echo "<pre>";
             // print_r(Yii::$app->request->post()['Refugee']);
             // exit();
-            $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_income_id']);
-            $model->form_of_torture_id = implode(',',Yii::$app->request->post()['Refugee']['form_of_torture_id']);
+            $model->date_of_birth = date('Y-m-d',strtotime(Yii::$app->request->post()['Refugee']['date_of_birth']));
+            if(isset(Yii::$app->request->post()['Refugee']['source_of_income_id'])){
+                $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_income_id']);
+            }
+            if(isset(Yii::$app->request->post()['Refugee']['form_of_torture_id'])){
+                $model->form_of_torture_id = implode(',',Yii::$app->request->post()['Refugee']['form_of_torture_id']);
+            }
+            if(isset(Yii::$app->request->post()['Refugee']['disability_type_id'])){
+                $model->disability_type_id = implode(',',Yii::$app->request->post()['Refugee']['disability_type_id']);
+            }
+            // if(isset(Yii::$app->request->post()['Refugee']['languages'])){
+            //     $model->languages = implode(',',Yii::$app->request->post()['Refugee']['languages']);
+            // }
+
             $model->save();
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -316,7 +356,8 @@ class RefugeeController extends Controller
             'sourceOfIncome' => $sourceOfIncome,
             'sourceOfInfo' => $sourceOfInfo,
             'formOfTorture' => $formOfTorture,
-            'disabilityType' => $disabilityType
+            'disabilityType' => $disabilityType,
+            'languages' => $languages
         ]);
     }
 

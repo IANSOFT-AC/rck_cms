@@ -29,7 +29,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['create']];
                 'sourceOfIncome' => $sourceOfIncome,
                 'sourceOfInfo' => $sourceOfInfo,
                 'formOfTorture' => $formOfTorture,
-                'disabilityType' => $disabilityType
+                'disabilityType' => $disabilityType,
+                'languages' => $languages
             ]) ?>
         </div>
     </div>
