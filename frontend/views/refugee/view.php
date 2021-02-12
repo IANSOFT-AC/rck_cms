@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\FormOfTorture;
 use app\models\SourceOfIncome;
+use app\models\Language;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Refugee */
@@ -211,28 +212,28 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             ?>
                                 <div class="col-md-6">
                                     <strong data-speechify-sentence=""> Form of Torture</strong>
-                                    <ul>
+                                    <div class="btn-group">
                                     <?php 
 
                                     $tortures = explode(",", $model->form_of_torture_id);
                                     foreach ($tortures as $key => $value) {
                                         # code...
                                         ?>
-                                        <li><?php
+                                        <button type="button" class="btn btn-default" style=""><?php
                                         $record = FormOfTorture::findOne($value);
                                         if($record){
                                             ?>
                                             <?= $record->name; ?>
                                             <?php
                                         }
-                                        ?></li>
+                                        ?></button>
                                         <?php
                                     }
 
                                     ?>
-                                    </ul>
+                                    </div>
                                     
-                                <br>
+                                <hr>
                                 </div>
                             <?php
                             }
@@ -244,23 +245,51 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             ?>
                                 <div class="col-md-6">
                                     <strong data-speechify-sentence=""> Sources of Income</strong>
-                                    <ul>
+                                    <div class="btn-group">
                                     <?php                                 
                                         foreach ($incomes as $key => $value) {
                                             # code...
                                             $record = SourceOfIncome::findOne($value);
                                             if($record){
                                             ?>
-                                            <li>
+                                            <button type="button" class="btn btn-default" style="">
                                                 <?= $record->name; ?>
-                                            </li>
+                                            </button>
                                             <?php
                                         }
                                     }
                                     ?>
-                                    </ul>
+                                    </div>
                                     
-                                <br>
+                                <hr>
+                                </div>
+                            <?php 
+                            }
+                            ?>
+
+<?php 
+                            $incomes = explode(",", $model->languages);
+                            if(count($incomes) > 0){
+                            ?>
+                                <div class="col-md-6">
+                                    <strong data-speechify-sentence=""> Languages</strong>
+                                    <div class="btn-group">
+                                    <?php                                 
+                                        foreach ($incomes as $key => $value) {
+                                            # code...
+                                            $record = Language::findOne($value);
+                                            if($record){
+                                            ?>
+                                            <button type="button" class="btn btn-default" style="">
+                                                <?= $record->name; ?>
+                                            </button>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                    </div>
+                                    
+                                <hr>
                                 </div>
                             <?php 
                             }
