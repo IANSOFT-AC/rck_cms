@@ -85,6 +85,16 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
                                   <hr>
                             </div>
+                            <div class="col-md-6">
+                                  <strong data-speechify-sentence=""> Is interpreter needed</strong>
+
+                                  <p class="text-muted" data-speechify-sentence="">
+                                  <?=
+                                        ($model->interpreter == 1) ? '<button type="button" class="btn btn-danger" style="">YES</button>' : '<button type="button" class="btn btn-success" style="">No</button>';
+                                   ?></p>
+
+                                  <hr>
+                            </div>
 
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Dependants</strong>
