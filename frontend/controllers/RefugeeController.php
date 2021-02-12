@@ -116,7 +116,7 @@ class RefugeeController extends Controller
                 Yii::$app->getSession()->setFlash('success', 'Dependant successfully added');
                 return $this->redirect(['view', 'id' => Yii::$app->request->post()['refugee_id']]);
             }else{
-                Yii::$app->getSession()->setFlash('error', 'You can only add upto 2 dependants');
+                Yii::$app->getSession()->setFlash('error', 'You can only add upto '.$client->dependants.' dependants');
                 return $this->redirect(['view', 'id' => Yii::$app->request->post()['refugee_id']]);
             }
             
