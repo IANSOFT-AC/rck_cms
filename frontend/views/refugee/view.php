@@ -113,6 +113,14 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             </div>
 
                             <div class="col-md-6">
+                                  <strong data-speechify-sentence=""> RCK Office</strong>
+
+                                  <p class="text-muted" data-speechify-sentence=""><?= $model->rckOffice->name ?></p>
+
+                                  <hr>
+                            </div>
+
+                            <div class="col-md-6">
                                   <strong data-speechify-sentence=""> RCK No</strong>
 
                                   <p class="text-muted" data-speechify-sentence=""><?= $model->rck_no ?></p>
