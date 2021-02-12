@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Add Client';
 $this->params['breadcrumbs'][] = ['label' => 'Client List', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['create']];
+$this->params['breadcrumbs'][] = ['label' => 'New Client'];
 ?>
 <div class="refugee-create">
 

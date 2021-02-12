@@ -8,7 +8,7 @@ use yii\helpers\Html;
 $this->title = 'Update Client: ' . $model->fullNames;
 $this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Update Client';
 ?>
 <div class="refugee-update">
 

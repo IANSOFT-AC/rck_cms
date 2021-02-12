@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Clients';
-$this->params['breadcrumbs'][] = ['label' => 'Client List', 'url' => 'index'];
+$this->params['breadcrumbs'][] = ['label' => 'Client List'];
 ?>
 <div class="row">
 
