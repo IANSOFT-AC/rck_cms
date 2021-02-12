@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
                                   <p class="text-muted" data-speechify-sentence="">
                                   <?=
-                                        ($model->interpreter == 1) ? '<button type="button" class="btn btn-danger" style="">YES</button>' : '<button type="button" class="btn btn-success" style="">No</button>';
+                                        ($model->interpreter == 1) ? '<button type="button" class="btn btn-danger btn-sm" style="">YES</button>' : '<button type="button" class="btn btn-success btn-sm" style="">No</button>';
                                    ?></p>
 
                                   <hr>
