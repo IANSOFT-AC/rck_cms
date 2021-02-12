@@ -53,7 +53,6 @@ use yii\helpers\Url;
                     <h3 class="card-title">Contact Information</h3>
                 </div>
                 <div class="card-body">
-
                     <div class="row">
                         <div class="col-md-6">
                             <?= $form->field($model, 'cell_number')->textInput(['maxlength' => true]) ?>
@@ -66,7 +65,6 @@ use yii\helpers\Url;
                             <?= $form->field($model, 'custom_language')->textInput(['maxlength' => true]) ?>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div><!--Row Two-->
@@ -274,6 +272,14 @@ $script = <<<JS
             $('.field-refugee-languages').fadeIn('slow');
         }else{
             $('.field-refugee-languages').fadeOut('slow');
+        }
+    });
+
+    $('#refugee-rck_office_id').on('change', function(){
+        if(this.value == 1 || this.value == 2){
+            $('.field-refugee-camp').fadeOut('slow');
+        }else{
+            $('.field-refugee-camp').fadeIn('slow');
         }
     });
 
