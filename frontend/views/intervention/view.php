@@ -30,6 +30,17 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                 'method' => 'post',
             ],
         ]) ?>
+        <?php 
+
+            $interventions = explode(",", $model->intervention_type_id);
+            foreach ($interventions as $key => $value) {
+                # code...
+                if(InterventionType::findOne($value)->id == 2){
+                    echo  Html::a('<i class="fa fa-wheelchair"></i> Counselling ', ['/counseling/index', 'id' => $model->id ], ['class' => 'btn btn-danger', 'target' => '_blank', 'title'=> 'Counselling details']);
+                }
+            }
+
+        ?>
         <div class="box-header with-border">
                   <h3 class="box-title" data-speechify-sentence="">About This Intervention Case</h3>
                 </div>
