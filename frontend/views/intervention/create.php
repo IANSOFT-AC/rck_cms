@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Intervention */
 
 
-$this->title = 'Create Intervention';
+$this->title = 'Add Intervention';
 $this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['refugee/view', 'id' => array_key_first($client)]];
 $this->params['breadcrumbs'][] = ['label' => 'Interventions', 'url' => ['client','id' => array_key_first($client)]];
 

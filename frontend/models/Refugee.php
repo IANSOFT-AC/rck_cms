@@ -234,7 +234,7 @@ class Refugee extends \yii\db\ActiveRecord
             'asylum_status' => 'Asylum Status',
             'rsd_appointment_date' => 'RSD Appointment Date',
             'reason_for_rsd_appointment' => 'Reason For RSD Appointment',
-            'source_of_info_abt_rck' => 'How did you learn about Rck?',
+            'source_of_info_abt_rck' => 'How did you learn about Rck Details',
             'mode_of_entry_id' => 'Mode Of Entry',
             'victim_of_turture' => 'Is a victim of turture?',
             'form_of_torture' => 'Form Of Torture',
@@ -247,7 +247,7 @@ class Refugee extends \yii\db\ActiveRecord
             'interested_in_work_permit' => 'Interested In Getting a Work Permit?',
             'interested_in_citizenship' => 'Interested In Getting Kenyan Citizenship?',
 
-            'source_of_info_id' => 'Source of Info',
+            'source_of_info_id' => 'How did you learn about Rck?',
             'source_of_income_id' => 'Source of Income',
             'form_of_torture_id' => 'Form of Torture',
             'disability_type_id' => 'Disability Type',

@@ -17,7 +17,7 @@ $this->title = "RCK: Control Panel";
 	    <div class="card-body">
 	        <div class="box box-primary">
 	            <div class="box-header with-border">
-	              <h3 class="box-title" data-speechify-sentence="">Client Biodata Setups</h3>
+	              <h3 class="box-title" data-speechify-sentence="">Client Setups</h3>
 	            </div>
 	        <!-- /.box-header -->
 	            <div class="box-body row" data-read-aloud-multi-block="true">

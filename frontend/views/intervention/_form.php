@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
                 </div>
                 
                 <div class="col-md-6">
-                    <?= $form->field($model, 'client_id')->dropDownList($client,['disabled' => $model->isNewRecord ? true : true]) ?>
+                    <?= $form->field($model, 'client_id')->dropDownList($client) ?>
                 </div>
                 
                 <div class="col-md-12">

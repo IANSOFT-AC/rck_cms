@@ -24,7 +24,7 @@ use yii\helpers\Url;
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">General Data</h3>
+                    <h3 class="card-title">Data</h3>
                 </div>
                 <div class="card-body">
 
@@ -42,18 +42,17 @@ use yii\helpers\Url;
                             <?= $form->field($model, 'date_of_birth')->textInput(['type' => 'date', 'class' => 'form-control no-future']) ?>
                             <?= $form->field($model, 'country_of_origin')->dropDownList($countries, ['prompt' => 'select..']) ?>
                         </div>
-                    </div>
+                    <!-- </div>
 
                 </div>
             </div>
-        </div><!--Row One-->
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Contact Information</h3>
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    <div class="row"> -->
                         <div class="col-md-6">
                             <?= $form->field($model, 'cell_number')->textInput(['maxlength' => true]) ?>
                             <?= $form->field($model, 'email_address')->textInput(['maxlength' => true]) ?>
@@ -64,10 +63,10 @@ use yii\helpers\Url;
                             <?= $form->field($model, 'languages')->dropDownList($languages, ['prompt' => '--Select The Languages--']) ?>
                             <?= $form->field($model, 'custom_language')->textInput(['maxlength' => true]) ?>
                         </div>
-                    </div>
+                    <!-- </div>
                 </div>
             </div>
-        </div><!--Row Two-->
+        </div>
 
         <div class="col-md-12">
             <div class="card">
@@ -76,7 +75,7 @@ use yii\helpers\Url;
                 </div>
                 <div class="card-body">
 
-                    <div class="row">
+                    <div class="row"> -->
                         <div class="col-md-6">
                             <?= $form->field($model, 'asylum_status')->dropDownList($asylum_types,['prompt' => '-- Asylum Status? --']) ?>
                             <?= $form->field($model, 'rsd_appointment_date')->textInput(['type' => 'date','class' => 'form-control no-future']) ?>
@@ -85,11 +84,11 @@ use yii\helpers\Url;
                             <?= $form->field($model, 'reason_for_rsd_appointment')->textarea() ?>
                             <?= $form->field($model, 'id_no')->textInput() ?>
                         </div>
-                    </div>
+                    <!-- </div>
 
                 </div>
             </div>
-        </div><!--Rwo Three-->
+        </div>
 
         <div class="col-md-12">
             <div class="card">
@@ -98,7 +97,7 @@ use yii\helpers\Url;
                 </div>
                 <div class="card-body">
 
-                    <div class="row">
+                    <div class="row"> -->
                         <div class="col-md-6">
 
                             <?= $form->field($model, 'id_type')->dropDownList($IdTypes, ['prompt' => 'Select']) ?>
@@ -111,11 +110,11 @@ use yii\helpers\Url;
                             <?= $form->field($model, 'conflict')->dropDownList($conflicts, ['prompt' => 'Select ...']) ?>
 
                         </div>
-                    </div>
+                    <!-- </div>
 
                 </div>
             </div>
-        </div><!--Rwo Three-->
+        </div>
 
 
 
@@ -126,7 +125,7 @@ use yii\helpers\Url;
                 </div>
                 <div class="card-body">
 
-                    <div class="row">
+                    <div class="row"> -->
                         <div class="col-md-6">
 
                             <?= $form->field($model, 'nhcr_case_no')->textInput() ?>
@@ -150,11 +149,11 @@ use yii\helpers\Url;
                             <?= $form->field($model, 'physical_address')->textInput(['maxlength' => true]) ?>
 
                         </div>
-                    </div>
+                    <!-- </div>
 
                 </div>
             </div>
-        </div><!--Rwo Three-->
+        </div>
 
         <div class="col-md-12">
             <div class="card">
@@ -163,7 +162,7 @@ use yii\helpers\Url;
                 </div>
                 <div class="card-body">
 
-                    <div class="row">
+                    <div class="row"> -->
                         <div class="col-md-6">
                             <?= $form->field($model, 'has_disability')->dropDownList([1 => 'Yes' , 0 => 'No'],['prompt' => '-- Has Disability? --']) ?>
                             <?= $form->field($model, 'disability_type_id[]')->dropDownList($disabilityType,['prompt' => '-- Select Disability --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
@@ -193,7 +192,7 @@ use yii\helpers\Url;
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Interests and Events</h3>
+                    <h3 class="card-title">Work Permit</h3>
                 </div>
                 <div class="card-body">
 

@@ -304,7 +304,7 @@ class CourtCasesController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-    protected function prepareDatatable($data){
+    protected function prepareDatatable(&$data){
         $result =[];
 
         foreach ($data as $case) {

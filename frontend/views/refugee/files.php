@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\PoliceCases */
 
 $this->title = Yii::t('app', 'Upload Client Files');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Refugees'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Clients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 
