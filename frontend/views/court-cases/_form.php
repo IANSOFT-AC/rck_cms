@@ -94,7 +94,8 @@ use kartik\select2\Select2;
     </div>
 
     <div class="form-group p-2">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-lg form-control']) ?>
+        <?= Html::submitButton(Yii::t('app', '<i class="fa fa-check"></i> Next'), ['class' => 'btn btn-success']); ?>
+        <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php 

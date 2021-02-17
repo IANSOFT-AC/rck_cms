@@ -11,15 +11,15 @@ $this->title = 'Countries';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="country-index">
+<div class="card">
+    <div class="card-header">
+        <h1><?= Html::encode($this->title) ?></h1>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Add Country', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+        <p>
+            <?= Html::a('Add Country', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+    </div>
+    <div class="card-body">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -68,6 +68,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+    </div>
+</div>
+
+
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    
 
 
 </div>

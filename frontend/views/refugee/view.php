@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use app\models\FormOfTorture;
 use app\models\SourceOfIncome;
 use app\models\Language;
+use app\models\DisabilityType;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Refugee */
@@ -179,6 +180,35 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             <?php
                             if($model->has_disability){
                             ?>
+                                
+                                <?php 
+                                $incomes = explode(",", $model->disability_type_id);
+                                if(!empty($incomes[0])){
+                                ?>
+                                    <div class="col-md-6">
+                                        <strong data-speechify-sentence=""> Disability</strong>
+                                        <?php print_r($incomes) ?>
+                                        <div class="btn-group">
+                                        <?php                                 
+                                            foreach ($incomes as $key => $value) {
+                                                # code...
+                                                $record = DisabilityType::findOne($value);
+                                                if($record){
+                                                ?>
+                                                <button type="button" class="btn btn-default" style="">
+                                                    <?= $record->name; ?>
+                                                </button>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                        </div>
+                                        
+                                    <hr>
+                                    </div>
+                                <?php 
+                                }else{
+                                ?>
                                 <div class="col-md-6">
                                       <strong data-speechify-sentence=""> Disability Description</strong>
 
@@ -186,6 +216,9 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
                                       <hr>
                                 </div>
+                                <?php 
+                                }
+                                ?>
                             <?php
                             }
                             ?>
@@ -259,7 +292,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             
                             <?php 
                             $incomes = explode(",", $model->source_of_income_id);
-                            if(count($incomes) > 0){
+                            if(!empty($incomes[0])){
                             ?>
                                 <div class="col-md-6">
                                     <strong data-speechify-sentence=""> Sources of Income</strong>
@@ -287,7 +320,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
 <?php 
                             $incomes = explode(",", $model->languages);
-                            if(count($incomes) > 0){
+                            if(!empty($incomes[0])){
                             ?>
                                 <div class="col-md-6">
                                     <strong data-speechify-sentence=""> Languages</strong>

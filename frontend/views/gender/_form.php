@@ -23,7 +23,8 @@ use yii\widgets\ActiveForm;
     <?php $form->field($model, 'updated_by')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <?= Html::submitButton(Yii::t('app', '<i class="fa fa-check"></i> save'), ['class' => 'btn btn-success']); ?>
+        <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

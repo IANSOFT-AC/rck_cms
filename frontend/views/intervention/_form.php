@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
                 </div>
                 
                 <div class="col-md-12">
-                    <?= $form->field($model, 'intervention_type_id')->dropDownList($interventionType,['prompt' => 'Select ...','multiple'=>'multiple']) ?>
+                    <?= $form->field($model, 'intervention_type_id[]')->dropDownList($interventionType,['prompt' => 'Select ...','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
                 </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'court_case')->dropDownList($court_cases,['prompt' => 'Select Court Case']) ?>
@@ -45,7 +45,8 @@ use yii\widgets\ActiveForm;
                 <?php $form->field($model, 'updated_by')->textInput() ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                    <?= Html::submitButton('Save <i class="fa fa-check"></i>', ['class' => 'btn btn-success']) ?>
+                    <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>
                 </div>
             </div>
 

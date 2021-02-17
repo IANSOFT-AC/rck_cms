@@ -259,9 +259,9 @@ class RefugeeController extends Controller
             if(isset(Yii::$app->request->post()['Refugee']['disability_type_id'])){
                 $model->disability_type_id = implode(',',Yii::$app->request->post()['Refugee']['disability_type_id']);
             }
-            // if(isset(Yii::$app->request->post()['Refugee']['languages'])){
-            //     $model->languages = implode(',',Yii::$app->request->post()['Refugee']['languages']);
-            // }
+            if(isset(Yii::$app->request->post()['Refugee']['languages'])){
+                $model->languages = implode(',',Yii::$app->request->post()['Refugee']['languages']);
+            }
 
             $model->save();
             
@@ -336,9 +336,9 @@ class RefugeeController extends Controller
             if(isset(Yii::$app->request->post()['Refugee']['disability_type_id'])){
                 $model->disability_type_id = implode(',',Yii::$app->request->post()['Refugee']['disability_type_id']);
             }
-            // if(isset(Yii::$app->request->post()['Refugee']['languages'])){
-            //     $model->languages = implode(',',Yii::$app->request->post()['Refugee']['languages']);
-            // }
+            if(isset(Yii::$app->request->post()['Refugee']['languages'])){
+                $model->languages = implode(',',Yii::$app->request->post()['Refugee']['languages']);
+            }
 
             $model->save();
 

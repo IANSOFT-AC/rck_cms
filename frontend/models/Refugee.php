@@ -92,7 +92,7 @@ class Refugee extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'user_group_id', 'gender', 'rck_office_id', 'mode_of_entry_id','country_of_origin','arrival_date'], 'required'],
+            [['first_name', 'last_name', 'user_group_id', 'gender', 'rck_office_id', 'country_of_origin'], 'required'],
             [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at', 
                 'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status',
                  'mode_of_entry_id', 'victim_of_turture', 'has_work_permit', 'arrested_due_to_lack_of_work_permit',
@@ -132,13 +132,28 @@ class Refugee extends \yii\db\ActiveRecord
                 }"
             ],
             [  
-                ['rsd_appointment_date','reason_for_rsd_appointment'], 
+                ['mode_of_entry_id','arrival_date','has_work_permit'], 
+                'required', 
+                'when' => function($model){
+                    return ($model->country_of_origin != 3) ? true : false;
+                },
+                'whenClient' => "function(attribute, value){
+                    //alert('has disability')
+                    if( $('#refugee-country_of_origin').val() != 3){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }"
+            ],
+            [  
+                ['rsd_appointment_date'], 
                 'required', 
                 'when' => function($model){
                     return ($model->asylum_status == 1) ? true : false;
                 },
                 'whenClient' => "function(attribute, value){
-                    if( $('#refugee-asylum_status').val() == true){
+                    if( $('#refugee-asylum_status').val() == 1){
                         return true;
                     }else{
                         return false;

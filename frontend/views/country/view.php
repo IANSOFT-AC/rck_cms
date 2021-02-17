@@ -6,16 +6,15 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Country */
 
-$this->title = $model->id;
+$this->title = $model->country;
 $this->params['breadcrumbs'][] = ['label' => 'Countries', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="country-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
+    <div class="card">
+        <div class="card-header"><p>
+        <h1><?= Html::encode($this->title) ?></h1>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -26,18 +25,24 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
 
         <?= Html::a('View All', ['index'], ['class' => 'btn btn-warning']) ?>
-    </p>
-
-    <?= DetailView::widget([
+        
+    </p></div>
+        <div class="card-body">    <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
             'country',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
+            'updated_at:datetime',
             'created_by',
             'updated_by',
         ],
-    ]) ?>
+    ]) ?></div>
+    </div>
+
+
+    
+
+
 
 </div>

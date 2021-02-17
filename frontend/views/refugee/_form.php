@@ -78,7 +78,7 @@ use yii\helpers\Url;
                     <div class="row"> -->
                         <div class="col-md-6">
                             <?= $form->field($model, 'asylum_status')->dropDownList($asylum_types,['prompt' => '-- Asylum Status? --']) ?>
-                            <?= $form->field($model, 'rsd_appointment_date')->textInput(['type' => 'date','class' => 'form-control no-future']) ?>
+                            <?= $form->field($model, 'rsd_appointment_date')->textInput(['type' => 'date','class' => 'form-control']) ?>
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'reason_for_rsd_appointment')->textarea() ?>
@@ -189,7 +189,7 @@ use yii\helpers\Url;
         </div><!--Rwo Three-->
 
 
-        <div class="col-md-12">
+        <div class="col-md-12" id="work-permits">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Work Permit</h3>
@@ -225,7 +225,8 @@ use yii\helpers\Url;
     <?php $form->field($model, 'updated_by')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Next', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Next <i class="fa fa-check"></i>', ['class' => 'btn btn-success']) ?>
+        <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -245,7 +246,6 @@ $script = <<<JS
         .field-refugee-reason_for_rsd_appointment, \
         .field-refugee-rsd_appointment_date,\
         .field-refugee-source_of_info_abt_rck,\
-        .field-refugee-source_of_income,\
         .field-refugee-form_of_torture_id,\
         .field-refugee-languages, \
         .field-refugee-custom_language').hide()
@@ -340,9 +340,31 @@ $script = <<<JS
 
     $('#refugee-source_of_income_id').on('change', function(){
         if($('#refugee-source_of_income_id option[value=0]:selected').length > 0){
-            $('.field-refugee-source_of_income').fadeIn('slow');
+            //$('.field-refugee-source_of_income').fadeIn('slow');
         }else{
-            $('.field-refugee-source_of_income').fadeOut('slow');
+            //$('.field-refugee-source_of_income').fadeOut('slow');
+        }
+    });
+
+    $('#refugee-country_of_origin').on('change', function(){
+        if(this.value == 3){
+            $('.field-refugee-conflict, .field-refugee-arrival_date,\
+                .field-refugee-mode_of_entry_id,\
+                .field-refugee-nhcr_case_no,\
+                #work-permits'
+            ).fadeOut();
+            
+            //Select an option for the asyslum seeker select field
+            $("#refugee-asylum_status option[value=" + 3 + "]").prop("selected",true);
+        }else{
+            $('.field-refugee-conflict, .field-refugee-arrival_date,\
+                .field-refugee-mode_of_entry_id,\
+                .field-refugee-nhcr_case_no,\
+                #work-permits'
+            ).fadeIn();
+
+            //Offset asyslum seeker select field
+            $("#refugee-asylum_status option:selected").prop("selected",false);
         }
     });
     
