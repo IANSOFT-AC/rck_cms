@@ -92,7 +92,7 @@ class Refugee extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'user_group_id', 'gender', 'rck_office_id', 'country_of_origin'], 'required'],
+            [['first_name', 'last_name', 'user_group_id', 'gender', 'rck_office_id', 'country_of_origin','has_disability','victim_of_turture','asylum_status'], 'required'],
             [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at', 
                 'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status',
                  'mode_of_entry_id', 'victim_of_turture', 'has_work_permit', 'arrested_due_to_lack_of_work_permit',
