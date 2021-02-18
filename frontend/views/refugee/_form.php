@@ -60,7 +60,7 @@ use yii\helpers\Url;
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'interpreter')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Needs an interpreter? --']) ?>
-                            <?= $form->field($model, 'languages')->dropDownList($languages, ['prompt' => '--Select The Languages--']) ?>
+                            <?= $form->field($model, 'languages[]')->dropDownList($languages, ['prompt' => '--Select The Languages--']) ?>
                             <?= $form->field($model, 'custom_language')->textInput(['maxlength' => true]) ?>
                         </div>
                     <!-- </div>

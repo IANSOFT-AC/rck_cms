@@ -132,7 +132,7 @@ class Refugee extends \yii\db\ActiveRecord
                 }"
             ],
             [  
-                ['mode_of_entry_id','arrival_date','has_work_permit'], 
+                ['mode_of_entry_id','has_work_permit'], 
                 'required', 
                 'when' => function($model){
                     return ($model->country_of_origin != 3) ? true : false;
