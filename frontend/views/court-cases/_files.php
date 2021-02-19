@@ -32,9 +32,11 @@ $uploadModel = new UploadForm();
 
             <div class="row container-fluid">
                 <div class="custom-file m-1 col-md-9">
-                    <?= $form->field($uploadModel, 'imageFile',['options' => [
-                'class' => 'custom-file-label has-icon has-label'
-            ]])->fileInput([ 'accept' => '*/*', 'class' => 'custom-file-input uploadform-imagefile','id' => $value->name])->label($value->desc) ?>
+                    <?= $form->field($uploadModel, 'imageFile',[
+                    'options' => [
+                        'class' => 'custom-file has-icon has-label',
+                    ],
+                    'labelOptions' => [ 'class' => 'custom-file-label' ]])->fileInput([ 'accept' => '*/*', 'class' => 'custom-file-input uploadform-imagefile','id' => preg_replace('/[^A-Za-z0-9\-]/', '', $value->name)])->label(preg_replace('/[^A-Za-z0-9\-]/', '', $value->desc)) ?>
                     <input type="hidden" name="id" value="<?= $model->id?>">
                     <input type="hidden" name="court_upload_id" value="<?= $value->id ?>">
                 </div>
@@ -64,14 +66,17 @@ $uploadModel = new UploadForm();
 
                 <div class="row container-fluid">
                     <div class="custom-file m-1 col-md-9">
-                        <?= $form->field($uploadModel, 'imageFile',['options' => [
-                    'class' => 'custom-file-label has-icon has-label'
-                ]])->fileInput([ 'accept' => '*/*', 'class' => 'custom-file-input uploadform-imagefile','id' => $value->name])->label($value->name) ?>
+                        <?= $form->field($uploadModel, 'imageFile',[
+                            'options' => [
+                                'class' => 'custom-file has-icon has-label',
+                            ],
+                            'labelOptions' => [ 'class' => 'custom-file-label' ]
+                        ])->fileInput([ 'accept' => '*/*', 'class' => 'custom-file-input uploadform-imagefile','id' => preg_replace('/[^A-Za-z0-9 \-]/', '', $value->name)])->label(preg_replace('/[^A-Za-z0-9 \-]/', '', $value->name)) ?>
                         <input type="hidden" name="id" value="<?= $model->id?>">
                         <input type="hidden" name="subcat_upload_id" value="<?= $value->id ?>">
                     </div>
                     <div class="pull-right col-md-2">
-                    <?= Html::submitButton(Yii::t('app', 'Upload and Finish'), ['class' => 'btn btn-success text-center']) ?>
+                        <?= Html::submitButton(Yii::t('app', 'Upload and Finish'), ['class' => 'btn btn-success text-center']) ?>
                     </div>
                 </div>
 
@@ -92,9 +97,12 @@ $uploadModel = new UploadForm();
             //'validationUrl' => '/police_cases/upload',
         ]); ?>
                 <div class="custom-file m-1">
-                    <?= $form->field($uploadModel, 'multipleFiles[]',['options' => [
-        'class' => 'custom-file-label has-icon has-label'
-    ]])->fileInput([ 'accept' => '*/*','multiple' => true, 'class' => 'custom-file-input uploadform-multipleFiles'])->label("Other Uploads") ?>
+                    <?= $form->field($uploadModel, 'multipleFiles[]',[
+                            'options' => [
+                                'class' => 'custom-file has-icon has-label',
+                            ],
+                            'labelOptions' => [ 'class' => 'custom-file-label' ]
+            ])->fileInput([ 'accept' => '*/*','multiple' => true, 'class' => 'custom-file-input uploadform-multipleFiles'])->label("Other Uploads") ?>
                     <input type="hidden" name="id" value="<?= $model->id?>">
                 </div>
                 <div class="form-group mx-sm-3 mb-2 mt-3 col-md-12 pull-right">
@@ -106,3 +114,18 @@ $uploadModel = new UploadForm();
     </div>
 
 </div>
+
+<?php
+
+$script = <<<JS
+    
+    // For showing which file is loaded
+    $('input[type="file"]').on('change', function() {
+        var file = $(this)[0].files[0].name;
+        let title = $(this).siblings( "label" ).text();
+        $(this).siblings( "label" ).text(title +" ("+ file + ") File selected");
+    });
+
+JS;
+
+$this->registerJs($script);

@@ -31,15 +31,24 @@ use yii\helpers\Url;
                     <div class="row">
                         <div class="col-md-6">
                             <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
-                            <?php $form->field($model, 'user_id')->textInput() ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'gender')->dropDownList($gender, ['prompt' => 'Select ...']) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'dependants')->textInput() ?>
                         </div>
                         <div class="col-md-6">
-                            <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?></div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'user_group_id')->hiddenInput(['value' => 4])->label(false) ?>
+                            
                             <?= $form->field($model, 'date_of_birth')->textInput(['type' => 'date', 'class' => 'form-control no-future','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date_of_birth, 'yyyy-MM-dd')]) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'country_of_origin')->dropDownList($countries, ['prompt' => 'select..']) ?>
                         </div>
                     <!-- </div>
@@ -55,12 +64,20 @@ use yii\helpers\Url;
                     <div class="row"> -->
                         <div class="col-md-6">
                             <?= $form->field($model, 'cell_number')->textInput(['maxlength' => true]) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'email_address')->textInput(['maxlength' => true]) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'arrival_date')->textInput(['type' => 'date', 'class' => 'form-control no-future','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->arrival_date, 'yyyy-MM-dd')]) ?>
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'interpreter')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Needs an interpreter? --']) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'languages[]')->dropDownList($languages, ['prompt' => '--Select The Languages--','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'custom_language')->textInput(['maxlength' => true]) ?>
                         </div>
                     <!-- </div>
@@ -78,10 +95,14 @@ use yii\helpers\Url;
                     <div class="row"> -->
                         <div class="col-md-6">
                             <?= $form->field($model, 'asylum_status')->dropDownList($asylum_types,['prompt' => '-- Asylum Status? --']) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'rsd_appointment_date')->textInput(['type' => 'date','class' => 'form-control','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->rsd_appointment_date, 'yyyy-MM-dd')]) ?>
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'reason_for_rsd_appointment')->textarea() ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'id_no')->textInput() ?>
                         </div>
                     <!-- </div>
@@ -101,6 +122,8 @@ use yii\helpers\Url;
                         <div class="col-md-6">
 
                             <?= $form->field($model, 'id_type')->dropDownList($IdTypes, ['prompt' => 'Select']) ?>
+                            </div>
+                        <div class="col-md-6">
 
                             <?= $form->field($model, 'image')->fileInput(['maxlength' => true]) ?>
                         </div>
@@ -129,6 +152,8 @@ use yii\helpers\Url;
                         <div class="col-md-6">
 
                             <?= $form->field($model, 'nhcr_case_no')->textInput() ?>
+                            </div>
+                        <div class="col-md-6">
 
                             <?php $form->field($model, 'return_refugee')->dropDownList([1 => 'Return' , 0 => 'New'],['prompt' => '-- Is return or new client']) ?>
                             <?= $form->field($model, 'rck_office_id')->dropDownList($rck_offices, ['prompt' => '--Select Camp --','onchange'=>'
@@ -138,6 +163,8 @@ use yii\helpers\Url;
                                                   $( "select#refugee-camp" ).html( data );
                                                 });
                                             ']) ?>
+                                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'old_rck')->textInput()->label("Old RCK No (if any)") ?>
                         </div>
                         <div class="col-md-6">
@@ -145,6 +172,8 @@ use yii\helpers\Url;
                             <?php $form->field($model, 'rck_no')->textInput() ?>
                             
                             <?= $form->field($model, 'camp')->dropDownList([], ['prompt' => 'Select']) ?>
+                            </div>
+                        <div class="col-md-6">
                             
                             <?= $form->field($model, 'physical_address')->textInput(['maxlength' => true]) ?>
 
@@ -165,20 +194,40 @@ use yii\helpers\Url;
                     <div class="row"> -->
                         <div class="col-md-6">
                             <?= $form->field($model, 'has_disability')->dropDownList([1 => 'Yes' , 0 => 'No'],['prompt' => '-- Has Disability? --']) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'disability_type_id[]')->dropDownList($disabilityType,['prompt' => '-- Select Disability --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'disability_desc')->textarea() ?>
+                            </div>
+                        <div class="col-md-6">
 
                             <?= $form->field($model, 'victim_of_turture')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Select Yes or No --']) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'form_of_torture_id[]')->dropDownList($formOfTorture,['prompt' => '-- Select Form of Torture --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'form_of_torture')->textarea() ?>
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'source_of_info_id')->dropDownList($sourceOfInfo,['prompt' => '-- Select source of Information --']) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'source_of_info_abt_rck')->textarea() ?>
+                            </div>
+                        <div class="col-md-6">
 
                             <?= $form->field($model, 'source_of_income_id[]')->dropDownList($sourceOfIncome,['prompt' => '-- Select source of Income --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'source_of_income')->textarea() ?>
+                            </div>
+                        <div class="col-md-6">
                             <?php $form->field($model, 'job_details')->textarea() ?>
+                            </div>
+                        <div class="col-md-6">
                             <?= $form->field($model, 'mode_of_entry_id')->dropDownList($modeOfEntry,['prompt' => '-- Select Mode Of Entry --']) ?>
 
                         </div>
@@ -251,7 +300,7 @@ $script = <<<JS
         .field-refugee-source_of_info_abt_rck,\
         .field-refugee-form_of_torture_id,\
         .field-refugee-languages, \
-        .field-refugee-custom_language').hide()
+        .field-refugee-custom_language').parent().hide()
 
     $('#refugee-country_of_origin').on('change', function(){
         if(this.value == 3){
@@ -259,7 +308,7 @@ $script = <<<JS
                 .field-refugee-mode_of_entry_id,\
                 .field-refugee-nhcr_case_no,\
                 #work-permits'
-            ).fadeOut();
+            ).parent().fadeOut();
             
             //Select an option for the asyslum seeker select field
             if(isNewRecord == 1){
@@ -270,7 +319,7 @@ $script = <<<JS
                 .field-refugee-mode_of_entry_id,\
                 .field-refugee-nhcr_case_no,\
                 #work-permits'
-            ).fadeIn();
+            ).parent().fadeIn();
 
             //Offset asyslum seeker select field
             if(isNewRecord == 1){
@@ -283,40 +332,40 @@ $script = <<<JS
     $('#refugee-asylum_status').on('change', function() {
       //alert( this.value );
       if(this.value == 1){
-        $('.field-refugee-reason_for_rsd_appointment, .field-refugee-rsd_appointment_date').fadeIn('slow');
+        $('.field-refugee-reason_for_rsd_appointment, .field-refugee-rsd_appointment_date').parent().fadeIn('slow');
       }else{
-        $('.field-refugee-reason_for_rsd_appointment, .field-refugee-rsd_appointment_date').fadeOut('slow')
+        $('.field-refugee-reason_for_rsd_appointment, .field-refugee-rsd_appointment_date').parent().fadeOut('slow')
       }
 
       if(this.value == 3 || this.value == 2){
-        $('.field-refugee-id_no').fadeIn('slow');
+        $('.field-refugee-id_no').parent().fadeIn('slow');
       }else{
-        $('.field-refugee-id_no').fadeOut('slow');
+        $('.field-refugee-id_no').parent().fadeOut('slow');
       }
 
     }).change();
 
     $('#refugee-interpreter').on('change', function(){
         if(this.value == 1){
-            $('.field-refugee-languages').fadeIn('slow');
+            $('.field-refugee-languages').parent().fadeIn('slow');
         }else{
-            $('.field-refugee-languages').fadeOut('slow');
+            $('.field-refugee-languages').parent().fadeOut('slow');
         }
     }).change();
 
     $('#refugee-rck_office_id').on('change', function(){
         if(this.value == 1 || this.value == 2){
-            $('.field-refugee-camp').fadeOut('slow');
+            $('.field-refugee-camp').parent().fadeOut('slow');
         }else{
-            $('.field-refugee-camp').fadeIn('slow');
+            $('.field-refugee-camp').parent().fadeIn('slow');
         }
     }).change();
 
     $('#refugee-languages').on('change', function(){
         if($('#refugee-languages option[value=0]:selected').length > 0){
-            $('.field-refugee-custom_language').fadeIn('slow');
+            $('.field-refugee-custom_language').parent().fadeIn('slow');
         }else{
-            $('.field-refugee-custom_language').fadeOut('slow');
+            $('.field-refugee-custom_language').parent().fadeOut('slow');
         }
     }).change();
 
@@ -330,41 +379,41 @@ $script = <<<JS
 
     $('#refugee-has_disability').on('change', function(){
         if(this.value == 1){
-            $('.field-refugee-disability_type_id').fadeIn('slow');
+            $('.field-refugee-disability_type_id').parent().fadeIn('slow');
         }else{
-            $('.field-refugee-disability_type_id').fadeOut('slow');
+            $('.field-refugee-disability_type_id').parent().fadeOut('slow');
         }
     }).change();;
 
     $('#refugee-disability_type_id').on('change', function(){
         if($('#refugee-disability_type_id option[value=0]:selected').length > 0){
-            $('.field-refugee-disability_desc').fadeIn('slow');
+            $('.field-refugee-disability_desc').parent().fadeIn('slow');
         }else{
-            $('.field-refugee-disability_desc').fadeOut('slow');
+            $('.field-refugee-disability_desc').parent().fadeOut('slow');
         }
     }).change();;
 
     $('#refugee-victim_of_turture').on('change', function(){
         if(this.value == 1){
-            $('.field-refugee-form_of_torture_id').fadeIn('slow');
+            $('.field-refugee-form_of_torture_id').parent().fadeIn('slow');
         }else{
-            $('.field-refugee-form_of_torture_id').fadeOut('slow');
+            $('.field-refugee-form_of_torture_id').parent().fadeOut('slow');
         }
     }).change();;
 
     $('#refugee-form_of_torture_id').on('change', function(){
         if($('#refugee-form_of_torture_id option[value=0]:selected').length > 0){
-            $('.field-refugee-form_of_torture').fadeIn('slow');
+            $('.field-refugee-form_of_torture').parent().fadeIn('slow');
         }else{
-            $('.field-refugee-form_of_torture').fadeOut('slow');
+            $('.field-refugee-form_of_torture').parent().fadeOut('slow');
         }
     }).change();;
 
     $('#refugee-source_of_info_id').on('change', function(){
         if(this.value == 0){
-            $('.field-refugee-source_of_info_abt_rck').fadeIn('slow');
+            $('.field-refugee-source_of_info_abt_rck').parent().fadeIn('slow');
         }else{
-            $('.field-refugee-source_of_info_abt_rck').fadeOut('slow');
+            $('.field-refugee-source_of_info_abt_rck').parent().fadeOut('slow');
         }
     }).change();;
 

@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     'method' => 'post',
                 ],
             ]) ?>
+            <?= Html::a('Attachments', ['files', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
         </p>
       </div>
         <div class="card-body">

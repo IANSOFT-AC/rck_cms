@@ -22,8 +22,9 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Interventions', ['/intervention/client', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Police Cases', ['/police-cases/client', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Police Cases', ['/police-cases/client', 'id' => $model->id], ['class' => 'btn btn-info']) ?>        
         <?= Html::a('Court Cases', ['/court-cases/client', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
+        <?= Html::a('Attachments', ['files', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
         <?php 
         Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -164,7 +165,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Return Refugee</strong>
 
-                                  <p class="text-muted" data-speechify-sentence=""><?= ($model->return_refugee == 1 ? "true" : "false") ?></p>
+                                  <p class="text-muted" data-speechify-sentence=""><?= ($model->return_refugee == 1 ? "Yes" : "No") ?></p>
 
                                   <hr>
                             </div>
@@ -355,28 +356,28 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Has work permit?</strong>
 
-                                  <p class="text-muted" data-speechify-sentence=""><?= ($model->has_work_permit == 1) ? "true" : "false" ?></p>
+                                  <p class="text-muted" data-speechify-sentence=""><?= ($model->has_work_permit == 1) ? "Yes" : "No" ?></p>
 
                                   <hr>
                             </div>
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Arrested due to lack of work permit?</strong>
 
-                                  <p class="text-muted" data-speechify-sentence=""><?= ($model->arrested_due_to_lack_of_work_permit == 1) ? "true" : "false" ?></p>
+                                  <p class="text-muted" data-speechify-sentence=""><?= ($model->arrested_due_to_lack_of_work_permit == 1) ? "Yes" : "No" ?></p>
 
                                   <hr>
                             </div>
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Interested in getting a work permit?</strong>
 
-                                  <p class="text-muted" data-speechify-sentence=""><?= ($model->interested_in_work_permit == 1) ? "true" : "false" ?></p>
+                                  <p class="text-muted" data-speechify-sentence=""><?= ($model->interested_in_work_permit == 1) ? "Yes" : "No" ?></p>
 
                                   <hr>
                             </div>
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Interested in Kenyan citizenship?</strong>
 
-                                  <p class="text-muted" data-speechify-sentence=""><?= ($model->interested_in_citizenship == 1) ? "true" : "false" ?></p>
+                                  <p class="text-muted" data-speechify-sentence=""><?= ($model->interested_in_citizenship == 1) ? "Yes" : "No" ?></p>
 
                                   <hr>
                             </div>

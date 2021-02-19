@@ -71,7 +71,7 @@ $script = <<<JS
             {title : 'RCK No', data : 'rck_no'},
             {title : 'Old RCK', data : 'old_rck'},
             {title : 'Country', data : 'country'},
-            {title : 'created At', data: 'created_at'},
+            //{title : 'created At', data: 'created_at'},
             {
                 data: function ( row, type, val, meta ) {
                     return '<div class="d-inline-flex"><a href="'+viewUrl+'/?id='+row.id+'" class="p-1" title="View Record"><i class="far fa-eye"></i></a><a href="'+editUrl+'/?id='+row.id+'" title="Edit Record" class="p-1"><i class="far fa-edit"></i></a></div>'
