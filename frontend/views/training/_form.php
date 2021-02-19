@@ -35,16 +35,22 @@ use yii\widgets\ActiveForm;
                 </div>
                 <div class="col-md-6">
                     <div class="custom-file">
-                        <?= $form->field($model, 'participants_scan',['options' => [
-                            'class' => 'custom-file-label has-icon has-label'
-                        ]])->fileInput(['class' => 'custom-file-input']) ?>
+                        <?= $form->field($model, 'participants_scan',[
+                            'options' => [
+                                'class' => 'custom-file has-icon has-label',
+                            ],
+                            'labelOptions' => [ 'class' => 'custom-file-label' ]
+                        ])->fileInput(['class' => 'custom-file-input']) ?>
                     </div>                    
                 </div>
                 <div class="col-md-6">
                     <div class="custom-file">
-                        <?= $form->field($model, 'photos[]',['options' => [
-                        'class' => 'custom-file-label has-icon has-label'
-                    ]])->fileInput(['multiple'=> true, 'class' => 'custom-file-input uploadform-imagefile']) ?>
+                        <?= $form->field($model, 'photos[]',[
+                            'options' => [
+                                'class' => 'custom-file has-icon has-label',
+                            ],
+                            'labelOptions' => [ 'class' => 'custom-file-label' ]
+                            ])->fileInput(['multiple'=> true, 'class' => 'custom-file-input uploadform-imagefile']) ?>
                     </div>                    
                 </div>
 
@@ -56,9 +62,9 @@ use yii\widgets\ActiveForm;
 
                     <?php $form->field($model, 'updated_at')->textInput() ?>
 
-                <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', '<i class="fa fa-check"></i> save'), ['class' => 'btn btn-success']); ?>
-        <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>
+                <div class="form-group mx-sm-3 mb-2 mt-3 col-md-12 pull-right">
+                    <?= Html::submitButton(Yii::t('app', '<i class="fa fa-check"></i> save'), ['class' => 'btn btn-success']); ?>
+                    <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>
                 </div>
             </div>
 
@@ -80,7 +86,23 @@ $script = <<<JS
             $('.field-training-organizer').fadeOut('slow');
         }
     });
+
+    $('#training-participants_scan').on('change', function() {
+        var file = $(this)[0].files[0].name;
+        let title = $(this).siblings( "label" ).text();
+        $(this).siblings( "label" ).text(" ("+ file + ") File selected");
+    });
+
+    $('#training-photos').on('change', function() {
+        let count =0
+        count = $(this)[0].files.length;        
+        var file = $(this)[0].files[0].name;
+        let title = $(this).siblings( "label" ).text();
+        file = (count == 1) ? file : count
+        $(this).siblings( "label" ).text(" ("+ file + ") File selected");
+    });
     
 JS;
 
 $this->registerJs($script);
+

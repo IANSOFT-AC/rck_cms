@@ -94,7 +94,7 @@ $script = <<<JS
     $('input[type="file"]').on('change', function() {
         var file = $(this)[0].files[0].name;
         let title = $(this).siblings( "label" ).text();
-        $(this).siblings( "label" ).text(title +" ("+ file + ") File selected");
+        $(this).siblings( "label" ).text(" ("+ file + ") File selected");
     });
 
 JS;

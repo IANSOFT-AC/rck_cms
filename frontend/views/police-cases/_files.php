@@ -66,7 +66,8 @@ $uploadModel = new UploadForm();
                     'options' => [
                         'class' => 'custom-file has-icon has-label',
                     ],
-                    'labelOptions' => [ 'class' => 'custom-file-label' ]])->fileInput([ 'accept' => '*/*','multiple' => true, 'class' => 'custom-file-input uploadform-multipleFiles'])->label("Other Uploads") ?>
+                    'labelOptions' => [ 'class' => 'custom-file-label' ]
+                    ])->fileInput([ 'accept' => '*/*','multiple' => true, 'class' => 'custom-file-input uploadform-multipleFiles'])->label("Other Uploads") ?>
                     <input type="hidden" name="id" value="<?= $model->id?>">
                 </div>
                 <div class="form-group mx-sm-3 mb-2 mt-3 col-md-12 pull-right">
@@ -87,7 +88,7 @@ $script = <<<JS
     $('input[type="file"]').on('change', function() {
         var file = $(this)[0].files[0].name;
         let title = $(this).siblings( "label" ).text();
-        $(this).siblings( "label" ).text(title +" ("+ file + ") File selected");
+        $(this).siblings( "label" ).text(" ("+ file + ") File selected");
     });
 
 JS;

@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 
         <p>
             <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a(Yii::t('app', 'Court Case Proceedings'), ['/court-case-proceeding\list', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(Yii::t('app', 'Court Case Updates'), ['/court-case-proceeding\list', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
             <?= Html::a(Yii::t('app', 'View Client Biodata'), ['/refugee\view', 'id' => $model->refugee_id], ['class' => 'btn btn-warning']) ?>
             <?php Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',

@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Court Case Proceedings');
+$this->title = Yii::t('app', 'Court Case Updates');
 $this->params['breadcrumbs'][] = ['label' => 'Court Case', 'url' => 'court-cases'];
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => 'index'];
 ?>
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => 'index'];
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Court Case Proceeding'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Court Case Update'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 
