@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Client List'];
                 <h1 class="header-title"><?= Html::encode($this->title) ?></h1><br>
 
                 <p>
-                    <?= Html::a('Add Client', ['create'], ['class' => 'btn btn-success']) ?>
+                    <?= Html::a('New Client', ['create'], ['class' => 'btn btn-success']) ?>
                     <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
                 </p>
             </div>
@@ -48,6 +48,11 @@ $script = <<<JS
     });
 
     $('#refugees').DataTable({
+        language: {
+            emptyTable: "No data available in table", // 
+           // loadingRecords: "Please wait .. ", // default Loading...
+            zeroRecords: "No matching records found"
+        },
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'

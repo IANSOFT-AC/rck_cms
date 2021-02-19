@@ -45,6 +45,7 @@ class RckOffices extends \yii\db\ActiveRecord
     {
         return [
             [['desc'], 'string'],
+            [['name','code','desc'], 'required'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name','code'], 'string', 'max' => 255],
         ];

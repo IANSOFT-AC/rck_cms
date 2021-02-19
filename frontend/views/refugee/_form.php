@@ -39,7 +39,7 @@ use yii\helpers\Url;
                         <div class="col-md-6">
                             <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?>
                             <?= $form->field($model, 'user_group_id')->hiddenInput(['value' => 4])->label(false) ?>
-                            <?= $form->field($model, 'date_of_birth')->textInput(['type' => 'date', 'class' => 'form-control no-future']) ?>
+                            <?= $form->field($model, 'date_of_birth')->textInput(['type' => 'date', 'class' => 'form-control no-future','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date_of_birth, 'yyyy-MM-dd')]) ?>
                             <?= $form->field($model, 'country_of_origin')->dropDownList($countries, ['prompt' => 'select..']) ?>
                         </div>
                     <!-- </div>
@@ -56,7 +56,7 @@ use yii\helpers\Url;
                         <div class="col-md-6">
                             <?= $form->field($model, 'cell_number')->textInput(['maxlength' => true]) ?>
                             <?= $form->field($model, 'email_address')->textInput(['maxlength' => true]) ?>
-                            <?= $form->field($model, 'arrival_date')->textInput(['type' => 'date', 'class' => 'form-control no-future']) ?>
+                            <?= $form->field($model, 'arrival_date')->textInput(['type' => 'date', 'class' => 'form-control no-future','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->arrival_date, 'yyyy-MM-dd')]) ?>
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'interpreter')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Needs an interpreter? --']) ?>
@@ -78,7 +78,7 @@ use yii\helpers\Url;
                     <div class="row"> -->
                         <div class="col-md-6">
                             <?= $form->field($model, 'asylum_status')->dropDownList($asylum_types,['prompt' => '-- Asylum Status? --']) ?>
-                            <?= $form->field($model, 'rsd_appointment_date')->textInput(['type' => 'date','class' => 'form-control']) ?>
+                            <?= $form->field($model, 'rsd_appointment_date')->textInput(['type' => 'date','class' => 'form-control','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->rsd_appointment_date, 'yyyy-MM-dd')]) ?>
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'reason_for_rsd_appointment')->textarea() ?>
@@ -178,7 +178,7 @@ use yii\helpers\Url;
 
                             <?= $form->field($model, 'source_of_income_id[]')->dropDownList($sourceOfIncome,['prompt' => '-- Select source of Income --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
                             <?= $form->field($model, 'source_of_income')->textarea() ?>
-                            <?= $form->field($model, 'job_details')->textarea() ?>
+                            <?php $form->field($model, 'job_details')->textarea() ?>
                             <?= $form->field($model, 'mode_of_entry_id')->dropDownList($modeOfEntry,['prompt' => '-- Select Mode Of Entry --']) ?>
 
                         </div>
@@ -238,6 +238,9 @@ use yii\helpers\Url;
 
 $script = <<<JS
 
+    //COnfirm if its new record
+    let isNewRecord = $model->isNewRecord
+    
     //Hide fields initially
     $('.field-refugee-disability_desc, \
         .field-refugee-form_of_torture, \
@@ -249,6 +252,33 @@ $script = <<<JS
         .field-refugee-form_of_torture_id,\
         .field-refugee-languages, \
         .field-refugee-custom_language').hide()
+
+    $('#refugee-country_of_origin').on('change', function(){
+        if(this.value == 3){
+            $('.field-refugee-conflict, .field-refugee-arrival_date,\
+                .field-refugee-mode_of_entry_id,\
+                .field-refugee-nhcr_case_no,\
+                #work-permits'
+            ).fadeOut();
+            
+            //Select an option for the asyslum seeker select field
+            if(isNewRecord == 1){
+                $("#refugee-asylum_status option[value=" + 3 + "]").prop("selected",true);
+            }
+        }else{
+            $('.field-refugee-conflict, .field-refugee-arrival_date,\
+                .field-refugee-mode_of_entry_id,\
+                .field-refugee-nhcr_case_no,\
+                #work-permits'
+            ).fadeIn();
+
+            //Offset asyslum seeker select field
+            if(isNewRecord == 1){
+                $("#refugee-asylum_status option:selected").prop("selected",false);
+            }
+
+        }
+    }).change();
 
     $('#refugee-asylum_status').on('change', function() {
       //alert( this.value );
@@ -264,7 +294,7 @@ $script = <<<JS
         $('.field-refugee-id_no').fadeOut('slow');
       }
 
-    });
+    }).change();
 
     $('#refugee-interpreter').on('change', function(){
         if(this.value == 1){
@@ -272,7 +302,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-languages').fadeOut('slow');
         }
-    });
+    }).change();
 
     $('#refugee-rck_office_id').on('change', function(){
         if(this.value == 1 || this.value == 2){
@@ -280,7 +310,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-camp').fadeIn('slow');
         }
-    });
+    }).change();
 
     $('#refugee-languages').on('change', function(){
         if($('#refugee-languages option[value=0]:selected').length > 0){
@@ -288,7 +318,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-custom_language').fadeOut('slow');
         }
-    })
+    }).change();
 
     $('#refugee-has_work_permit').on('change', function(){
         if(this.value == 1){
@@ -296,7 +326,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-arrested_due_to_lack_of_work_permit, .field-refugee-interested_in_work_permit, .field-refugee-interested_in_citizenship').fadeIn('slow');
         }
-    });
+    }).change();
 
     $('#refugee-has_disability').on('change', function(){
         if(this.value == 1){
@@ -304,7 +334,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-disability_type_id').fadeOut('slow');
         }
-    });
+    }).change();;
 
     $('#refugee-disability_type_id').on('change', function(){
         if($('#refugee-disability_type_id option[value=0]:selected').length > 0){
@@ -312,7 +342,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-disability_desc').fadeOut('slow');
         }
-    });
+    }).change();;
 
     $('#refugee-victim_of_turture').on('change', function(){
         if(this.value == 1){
@@ -320,7 +350,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-form_of_torture_id').fadeOut('slow');
         }
-    });
+    }).change();;
 
     $('#refugee-form_of_torture_id').on('change', function(){
         if($('#refugee-form_of_torture_id option[value=0]:selected').length > 0){
@@ -328,7 +358,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-form_of_torture').fadeOut('slow');
         }
-    });
+    }).change();;
 
     $('#refugee-source_of_info_id').on('change', function(){
         if(this.value == 0){
@@ -336,7 +366,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-source_of_info_abt_rck').fadeOut('slow');
         }
-    });
+    }).change();;
 
     $('#refugee-source_of_income_id').on('change', function(){
         if($('#refugee-source_of_income_id option[value=0]:selected').length > 0){
@@ -344,29 +374,12 @@ $script = <<<JS
         }else{
             //$('.field-refugee-source_of_income').fadeOut('slow');
         }
-    });
+    }).change();;
 
-    $('#refugee-country_of_origin').on('change', function(){
-        if(this.value == 3){
-            $('.field-refugee-conflict, .field-refugee-arrival_date,\
-                .field-refugee-mode_of_entry_id,\
-                .field-refugee-nhcr_case_no,\
-                #work-permits'
-            ).fadeOut();
-            
-            //Select an option for the asyslum seeker select field
-            $("#refugee-asylum_status option[value=" + 3 + "]").prop("selected",true);
-        }else{
-            $('.field-refugee-conflict, .field-refugee-arrival_date,\
-                .field-refugee-mode_of_entry_id,\
-                .field-refugee-nhcr_case_no,\
-                #work-permits'
-            ).fadeIn();
+    
 
-            //Offset asyslum seeker select field
-            $("#refugee-asylum_status option:selected").prop("selected",false);
-        }
-    });
+    //$('#refugee-asylum_status').change();
+    //$('#refugee-asylum_status').selectmenu('refresh', true);
     
 JS;
 

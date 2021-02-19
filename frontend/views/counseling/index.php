@@ -86,6 +86,11 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => "#"];
 $script = <<<JS
 
     $('#counseling').DataTable({
+        language: {
+            emptyTable: "No data available in table", // 
+           // loadingRecords: "Please wait .. ", // default Loading...
+            zeroRecords: "No matching records found"
+        },
     });
 JS;
 

@@ -10,7 +10,7 @@ use yii\helpers\Url;
 
 $this->title = 'Interventions';
 isset($refugee_id) ? $this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['refugee/view', 'id' => $refugee_id]] : null ;
-$this->params['breadcrumbs'][] = ['label' => 'interventions', 'url' => 'index'];
+$this->params['breadcrumbs'][] = ['label' => 'interventions'];
 ?>
 <div class="intervention-index">
 
@@ -56,6 +56,11 @@ $script = <<<JS
     });
 
     $('#interventions').DataTable({
+        language: {
+            emptyTable: "No data available in table", // 
+           // loadingRecords: "Please wait .. ", // default Loading...
+            zeroRecords: "No matching records found"
+        },
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'

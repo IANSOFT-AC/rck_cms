@@ -206,7 +206,7 @@ class Refugee extends \yii\db\ActiveRecord
         //Create the RCK id number
         if($insert){
             $date = new DateTime();
-            $this->rck_no = $this->rckOffice->code ."-". $this->id."-".$date->format('Y');
+            $this->rck_no = "RCK-".$this->rckOffice->code ."-". $this->id."-".$date->format('Y');
             $this->updateAttributes(['rck_no' => $this->rck_no]);
         }
         //parent::afterSave($insert, $changedAttributes);

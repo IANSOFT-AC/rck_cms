@@ -53,6 +53,11 @@ $script = <<<JS
     });
 
     $('#police_cases').DataTable({
+        language: {
+            emptyTable: "No data available in table", // 
+           // loadingRecords: "Please wait .. ", // default Loading...
+            zeroRecords: "No matching records found"
+        },
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
