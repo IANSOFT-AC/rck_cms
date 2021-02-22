@@ -132,7 +132,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     ?>
 
                     <?php 
-                    if($model->agency_id){
+                    if(!is_null($model->agency_id)){
                         ?>
                         <div class="col-md-6">
                             <strong data-speechify-sentence=""><i class="fas fa-office"></i> Referred Agency</strong>

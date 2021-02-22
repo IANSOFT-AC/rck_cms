@@ -173,6 +173,20 @@ $this->title = "RCK: Control Panel";
 	                    </p>
 	                    <br>
 	                </div>
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b> Counsellors Settings</b>',['counsellors/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b> Legal Officers Settings</b>',['lawyer/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
 	            </div>
 	        </div>
 	    </div>
@@ -243,6 +257,13 @@ $this->title = "RCK: Control Panel";
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
 	                    	<?= Html::a('<b> Organizer Settings</b>',['organizer/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b> Agency Settings</b>',['agency/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>

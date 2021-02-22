@@ -24,6 +24,9 @@ use app\models\Lawyer;
 
                 <div class="col-md-6">
                     
+                    <?php 
+                    if(is_null($refugee_id)){
+                    ?>
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'gender')->dropDownList(['male' => 'Male', 'female' => 'Female', 'other' => 'Others'],
@@ -32,6 +35,9 @@ use app\models\Lawyer;
                     <?= $form->field($model, 'contacts')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'age')->textInput(['type' => 'number']) ?>
+                    <?php
+                    }
+                    ?>
 
                     <?= $form->field($model, 'police_station_id')->dropDownList($policeStations,
                         ['prompt'=> '-- Select Police Station --']) ?>

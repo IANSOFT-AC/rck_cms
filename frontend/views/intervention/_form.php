@@ -55,7 +55,7 @@ use common\models\Helper;
 
                 <?php $form->field($model, 'updated_by')->textInput() ?>
 
-                <div class="form-group">
+                <div class="form-group col-md-12">
                     <?= Html::submitButton('Save <i class="fa fa-check"></i>', ['class' => 'btn btn-success']) ?>
                     <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>
                 </div>

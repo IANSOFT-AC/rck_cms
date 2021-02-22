@@ -55,13 +55,27 @@ class PoliceCases extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['complainant','gender','age','name'], 'required'],
+            [['complainant'], 'required'],
             [['first_instance_interview','policestation'],'string'],
             [['police_station_id','refugee_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name', 'gender', 'contacts', 'age', 'investigating_officer', 'ob_number', 'ob_details', 'offence', 'complainant'], 'string', 'max' => 255],
             [['investigating_officer_contacts'], 'string', 'max' => 100],
             [['police_station_id'], 'exist', 'skipOnError' => true, 'targetClass' => Policestation::className(), 'targetAttribute' => ['police_station_id' => 'id']],
             [['offence_id'], 'exist', 'skipOnError' => true, 'targetClass' => Offence::className(), 'targetAttribute' => ['offence_id' => 'id']],
+            [  
+                ['gender','age','name'], 
+                'required', 
+                'when' => function($model){
+                    return (is_null($model->refugee_id)) ? true : false;
+                },
+                'whenClient' => "function(attribute, value){
+                    if( $('#refugee-refugee_id').length){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }"
+            ],
         ];
     }
 
@@ -72,7 +86,7 @@ class PoliceCases extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Client Name',
             'gender' => 'Gender',
             'contacts' => 'Contacts',
             'age' => 'Age',
