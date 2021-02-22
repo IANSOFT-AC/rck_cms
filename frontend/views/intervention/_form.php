@@ -73,7 +73,7 @@ $script = <<<JS
         }else if(e.target.value == "12"){
             $('.field-intervention-police_case').fadeIn('slow')
         }
-    });
+    }).change();
 JS;
 
 $this->registerJs($script);

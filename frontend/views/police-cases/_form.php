@@ -97,7 +97,7 @@ $script = <<<JS
         }else{
             $('.field-policecases-policestation').fadeOut('slow');
         }
-    });
+    }).change();
 
     $('#policecases-offence_id').on('change', function(){
         if(this.value == 0){
@@ -105,7 +105,7 @@ $script = <<<JS
         }else{
             $('.field-policecases-offence').fadeOut('slow');
         }
-    });
+    }).change();
     
 JS;
 
