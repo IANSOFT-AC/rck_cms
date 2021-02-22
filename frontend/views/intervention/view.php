@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\InterventionType;
-use app\models\CaseType;
+use app\models\Casetype;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Intervention */
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                             ?>
     	                    <li>
                                 <?php
-                                    echo CaseType::findOne($value)->type;
+                                    echo Casetype::findOne($value)->type;
                                 ?>
                             </li>
                             <?php } ?>
