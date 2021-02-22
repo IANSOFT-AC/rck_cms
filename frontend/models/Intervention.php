@@ -52,7 +52,7 @@ class Intervention extends \yii\db\ActiveRecord
     {
         return [
             [['created_at', 'updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id','office_id'], 'integer'],
-            [['situation_description','intervention_details'], 'string'],
+            [['situation_description','intervention_details','agency_id'], 'string'],
             [['counseling_intake_form'], 'string', 'max' => 255],
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Refugee::className(), 'targetAttribute' => ['client_id' => 'id']],
             [['court_case'], 'exist', 'skipOnError' => true, 'targetClass' => CourtCases::className(), 'targetAttribute' => ['court_case' => 'id']],
