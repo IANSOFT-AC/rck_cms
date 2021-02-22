@@ -262,6 +262,9 @@ class RefugeeController extends Controller
             if(isset(Yii::$app->request->post()['Refugee']['languages'])){
                 $model->languages = implode(',',Yii::$app->request->post()['Refugee']['languages']);
             }
+            if(isset(Yii::$app->request->post()['Refugee']['spoken_languages'])){
+                $model->spoken_languages = implode(',',Yii::$app->request->post()['Refugee']['spoken_languages']);
+            }
 
             $model->save();
             
@@ -338,6 +341,9 @@ class RefugeeController extends Controller
             }
             if(isset(Yii::$app->request->post()['Refugee']['languages'])){
                 $model->languages = implode(',',Yii::$app->request->post()['Refugee']['languages']);
+            }
+            if(isset(Yii::$app->request->post()['Refugee']['spoken_languages'])){
+                $model->spoken_languages = implode(',',Yii::$app->request->post()['Refugee']['spoken_languages']);
             }
 
             $model->save();

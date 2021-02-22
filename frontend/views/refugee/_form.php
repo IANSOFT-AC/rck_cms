@@ -52,6 +52,9 @@ use common\models\Helper;
                         <div class="col-md-6">
                             <?= $form->field($model, 'country_of_origin')->dropDownList($countries, ['prompt' => 'select..']) ?>
                         </div>
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'spoken_languages[]')->dropDownList($languages, ['prompt' => '--Select The Spoken Languages--','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->spoken_languages)]) ?>
+                            </div>
                     <!-- </div>
 
                 </div>
@@ -78,9 +81,6 @@ use common\models\Helper;
                         <div class="col-md-6">
                             <?= $form->field($model, 'languages[]')->dropDownList($languages, ['prompt' => '--Select The Languages--','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->languages)]) ?>
                             </div>
-                        <div class="col-md-6">
-                            <?= $form->field($model, 'custom_language')->textInput(['maxlength' => true]) ?>
-                        </div>
                     <!-- </div>
                 </div>
             </div>

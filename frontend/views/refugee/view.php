@@ -71,6 +71,28 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
                               <hr>
                             </div>
+
+                            <div class="col-md-6">
+                                    <strong data-speechify-sentence=""> Languages Spoken</strong>
+                                    <div class="btn-group">
+                                    <?php  
+                                        $spoken = explode(",", $model->spoken_languages);                               
+                                        foreach ($spoken as $key => $value) {
+                                            # code...
+                                            $record = Language::findOne($value);
+                                            if($record){
+                                            ?>
+                                            <button type="button" class="btn btn-default" style="">
+                                                <?= $record->name; ?>
+                                            </button>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                    </div>
+                                    
+                                <hr>
+                                </div>
                             
 
                             <div class="col-md-6">
@@ -97,6 +119,34 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
                                   <hr>
                             </div>
+
+                            <?php 
+                            $incomes = explode(",", $model->languages);
+                            if(!empty($incomes[0])){
+                            ?>
+                                <div class="col-md-6">
+                                    <strong data-speechify-sentence=""> Languages That need an Interpreter</strong>
+                                    <div class="btn-group">
+                                    <?php                                 
+                                        foreach ($incomes as $key => $value) {
+                                            # code...
+                                            $record = Language::findOne($value);
+                                            if($record){
+                                            ?>
+                                            <button type="button" class="btn btn-default" style="">
+                                                <?= $record->name; ?>
+                                            </button>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                    </div>
+                                    
+                                <hr>
+                                </div>
+                            <?php 
+                            }
+                            ?>
 
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Dependants</strong>
@@ -319,33 +369,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             }
                             ?>
 
-<?php 
-                            $incomes = explode(",", $model->languages);
-                            if(!empty($incomes[0])){
-                            ?>
-                                <div class="col-md-6">
-                                    <strong data-speechify-sentence=""> Languages</strong>
-                                    <div class="btn-group">
-                                    <?php                                 
-                                        foreach ($incomes as $key => $value) {
-                                            # code...
-                                            $record = Language::findOne($value);
-                                            if($record){
-                                            ?>
-                                            <button type="button" class="btn btn-default" style="">
-                                                <?= $record->name; ?>
-                                            </button>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
-                                    </div>
-                                    
-                                <hr>
-                                </div>
-                            <?php 
-                            }
-                            ?>
+                            
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Job Details</strong>
 

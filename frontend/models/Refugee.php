@@ -94,11 +94,11 @@ class Refugee extends \yii\db\ActiveRecord
         return [
             [['first_name', 'last_name', 'user_group_id', 'gender', 'rck_office_id', 'country_of_origin','has_disability','victim_of_turture','asylum_status'], 'required'],
             [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at', 
-                'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status',
+                'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status','interpreter',
                  'mode_of_entry_id', 'victim_of_turture', 'has_work_permit', 'arrested_due_to_lack_of_work_permit',
                   'interested_in_work_permit', 'dependants','interested_in_citizenship','source_of_info_id','disability_type_id'
                 ], 'integer'],
-            [['disability_desc', 'reason_for_rsd_appointment', 'custom_language', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date','arrival_date', 'date_of_birth', 'physical_address', 'languages', 'old_rck'], 'string'],
+            [['disability_desc', 'reason_for_rsd_appointment', 'custom_language', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date','arrival_date', 'date_of_birth', 'physical_address',  'old_rck'], 'string'],
             [['first_name', 'middle_name', 'last_name', 'email_address'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 150],
             [['cell_number','id_no'], 'string', 'max' => 15],
@@ -267,11 +267,12 @@ class Refugee extends \yii\db\ActiveRecord
             'form_of_torture_id' => 'Form of Torture',
             'disability_type_id' => 'Disability Type',
 
-            'languages' => 'Languages',
+            'languages' => 'Languages That need interpretation',
             'interpreter' => 'Client needs an interpreter?',
             'dependants' => 'No. of Dependants',
             'old_rck' => 'Old RCK No',
-            'custom_language' => 'Custom Language'
+            'custom_language' => 'Custom Language',
+            'spoken_languages' => 'Spoken Languages'
         ];
     }
 

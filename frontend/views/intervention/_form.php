@@ -27,13 +27,13 @@ use common\models\Helper;
                     <?= $form->field($model, 'situation_description')->textarea(['rows' => 6]) ?>
                 </div>
                 <div class="col-md-12">
-                    <?= $form->field($model, 'intervention_type_id[]')->dropDownList($interventionType,['prompt' => 'Select ...','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->intervention_type_id)]) ?>
+                    <?= $form->field($model, 'intervention_type_id[]')->dropDownList($interventionType,['prompt' => '--Select ...','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->intervention_type_id)]) ?>
                 </div>
                 <div class="col-md-12">
                     <?= $form->field($model, 'intervention_details')->textarea(['rows' => 6]) ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'court_case')->dropDownList($court_cases,['prompt' => 'Select Court Case']) ?>
+                    <?= $form->field($model, 'court_case')->dropDownList($court_cases,['prompt' => '--Select Court Case--']) ?>
                 </div>
 
                 <div class="col-md-6">
@@ -41,11 +41,11 @@ use common\models\Helper;
                 </div>
 
                 <div class="col-md-6">
-                    <?= $form->field($model, 'agency_id',['options' => ['placeholder' => 'Type the name of the referal agency']])->textInput() ?>
+                    <?= $form->field($model, 'agency_id')->dropDownList($agencies,['prompt' => '--Select the Agency--']) ?>
                 </div>
 
                 <div class="col-md-6">
-                    <?= $form->field($model, 'police_case')->dropDownList($police_cases,['prompt' => 'Select Police Case']) ?>
+                    <?= $form->field($model, 'police_case')->dropDownList($police_cases,['prompt' => '--Select Police Case--']) ?>
                 </div>                
                 <?php $form->field($model, 'created_at')->textInput() ?>
 

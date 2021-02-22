@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = ['label' => $model->id];
         'interventionType'=> $interventionType,
         'police_cases' => $police_cases,
         'court_cases' => $court_cases,
-        'rck_offices' => $rck_offices
+        'rck_offices' => $rck_offices,
+        'agencies' => $agencies
     ]) ?>
 
 </div>

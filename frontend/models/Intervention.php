@@ -51,8 +51,8 @@ class Intervention extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id','office_id'], 'integer'],
-            [['situation_description','intervention_details','agency_id'], 'string'],
+            [['created_at','agency_id','updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id','office_id'], 'integer'],
+            [['situation_description','intervention_details'], 'string'],
             [['counseling_intake_form'], 'string', 'max' => 255],
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Refugee::className(), 'targetAttribute' => ['client_id' => 'id']],
             [['court_case'], 'exist', 'skipOnError' => true, 'targetClass' => CourtCases::className(), 'targetAttribute' => ['court_case' => 'id']],
@@ -80,7 +80,7 @@ class Intervention extends \yii\db\ActiveRecord
             'police_case' => 'Police Case',
             'client_id' => 'Client',
             'office_id' => 'RCD office Relocation',
-            'agency_id' => 'Referral Agency'
+            'agency_id' => 'Referred Agency'
         ];
     }
 
@@ -102,6 +102,11 @@ class Intervention extends \yii\db\ActiveRecord
     public function getOffice()
     {
         return $this->hasOne(RckOffices::className(), ['id' => 'office_id']);
+    }
+
+    public function getAgency()
+    {
+        return $this->hasOne(Agency::className(), ['id' => 'agency_id']);
     }
 
     /**
