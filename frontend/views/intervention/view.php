@@ -132,9 +132,17 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     ?>
 
                     <div class="col-md-12">
-                        <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Situation</strong>
+                        <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Situation Description</strong>
 
                       <p class="text-muted" data-speechify-sentence=""><?= $model->situation_description?></p>
+
+                      <br>
+                    </div>
+
+                    <div class="col-md-12">
+                        <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Intervention Details</strong>
+
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->intervention_details?></p>
 
                       <br>
                     </div>

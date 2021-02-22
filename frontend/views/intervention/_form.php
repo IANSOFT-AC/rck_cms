@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\Helper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Intervention */
@@ -17,25 +18,26 @@ use yii\widgets\ActiveForm;
 
             <div class="row">
                 <div class="col-md-6">
-                    <?= $form->field($model, 'case_id[]')->dropDownList($cases,['prompt' => '-- Select Case or Issue --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
-                </div>
-                
+                    <?= $form->field($model, 'case_id[]')->dropDownList($cases,['prompt' => '-- Select Case or Issue --','multiple'=>'multiple', 'data-live-search' => "true",'class' => 'form-control selectpicker', 'options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->case_id)]) ?>
+                </div>                
                 <div class="col-md-6">
                     <?= $form->field($model, 'client_id')->dropDownList($client) ?>
                 </div>
-                
                 <div class="col-md-12">
-                    <?= $form->field($model, 'intervention_type_id[]')->dropDownList($interventionType,['prompt' => 'Select ...','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
+                    <?= $form->field($model, 'situation_description')->textarea(['rows' => 6]) ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'intervention_type_id[]')->dropDownList($interventionType,['prompt' => 'Select ...','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->intervention_type_id)]) ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'intervention_details')->textarea(['rows' => 6]) ?>
                 </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'court_case')->dropDownList($court_cases,['prompt' => 'Select Court Case']) ?>
                 </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'police_case')->dropDownList($police_cases,['prompt' => 'Select Police Case']) ?>
-                </div>
-                <div class="col-md-12">
-                    <?= $form->field($model, 'situation_description')->textarea(['rows' => 6]) ?>
-                </div>
+                </div>                
                 <?php $form->field($model, 'created_at')->textInput() ?>
 
                 <?php $form->field($model, 'updated_at')->textInput() ?>

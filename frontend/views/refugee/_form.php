@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use common\models\Helper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Refugee */
@@ -75,7 +76,7 @@ use yii\helpers\Url;
                             <?= $form->field($model, 'interpreter')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Needs an interpreter? --']) ?>
                             </div>
                         <div class="col-md-6">
-                            <?= $form->field($model, 'languages[]')->dropDownList($languages, ['prompt' => '--Select The Languages--','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
+                            <?= $form->field($model, 'languages[]')->dropDownList($languages, ['prompt' => '--Select The Languages--','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->languages)]) ?>
                             </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'custom_language')->textInput(['maxlength' => true]) ?>
@@ -196,7 +197,7 @@ use yii\helpers\Url;
                             <?= $form->field($model, 'has_disability')->dropDownList([1 => 'Yes' , 0 => 'No'],['prompt' => '-- Has Disability? --']) ?>
                             </div>
                         <div class="col-md-6">
-                            <?= $form->field($model, 'disability_type_id[]')->dropDownList($disabilityType,['prompt' => '-- Select Disability --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
+                            <?= $form->field($model, 'disability_type_id[]')->dropDownList($disabilityType,['prompt' => '-- Select Disability --','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->disability_type_id)]) ?>
                             </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'disability_desc')->textarea() ?>
@@ -206,7 +207,7 @@ use yii\helpers\Url;
                             <?= $form->field($model, 'victim_of_turture')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Select Yes or No --']) ?>
                             </div>
                         <div class="col-md-6">
-                            <?= $form->field($model, 'form_of_torture_id[]')->dropDownList($formOfTorture,['prompt' => '-- Select Form of Torture --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
+                            <?= $form->field($model, 'form_of_torture_id[]')->dropDownList($formOfTorture,['prompt' => '-- Select Form of Torture --','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->form_of_torture_id)]) ?>
                             </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'form_of_torture')->textarea() ?>
@@ -219,7 +220,7 @@ use yii\helpers\Url;
                             </div>
                         <div class="col-md-6">
 
-                            <?= $form->field($model, 'source_of_income_id[]')->dropDownList($sourceOfIncome,['prompt' => '-- Select source of Income --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
+                            <?= $form->field($model, 'source_of_income_id[]')->dropDownList($sourceOfIncome,['prompt' => '-- Select source of Income --','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->source_of_income_id)]) ?>
                             </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'source_of_income')->textarea() ?>

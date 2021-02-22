@@ -289,10 +289,10 @@ class InterventionController extends Controller
         return $result;
     }
 
-    protected static function prepareCaseTypesString($string){
+    protected static function prepareCaseTypesString($ids){
         $rst = "";
 
-        $dd = Casetype::find()->where(['IN','id', explode(',',$string)])->all();
+        $dd = Casetype::find()->where(['IN','id', explode(',',$ids)])->all();
         foreach ($dd as $key => $value) {
             # code...
             if($key == (count($dd) - 1)){
@@ -303,4 +303,6 @@ class InterventionController extends Controller
         }
         return $rst;
     }
+
+    
 }

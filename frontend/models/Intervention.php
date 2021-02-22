@@ -51,8 +51,8 @@ class Intervention extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id'], 'integer'],
-            [['situation_description'], 'string'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id','office_id'], 'integer'],
+            [['situation_description','intervention_details'], 'string'],
             [['counseling_intake_form'], 'string', 'max' => 255],
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Refugee::className(), 'targetAttribute' => ['client_id' => 'id']],
             [['court_case'], 'exist', 'skipOnError' => true, 'targetClass' => CourtCases::className(), 'targetAttribute' => ['court_case' => 'id']],
@@ -68,8 +68,9 @@ class Intervention extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'intervention_type_id' => 'Intervention Type',
-            'case_id' => 'Intervention Issue',
-            'situation_description' => 'Intervention Details',
+            'intervention_details' => 'Intervention Details',
+            'case_id' => 'Intervention Issue/Case',
+            'situation_description' => 'Issue/Case Description',
             'counseling_intake_form' => 'Counseling Intake Form',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -78,6 +79,7 @@ class Intervention extends \yii\db\ActiveRecord
             'court_case' => 'Court Case',
             'police_case' => 'Police Case',
             'client_id' => 'Client',
+            'office_id' => 'RCD office Relocation'
         ];
     }
 
