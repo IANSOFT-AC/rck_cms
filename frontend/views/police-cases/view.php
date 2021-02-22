@@ -19,6 +19,7 @@ yii\web\YiiAsset::register($this);
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Police Case Updates'), ['/police-case-proceeding\list', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Attachments', ['files', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
     </p>
 

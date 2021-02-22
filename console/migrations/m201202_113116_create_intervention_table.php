@@ -18,7 +18,7 @@ class m201202_113116_create_intervention_table extends Migration
         $this->createTable('{{%intervention}}', [
             'id' => $this->primaryKey(),
             'intervention_type_id' => $this->string(),
-            'case_id' => $this->integer(),
+            'case_id' => $this->string(),
             'situation_description' => $this->text(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
@@ -27,21 +27,21 @@ class m201202_113116_create_intervention_table extends Migration
         ]);
 
         // creates index for column `intervention_type_id`
-        $this->createIndex(
-            '{{%idx-intervention-intervention_type_id}}',
-            '{{%intervention}}',
-            'intervention_type_id'
-        );
+        // $this->createIndex(
+        //     '{{%idx-intervention-intervention_type_id}}',
+        //     '{{%intervention}}',
+        //     'intervention_type_id'
+        // );
 
-        // add foreign key for table `{{%intervention_type}}`
-        $this->addForeignKey(
-            '{{%fk-intervention-intervention_type_id}}',
-            '{{%intervention}}',
-            'intervention_type_id',
-            '{{%intervention_type}}',
-            'id',
-            'CASCADE'
-        );
+        // // add foreign key for table `{{%intervention_type}}`
+        // $this->addForeignKey(
+        //     '{{%fk-intervention-intervention_type_id}}',
+        //     '{{%intervention}}',
+        //     'intervention_type_id',
+        //     '{{%intervention_type}}',
+        //     'id',
+        //     'CASCADE'
+        // );
     }
 
     /**

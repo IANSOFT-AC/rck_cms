@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
             <div class="row">
                 <div class="col-md-6">
-                    <?= $form->field($model, 'case_id')->dropDownList($cases,['prompt' => '-- Select Case or Issue --']) ?>
+                    <?= $form->field($model, 'case_id[]')->dropDownList($cases,['prompt' => '-- Select Case or Issue --','multiple data-live-search' => "true",'class' => 'form-control selectpicker']) ?>
                 </div>
                 
                 <div class="col-md-6">

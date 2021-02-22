@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = ['label' => 'interventions'];
     <div class="card">
         <div class="card-header">
             <h1 class="header-title"><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?php
         if(isset($refugee_id)){

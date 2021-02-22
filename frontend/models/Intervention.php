@@ -51,7 +51,7 @@ class Intervention extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['case_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id'], 'integer'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id'], 'integer'],
             [['situation_description'], 'string'],
             [['counseling_intake_form'], 'string', 'max' => 255],
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Refugee::className(), 'targetAttribute' => ['client_id' => 'id']],
@@ -69,7 +69,7 @@ class Intervention extends \yii\db\ActiveRecord
             'id' => 'ID',
             'intervention_type_id' => 'Intervention Type',
             'case_id' => 'Intervention Issue',
-            'situation_description' => 'Case Details',
+            'situation_description' => 'Intervention Details',
             'counseling_intake_form' => 'Counseling Intake Form',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\InterventionType;
+use app\models\CaseType;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Intervention */
@@ -15,12 +16,9 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 <div class="intervention-view">
 
-    
-
     <div class="card">
         <div class="card-header">
             <h1 class="header-title"><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Attachments', ['files', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
@@ -56,7 +54,16 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                         <strong data-speechify-sentence=""><i class="fas fa-address-card"></i> Case Type</strong>
 
                         <p class="text-muted" data-speechify-sentence="">
-                            <?= $model->casetype->type ?>
+                            <?php
+                                $cases = explode(",", $model->case_id);
+                                foreach ($cases as $key => $value) {
+                            ?>
+    	                    <li>
+                                <?php
+                                    echo CaseType::findOne($value)->type;
+                                ?>
+                            </li>
+                            <?php } ?>
                         </p>
                         <br>
                     </div>

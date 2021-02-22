@@ -96,7 +96,8 @@ $uploadModel = new UploadForm();
             //'enableAjaxValidation' => true,
             //'validationUrl' => '/police_cases/upload',
         ]); ?>
-                <div class="custom-file m-1">
+            <div class="row container-fluid">
+                <div class="custom-file m-1 col-md-9">
                     <?= $form->field($uploadModel, 'multipleFiles[]',[
                             'options' => [
                                 'class' => 'custom-file has-icon has-label',
@@ -105,9 +106,10 @@ $uploadModel = new UploadForm();
             ])->fileInput([ 'accept' => '*/*','multiple' => true, 'class' => 'custom-file-input uploadform-multipleFiles'])->label("Other Uploads") ?>
                     <input type="hidden" name="id" value="<?= $model->id?>">
                 </div>
-                <div class="form-group mx-sm-3 mb-2 mt-3 col-md-12 pull-right">
+                <div class="form-group mx-sm-3 mb-2 mt-3 col-md-2 pull-right">
                     <?= Html::submitButton(Yii::t('app', 'Upload Multiple files'), ['class' => 'btn btn-warning uploadFile form-control']) ?>
                 </div>
+            </div>
             <hr>
 
             <?php ActiveForm::end(); ?>

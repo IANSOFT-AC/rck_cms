@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Add Training');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Trainings'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label'=> $this->title, 'url' => '#'];
+$this->params['breadcrumbs'][] = ['label'=> $this->title];
 ?>
 <div class="training-create">
     <div class="card">

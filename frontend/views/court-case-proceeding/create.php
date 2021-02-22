@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Create Court Case Update');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Court Case Update'), 'url' => ['list', 'id' => $court->id]];
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
+$this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 <div class="court-case-proceeding-create">
 
@@ -24,18 +24,3 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
     ]) ?>
 
 </div>
-<?php
-
-$script = <<<JS
-
-    $('#courtcaseproceeding-case_status').on('change', function(e){
-        if(e.target.value == "open"){
-            $('.field-courtcaseproceeding-next_court_date').fadeIn('slow')
-        }else{
-            $('.field-courtcaseproceeding-next_court_date').fadeOut('slow')
-        }
-    });
-JS;
-
-$this->registerJs($script);
-?>

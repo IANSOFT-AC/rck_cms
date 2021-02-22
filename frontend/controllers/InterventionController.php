@@ -66,7 +66,6 @@ class InterventionController extends Controller
             ->where([
                 'intervention.client_id'=>$id
             ])
-            ->joinWith('casetype')
             ->joinWith('client')
             ->asArray()
             ->all();
@@ -77,7 +76,6 @@ class InterventionController extends Controller
 
     public function actionList(){
         $cases = Intervention::find()
-            ->joinWith('casetype')
             ->joinWith('client')
             ->asArray()
             ->all();
@@ -120,6 +118,9 @@ class InterventionController extends Controller
             //     echo "Counseling not found";
             // }
             // exit;
+            if(isset(Yii::$app->request->post()['Intervention']['case_id'])){
+                $model->case_id = implode(',',Yii::$app->request->post()['Intervention']['case_id']);
+            }
             $model->intervention_type_id = implode(",",Yii::$app->request->post()['Intervention']['intervention_type_id']);
             $model->save();
             //return $this->redirect(['counseling/create', 'id' => $model->id]);
@@ -218,7 +219,9 @@ class InterventionController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-
+            if(isset(Yii::$app->request->post()['Intervention']['case_id'])){
+                $model->case_id = implode(',',Yii::$app->request->post()['Intervention']['case_id']);
+            }
             $model->intervention_type_id = implode(",",Yii::$app->request->post()['Intervention']['intervention_type_id']);
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
@@ -277,12 +280,27 @@ class InterventionController extends Controller
             # code...
             $result['data'][] = [
                 'id' => $case['id'],
-                'name' => $case['casetype']['type'],
+                'name' => self::prepareCaseTypesString($case['case_id']),
                 'client' => isset($case['client']) ? $case['client']['first_name']." ".$case['client']['middle_name']." ".$case['client']['last_name'] : "No client",
                 'created_at' => date("H:ia l M j, Y",$case['created_at'])
             ];
         }
 
         return $result;
+    }
+
+    protected static function prepareCaseTypesString($string){
+        $rst = "";
+
+        $dd = Casetype::find()->where(['IN','id', explode(',',$string)])->all();
+        foreach ($dd as $key => $value) {
+            # code...
+            if($key == (count($dd) - 1)){
+                $rst .= $value->type;
+            }else{
+                $rst .= $value->type . ",";
+            }
+        }
+        return $rst;
     }
 }
