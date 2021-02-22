@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     </div>
                   
                     <div class="col-md-6">
-                        <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Created At</strong>
+                        <strong data-speechify-sentence=""> Created At</strong>
 
                       <p class="text-muted" data-speechify-sentence=""><?= date("H:ia l M j, Y",$model->created_at)?></p>
 
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     </div>
 
                     <div class="col-md-6">
-                        <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Interventions</strong>
+                        <strong data-speechify-sentence=""> Interventions</strong>
                         <ul>
                         <?php 
 
@@ -107,9 +107,37 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     if($model->police_case){
                         ?>
                         <div class="col-md-6">
-                            <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Police Case</strong>
+                            <strong data-speechify-sentence=""> Police Case</strong>
 
                           <p><?= Html::a('Link to Police Case', ['police-cases/view', 'id' => $model->police_case], ['class' => 'profile-link']) ?></p>
+
+                          <br>
+                        </div>
+                        <?php
+                    }
+                    ?>
+
+                    <?php 
+                    if($model->office_id){
+                        ?>
+                        <div class="col-md-6">
+                            <strong data-speechify-sentence=""><i class="fas fa-office"></i> RCK Office Relocation</strong>
+
+                          <p><?= $model->office->name ?></p>
+
+                          <br>
+                        </div>
+                        <?php
+                    }
+                    ?>
+
+                    <?php 
+                    if(!is_null($model->agency_id)){
+                        ?>
+                        <div class="col-md-6">
+                            <strong data-speechify-sentence=""><i class="fas fa-office"></i> Referal Agency</strong>
+
+                          <p><?= $model->agency_id ?></p>
 
                           <br>
                         </div>
@@ -132,7 +160,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     ?>
 
                     <div class="col-md-12">
-                        <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Situation Description</strong>
+                        <strong data-speechify-sentence=""> Situation Description</strong>
 
                       <p class="text-muted" data-speechify-sentence=""><?= $model->situation_description?></p>
 
@@ -140,7 +168,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     </div>
 
                     <div class="col-md-12">
-                        <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> Intervention Details</strong>
+                        <strong data-speechify-sentence=""> Intervention Details</strong>
 
                       <p class="text-muted" data-speechify-sentence=""><?= $model->intervention_details?></p>
 

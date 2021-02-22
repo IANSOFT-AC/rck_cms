@@ -17,6 +17,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use app\models\RckOffices;
 
 /**
  * InterventionController implements the CRUD actions for Intervention model.
@@ -139,6 +140,7 @@ class InterventionController extends Controller
         $court_cases = ArrayHelper::map(CourtCases::find()->all(),'id','name');
         $police_cases = ArrayHelper::map(PoliceCases::find()->all(),'id','name');
         $client = ArrayHelper::map(Refugee::find()->where(['id'=>$id])->all(),'id','fullNames');
+        $rck_offices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
 
         return $this->render('create', [
             'model' => $model,
@@ -146,7 +148,8 @@ class InterventionController extends Controller
             'cases' => $cases,
             'police_cases' => $police_cases,
             'court_cases' => $court_cases,
-            'client' => $client
+            'client' => $client,
+            'rck_offices' => $rck_offices
         ]);
     }
 
@@ -232,6 +235,7 @@ class InterventionController extends Controller
         $clients = ArrayHelper::map(Refugee::find()->where(['id' => $model->client_id])->all(),'id','fullNames');
         $court_cases = ArrayHelper::map(CourtCases::find()->all(),'id','name');
         $police_cases = ArrayHelper::map(PoliceCases::find()->all(),'id','name');
+        $rck_offices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
 
         return $this->render('update', [
             'model' => $model,
@@ -239,7 +243,8 @@ class InterventionController extends Controller
             'cases' => $cases,
             'client' => $clients,
             'police_cases' => $police_cases,
-            'court_cases' => $court_cases
+            'court_cases' => $court_cases,
+            'rck_offices' => $rck_offices
         ]);
     }
 

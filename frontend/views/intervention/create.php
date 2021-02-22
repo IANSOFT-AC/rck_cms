@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         'cases' => $cases,
         'police_cases' => $police_cases,
         'court_cases' => $court_cases,
-        'client' => $client
+        'client' => $client,
+        'rck_offices' => $rck_offices
     ]) ?>
 
 </div>

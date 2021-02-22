@@ -35,6 +35,15 @@ use common\models\Helper;
                 <div class="col-md-6">
                     <?= $form->field($model, 'court_case')->dropDownList($court_cases,['prompt' => 'Select Court Case']) ?>
                 </div>
+
+                <div class="col-md-6">
+                    <?= $form->field($model, 'office_id')->dropDownList($rck_offices,['prompt' => 'Select RCD office for Relocation']) ?>
+                </div>
+
+                <div class="col-md-6">
+                    <?= $form->field($model, 'agency_id',['options' => ['placeholder' => 'Type the name of the referal agency']])->textInput() ?>
+                </div>
+
                 <div class="col-md-6">
                     <?= $form->field($model, 'police_case')->dropDownList($police_cases,['prompt' => 'Select Police Case']) ?>
                 </div>                
@@ -63,17 +72,46 @@ use common\models\Helper;
 $script = <<<JS
 
     //hide initially
-    $('.field-intervention-court_case, .field-intervention-police_case').hide();
+    function hideEm(){
+        $('.field-intervention-court_case,\
+            .field-intervention-police_case,\
+            .field-intervention-office_id,\
+            .field-intervention-agency_id').parent().fadeOut();
+    }
+    hideEm()
 
     $('#intervention-case_id').on('change', function(e){
         //Hide elements on change
-        $('.field-intervention-court_case, .field-intervention-police_case').fadeOut('slow');
 
         //Then make necessary changes
-        if(e.target.value == "11"){
-            $('.field-intervention-court_case').fadeIn('slow')
-        }else if(e.target.value == "12"){
-            $('.field-intervention-police_case').fadeIn('slow')
+        if($('#intervention-case_id option[value=11]:selected').length > 0){
+            $('.field-intervention-court_case').parent().fadeIn('slow')
+        }else{
+            $('.field-intervention-court_case').parent().fadeOut()
+        }
+        
+        if($('#intervention-case_id option[value=12]:selected').length > 0){
+            $('.field-intervention-police_case').parent().fadeIn('slow')
+        }else{
+            $('.field-intervention-police_case').parent().fadeOut()
+        }
+    }).change();
+
+    $('#intervention-intervention_type_id').on('change', function(e){
+        //Hide elements on change
+        console.log(this.value);
+
+        //Then make necessary changes
+        if($('#intervention-intervention_type_id option[value=3]:selected').length > 0){
+            $('.field-intervention-office_id').parent().fadeIn('slow')
+        }else{
+            $('.field-intervention-office_id').parent().fadeOut()
+        }
+        
+        if($('#intervention-intervention_type_id option[value=5]:selected').length > 0){
+            $('.field-intervention-agency_id').parent().fadeIn('slow')
+        }else{
+            $('.field-intervention-agency_id').parent().fadeOut()
         }
     }).change();
 JS;

@@ -79,7 +79,8 @@ class Intervention extends \yii\db\ActiveRecord
             'court_case' => 'Court Case',
             'police_case' => 'Police Case',
             'client_id' => 'Client',
-            'office_id' => 'RCD office Relocation'
+            'office_id' => 'RCD office Relocation',
+            'agency_id' => 'Referral Agency'
         ];
     }
 
@@ -96,6 +97,11 @@ class Intervention extends \yii\db\ActiveRecord
     public function getCasetype()
     {
         return $this->hasOne(Casetype::className(), ['id' => 'case_id']);
+    }
+
+    public function getOffice()
+    {
+        return $this->hasOne(RckOffices::className(), ['id' => 'office_id']);
     }
 
     /**
