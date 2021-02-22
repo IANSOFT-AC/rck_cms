@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'organizer')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'date')->textInput(['type' => 'date','class' => 'form-control no-future']) ?>
+                    <?= $form->field($model, 'date')->textInput(['type' => 'date','class' => 'form-control no-future','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date, 'yyyy-MM-dd')]) ?>
                 </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'topic')->textInput(['maxlength' => true]) ?>
