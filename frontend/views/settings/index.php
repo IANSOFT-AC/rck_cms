@@ -193,9 +193,6 @@ $this->title = "RCK: Control Panel";
 		<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Police Case Settings</h3></div>
 	    <div class="card-body">
 	        <div class="box box-primary">
-	            <div class="box-header with-border">
-	              <h3 class="box-title" data-speechify-sentence="">Police Case Setups</h3>
-	            </div>
 	        <!-- /.box-header -->
 	            <div class="box-body row" data-read-aloud-multi-block="true">
 	                <div class="col-md-6">
