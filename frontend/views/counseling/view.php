@@ -12,7 +12,10 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="counseling-view">
-
+    <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body"></div>
+    </div>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

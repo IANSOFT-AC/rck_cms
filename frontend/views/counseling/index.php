@@ -9,17 +9,16 @@ use yii\widgets\ActiveForm;
 
 $this->title = Yii::t('app', 'My Counseling Sessions');
 isset($intervention->id) ? $this->params['breadcrumbs'][] = ['label' => 'Intervention', 'url' => ['intervention/view', 'id' => $intervention->id]] : null ;
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => "#"];
+$this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
-<div class="counseling-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+<div class="counseling-index">   
+<div class="card">
+        <div class="card-header"><h1>Counseling Intake Form</h1></div>
+        <div class="card-body">
     <?php 
     if(empty($intervention->counseling_intake_form)){
     ?>
-    <div class="card">
-        <div class="card-body">
+    
             <?php $form = ActiveForm::begin(['action' => 'upload','options' => ['enctype' => 'multipart/form-data']]); ?>
 
                 <?= $form->field($model, 'counseling_intake_form')->fileInput(['maxlength' => true])->label('Upload Counseling Intake Form') ?>
@@ -28,21 +27,27 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => "#"];
                     <?= Html::submitButton(Yii::t('app', 'Upload'), ['class' => 'btn btn-success']) ?>
                 </div>
             <?php ActiveForm::end(); ?>
-        </div>
-    </div>
-    <?php 
-    }else{
+        <?php 
+            }else{
         ?>
-        <div class="card">
-            <div class="card-body">
-             <?= Html::a('Preview Document: Counseling Intake Form', ['/uploads/counseling/'.$intervention->counseling_intake_form], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> 'Upload Intake Form']) ?>
+            <?= Html::a('Preview Document: Counseling Intake Form', ['/uploads/counseling/'.$intervention->counseling_intake_form], ['class' => 'label label-primary', 'title'=> 'Upload Intake Form']) ?>
+        <?php
+            }
+        ?>
+        <?php 
+            if($intervention->counselingIntake){
+                echo Html::a('Counseling Intake Online Form', ['/counselling-intake/index', 'id' => $intervention->id], ['class' => 'label label-primary', 'title'=> 'Counseling Intake Online Form']);
+            }else{
+                echo Html::a('Counseling Intake Online Form', ['/counselling-intake/create', 'id' => $intervention->id], ['class' => 'label label-primary', 'title'=> 'Counseling Intake Online Form']);
+            }
+        ?>
             </div>
         </div>
-        <?php
-    }
-    ?>
 
     <div class="card">
+        <div class="card-header">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
         <div class="card-body">
             <?= Html::a(Yii::t('app', 'Create a Counseling Session'), ['/counseling/create', 'id' => $intervention->id], ['class' => 'btn btn-success']) ?>
             <hr>

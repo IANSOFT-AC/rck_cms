@@ -35,7 +35,9 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             foreach ($interventions as $key => $value) {
                 # code...
                 if(InterventionType::findOne($value)->id == 2){
-                    echo  Html::a('<i class="fa fa-wheelchair"></i> Counselling ', ['/counseling/index', 'id' => $model->id ], ['class' => 'btn btn-danger', 'target' => '_blank', 'title'=> 'Counselling details']);
+                    echo  Html::a('<i class="fa fa-wheelchair"></i> Counselling ', ['/counseling/index', 'id' => $model->id ], ['class' => 'btn btn-danger m-1', 'title'=> 'Counselling details']);
+                }else if(InterventionType::findOne($value)->id == 4){
+                    echo  Html::a('<i class="fa fa-security"></i> Security Interview ', ['/security-interview/index', 'id' => $model->id ], ['class' => 'btn btn-warning m-1',  'title'=> 'Security Interview     ']);
                 }
             }
 
@@ -90,6 +92,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                 ?>
                                 <?= Html::a('Counselling ', ['/counseling/index', 'id' => $model->id ], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> 'Counselling details']) ?>
                                 <?php
+                             }else if(InterventionType::findOne($value)->id == 4){
+                                echo Html::a('Security Interview Assessment ', ['/security-interview/index', 'id' => $model->id ], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> 'Security Interview Assessment details']);
                              }else{
                                 echo InterventionType::findOne($value)->intervention_type;
                              }

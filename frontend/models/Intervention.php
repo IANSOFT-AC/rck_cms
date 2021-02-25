@@ -130,6 +130,16 @@ class Intervention extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[CounselingIntake]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCounselingIntake()
+    {
+        return $this->hasMany(CounsellingIntake::className(), ['intervention_id' => 'id']);
+    }
+
+    /**
      * Gets query for [[InterventionAttachments]].
      *
      * @return \yii\db\ActiveQuery
