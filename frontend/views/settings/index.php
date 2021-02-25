@@ -268,4 +268,22 @@ $this->title = "RCK: Control Panel";
 	        </div>
 	    </div>
 	</div>
+	<div class="card">
+		<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Training Settings</h3></div>
+	    <div class="card-body">
+	        <div class="box box-primary">
+	        <!-- /.box-header -->
+	            <div class="box-body row" data-read-aloud-multi-block="true">
+	                <div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b>Organizer Settings</b>',['organizer/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+	                
+	            </div>
+	        </div>
+	    </div>
+	</div>
 </div>
