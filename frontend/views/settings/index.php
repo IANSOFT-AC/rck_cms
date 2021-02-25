@@ -14,11 +14,9 @@ $this->title = "RCK: Control Panel";
 
 <div class="wrapper">
 	<div class="card">
+	<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Client Settings</h3></div>
 	    <div class="card-body">
 	        <div class="box box-primary">
-	            <div class="box-header with-border">
-	              <h3 class="box-title" data-speechify-sentence="">Client Setups</h3>
-	            </div>
 	        <!-- /.box-header -->
 	            <div class="box-body row" data-read-aloud-multi-block="true">
 	                <div class="col-md-6">
@@ -124,10 +122,10 @@ $this->title = "RCK: Control Panel";
 	    </div>
 	</div>
 	<div class="card">
+		<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Court Case Settings</h3></div>
 	    <div class="card-body">
 	        <div class="box box-primary">
 	            <div class="box-header with-border">
-	              <h3 class="box-title" data-speechify-sentence="">Court Case Setups</h3>
 	            </div>
 	        <!-- /.box-header -->
 	            <div class="box-body row" data-read-aloud-multi-block="true">
@@ -192,6 +190,7 @@ $this->title = "RCK: Control Panel";
 	    </div>
 	</div>
 	<div class="card">
+		<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Police Case Settings</h3></div>
 	    <div class="card-body">
 	        <div class="box box-primary">
 	            <div class="box-header with-border">
@@ -225,11 +224,9 @@ $this->title = "RCK: Control Panel";
 	    </div>
 	</div>
 	<div class="card">
+		<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Intervention Settings</h3></div>
 	    <div class="card-body">
 	        <div class="box box-primary">
-	            <div class="box-header with-border">
-	              <h3 class="box-title" data-speechify-sentence="">Intervention Setups</h3>
-	            </div>
 	        <!-- /.box-header -->
 	            <div class="box-body row" data-read-aloud-multi-block="true">
 	                <div class="col-md-6">

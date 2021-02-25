@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'referred_to',
             //'counsellor_id',
             //'intervention_id',
-            //'created_at',
+            'created_at:datetime',
             //'updated_at',
             //'created_by',
             //'updated_by',
