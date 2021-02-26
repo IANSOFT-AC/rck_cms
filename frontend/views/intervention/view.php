@@ -141,7 +141,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                         <div class="col-md-6">
                             <strong data-speechify-sentence=""><i class="fas fa-office"></i> Referred Agency</strong>
 
-                          <p><?= //$model->agency->name ?></p>
+                          <p><?php //$model->agency->name ?></p>
 
                           <br>
                         </div>
