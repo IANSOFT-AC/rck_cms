@@ -96,9 +96,12 @@ class CounsellingIntakeController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $counsellors = ArrayHelper::map(Counsellors::find()->all(), 'id', 'counsellor');
+
         return $this->render('update', [
             'model' => $model,
             'intervention' => $model->intervention_id,
+            'counsellors' => $counsellors,
         ]);
     }
 

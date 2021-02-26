@@ -817,7 +817,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 <?php $this->endBody() ?>
 
 <!-- START OF ADD SWEET ALERT -->
-<?php $this->registerJsFile("https://unpkg.com/sweetalert/dist/sweetalert.min.js"); ?>
+<?php //$this->registerJsFile(""); ?>
 <!-- END OF ADD SWEET ALERT -->
 
 </body>
