@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="card-header">    <h1><?= Html::encode($this->title) ?></h1>
 
 <p>
-    <?= Html::a(Yii::t('app', 'Create Counsellors'), ['create'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a(Yii::t('app', 'Add Counsellor'), ['create'], ['class' => 'btn btn-success']) ?>
 </p></div>
 <div class="card-body">    <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,6 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'counsellor',
+            'phone',
+            'email',
             'code',
             'created_at:datetime',
             'updated_at:datetime',

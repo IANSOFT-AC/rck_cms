@@ -43,6 +43,7 @@ class Counsellors extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['email', 'phone'], 'string'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['counsellor', 'code'], 'string', 'max' => 255],
         ];
@@ -57,6 +58,8 @@ class Counsellors extends \yii\db\ActiveRecord
             'id' => 'ID',
             'counsellor' => 'Counsellor',
             'code' => 'Code',
+            'email' => 'Email',
+            'phone' => 'Phone',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

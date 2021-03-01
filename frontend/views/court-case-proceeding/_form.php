@@ -19,13 +19,13 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
                 </div>
                 
-                    <?= $form->field($model, 'court_case_id')->hiddenInput(['value' => $court->id])->label(false) ?>
+                    <?= $form->field($model, 'court_case_id')->hiddenInput(['value' => $model->isNewRecord ? $court->id : $model->court_case_id ])->label(false) ?>
                 <div class="col-md-6">
                     <?= $form->field($model, 'case_status')->dropDownList(['open' => 'Open', 'closed' => 'Closed'],
                                             ['prompt' => '-- Select Case Status --']) ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'next_court_date')->textInput(['type' => 'date']) ?>
+                    <?= $form->field($model, 'next_court_date')->textInput(['type' => 'date','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->next_court_date, 'yyyy-MM-dd')]) ?>
                 </div>
                 <div class="col-md-12">
                     <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
@@ -64,7 +64,7 @@ $script = <<<JS
         }else{
             $('.field-courtcaseproceeding-next_court_date').fadeOut('slow')
         }
-    });
+    }).change();
 JS;
 
 $this->registerJs($script);

@@ -65,7 +65,8 @@ class CourtCaseProceedingController extends Controller
 
         return $this->render('list', [
             'court' => $court,
-            'list' => $list
+            'list' => $list,
+            'court_id' => $id
         ]);
     }
 

@@ -68,7 +68,7 @@ class CourtCaseProceeding extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'desc' => 'Desc',
+            'desc' => 'Description',
             'court_case_id' => 'Court Case ID',
             'case_status' => 'Case Status',
             'next_court_date' => 'Next Court Date',

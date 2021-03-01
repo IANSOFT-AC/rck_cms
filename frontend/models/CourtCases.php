@@ -81,7 +81,7 @@ class CourtCases extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'no_of_refugees' => 'No Of Refugees',
-            'name' => 'Court Name',
+            'name' => 'Title',
             'offence' => 'Offence',
             'offence_id' => 'Offence',
             'first_instance_interview' => 'First Instance Interview',

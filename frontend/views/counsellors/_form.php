@@ -12,9 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'counsellor')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'counsellor')->textInput([ 'maxlength' => true ]) ?>
 
-    <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'email')->textInput([ 'maxlength' => true ]) ?>
+
+    <?= $form->field($model, 'phone')->textInput([ 'maxlength' => true ]) ?>
+
+    <?= $form->field($model, 'code')->textInput([ 'maxlength' => true ]) ?>
 
     <div class="form-group">
     <?= Html::submitButton(Yii::t('app', '<i class="fa fa-check"></i> save'), ['class' => 'btn btn-success']); ?>
