@@ -37,7 +37,7 @@ use common\models\Helper;
                 </div>
 
                 <div class="col-md-6">
-                    <?= $form->field($model, 'office_id')->dropDownList($rck_offices,['prompt' => 'Select RCD office for Relocation']) ?>
+                    <?= $form->field($model, 'office_id')->dropDownList($rck_offices,['prompt' => 'Select RCK office for Relocation']) ?>
                 </div>
 
                 <div class="col-md-6">
@@ -64,7 +64,6 @@ use common\models\Helper;
             <?php ActiveForm::end(); ?>
         </div>
     </div>
-
 </div>
 
 <?php

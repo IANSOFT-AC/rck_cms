@@ -46,6 +46,12 @@ class UploadForm extends Model
         }
     }
 
+    public function deleteFile($model, $upload_id){
+        $data = Document::findOne($id);
+        unlink(Yii::$app->basePath . '/web/' . $data->file_name);
+        $this->findModel($id)->delete();
+    }
+
     //Upload Multiple Files
     public function multipleUpload($model,$model_id,$upload_id){
 

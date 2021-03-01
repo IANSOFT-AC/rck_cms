@@ -23,7 +23,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 
         <p>
             <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a(Yii::t('app', 'Court Case Updates'), ['/court-case-proceeding\list', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+            
+            
             <?= Html::a(Yii::t('app', 'View Client Biodata'), ['/refugee\view', 'id' => $model->refugee_id], ['class' => 'btn btn-warning']) ?>
             <?php Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
@@ -174,7 +175,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                             ?></strong>
 
                             <p class="text-muted" data-speechify-sentence="">
-                                <?= Html::a('Preview Document: '.$file->filename, ['/uploads/court_cases/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
+                                <?= Html::a('Preview Document: '.$file->filename, [$file->doc_path], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
                             </p>
                             <hr>
                         </div>
