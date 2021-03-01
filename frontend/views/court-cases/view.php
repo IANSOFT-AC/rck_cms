@@ -91,19 +91,27 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                       <hr>
                     </div>
                     <div class="col-md-6">
-                      <strong data-speechify-sentence=""> <i class="fas fa-calendar-day"></i> Date of Arrainment</strong>
+                      <strong data-speechify-sentence=""> <i class="fas fa-calendar-day"></i> Date of Arraignment</strong>
 
                       <p class="text-muted" data-speechify-sentence=""><?= date("l M j, Y",$model->date_of_arrainment) ?></p>
 
                       <hr>
                     </div>
-                    <div class="col-md-6">
-                      <strong data-speechify-sentence=""> <i class="fas fa-calendar-day"></i> Next Court Date</strong>
+                    <?php 
+                    
+                    if($model->case_status == "open"){
 
-                      <p class="text-muted" data-speechify-sentence=""><?= date("l M j, Y",$model->next_court_date) ?></p>
+                    ?>
+                      <div class="col-md-6">
+                        <strong data-speechify-sentence=""> <i class="fas fa-calendar-day"></i> Next Court Date</strong>
 
-                      <hr>
-                    </div>
+                        <p class="text-muted" data-speechify-sentence=""><?= date("l M j, Y",$model->next_court_date) ?></p>
+
+                        <hr>
+                      </div>
+                      <?php 
+                        }
+                      ?>
                     <div class="col-md-6">
                       <strong data-speechify-sentence=""> <i class="fas fa-calendar-day"></i> Case Status</strong>
 
