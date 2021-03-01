@@ -16,6 +16,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
 
+    <?= $form->field($model, 'date')->textInput(['type' => 'date','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date, 'yyyy-MM-dd')]) ?>
+
     <?= $form->field($model, 'police_case_id')->hiddenInput(['value' => $model->isNewRecord ? $police->id : $model->police_case_id ])->label(false) ?>
 
     <?php $form->field($model, 'created_at')->textInput() ?>

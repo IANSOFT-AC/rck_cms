@@ -44,12 +44,18 @@ class PoliceCaseProceeding extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'string'],
+            [['desc','date'], 'string'],
             [['police_case_id'], 'required'],
             [['police_case_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['police_case_id'], 'exist', 'skipOnError' => true, 'targetClass' => PoliceCases::className(), 'targetAttribute' => ['police_case_id' => 'id']],
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        $this->date = strtotime($this->date);
+        return parent::beforeSave($insert);
     }
 
     /**
@@ -60,8 +66,9 @@ class PoliceCaseProceeding extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'desc' => 'Desc',
+            'desc' => 'Description',
             'police_case_id' => 'Police Case ID',
+            'date' => 'Date',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
