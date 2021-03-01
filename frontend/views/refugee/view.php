@@ -191,7 +191,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> D.O.B</strong>
 
-                                  <p class="text-muted" data-speechify-sentence=""><?= $model->date_of_birth ?></p>
+                                  <p class="text-muted" data-speechify-sentence=""><?= date("l M j, Y",$model->date_of_birth) ?></p>
 
                                   <hr>
                             </div>

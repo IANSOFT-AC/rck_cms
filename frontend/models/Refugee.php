@@ -182,6 +182,7 @@ class Refugee extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         $this->arrival_date = strtotime($this->arrival_date);
+        $this->date_of_birth = strtotime($this->date_of_birth);
         $this->rsd_appointment_date = strtotime($this->rsd_appointment_date);
         //$this->source_of_income_id = implode(',',$this->source_of_income_id);
         //$this->form_of_torture_id = implode(',',$this->form_of_torture_id);
