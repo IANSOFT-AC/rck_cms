@@ -153,6 +153,14 @@ class TrainingController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionDeleteFile($id)
+    {
+        $model = new UploadForm();
+        $rst = $model->deleteFile("training",$id);
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the Training model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

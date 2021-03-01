@@ -267,6 +267,14 @@ class InterventionController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionDeleteFile($id)
+    {
+        $model = new UploadForm();
+        $rst = $model->deleteFile("interventions",$id);
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the Intervention model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

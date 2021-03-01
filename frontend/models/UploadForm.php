@@ -47,9 +47,34 @@ class UploadForm extends Model
     }
 
     public function deleteFile($model, $upload_id){
-        $data = Document::findOne($id);
-        unlink(Yii::$app->basePath . '/web/' . $data->file_name);
-        $this->findModel($id)->delete();
+        $rst = false;
+        if($model == "training"){
+            $data = TrainingUpload::findOne($upload_id);
+            unlink(Yii::getAlias('@webroot'). $data->doc_path);
+            $rst = $data->delete();
+        }else if($model == "refugees"){
+            $data = RefugeeDocsUpload::findOne($upload_id);
+            unlink(Yii::getAlias('@webroot'). $data->doc_path);
+            $rst = $data->delete();
+        }else if($model == "interventions"){
+            $data = InterventionAttachment::findOne($upload_id);
+            unlink(Yii::getAlias('@webroot'). $data->doc_path);
+            $rst = $data->delete();
+        }else if($model == "police_cases"){
+            $data = PoliceDocsUpload::findOne($upload_id);
+            unlink(Yii::getAlias('@webroot'). $data->doc_path);
+            $rst = $data->delete();
+        }else if($model == "court_cases"){
+            $data = CourtDocsUploads::findOne($upload_id);
+            unlink(Yii::getAlias('@webroot'). $data->doc_path);
+            $rst = $data->delete();
+        }
+
+        if($rst){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     //Upload Multiple Files

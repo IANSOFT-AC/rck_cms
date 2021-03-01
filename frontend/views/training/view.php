@@ -122,6 +122,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <p class="text-muted" data-speechify-sentence="">
                                     <?= Html::a('Preview Document: '.$file->filename, ['/uploads/multiple/training/'.$file->filename], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
+                                    <?= Html::a(' |<i class="fa fa-trash"></i>', 
+                                    ['delete-file', 'id' => $file->id], 
+                                    [
+                                        'title' => 'delete the file?',
+                                        'data' => [
+                                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                            'method' => 'post',
+                                        ],
+                                    ]) ?>
                                 </p>
                                 <hr>
                             </div>

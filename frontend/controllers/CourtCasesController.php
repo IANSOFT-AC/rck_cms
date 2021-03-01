@@ -288,6 +288,14 @@ class CourtCasesController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionDeleteFile($id)
+    {
+        $model = new UploadForm();
+        $rst = $model->deleteFile("court_cases",$id);
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the CourtCases model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
