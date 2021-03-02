@@ -128,8 +128,12 @@ class InterventionController extends Controller
             //return $this->redirect(['counseling/create', 'id' => $model->id]);
 
             //check if the record has uploads in the interventions upload part
-            $uploads = InterventionType::find()->where(['case_id' => Yii::$app->request->post()['Intervention']['case_id'] ]);
-            if($uploads){
+            $uploads = InterventionUpload::find()->where(['in','issue_id', Yii::$app->request->post()['Intervention']['case_id'] ])->all();
+            // echo "<pre>";
+            // echo count($uploads);
+            // print_r($uploads);
+            // exit();
+            if(count($uploads) > 0){
                 return $this->redirect(['files', 'id' => $model->id, 'uploads' => $uploads]);
             }
             return $this->redirect(['view', 'id' => $model->id]);
@@ -159,17 +163,20 @@ class InterventionController extends Controller
     public function actionFiles($id)
     {
         $model = $this->findModel($id);
-        $uploads = InterventionUpload::find()->where(['issue_id' => $model->case_id])->all();
-        
+        $uploads = InterventionUpload::find()->where(['in','issue_id', explode(',',$model->case_id)])->all();
+        // echo "<pre>";
+        // echo count($uploads);
+        // print_r($model->case_id);
+        // exit();
 
         //HANDLE POST OF FILES.
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        if(!$uploads){
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+        // if(!$uploads){
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // }
 
         return $this->render('files', [
             'list' => $uploads,

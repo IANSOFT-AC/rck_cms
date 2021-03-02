@@ -46,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
 
                 'delete' => function( $url )
+                
                 {
                     return Html::a('<i class="fa fa-trash"></i>', $url,[
 

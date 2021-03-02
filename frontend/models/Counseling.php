@@ -53,7 +53,7 @@ class Counseling extends \yii\db\ActiveRecord
         return [
             [['code', 'intervention_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['intervention_id'], 'required'],
-            [['presenting_problem', 'date', 'therapeutic', 'conseptualization', 'intervention', 'counsellors'], 'string'],
+            [['presenting_problem', 'date', 'therapeutic', 'conseptualization', 'intervention', 'counsellors', 'next_appointment_date'], 'string'],
             [['session', 'counseling_intake_form'], 'string', 'max' => 255],
             [['intervention_id'], 'exist', 'skipOnError' => true, 'targetClass' => Intervention::className(), 'targetAttribute' => ['intervention_id' => 'id']],
         ];
@@ -62,6 +62,7 @@ class Counseling extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         $this->date = strtotime($this->date);
+        $this->next_appointment_date = strtotime($this->next_appointment_date);
         return parent::beforeSave($insert);
     }
 
@@ -74,6 +75,7 @@ class Counseling extends \yii\db\ActiveRecord
             'id' => 'ID',
             'code' => 'Code Number',
             'date' => 'Date',
+            'next_appointment_date' => 'Next Appointment Date',
             'session' => 'Session',
             'intervention_id' => 'Intervention ID',
             'presenting_problem' => 'Presenting problem/summary of previous session',

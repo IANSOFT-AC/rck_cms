@@ -22,11 +22,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'skills_used')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'next_appointment_if_any')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'next_appointment_if_any')->textInput(['type' => 'date','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->next_appointment_if_any, 'yyyy-MM-dd')]) ?>
 
     <?= $form->field($model, 'counselor_comment')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'referred_to')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'date_of_referal')->textInput(['type' => 'date','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date_of_referal, 'yyyy-MM-dd')]) ?>
 
     <?= $form->field($model, 'counsellor_id')->dropDownList($counsellors,
                             ['prompt' => '-- Choose Counsellor --']) ?>

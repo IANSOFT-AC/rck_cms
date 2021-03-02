@@ -8,6 +8,9 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use frontend\models\Gender;
+use app\models\Country;
+use yii\helpers\ArrayHelper;
 
 /**
  * SecurityInterviewController implements the CRUD actions for SecurityInterview model.
@@ -33,7 +36,7 @@ class SecurityInterviewController extends Controller
      * Lists all SecurityInterview models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
         $dataProvider = new ActiveDataProvider([
             'query' => SecurityInterview::find(),
@@ -41,6 +44,7 @@ class SecurityInterviewController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'id' => $id
         ]);
     }
 
@@ -62,7 +66,7 @@ class SecurityInterviewController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new SecurityInterview();
 
@@ -70,8 +74,14 @@ class SecurityInterviewController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $gender = ArrayHelper::map(Gender::find()->all(),'id','gender');
+        $countries = ArrayHelper::map(Country::find()->all(),'id','country');
+
         return $this->render('create', [
             'model' => $model,
+            'intervention_id' => $id,
+            'gender' => $gender,
+            'countries' => $countries
         ]);
     }
 
@@ -90,8 +100,13 @@ class SecurityInterviewController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $gender = ArrayHelper::map(Gender::find()->all(),'id','gender');
+        $countries = ArrayHelper::map(Country::find()->all(),'id','country');
+
         return $this->render('update', [
             'model' => $model,
+            'gender' => $gender,
+            'countries' => $countries
         ]);
     }
 

@@ -61,8 +61,8 @@ class SecurityInterview extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sex', 'nationality', 'dob', 'intervention_id', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['names_of_parents', 'dependants', 'reason_for_flight', 'life_in_country_of_asylum', 'assessment'], 'string'],
+            [['sex', 'nationality',  'intervention_id', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['names_of_parents', 'dependants', 'reason_for_flight', 'life_in_country_of_asylum', 'assessment', 'dob'], 'string'],
             [['name', 'unhcr_case_no', 'refugee_no', 'telephone', 'education_level', 'place_of_birth', 'religion', 'siblings', 'ethnicity', 'marital_status', 'flight'], 'string', 'max' => 255],
             [['intervention_id'], 'exist', 'skipOnError' => true, 'targetClass' => Intervention::className(), 'targetAttribute' => ['intervention_id' => 'id']],
         ];
@@ -77,11 +77,11 @@ class SecurityInterview extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'sex' => 'Sex',
-            'unhcr_case_no' => 'Unhcr Case No',
+            'unhcr_case_no' => 'UNHCR Case No',
             'refugee_no' => 'Refugee No',
             'nationality' => 'Nationality',
             'telephone' => 'Telephone',
-            'dob' => 'Dob',
+            'dob' => 'DOB',
             'education_level' => 'Education Level',
             'place_of_birth' => 'Place Of Birth',
             'religion' => 'Religion',

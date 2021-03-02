@@ -24,6 +24,9 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'date')->textInput(['type' => 'date']) ?>
                 </div>
                 <div class="col-md-6">
+                    <?= $form->field($model, 'next_appointment_date')->textInput(['type' => 'date','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->next_appointment_date, 'yyyy-MM-dd')]) ?>
+                </div>
+                <div class="col-md-6">
                     <?= $form->field($model, 'session')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-6">

@@ -14,13 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'sex')->textInput() ?>
+    <?= $form->field($model, 'sex')->dropDownList($gender, ['prompt' => '--Select Gender--']) ?>
 
     <?= $form->field($model, 'unhcr_case_no')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'refugee_no')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'nationality')->textInput() ?>
+    <?= $form->field($model, 'nationality')->dropDownList($countries, ['prompt' => '--Select Country--']) ?>
 
     <?= $form->field($model, 'telephone')->textInput(['maxlength' => true]) ?>
 
@@ -50,7 +50,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'assessment')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'intervention_id')->textInput() ?>
+    <?= $form->field($model, 'intervention_id')->hiddenInput(['value'=> $interventionid])->label(false) ?>
 
     <?php $form->field($model, 'created_by')->textInput() ?>
 

@@ -15,9 +15,14 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 <div class="security-interview-update">
 <div class="card">
         <div class="card-header">    <h1><?= Html::encode($this->title) ?></h1></div>
-        <div class="card-body">    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?></div>
+        <div class="card-body">    
+            <?= $this->render('_form', [
+                'model' => $model,
+                'interventionid' => $model->intervention_id,
+                'gender' => $gender,
+                'countries' => $countries
+            ]) ?>
+        </div>
     </div>
 
 

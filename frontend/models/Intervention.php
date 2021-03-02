@@ -79,7 +79,7 @@ class Intervention extends \yii\db\ActiveRecord
             'court_case' => 'Court Case',
             'police_case' => 'Police Case',
             'client_id' => 'Client',
-            'office_id' => 'RCD office Relocation',
+            'office_id' => 'RCK office Relocation',
             'agency_id' => 'Referred Agency'
         ];
     }

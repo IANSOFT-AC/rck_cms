@@ -11,10 +11,16 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="security-interview-create">
 <div class="card">
-        <div class="card-header">    <h1><?= Html::encode($this->title) ?></h1></div>
-        <div class="card-body">    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?></div>
+        <div class="card-header">    
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+        <div class="card-body">    
+            <?= $this->render('_form', [
+                'model' => $model,
+                'interventionid' => $intervention_id,
+                'gender' => $gender,
+                'countries' => $countries
+            ]) ?></div>
     </div>
 
 

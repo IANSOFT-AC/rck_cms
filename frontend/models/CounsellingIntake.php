@@ -53,9 +53,16 @@ class CounsellingIntake extends \yii\db\ActiveRecord
         return [
             [['ic_presenting_problem', 'observation_of_ic_behaviour', 'other_interventions_given_elsewhere', 'how_you_supported_the_client', 'skills_used', 'counselor_comment'], 'string'],
             [['counsellor_id', 'intervention_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['next_appointment_if_any', 'referred_to'], 'string', 'max' => 255],
+            [['next_appointment_if_any', 'referred_to', 'date_of_referal'], 'string', 'max' => 255],
             [['intervention_id'], 'exist', 'skipOnError' => true, 'targetClass' => Intervention::className(), 'targetAttribute' => ['intervention_id' => 'id']],
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        $this->next_appointment_if_any = strtotime($this->next_appointment_if_any);
+        $this->date_of_referal = strtotime($this->date_of_referal);
+        return parent::beforeSave($insert);
     }
 
     /**
@@ -72,7 +79,8 @@ class CounsellingIntake extends \yii\db\ActiveRecord
             'skills_used' => 'Skills Used',
             'next_appointment_if_any' => 'Next Appointment If Any',
             'counselor_comment' => 'Counselor Comment',
-            'referred_to' => 'Referred to/ Date of referral',
+            'referred_to' => 'Referred to',
+            'date_of_referal' => 'Date of referral',
             'counsellor_id' => 'Counsellor ID',
             'intervention_id' => 'Intervention ID',
             'created_at' => 'Created At',
