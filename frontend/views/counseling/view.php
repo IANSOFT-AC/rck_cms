@@ -13,29 +13,41 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="counseling-view">
     <div class="card">
-        <div class="card-header"></div>
-        <div class="card-body"></div>
-    </div>
-    <h1><?= Html::encode($this->title) ?></h1>
+        <div class="card-header">
+            <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
+            <p>
+                <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </p>
+        </div>
+        <div class="card-body">
+        
+        <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
             'code',
             'date',
             'session',
+            [
+                'label' => 'Type',
+                'value' => function($model) {
+		            if($model->type == 1){
+                        return "Individual";
+                    }else if($model->type == 2){
+                        return "Family";
+                    }else if($model->type == 3){
+                        return "Group";
+                    }
+	            }
+            ],
             'intervention_id',
             'presenting_problem:ntext',
             'therapeutic:ntext',
@@ -49,5 +61,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_by',
         ],
     ]) ?>
+        
+        </div>
+    </div>
 
 </div>

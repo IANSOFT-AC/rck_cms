@@ -54,7 +54,7 @@ class Agency extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'desc' => 'Desc',
+            'desc' => 'Description',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created_at' => 'Created At',

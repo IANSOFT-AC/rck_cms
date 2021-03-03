@@ -56,6 +56,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     <th>Code Number</th>
                     <th>Date</th>
                     <th>Session</th>
+                    <th>Type</th>
                     <th>Created At</th>
                     <th>Actions</th>
                 </thead>
@@ -68,6 +69,17 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                         <td><?= $value->code ?></td>
                         <td><?= date("l M j, Y",$value->date) ?></td>
                         <td><?= $value->session ?></td>
+                        <td>
+                            <?php 
+                                if($value->type == 1){
+                                    echo "Individual";
+                                }else if($value->type == 2){
+                                    echo "Family";
+                                }else if($value->type == 3){
+                                    echo "Group";
+                                }
+                            ?>
+                        </td>
                         <td><?= date("H:ia l M j, Y",$value->created_at) ?></td>
                         <td>
                             <div class="d-inline-flex">

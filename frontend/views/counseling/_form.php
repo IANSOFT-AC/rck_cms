@@ -30,6 +30,9 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'session')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-6">
+                    <?= $form->field($model, 'type')->dropDownList([1 => 'Individual',2 => 'Family', 3 => 'Group' ],['prompt' => '--Select Type--']) ?>
+                </div>
+                <div class="col-md-6">
                     <?= $form->field($model, 'presenting_problem')->textarea(['rows' => 6]) ?>
                 </div>
                 <div class="col-md-6">
