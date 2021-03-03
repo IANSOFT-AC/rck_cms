@@ -283,4 +283,22 @@ $this->title = "RCK: Control Panel";
 	        </div>
 	    </div>
 	</div>
+	<div class="card">
+		<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Role Based Access Settings</h3></div>
+	    <div class="card-body">
+	        <div class="box box-primary">
+	        <!-- /.box-header -->
+	            <div class="box-body row" data-read-aloud-multi-block="true">
+	                <div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-user"></i>
+	                    	<?= Html::a('<b>User Settings</b>',['organizer/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+	                
+	            </div>
+	        </div>
+	    </div>
+	</div>
 </div>
