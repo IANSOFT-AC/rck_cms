@@ -292,11 +292,17 @@ $this->title = "RCK: Control Panel";
 	                <div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-user"></i>
-	                    	<?= Html::a('<b>User Settings</b>',['organizer/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>User Settings</b>',['user/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
-	                
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-user"></i>
+	                    	<?= Html::a('<b>User Group Settings</b>',['user-group/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>	                
 	            </div>
 	        </div>
 	    </div>

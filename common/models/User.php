@@ -24,10 +24,48 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_INACTIVE = 9;
-    const STATUS_ACTIVE = 10;
+    const STATUS_DELETED        = 0;
+    const STATUS_INACTIVE       = 9;
+    const STATUS_ACTIVE         = 10;
 
+    const FILE_UPLOAD           = 50;
+    const FILE_DELETE           = 51;
+
+    const CLIENT_INDEX          = 100;
+    const CLIENT_CREATE         = 101;
+    const CLIENT_UPDATE         = 102;
+    const CLIENT_VIEW           = 103;
+    const CLIENT_FILES          = 104;
+
+    const POLICE_INDEX          = 200;
+    const POLICE_CREATE         = 201;
+    const POLICE_UPDATE         = 202;
+    const POLICE_VIEW           = 203;
+    const POLICE_FILES          = 204;
+
+    const COURT_INDEX           = 300;
+    const COURT_CREATE          = 301;
+    const COURT_UPDATE          = 302;
+    const COURT_VIEW            = 303;
+    const COURT_FILES           = 304;
+
+    const INTERVENTION_INDEX    = 400;
+    const INTERVENTION_CREATE   = 401;
+    const INTERVENTION_UPDATE   = 402;
+    const INTERVENTION_VIEW     = 403;
+    const INTERVENTION_FILES    = 404;
+
+    const TRAINING_INDEX        = 500;
+    const TRAINING_CREATE       = 501;
+    const TRAINING_UPDATE       = 502;
+    const TRAINING_VIEW         = 503;
+    const TRAINING_FILES        = 504;
+
+    const COUNSELING_INDEX      = 600;
+    const COUNSELING_CREATE     = 601;
+    const COUNSELING_UPDATE     = 602;
+    const COUNSELING_VIEW       = 603;
+    const COUNSELING_FILES      = 604;
 
     /**
      * {@inheritdoc}
@@ -86,6 +124,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Finds user by password reset token
+     * 
      *
      * @param string $token password reset token
      * @return static|null
@@ -121,6 +160,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token password reset token
      * @return bool
      */
+
     public static function isPasswordResetTokenValid($token)
     {
         if (empty($token)) {

@@ -309,7 +309,7 @@ $script = <<<JS
                 .field-refugee-mode_of_entry_id,\
                 .field-refugee-nhcr_case_no,\
                 #work-permits'
-            ).parent().fadeOut();
+            ).fadeOut();
             
             //Select an option for the asyslum seeker select field
             if(isNewRecord == 1){
@@ -320,7 +320,7 @@ $script = <<<JS
                 .field-refugee-mode_of_entry_id,\
                 .field-refugee-nhcr_case_no,\
                 #work-permits'
-            ).parent().fadeIn();
+            ).fadeIn();
 
             //Offset asyslum seeker select field
             if(isNewRecord == 1){
