@@ -75,7 +75,13 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if(isset(Yii::$app->request->post()['User']['permissions'])){
+            if(Yii::$app->request->post()['User']['permissions']){
+                $model->permissions = implode(",",Yii::$app->request->post()['User']['permissions']);
+            }else{
+                $model->permissions = null;
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -118,7 +124,11 @@ class UserController extends Controller
             // echo "<pre>";
             // print_r(Yii::$app->request->post());
             // exit();
-            $model->permissions = implode(",",Yii::$app->request->post()['User']['permissions']);
+            if(isset(Yii::$app->request->post()['User']['permissions'])){
+                $model->permissions = implode(",",Yii::$app->request->post()['User']['permissions']);
+            }else{
+                $model->permissions = null;
+            }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
