@@ -34,7 +34,7 @@ class AccessRule extends \yii\filters\AccessRule {
             foreach ($perms as $key => $perm):
                 foreach ($userPermissions as $key => $userPerm):
                     if (!$user->getIsGuest() && $perm->id == $userPerm) {
-                        //return true;
+                        return true;
                     }
                 endforeach;
             endforeach;

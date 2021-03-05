@@ -10,10 +10,6 @@ use yii\widgets\ActiveForm;
 
 <div class="counseling-form">
 
-    <div class="card">
-
-        <div class="card-body">
-
             <?php $form = ActiveForm::begin(); ?>
 
             <div class="row">
@@ -66,7 +62,5 @@ use yii\widgets\ActiveForm;
             </div>
 
             <?php ActiveForm::end(); ?>
-        </div>
-    </div>
 
 </div>

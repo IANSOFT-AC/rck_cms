@@ -20,6 +20,7 @@ use app\models\UploadForm;
 use yii\web\UploadedFile;
 use app\models\NatureOfProceeding;
 use app\models\Offence;
+use app\models\CourtDocsUploads;
 use common\models\User;
 use common\components\AccessRule;
 
@@ -347,9 +348,10 @@ class CourtCasesController extends Controller
     public function actionDeleteFile($id)
     {
         $model = new UploadForm();
+        $data = CourtDocsUploads::findOne($id);
         $rst = $model->deleteFile("court_cases",$id);
 
-        return $this->redirect(['index']);
+        return $this->redirect(['view','id' => $data->court_case_id]);
     }
 
     /**

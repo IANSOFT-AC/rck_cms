@@ -325,9 +325,10 @@ class PoliceCasesController extends Controller
     public function actionDeleteFile($id)
     {
         $model = new UploadForm();
+        $data = PoliceDocsUpload::findOne($id);
         $rst = $model->deleteFile("police_cases",$id);
 
-        return $this->redirect(['index']);
+        return $this->redirect(['view','id'=> $data->police_case_id]);
     }
 
     /**

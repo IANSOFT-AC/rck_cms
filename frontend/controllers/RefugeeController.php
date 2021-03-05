@@ -28,6 +28,7 @@ use app\models\SourceOfIncome;
 use app\models\SourceOfInfo;
 use app\models\FormOfTorture;
 use app\models\DisabilityType;
+use app\models\RefugeeDocsUpload;
 use common\components\AccessRule;
 use common\models\User;
 use DateTime;
@@ -442,9 +443,10 @@ class RefugeeController extends Controller
     public function actionDeleteFile($id)
     {
         $model = new UploadForm();
+        $data = RefugeeDocsUpload::findOne($id);
         $rst = $model->deleteFile("refugees",$id);
 
-        return $this->redirect(['index']);
+        return $this->redirect(['view', 'id'=> $data->model_id]);
     }
 
     /**

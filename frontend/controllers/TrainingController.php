@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\UploadForm;
+use app\models\TrainingUpload;
 use yii\helpers\ArrayHelper;
 use common\models\User;
 use common\components\AccessRule;
@@ -212,9 +213,10 @@ class TrainingController extends Controller
     public function actionDeleteFile($id)
     {
         $model = new UploadForm();
+        $data = TrainingUpload::findOne($id);
         $rst = $model->deleteFile("training",$id);
 
-        return $this->redirect(['index']);
+        return $this->redirect(['view', 'id' => $data->training_id]);
     }
 
     /**
