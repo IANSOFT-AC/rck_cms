@@ -28,6 +28,8 @@ use app\models\SourceOfIncome;
 use app\models\SourceOfInfo;
 use app\models\FormOfTorture;
 use app\models\DisabilityType;
+use common\components\AccessRule;
+use common\models\User;
 use DateTime;
 
 /**
@@ -45,6 +47,41 @@ class RefugeeController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                // We will override the default rule config with the new AccessRule class
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            User::CLIENT_INDEX,
+                            //User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['update'],
+                        'allow' => true,
+                        // Allow moderators and admins to update
+                        'roles' => [
+                            //User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['delete'],
+                        'allow' => true,
+                        // Allow admins to delete
+                        'roles' => [
+                            //User::ROLE_ADMIN
+                        ],
+                    ],
                 ],
             ],
         ];

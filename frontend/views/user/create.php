@@ -10,13 +10,14 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+<div class="card">
+    <div class="card-header">    <h1><?= Html::encode($this->title) ?></h1></div>
+    <div class="card-body">
     <?= $this->render('_form', [
         'model' => $model,
         'roles' => $roles,
         'permissions' => $permissions
     ]) ?>
-
+    </div>
+</div>
 </div>

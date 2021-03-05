@@ -2,7 +2,8 @@
  
 namespace common\components;
  
- 
+use app\models\Permission; 
+
 class AccessRule extends \yii\filters\AccessRule {
  
     /**
@@ -26,6 +27,17 @@ class AccessRule extends \yii\filters\AccessRule {
             } elseif (!$user->getIsGuest() && $role === $user->identity->role) {
                 return true;
             }
+            //Check for permissions
+            $perms = Permission::find()->all();
+            $userPermissions = explode(",",$user->identity->permissions);
+
+            foreach ($perms as $key => $perm):
+                foreach ($userPermissions as $key => $userPerm):
+                    if (!$user->getIsGuest() && $perm->id == $userPerm) {
+                        return true;
+                    }
+                endforeach;
+            endforeach;
         }
  
         return false;

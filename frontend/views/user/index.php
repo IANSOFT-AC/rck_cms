@@ -9,16 +9,21 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
 
+<div class="user-index">
+<div class="card">
+    <div class="card-header">
+    
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-
-<table class="table table-striped table-bordered">
+<p>
+    <?php Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
+</p>
+    
+    </div>
+    <div class="card-body">
+    
+    <table class="table table-striped table-bordered">
     <thead>
         <th>id</th>
         <th>Username</th>
@@ -38,9 +43,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <td><?= $value->status ?></td>
             <td><?= json_encode($value->userRole) ?></td>
             <td><div class="d-inline-flex">
-                    <a href="view/?id=<?= $value->id ?>" class="p-1" title="View Record"><i class="far fa-eye"></i></a>
-                    <a href="update/?id=<?= $value->id ?>" title="Edit Record" class="p-1"><i class="far fa-edit"></i></a>
-                    <a href="delete/?id=<?= $value->id ?>" title="Delete Record" class="p-1"><i class="far fa-trash"></i></a>
+                    <a href="/user/view/?id=<?= $value->id ?>" class="p-1" title="View Record"><i class="far fa-eye"></i></a>
+                    <a href="/user/update/?id=<?= $value->id ?>" title="Edit Record" class="p-1"><i class="far fa-edit"></i></a>
+                    <a href="/user/delete/?id=<?= $value->id ?>" title="Delete Record" class="p-1"><i class="far fa-trash"></i></a>
                 </div>
             </td>
             </tr>
@@ -51,5 +56,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <td></td>
     </tbody>
 </table>
+    
+    </div>
+</div>
 
 </div>
