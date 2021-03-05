@@ -100,8 +100,9 @@ class UserController extends Controller
         //$this->layout = 'login';
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+            Yii::$app->session->setFlash('success', 'User registration done. Inform user to check their inbox for verification email.');
+            //return $this->goHome();
+            return $this->redirect('index');
         }
 
         return $this->render('signup', [
