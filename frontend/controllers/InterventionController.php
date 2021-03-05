@@ -19,6 +19,8 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\RckOffices;
 use app\models\Agency;
+use common\models\User;
+use common\components\AccessRule;
 
 /**
  * InterventionController implements the CRUD actions for Intervention model.
@@ -35,6 +37,60 @@ class InterventionController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                // We will override the default rule config with the new AccessRule class
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            User::INTERVENTION_CREATE,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            User::INTERVENTION_INDEX,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['files'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            User::INTERVENTION_FILES,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['update'],
+                        'allow' => true,
+                        // Allow moderators and admins to update
+                        'roles' => [
+                            User::INTERVENTION_UPDATE,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['delete'],
+                        'allow' => true,
+                        // Allow admins to delete
+                        'roles' => [
+                            User::ROLE_ADMIN
+                        ],
+                    ],
                 ],
             ],
         ];

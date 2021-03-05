@@ -20,6 +20,8 @@ use app\models\UploadForm;
 use yii\web\UploadedFile;
 use app\models\NatureOfProceeding;
 use app\models\Offence;
+use common\models\User;
+use common\components\AccessRule;
 
 /**
  * CourtCasesController implements the CRUD actions for CourtCases model.
@@ -37,6 +39,60 @@ class CourtCasesController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                     'files' => ['POST','GET']
+                ],
+            ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                // We will override the default rule config with the new AccessRule class
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            User::COURT_CREATE,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            User::COURT_INDEX,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['update'],
+                        'allow' => true,
+                        // Allow moderators and admins to update
+                        'roles' => [
+                            User::COURT_UPDATE,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['files'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            User::COURT_FILES,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['delete'],
+                        'allow' => true,
+                        // Allow admins to delete
+                        'roles' => [
+                            User::ROLE_ADMIN
+                        ],
+                    ],
                 ],
             ],
         ];

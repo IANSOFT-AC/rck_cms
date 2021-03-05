@@ -12,6 +12,8 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\UploadForm;
 use yii\helpers\ArrayHelper;
+use common\models\User;
+use common\components\AccessRule;
 
 /**
  * TrainingController implements the CRUD actions for Training model.
@@ -28,6 +30,60 @@ class TrainingController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                // We will override the default rule config with the new AccessRule class
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            User::TRAINING_CREATE,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            User::TRAINING_INDEX,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['files'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            User::CLIENT_FILES,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['update'],
+                        'allow' => true,
+                        // Allow moderators and admins to update
+                        'roles' => [
+                            User::CLIENT_UPDATE,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['delete'],
+                        'allow' => true,
+                        // Allow admins to delete
+                        'roles' => [
+                            User::ROLE_ADMIN
+                        ],
+                    ],
                 ],
             ],
         ];

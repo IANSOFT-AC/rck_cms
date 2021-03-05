@@ -24,7 +24,7 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const ROLE_ADMIN = 20;
+    const ROLE_ADMIN = 2;
     
     
     const STATUS_DELETED        = 0;

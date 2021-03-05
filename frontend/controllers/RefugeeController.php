@@ -62,8 +62,26 @@ class RefugeeController extends Controller
                         'allow' => true,
                         // Allow users, moderators and admins to create
                         'roles' => [
+                            User::CLIENT_CREATE,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
                             User::CLIENT_INDEX,
-                            //User::ROLE_ADMIN
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['files'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            User::CLIENT_FILES,
+                            User::ROLE_ADMIN
                         ],
                     ],
                     [
@@ -71,7 +89,8 @@ class RefugeeController extends Controller
                         'allow' => true,
                         // Allow moderators and admins to update
                         'roles' => [
-                            //User::ROLE_ADMIN
+                            User::CLIENT_UPDATE,
+                            User::ROLE_ADMIN
                         ],
                     ],
                     [
@@ -79,7 +98,7 @@ class RefugeeController extends Controller
                         'allow' => true,
                         // Allow admins to delete
                         'roles' => [
-                            //User::ROLE_ADMIN
+                            User::ROLE_ADMIN
                         ],
                     ],
                 ],
