@@ -56,12 +56,12 @@ class RefugeeController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'delete'],
+                'only' => ['create', 'update', 'delete','files','index'],
                 'rules' => [
                     [
                         'actions' => ['create'],
                         'allow' => true,
-                        // Allow users, moderators and admins to create
+                        'verbs' => ['POST','GET'],
                         'roles' => [
                             User::CLIENT_CREATE,
                             User::ROLE_ADMIN
@@ -70,7 +70,7 @@ class RefugeeController extends Controller
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        // Allow users, moderators and admins to create
+                        'verbs' => ['POST','GET'],
                         'roles' => [
                             User::CLIENT_INDEX,
                             User::ROLE_ADMIN
@@ -79,7 +79,7 @@ class RefugeeController extends Controller
                     [
                         'actions' => ['files'],
                         'allow' => true,
-                        // Allow users, moderators and admins to create
+                        'verbs' => ['POST','GET'],
                         'roles' => [
                             User::CLIENT_FILES,
                             User::ROLE_ADMIN
@@ -88,7 +88,7 @@ class RefugeeController extends Controller
                     [
                         'actions' => ['update'],
                         'allow' => true,
-                        // Allow moderators and admins to update
+                        'verbs' => ['POST','GET'],
                         'roles' => [
                             User::CLIENT_UPDATE,
                             User::ROLE_ADMIN
@@ -97,7 +97,7 @@ class RefugeeController extends Controller
                     [
                         'actions' => ['delete'],
                         'allow' => true,
-                        // Allow admins to delete
+                        'verbs' => ['POST','GET'],
                         'roles' => [
                             User::ROLE_ADMIN
                         ],
