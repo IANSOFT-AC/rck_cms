@@ -61,7 +61,6 @@ class RefugeeController extends Controller
                     [
                         'actions' => ['create'],
                         'allow' => true,
-                        'verbs' => ['POST','GET'],
                         'roles' => [
                             User::CLIENT_CREATE,
                             User::ROLE_ADMIN
@@ -70,7 +69,6 @@ class RefugeeController extends Controller
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        'verbs' => ['POST','GET'],
                         'roles' => [
                             User::CLIENT_INDEX,
                             User::ROLE_ADMIN
@@ -79,7 +77,6 @@ class RefugeeController extends Controller
                     [
                         'actions' => ['files'],
                         'allow' => true,
-                        'verbs' => ['POST','GET'],
                         'roles' => [
                             User::CLIENT_FILES,
                             User::ROLE_ADMIN
@@ -88,7 +85,6 @@ class RefugeeController extends Controller
                     [
                         'actions' => ['update'],
                         'allow' => true,
-                        'verbs' => ['POST','GET'],
                         'roles' => [
                             User::CLIENT_UPDATE,
                             User::ROLE_ADMIN
@@ -97,7 +93,6 @@ class RefugeeController extends Controller
                     [
                         'actions' => ['delete'],
                         'allow' => true,
-                        'verbs' => ['POST','GET'],
                         'roles' => [
                             User::ROLE_ADMIN
                         ],
