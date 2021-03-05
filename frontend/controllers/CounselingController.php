@@ -53,7 +53,7 @@ class CounselingController extends Controller
                         'allow' => true,
                         // Allow users, moderators and admins to create
                         'roles' => [
-                            User::COUNSELING_INDEX
+                            User::COUNSELING_INDEX,
                             User::ROLE_ADMIN
                         ],
                     ],

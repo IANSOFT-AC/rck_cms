@@ -225,7 +225,7 @@ class Refugee extends \yii\db\ActiveRecord
             'last_name' => 'Last Name',
             'user_group_id' => 'User Group ID',
             'user_id' => 'User ID',
-            'image' => 'Image',
+            'image' => 'ID Scan',
             'camp' => 'Camp',
             'cell_number' => 'Cell Number',
             'email_address' => 'Email Address',
