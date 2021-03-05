@@ -19989,7 +19989,14 @@ html.maximized-card {
   background: #ffffff;
   border-top: 0;
   color: #666;
-  padding: 20px;
+  padding: 0px;
+}
+
+.center{
+  align-items: center;
+  text-align: center; 
+  justify-content: center; 
+  display: flex;
 }
 
 .login-card-body .input-group .form-control,

@@ -16,9 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="alert alert-success"><?= Yii::$app->session->getFlash('success') ?></div>
 <?php } ?>
 
-<div class="card">
+<div class="card" style="padding: 1.2rem;">
     <div class="card-header">
-        <h1 class="card-title"><?= Html::encode($this->title) ?></h1>
+        <h1 class="card-title"><?= Html::encode("RCK - ".$this->title) ?></h1>
     </div>
 
     <div class="card-body">
@@ -37,15 +37,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
-                <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                    <br>
-                    Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
+                <div class="form-group center">
+                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary form-control', 'name' => 'login-button']) ?>
+                    <?php Html::a('Sign up', '../site/signup',['class' => 'btn btn-warning', 'name' => 'login-button']) ?>
                 </div>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                    <?= Html::a('Sign up', '../site/signup',['class' => 'btn btn-warning', 'name' => 'login-button']) ?>
+                <hr>
+                <div style="color:#999;margin:1em 0">
+                    <p class="center">If you forgot your password you can <?= Html::a('Reset it', ['site/request-password-reset'],[
+                 'class' => 'pl-1',
+              ]) ?>.</p>
+                    
+                    <p class="center">Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?></p>
                 </div>
 
             <?php ActiveForm::end(); ?>

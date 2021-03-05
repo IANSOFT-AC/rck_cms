@@ -33,7 +33,7 @@ class SiteController extends Controller
                     // [
                     //     'actions' => ['signup'],
                     //     'allow' => true,
-                    //     'roles' => ['?'],
+                    //     'roles' => ['@'],
                     // ],
                     [
                         'actions' => ['logout','index','create','update','delete'],
@@ -173,6 +173,7 @@ class SiteController extends Controller
      */
     public function actionRequestPasswordReset()
     {
+        $this->layout = 'login';
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -204,6 +205,8 @@ class SiteController extends Controller
             throw new BadRequestHttpException($e->getMessage());
         }
 
+        $this->layout = 'login';
+
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             Yii::$app->session->setFlash('success', 'New password saved.');
 
@@ -229,6 +232,7 @@ class SiteController extends Controller
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
+        $this->layout = 'login';
         if ($user = $model->verifyEmail()) {
 
             Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
@@ -249,6 +253,7 @@ class SiteController extends Controller
      */
     public function actionResendVerificationEmail()
     {
+        $this->layout = 'login';
         $model = new ResendVerificationEmailForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
