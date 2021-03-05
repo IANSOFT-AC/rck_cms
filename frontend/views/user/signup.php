@@ -32,6 +32,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'passwordConfirm')->passwordInput() ?>
 
+            <?= $form->field($model, 'role')->dropDownList($roles, ['prompt' => '--Select Role--']) ?>
+
+            <div class="row">
+            <?php 
+            foreach ($permissions as $key => $value) {
+                # code...
+                ?>
+                <div class="form-check m-1 col-md-3">
+                    <input class="form-check-input" type="checkbox" value=<?= $value->id ?> id=<?= $value->name ?> name="User[permissions][]" <?= in_array($value->id, explode(",",$model->permissions)) ? "checked" : "" ?>>
+                    <label class="form-check-label" for=<?= $value->name ?>>
+                        <?= $value->name ?>
+                    </label>
+                </div>
+                <?php
+            }
+            ?>
+            </div>
+
             <div class="form-group">
                 <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 

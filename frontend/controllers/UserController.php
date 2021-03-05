@@ -99,14 +99,25 @@ class UserController extends Controller
     {
         //$this->layout = 'login';
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if(Yii::$app->request->post()['User']['permissions']){
+                $model->permissions = implode(",",Yii::$app->request->post()['User']['permissions']);
+            }else{
+                $model->permissions = null;
+            }
+            $model->signup();
             Yii::$app->session->setFlash('success', 'User registration done. Inform user to check their inbox for verification email.');
             //return $this->goHome();
             return $this->redirect('index');
         }
 
+        $roles = ArrayHelper::map(UserGroup::find()->all(),'id','group');
+        $permissions = Permission::find()->all();
+
         return $this->render('signup', [
             'model' => $model,
+            'roles' => $roles,
+            'permissions' => $permissions
         ]);
     }
 
