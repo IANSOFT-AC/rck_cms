@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use app\models\User;
+use app\models\Permission;
 use app\models\UserGroup;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -41,8 +42,11 @@ class UserController extends Controller
             'query' => User::find(),
         ]);
 
+        $data = User::find()->all();
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'data' => $data
         ]);
     }
 
@@ -73,10 +77,12 @@ class UserController extends Controller
         }
 
         $roles = ArrayHelper::map(UserGroup::find()->all(),'id','group');
+        $permissions = Permission::find()->all();
 
         return $this->render('create', [
             'model' => $model,
-            'roles' => $roles
+            'roles' => $roles,
+            'permissions' => $permissions
         ]);
     }
 
@@ -91,15 +97,22 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            // echo "<pre>";
+            // print_r(Yii::$app->request->post());
+            // exit();
+            $model->permissions = implode(",",Yii::$app->request->post()['User']['permissions']);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         $roles = ArrayHelper::map(UserGroup::find()->all(),'id','group');
+        $permissions = Permission::find()->all();
 
         return $this->render('update', [
             'model' => $model,
-            'roles' => $roles
+            'roles' => $roles,
+            'permissions' => $permissions
         ]);
     }
 

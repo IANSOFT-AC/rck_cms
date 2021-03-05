@@ -88,8 +88,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getUserRole()
     {
-        return $this->hasOne(UserGroup::className(), ['
-        ' => 'role']);
+        return $this->hasOne(UserGroup::className(), ['id' => 'role']);
     }
 
     /**

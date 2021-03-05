@@ -18,60 +18,38 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'id',
-            'username',
-            //'auth_key',
-            //'password_hash',
-            //'password_reset_token',
-            'email:email',
-            'status',
-            'created_at:datetime',
-            //'updated_at',
-            //'verification_token',
-            'role',
-            [
-                'label' => 'Role',
-                'attribute'=>'role',
-                'format'=>'raw',
-                'value' => function($data){
-                    return json_encode($data->userRole->id);
-                }
-            ],
-            ['class' => 'yii\grid\ActionColumn',
-                        'buttons' => [
+<table class="table table-striped table-bordered">
+    <thead>
+        <th>id</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($data as $key => $value):
+        ?>
+            <tr>
+            <td><?= $value->id ?></td>
+            <td><?= $value->username ?></td>
+            <td><a href=<?= "mailto:".$value->email ?>><?= $value->email ?></a></td>
+            <td><?= $value->status ?></td>
+            <td><?= json_encode($value->userRole) ?></td>
+            <td><div class="d-inline-flex">
+                    <a href="view/?id=<?= $value->id ?>" class="p-1" title="View Record"><i class="far fa-eye"></i></a>
+                    <a href="update/?id=<?= $value->id ?>" title="Edit Record" class="p-1"><i class="far fa-edit"></i></a>
+                    <a href="delete/?id=<?= $value->id ?>" title="Delete Record" class="p-1"><i class="far fa-trash"></i></a>
+                </div>
+            </td>
+            </tr>
 
-                            'view' => function( $url )
-                            {
-                                return Html::a('<i class="fa fa-eye"></i>', $url,[]);
-                            },
-
-                            'update' => function( $url )
-                            {
-                                return Html::a('<i class="fa fa-edit"></i>', $url,[]);
-                            },
-
-                            'delete' => function( $url )
-                            {
-                                return Html::a('<i class="fa fa-trash"></i>', $url,[
-
-                                    'data' => [
-                                        'confirm' => 'Are you sure you wanna delete this record ?',
-                                        'method' => 'POST',
-                                        'params' => [
-                                            '_csrf-frontend' => Yii::$app->request->csrfToken
-                                        ]
-
-                                    ]
-                                ]);
-                            }
-
-                        ],],
-        ],
-    ]); ?>
-
+        <?php
+        endforeach;
+        ?>
+        <td></td>
+    </tbody>
+</table>
 
 </div>
