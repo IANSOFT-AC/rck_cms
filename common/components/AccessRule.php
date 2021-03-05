@@ -24,7 +24,7 @@ class AccessRule extends \yii\filters\AccessRule {
                     return true;
                 }
             // Check if the user is logged in, and the roles match
-            } elseif (!$user->getIsGuest() && $role === $user->identity->role) {
+            } elseif (!$user->getIsGuest() && $role == $user->identity->role) {
                 return true;
             }
             //Check for permissions

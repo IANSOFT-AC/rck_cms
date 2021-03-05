@@ -56,7 +56,7 @@ class RefugeeController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'delete','files','index'],
+                'only' => ['create', 'update', 'delete', 'files', 'index'],
                 'rules' => [
                     [
                         'actions' => ['create'],
