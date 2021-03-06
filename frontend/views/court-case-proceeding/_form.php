@@ -58,6 +58,8 @@ use yii\widgets\ActiveForm;
 
 $script = <<<JS
 
+    $('.field-courtcaseproceeding-next_court_date').fadeOut();
+
     $('#courtcaseproceeding-case_status').on('change', function(e){
         if(e.target.value == "open"){
             $('.field-courtcaseproceeding-next_court_date').fadeIn('slow')

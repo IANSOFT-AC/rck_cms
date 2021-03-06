@@ -53,7 +53,7 @@ class Counseling extends \yii\db\ActiveRecord
         return [
             [['code', 'intervention_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['intervention_id','type'], 'required'],
-            [['presenting_problem', 'date', 'therapeutic', 'conseptualization', 'intervention', 'counsellors', 'next_appointment_date', 'type'], 'string'],
+            [['presenting_problem', 'date', 'therapeutic', 'conseptualization', 'intervention', 'counsellors', 'next_appointment_date', 'type', 'case_status'], 'string'],
             [['session', 'counseling_intake_form'], 'string', 'max' => 255],
             [['intervention_id'], 'exist', 'skipOnError' => true, 'targetClass' => Intervention::className(), 'targetAttribute' => ['intervention_id' => 'id']],
         ];
@@ -83,6 +83,7 @@ class Counseling extends \yii\db\ActiveRecord
             'conseptualization' => 'Conceptualization/acquisition and perpetuation',
             'intervention' => 'Interventions',
             'type' => 'Counseling Type',
+            'case_status' => 'Case Status',
             'counsellors' => 'Counsellors self Envaluation',
             'counseling_intake_form' => 'Counseling Intake Form',
             'created_at' => 'Created At',

@@ -20,6 +20,10 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'date')->textInput(['type' => 'date']) ?>
                 </div>
                 <div class="col-md-6">
+                    <?= $form->field($model, 'case_status')->dropDownList(['open' => 'Open', 'closed' => 'Closed'],
+                                            ['prompt' => '-- Select Case Status --']) ?>
+                </div>
+                <div class="col-md-6">
                     <?= $form->field($model, 'next_appointment_date')->textInput(['type' => 'date','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->next_appointment_date, 'yyyy-MM-dd')]) ?>
                 </div>
                 <div class="col-md-6">
@@ -64,3 +68,20 @@ use yii\widgets\ActiveForm;
             <?php ActiveForm::end(); ?>
 
 </div>
+<?php
+
+$script = <<<JS
+
+    $('.field-counseling-next_appointment_date').parent().fadeOut()
+
+    $('#counseling-case_status').on('change', function(e){
+        if(e.target.value == "open"){
+            $('.field-counseling-next_appointment_date').parent().fadeIn('slow')
+        }else{
+            $('.field-counseling-next_appointment_date').parent().fadeOut('slow')
+        }
+    }).change();
+JS;
+
+$this->registerJs($script);
+?>

@@ -45,7 +45,7 @@ class UserController extends Controller
             'query' => User::find(),
         ]);
 
-        $data = User::find()->all();
+        $data = User::find()->with('userRole')->all();
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,

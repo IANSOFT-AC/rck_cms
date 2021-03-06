@@ -39,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'conflict',
                 'created_at:datetime',
                 'updated_at:datetime',
-                'created_by',
-                'updated_by',
+                //'created_by',
+                //'updated_by',
             ],
         ]) ?>
         </div>
