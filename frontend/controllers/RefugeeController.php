@@ -56,7 +56,7 @@ class RefugeeController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'delete', 'files', 'index'],
+                'only' => ['create', 'update', 'delete', 'files', 'index', 'upload', 'deleteFile'],
                 'rules' => [
                     [
                         'actions' => ['create'],
@@ -79,6 +79,22 @@ class RefugeeController extends Controller
                         'allow' => true,
                         'roles' => [
                             User::CLIENT_FILES,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['upload'],
+                        'allow' => true,
+                        'roles' => [
+                            User::FILE_UPLOAD,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['deleteFile'],
+                        'allow' => true,
+                        'roles' => [
+                            User::FILE_DELETE,
                             User::ROLE_ADMIN
                         ],
                     ],

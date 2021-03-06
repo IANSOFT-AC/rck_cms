@@ -39,7 +39,7 @@ class TrainingController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'delete'],
+                'only' => ['create', 'update', 'delete', 'files', 'index', 'upload', 'deleteFile'],
                 'rules' => [
                     [
                         'actions' => ['create'],
@@ -65,6 +65,22 @@ class TrainingController extends Controller
                         // Allow users, moderators and admins to create
                         'roles' => [
                             User::CLIENT_FILES,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['upload'],
+                        'allow' => true,
+                        'roles' => [
+                            User::FILE_UPLOAD,
+                            User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['deleteFile'],
+                        'allow' => true,
+                        'roles' => [
+                            User::FILE_DELETE,
                             User::ROLE_ADMIN
                         ],
                     ],
