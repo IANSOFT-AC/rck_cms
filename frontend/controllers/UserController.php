@@ -69,7 +69,7 @@ class UserController extends Controller
                         'allow' => true,
                         // Allow admins to delete
                         'roles' => [
-                            common\models\User::ROLE_ADMIN
+                            \common\models\User::ROLE_ADMIN
                         ],
                     ],
                 ],
