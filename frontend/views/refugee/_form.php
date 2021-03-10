@@ -372,9 +372,9 @@ $script = <<<JS
 
     $('#refugee-has_work_permit').on('change', function(){
         if(this.value == 1){
-            $('.field-refugee-arrested_due_to_lack_of_work_permit, .field-refugee-interested_in_work_permit, .field-refugee-interested_in_citizenship').fadeOut('slow');
+            $('.field-refugee-arrested_due_to_lack_of_work_permit, .field-refugee-interested_in_work_permit').fadeOut('slow');
         }else{
-            $('.field-refugee-arrested_due_to_lack_of_work_permit, .field-refugee-interested_in_work_permit, .field-refugee-interested_in_citizenship').fadeIn('slow');
+            $('.field-refugee-arrested_due_to_lack_of_work_permit, .field-refugee-interested_in_work_permit').fadeIn('slow');
         }
     }).change();
 

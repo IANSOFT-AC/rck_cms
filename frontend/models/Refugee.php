@@ -112,7 +112,7 @@ class Refugee extends \yii\db\ActiveRecord
             [['conflict'], 'exist', 'skipOnError' => true, 'targetClass' => Conflict::className(), 'targetAttribute' => ['conflict' => 'id']],
             [['source_of_info_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfInfo::className(), 'targetAttribute' => ['source_of_info_id' => 'id']],
             //[['source_of_income_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfIncome::className(), 'targetAttribute' => ['source_of_income_id' => 'id']],
-            //[['form_of_torture_id'], 'exist', 'skipOnError' => true, 'targetClass' => FormOfTorture::className(), 'targetAttribute' => ['form_of_torture_id' => 'id']],
+            [['asylum_status'], 'exist', 'skipOnError' => true, 'targetClass' => AsylumType::className(), 'targetAttribute' => ['asylum_status' => 'id']],
             [['disability_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DisabilityType::className(), 'targetAttribute' => ['disability_type_id' => 'id']],
 
             //Conditional Validation
@@ -146,14 +146,28 @@ class Refugee extends \yii\db\ActiveRecord
                     }
                 }"
             ],
-            [  
-                ['rsd_appointment_date'], 
-                'required', 
+            // [  
+            //     ['rsd_appointment_date'], 
+            //     'required', 
+            //     'when' => function($model){
+            //         return ($model->asylum_status == 1) ? true : false;
+            //     },
+            //     'whenClient' => "function(attribute, value){
+            //         if( $('#refugee-asylum_status').val() == 1){
+            //             return true;
+            //         }else{
+            //             return false;
+            //         }
+            //     }"
+            // ],
+            [
+                ['reason_for_rsd_appointment'],
+                'required',
                 'when' => function($model){
-                    return ($model->asylum_status == 1) ? true : false;
+                    return isset($model->rsd_appointment_date) ? true : false;
                 },
                 'whenClient' => "function(attribute, value){
-                    if( $('#refugee-asylum_status').val() == 1){
+                    if( $('#refugee-rsd_appointment_date').val() != \"\"){
                         return true;
                     }else{
                         return false;
@@ -310,6 +324,11 @@ class Refugee extends \yii\db\ActiveRecord
     public function getModeOfEntry()
     {
         return $this->hasOne(ModeOfEntry::className(), ['id' => 'mode_of_entry_id']);
+    }
+
+    public function getAsylumType()
+    {
+        return $this->hasOne(AsylumType::className(), ['id' => 'asylum_status']);
     }
 
     public function getDisabilityType()

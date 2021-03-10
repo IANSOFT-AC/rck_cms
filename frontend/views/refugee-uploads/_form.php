@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'type')->dropDownList(['1' => 'Seeking Asylum' , '0' => 'Refugee'],['prompt' => '-- Upload Type? --']) ?>
+    <?= $form->field($model, 'type')->dropDownList($asylum_types,['prompt' => '-- Upload Type? --']) ?>
 
     <?php $form->field($model, 'created_at')->textInput() ?>
 

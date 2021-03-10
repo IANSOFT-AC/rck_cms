@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Refugee Uploads'), '
 
     <?= $this->render('_form', [
         'model' => $model,
+        'asylum_types' => $asylum_types
     ]) ?>
 
 </div>

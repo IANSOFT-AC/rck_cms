@@ -117,6 +117,13 @@ $this->title = "RCK: Control Panel";
 	                    </p>
 	                    <br>
 	                </div>
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b>Client Uploads Settings</b>',['refugee-uploads/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
 	            </div>
 	        </div>
 	    </div>

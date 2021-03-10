@@ -75,10 +75,10 @@ $script = <<<JS
             {title : 'Complainant', data: 'complainant'},
             {title : 'Created At', data: 'created_at'},
             {
+                title: 'Actions',
                 data: function ( row, type, val, meta ) {
                     return '<div class="d-inline-flex"><a href="'+viewUrl+'/?id='+row.id+'" class="p-1" title="View Record"><i class="far fa-eye"></i></a><a href="'+editUrl+'/?id='+row.id+'" title="Edit Record" class="p-1"><i class="far fa-edit"></i></a></div>'
                 },
-                className: "center",
                 defaultContent: ''
             }
         ],

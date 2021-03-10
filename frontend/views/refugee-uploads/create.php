@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['index']];
 
     <?= $this->render('_form', [
         'model' => $model,
+        'asylum_types' => $asylum_types
     ]) ?>
 
 </div>

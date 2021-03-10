@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'desc:ntext',
-            'type',
             [
                 'label' => 'Upload Type',
                 'attribute' => 'type',

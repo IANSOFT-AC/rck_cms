@@ -8,6 +8,8 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\AsylumType;
+use yii\helpers\ArrayHelper;
 
 /**
  * RefugeeUploadsController implements the CRUD actions for RefugeeUploads model.
@@ -72,6 +74,7 @@ class RefugeeUploadsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'asylum_types' => ArrayHelper::map(AsylumType::find()->all(),'id','name')
         ]);
     }
 
@@ -92,6 +95,7 @@ class RefugeeUploadsController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'asylum_types' => ArrayHelper::map(AsylumType::find()->all(),'id','name')
         ]);
     }
 

@@ -274,8 +274,16 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             }
                             ?>
 
+                            <div class="col-md-6">
+                                  <strong data-speechify-sentence=""> Asylum Status </strong>
+
+                                  <p class="text-muted" data-speechify-sentence=""><?= $model->asylumType->name ?></p>
+
+                                  <hr>
+                            </div>
+
                             <?php
-                            if($model->asylum_status){
+                            if($model->asylum_status == 1){
                             ?>
                                 <div class="col-md-6">
                                       <strong data-speechify-sentence=""> RSD Appointment Date</strong>
