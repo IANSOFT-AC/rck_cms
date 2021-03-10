@@ -41,7 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <td><?= $value->username ?></td>
             <td><a href=<?= "mailto:".$value->email ?>><?= $value->email ?></a></td>
             <td><?= $value->status ?></td>
-            <td><?= $value->userRole->group ?></td>
+            <td><?php
+            if(isset($value->userRole)){
+                echo $value->userRole->group;
+            } 
+            
+            ?></td>
             <td><div class="d-inline-flex">
                     <a href="/user/view/?id=<?= $value->id ?>" class="p-1" title="View Record"><i class="far fa-eye"></i></a>
                     <a href="/user/update/?id=<?= $value->id ?>" title="Edit Record" class="p-1"><i class="far fa-edit"></i></a>
