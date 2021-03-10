@@ -26,6 +26,48 @@ class OffenceController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                // We will override the default rule config with the new AccessRule class
+                'ruleConfig' => [
+                    'class' => \common\components\AccessRule::className(),
+                ],
+                'only' => ['create', 'update', 'delete',  'index'],
+                'rules' => [
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            \common\models\User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        // Allow users, moderators and admins to create
+                        'roles' => [
+                            \common\models\User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['update'],
+                        'allow' => true,
+                        // Allow moderators and admins to update
+                        'roles' => [
+                            \common\models\User::ROLE_ADMIN
+                        ],
+                    ],
+                    [
+                        'actions' => ['delete'],
+                        'allow' => true,
+                        // Allow admins to delete
+                        'roles' => [
+                            common\models\User::ROLE_ADMIN
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 

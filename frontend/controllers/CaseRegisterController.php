@@ -29,6 +29,7 @@ class CaseRegisterController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            
         ];
     }
 
