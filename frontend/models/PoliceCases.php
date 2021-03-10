@@ -86,7 +86,7 @@ class PoliceCases extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Title',
+            'name' => 'Name',
             'gender' => 'Gender',
             'contacts' => 'Contacts',
             'age' => 'Age',

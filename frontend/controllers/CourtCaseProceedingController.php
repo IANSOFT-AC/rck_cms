@@ -60,7 +60,7 @@ class CourtCaseProceedingController extends Controller
 
     public function actionList($id)
     {
-        $court = CourtCases::find($id)->one();
+        $court = CourtCases::findOne($id);
         $list = CourtCaseProceeding::find()->where(['court_case_id' => $id])->all();
 
         return $this->render('list', [
@@ -85,7 +85,7 @@ class CourtCaseProceedingController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'court' => CourtCases::find($id)->one()
+            'court' => CourtCases::findOne($id)
         ]);
     }
 

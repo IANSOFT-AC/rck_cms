@@ -47,7 +47,7 @@ class PoliceCaseProceedingController extends Controller
 
     public function actionList($id)
     {
-        $police = PoliceCases::find($id)->one();
+        $police = PoliceCases::findOne($id);
         $list = PoliceCaseProceeding::find()->where(['police_case_id' => $id ])->all();
 
         return $this->render('list', [
@@ -84,7 +84,7 @@ class PoliceCaseProceedingController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'police' => PoliceCases::find($id)->one()
+            'police' => PoliceCases::findOne($id)
         ]);
     }
 

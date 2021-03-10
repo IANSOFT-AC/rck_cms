@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
             <?php $form = ActiveForm::begin(); ?>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <?= $form->field($model, 'code')->textInput() ?>
                 </div>
                 <div class="col-md-6">
@@ -32,19 +32,19 @@ use yii\widgets\ActiveForm;
                 <div class="col-md-6">
                     <?= $form->field($model, 'type')->dropDownList([1 => 'Individual',2 => 'Family', 3 => 'Group' ],['prompt' => '--Select Type--']) ?>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <?= $form->field($model, 'presenting_problem')->textarea(['rows' => 6]) ?>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <?= $form->field($model, 'therapeutic')->textarea(['rows' => 6]) ?>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <?= $form->field($model, 'conseptualization')->textarea(['rows' => 6]) ?>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <?= $form->field($model, 'intervention')->textarea(['rows' => 6]) ?>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <?= $form->field($model, 'counsellors')->textarea(['rows' => 6]) ?>
                 </div>
                 
