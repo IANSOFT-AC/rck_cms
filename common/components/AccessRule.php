@@ -2,7 +2,8 @@
  
 namespace common\components;
  
-use app\models\Permission; 
+use app\models\Permission;
+use yii\helpers\ArrayHelper;
 
 class AccessRule extends \yii\filters\AccessRule {
  
@@ -27,17 +28,12 @@ class AccessRule extends \yii\filters\AccessRule {
             } elseif (!$user->getIsGuest() && $role == $user->identity->role) {
                 return true;
             }
-            //Check for permissions
-            $perms = Permission::find()->all();
-            $userPermissions = explode(",",$user->identity->permissions);
+            //Check if the user is logged in, and the permissions match
+            $userPermissions = ArrayHelper::getColumn(Permission::find()->where(['in', 'id', explode(",",$user->identity->permissions)])->select('code')->asArray()->all(),'code');
 
-            foreach ($perms as $key => $perm):
-                foreach ($userPermissions as $key => $userPerm):
-                    if (!$user->getIsGuest() && $perm->id == $userPerm) {
-                        return true;
-                    }
-                endforeach;
-            endforeach;
+            if (!$user->getIsGuest() && in_array($role,$userPermissions)) {
+                return true;
+            }
         }
  
         return false;

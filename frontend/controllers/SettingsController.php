@@ -70,7 +70,9 @@ class SettingsController extends \yii\web\Controller
     
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index', [
+            'userModel' => new User()
+        ]);
     }
 
 }

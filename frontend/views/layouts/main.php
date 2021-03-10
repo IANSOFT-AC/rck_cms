@@ -222,7 +222,9 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
 
 <!--Approval Management -->
-                        
+                        <?php
+                        if (!Yii::$app->user->getIsGuest() && (Yii::$app->dashboard->user::ROLE_ADMIN == Yii::$app->user->identity->role || in_array(Yii::$app->dashboard->user::CLIENT_INDEX,Yii::$app->dashboard->permissionCodes(Yii::$app->user->identity->permissions)))) {
+                        ?>
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('refugee')?'menu-open':'' ?>">
 
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('refugee')?'active':'' ?>">
@@ -245,10 +247,15 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                             </ul>
                         </li>
+                        <?php
+                        }
+                        ?>
                         
 <!--end Aprroval Management-->
 
-
+                        <?php
+                        if (!Yii::$app->user->getIsGuest() && (Yii::$app->dashboard->user::ROLE_ADMIN == Yii::$app->user->identity->role || in_array(Yii::$app->dashboard->user::INTERVENTION_INDEX,Yii::$app->dashboard->permissionCodes(Yii::$app->user->identity->permissions)))) {
+                        ?>
                         <li class="nav-item has-treeview  <?= Yii::$app->recruitment->currentCtrl('')?'menu-open':'' ?>">
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('')?'active':'' ?>">
                                 <i class="nav-icon fas fa-paper-plane"></i>
@@ -269,11 +276,13 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                             </ul>
                         </li>
-
-
-
+                        <?php
+                        }
+                        ?>
                         
-
+                        <?php
+                        if (!Yii::$app->user->getIsGuest() && (Yii::$app->dashboard->user::ROLE_ADMIN == Yii::$app->user->identity->role || in_array(Yii::$app->dashboard->user::COURT_INDEX,Yii::$app->dashboard->permissionCodes(Yii::$app->user->identity->permissions)))) {
+                        ?>
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('t')?'menu-open':'' ?>">
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
                                 <i class="nav-icon fas fa-briefcase " ></i>
@@ -304,8 +313,14 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                 
                             </ul>
                         </li>
+                        <?php
+                        }
+                        ?>
 
                         <!--Police -->
+                        <?php
+                        if (!Yii::$app->user->getIsGuest() && (Yii::$app->dashboard->user::ROLE_ADMIN == Yii::$app->user->identity->role || in_array(Yii::$app->dashboard->user::POLICE_INDEX,Yii::$app->dashboard->permissionCodes(Yii::$app->user->identity->permissions)))) {
+                        ?>
                          <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('t')?'menu-open':'' ?>">
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
                                 <i class="nav-icon fa fa-file-invoice-dollar"></i>
@@ -328,9 +343,14 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                             </ul>
                         </li>
+                        <?php
+                        }
+                        ?>
                         
                         <!-- Training -->
-
+                        <?php
+                        if (!Yii::$app->user->getIsGuest() && (Yii::$app->dashboard->user::ROLE_ADMIN == Yii::$app->user->identity->role || in_array(Yii::$app->dashboard->user::TRAINING_INDEX,Yii::$app->dashboard->permissionCodes(Yii::$app->user->identity->permissions)))) {
+                        ?>
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('t')?'menu-open':'' ?>">
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
                                 <i class="nav-icon fa fa-file-invoice-dollar"></i>
@@ -359,9 +379,14 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                             </ul>
                         </li>
+                        <?php
+                        }
+                        ?>
 
                         <!--Settings-->
-
+                        <?php
+                        if (!Yii::$app->user->getIsGuest() && Yii::$app->dashboard->user::ROLE_ADMIN == Yii::$app->user->identity->role) {
+                        ?>
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['rsvp-status','identification-type'])?'menu-open':'' ?>">
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
                                 <i class="nav-icon fa fa-cogs"></i>
@@ -380,334 +405,13 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                         </p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>police" class="nav-link <?= Yii::$app->recruitment->currentaction('police','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>Police
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>police-uploads" class="nav-link <?= Yii::$app->recruitment->currentaction('police-uploads','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>Police Uploads
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>magistrate" class="nav-link <?= Yii::$app->recruitment->currentaction('magistrate','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>Magistrate
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>counsellors" class="nav-link <?= Yii::$app->recruitment->currentaction('counsellors','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>Counsellors
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>court-uploads" class="nav-link <?= Yii::$app->recruitment->currentaction('court-uploads','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>Court Uploads
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>court-case-category" class="nav-link <?= Yii::$app->recruitment->currentaction('court-case-category','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>Court Case Category
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>court-case-subcategory" class="nav-link <?= Yii::$app->recruitment->currentaction('court-case-subcategory','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>Court Case SubCategory
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>court-proceeding" class="nav-link <?= Yii::$app->recruitment->currentaction('court-proceeding','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>Court Case Proceeding
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>intervention-type" class="nav-link <?= Yii::$app->recruitment->currentaction('intervention-types','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Intervention Types
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>casestatus" class="nav-link <?= Yii::$app->recruitment->currentaction('Casestatus','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Court Case Statuses
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>caseoutcomes" class="nav-link <?= Yii::$app->recruitment->currentaction('Caseoutcomes','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Court Case Outcomes
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>lawyer" class="nav-link <?= Yii::$app->recruitment->currentaction('lawyer','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Lawyers
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>rck-offices" class="nav-link <?= Yii::$app->recruitment->currentaction('rck-offices','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            RCK offices
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>relationship" class="nav-link <?= Yii::$app->recruitment->currentaction('relationship','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Relationships
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>lawyerrating" class="nav-link <?= Yii::$app->recruitment->currentaction('lawyerrating','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Lawyers Ratings
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>casetype" class="nav-link <?= Yii::$app->recruitment->currentaction('casetype','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Case Types
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>policestation" class="nav-link <?= Yii::$app->recruitment->currentaction('policestation','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Police Stations
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>user-group" class="nav-link <?= Yii::$app->recruitment->currentaction('user-group','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            User Groups
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>rsvp-status" class="nav-link <?= Yii::$app->recruitment->currentaction('rsvp-status','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            RSVP Statuses
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>work-station" class="nav-link <?= Yii::$app->recruitment->currentaction('work-station','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Work Stations
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>refugee-camp" class="nav-link <?= Yii::$app->recruitment->currentaction('refugee-camp','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Refugee Camps
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>user-profile" class="nav-link <?= Yii::$app->recruitment->currentaction('user-profile','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            User Profiles
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>conflict" class="nav-link <?= Yii::$app->recruitment->currentaction('conflict','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Conflicts
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>demographics" class="nav-link <?= Yii::$app->recruitment->currentaction('demographics','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Demographics
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>identification-type" class="nav-link <?= Yii::$app->recruitment->currentaction('identification-type','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Identification Types
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>country" class="nav-link <?= Yii::$app->recruitment->currentaction('country','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Countries
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>counties" class="nav-link <?= Yii::$app->recruitment->currentaction('counties','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Counties
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>subcounties" class="nav-link <?= Yii::$app->recruitment->currentaction('subcounties','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Sub Counties
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>sublocations" class="nav-link <?= Yii::$app->recruitment->currentaction('sublocations','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Sub Locations
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>user-profile" class="nav-link <?= Yii::$app->recruitment->currentaction('user-profile','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            User Profiles
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>training-status" class="nav-link <?= Yii::$app->recruitment->currentaction('training-status','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Training Status
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>training-target" class="nav-link <?= Yii::$app->recruitment->currentaction('training-target','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>
-                                            Training Target
-                                            <!--<span class="badge badge-info right">0</span>-->
-                                        </p>
-                                    </a>
-                                </li>
 
                             </ul>
                         </li>
-
-
+                        <?php
+                            }
+                        ?>
                         <!--End Setting-->
-                        
-
-
-
-
-
-
-
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

@@ -14,10 +14,19 @@ use app\models\Intervention;
 use app\models\CourtCases;
 use app\models\PoliceCases;
 use app\models\Training;
+use common\models\User;
+use app\models\Permission;
+use yii\helpers\ArrayHelper;
 
 class Dashboard extends Component
 {
-	public function interventions(){
+	public $user;
+
+  function __construct() {
+    $this->user = new User();
+  }
+
+  public function interventions(){
 		return Intervention::find()->count();
     }
 
@@ -36,4 +45,9 @@ class Dashboard extends Component
     public function trainings(){
     	return Training::find()->count();
     }
+
+    public function permissionCodes($array){
+      return ArrayHelper::getColumn(Permission::find()->where(['in', 'id', explode(",",$array)])->select('code')->asArray()->all(),'code');
+    }
+
 }
