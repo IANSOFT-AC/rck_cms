@@ -238,7 +238,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="<?= $absoluteUrl ?>refugee" class="nav-link <?= Yii::$app->recruitment->currentaction('refugee','index')?'active':'' ?>">
-                                        <i class="fa fa-check-square nav-icon"></i>
+                                        <i class="fa fa-circle nav-icon"></i>
                         
                                         <p>Client List</p>
                                     </a>
@@ -268,7 +268,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                                 <li class="nav-item">
                                     <a href="<?= $absoluteUrl ?>intervention" class="nav-link <?= Yii::$app->recruitment->currentaction('t','e')?'active':'' ?>">
-                                        <i class="fa fa-door-open nav-icon"></i>
+                                        <i class="fa fa-circle nav-icon"></i>
                                         <span class="badge badge-info right">7</span>
                                         <p>Inteventions</p>
                                     </a>
@@ -334,7 +334,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                                 <li class="nav-item">
                                     <a href="<?= $absoluteUrl ?>police-cases" class="nav-link <?= Yii::$app->recruitment->currentaction('police-cases','index')?'active':'' ?>">
-                                        <i class="fa fa-check-square nav-icon"></i>
+                                        <i class="fa fa-circle nav-icon"></i>
                                         <p>Police Cases List
                                             <span class="badge badge-info right">6</span>
                                          </p>
@@ -353,7 +353,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         ?>
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('t')?'menu-open':'' ?>">
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
-                                <i class="nav-icon fa fa-file-invoice-dollar"></i>
+                                <i class="nav-icon fa fa-cubes"></i>
                                 <p>
                                     Training 
                                     <i class="fas fa-angle-left right"></i>
@@ -363,14 +363,14 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="<?= $absoluteUrl ?>training/create" class="nav-link <?= Yii::$app->recruitment->currentaction('t','e')?'active':'' ?>">
-                                        <i class="fa fa-check-square nav-icon"></i>
+                                        <i class="fa fa-circle nav-icon"></i>
                                         <p>New Training</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a href="<?= $absoluteUrl ?>training" class="nav-link <?= Yii::$app->recruitment->currentaction('t','e')?'active':'' ?>">
-                                        <i class="fa fa-check-square nav-icon"></i>
+                                        <i class="fa fa-circle nav-icon"></i>
                                         <p>Trainings
                                             <span class="badge badge-info right">6</span>
                                          </p>
@@ -399,7 +399,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('settings','index')?'active':'' ?>">
-                                        <i class="fa fa-cog nav-icon"></i>
+                                        <i class="fa fa-circle nav-icon"></i>
                                         <p>Control Panel
                                             <!--<span class="badge badge-info right">0</span>-->
                                         </p>
