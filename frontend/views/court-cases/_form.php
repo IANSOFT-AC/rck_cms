@@ -113,10 +113,10 @@ $script = <<<JS
     .field-courtcases-next_court_date, \
     .field-courtcases-offence, \
     .field-courtcases-legal_officer,\
-    .field-courtcases-counsellor').hide();
+    .field-courtcases-counsellor').fadeOut();
 
     $('#courtcases-offence_id').on('change', function(){
-        if(this.value == 0){
+        if($('#courtcases-offence_id option[value=0]:selected').length > 0){
             $('.field-courtcases-offence').fadeIn('slow');
         }else{
             $('.field-courtcases-offence').fadeOut('slow');
@@ -124,7 +124,7 @@ $script = <<<JS
     }).change();
 
     $('#courtcases-legal_officer_id').on('change', function(){
-        if(this.value == 0){
+        if($('#courtcases-legal_officer_id option[value=0]:selected').length > 0){
             $('.field-courtcases-legal_officer').fadeIn('slow');
         }else{
             $('.field-courtcases-legal_officer').fadeOut('slow');
@@ -132,7 +132,7 @@ $script = <<<JS
     }).change();
 
     $('#courtcases-counsellor_id').on('change', function(){
-        if(this.value == 0){
+        if($('#courtcases-counsellor_id option[value=0]:selected').length > 0){
             $('.field-courtcases-counsellor').fadeIn('slow');
         }else{
             $('.field-courtcases-counsellor').fadeOut('slow');
