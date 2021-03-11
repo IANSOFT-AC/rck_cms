@@ -84,7 +84,7 @@ class Counseling extends \yii\db\ActiveRecord
             'intervention' => 'Interventions',
             'type' => 'Counseling Type',
             'case_status' => 'Case Status',
-            'counsellors' => 'Counsellors self Envaluation',
+            'counsellors' => 'Counsellors self Evaluation',
             'counseling_intake_form' => 'Counseling Intake Form',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
