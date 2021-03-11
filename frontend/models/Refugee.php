@@ -164,7 +164,7 @@ class Refugee extends \yii\db\ActiveRecord
                 ['reason_for_rsd_appointment'],
                 'required',
                 'when' => function($model){
-                    return isset($model->rsd_appointment_date) ? true : false;
+                    return isset($model->rsd_appointment_date) ? false : false;
                 },
                 'whenClient' => "function(attribute, value){
                     if( $('#refugee-rsd_appointment_date').val() != \"\"){

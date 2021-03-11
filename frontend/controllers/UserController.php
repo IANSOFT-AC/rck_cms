@@ -116,9 +116,10 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
+        
 
-        if(isset(Yii::$app->request->post()['User']['permissions'])){
-            if(Yii::$app->request->post()['User']['permissions']){
+        if(Yii::$app->request->post()){
+            if(isset(Yii::$app->request->post()['User']['permissions'])){
                 $model->permissions = implode(",",Yii::$app->request->post()['User']['permissions']);
             }else{
                 $model->permissions = null;
@@ -141,13 +142,17 @@ class UserController extends Controller
     {
         //$this->layout = 'login';
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if(Yii::$app->request->post()['User']['permissions']){
-                $model->permissions = implode(",",Yii::$app->request->post()['User']['permissions']);
+        if (Yii::$app->request->post()) {
+            if(isset(Yii::$app->request->post()['SignupForm']['permissions'])){
+                $model->permissions = implode(",",Yii::$app->request->post()['SignupForm']['permissions']);
             }else{
                 $model->permissions = null;
             }
             $model->signup();
+            
+            echo "<pre>";
+            print_r($model->getErrors());
+            exit();
             Yii::$app->session->setFlash('success', 'User registration done. Inform user to check their inbox for verification email.');
             //return $this->goHome();
             return $this->redirect('index');
