@@ -115,7 +115,7 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new SignupForm();
         
 
         if(Yii::$app->request->post()){
@@ -143,6 +143,7 @@ class UserController extends Controller
         //$this->layout = 'login';
         $model = new SignupForm();
         if (Yii::$app->request->post()) {
+            $model->load(Yii::$app->request->post());
             if(isset(Yii::$app->request->post()['SignupForm']['permissions'])){
                 $model->permissions = implode(",",Yii::$app->request->post()['SignupForm']['permissions']);
             }else{
@@ -150,9 +151,10 @@ class UserController extends Controller
             }
             $model->signup();
             
-            echo "<pre>";
-            print_r($model->getErrors());
-            exit();
+            // echo "<pre>";
+            // print_r(Yii::$app->request->post());
+            // print_r($model->getErrors());
+            // exit();
             Yii::$app->session->setFlash('success', 'User registration done. Inform user to check their inbox for verification email.');
             //return $this->goHome();
             return $this->redirect('index');
