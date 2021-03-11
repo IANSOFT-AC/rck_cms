@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         <table class="table">
             <thead>
                 <th>id</th>
-                <th>Name</th>
+                <th>Description</th>
                 <th>Created At</th>
             </thead>
             <tbody>
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                 ?>
                 <tr>
                     <td><?= $value->id?></td>
-                    <td><?= $value->name?></td>
+                    <td><?= $value->desc?></td>
                     <td><?= date("H:ia l M j, Y", $value->created_at) ?></td>
                 </tr>
                 <?php 
