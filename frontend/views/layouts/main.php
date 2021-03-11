@@ -28,6 +28,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="manifest" href="/images/manifest.json">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="https://ciskenya.co.ke/wp-content/files/2018/07/favicon-150x150.png" sizes="32x32" />
     <?php $this->registerCsrfMetaTags() ?>
