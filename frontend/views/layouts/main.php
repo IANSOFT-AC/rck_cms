@@ -325,7 +325,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
                                 <i class="nav-icon fa fa-file-invoice-dollar"></i>
                                 <p>
-                                    Police
+                                    Police Cases
                                     <i class="fas fa-angle-left right"></i>
                                     <!--<span class="badge badge-info right">6</span>-->
                                 </p>
@@ -335,7 +335,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                 <li class="nav-item">
                                     <a href="<?= $absoluteUrl ?>police-cases" class="nav-link <?= Yii::$app->recruitment->currentaction('police-cases','index')?'active':'' ?>">
                                         <i class="fa fa-check-square nav-icon"></i>
-                                        <p>Police Cases
+                                        <p>Police Cases List
                                             <span class="badge badge-info right">6</span>
                                          </p>
                                     </a>
