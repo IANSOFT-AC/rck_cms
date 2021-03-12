@@ -3,7 +3,7 @@
     "short_name": "RCK",
     "start_url":"/",
     "scope": "./",
-    "theme_color": "#ffffff",
+    "theme_color": "#5a5dbb",
     "background_color": "#ffffff",
     "display": "standalone",
     "icons": [
