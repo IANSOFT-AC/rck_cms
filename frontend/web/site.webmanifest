@@ -2,6 +2,7 @@
     "name": "Refugee Consortium of Kenya",
     "short_name": "RCK",
     "start_url":"/",
+    "scope": "./",
     "icons": [
         {
             "src": "/android-chrome-96x96.png",
