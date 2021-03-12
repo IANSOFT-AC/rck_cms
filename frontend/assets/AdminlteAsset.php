@@ -40,6 +40,7 @@ class AdminlteAsset extends AssetBundle
         'css/validation.css',
         
         'https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css',
+        'https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css',
         'https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css',
 
         'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css'
@@ -77,7 +78,7 @@ class AdminlteAsset extends AssetBundle
         'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.full.min.js',
         'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js',
         'https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js ',
-        'https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css',
+        'https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.js',
 
         'https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js',
         'https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js',
