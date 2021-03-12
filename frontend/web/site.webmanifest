@@ -3,6 +3,9 @@
     "short_name": "RCK",
     "start_url":"/",
     "scope": "./",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone",
     "icons": [
         {
             "src": "/images/windows10/Square71x71Logo.scale-400.png",
@@ -376,8 +379,5 @@
             "src": "/images/firefox/firefox-general-16-16.png",
             "sizes": "16x16"
           }
-    ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
-    "display": "standalone"
+    ]
 }
