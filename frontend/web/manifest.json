@@ -1,16 +1,29 @@
 {
-    "name": "Refugee Consortium of Kenya",
-    "short_name": "RCK",
-    "start_url": "./",
-    "scope": "./",
-    "icons": [
+  "background_color": "#ffffff",
+  "description": null,
+  "dir": null,
+  "display": "standalone",
+  "lang": "",
+  "name": "Refugee Consortium of Kenya",
+  "prefer_related_applications": null,
+  "related_applications": null,
+  "scope": "./",
+  "short_name": "RCK",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "categories": null,
+  "screenshots": [],
+  "iarc_rating_id": null,
+  "icons": [
       {
-        "src": "/images/RCK-Logo-square.png",
-        "sizes": "114x114",
-        "type": "image/png"
+          "src": "https://test.rckkenya.org/android-chrome-96x96.png",
+          "type": "image/png",
+          "sizes": "96x96",
+          "purpose": null,
+          "platform": null
       }
-    ],
-    "theme_color": "#ffd31d",
-    "background_color": "#333",
-    "display": "standalone"
-  }
+  ],
+  "shortcuts": null,
+  "url": "https://test.rckkenya.org/site/login",
+  "manifestUrl": "https://test.rckkenya.org/site.webmanifest"
+}

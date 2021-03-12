@@ -22,6 +22,7 @@ $this->title = Yii::$app->params['generalTitle'];
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <link rel="manifest" href="/site.webmanifest">
+    <link rel='manifest' href='/manifest.json'>
     <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">

@@ -34,6 +34,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <link rel="manifest" href="/site.webmanifest">
+    <link rel='manifest' href='/manifest.json'>
     <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
