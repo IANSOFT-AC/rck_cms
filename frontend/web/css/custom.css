@@ -44,3 +44,9 @@
 .card {
    margin-bottom: 0rem; 
 }
+
+.table-responsive{
+  display: inline-block;
+  width: 100%;
+  overflow-x: auto;
+}

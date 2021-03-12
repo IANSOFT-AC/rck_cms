@@ -27,8 +27,8 @@ $this->params['breadcrumbs'][] = ['label' => 'interventions'];
         <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
     </p>
         </div>
-        <div class="card-body">
-             <table class="table" id="interventions">
+        <div class="card-body table-responsive">
+             <table class="table " id="interventions">
                 
             </table>
         </div>
@@ -86,7 +86,8 @@ $script = <<<JS
                 "searchable": false
             }
         ],
-        order: [[0, "desc"]]
+        order: [[0, "desc"]],
+        responsive:true
     });
 JS;
 

@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                 ?>
             </p>
         </div>
-        <div class="card-body">
+        <div class="card-body table-responsive">
              <table class="table" id="court_cases">
                 
             </table>
@@ -93,7 +93,8 @@ $script = <<<JS
                 "searchable": false
             }
         ],
-        order: [[0, "desc"]]
+        order: [[0, "desc"]],
+        responsive: true
     });
 JS;
 

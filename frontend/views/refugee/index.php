@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Client List'];
                     <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
                 </p>
             </div>
-            <div class="card-body">
+            <div class="card-body table-responsive">
                  <table class="table" id="refugees">                    
                 </table>
             </div>
