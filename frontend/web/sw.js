@@ -1,6 +1,7 @@
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
-  '/'
+  '/',
+  '/refugee/list'
 ];
 
 self.addEventListener('install', function(event) {
