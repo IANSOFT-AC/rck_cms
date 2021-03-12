@@ -213,7 +213,7 @@ use common\models\Helper;
                             <?= $form->field($model, 'form_of_torture')->textarea() ?>
                         </div>
                         <div class="col-md-6">
-                            <?= $form->field($model, 'source_of_info_id')->dropDownList($sourceOfInfo,['prompt' => '-- Select source of Information --']) ?>
+                            <?= $form->field($model, 'source_of_info_id[]')->dropDownList($sourceOfInfo,['prompt' => '-- Select source of Information --','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->source_of_info_id)]) ?>
                             </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'source_of_info_abt_rck')->textarea() ?>
