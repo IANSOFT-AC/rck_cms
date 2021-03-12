@@ -40,7 +40,6 @@ $absoluteUrl = \yii\helpers\Url::home(true);
     <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#603cba">
     <meta name="theme-color" content="#ffffff">
-
 </head>
 
 <?php $this->beginBody() ?>
@@ -530,7 +529,19 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 <!-- START OF ADD SWEET ALERT -->
 <?php //$this->registerJsFile(""); ?>
 <!-- END OF ADD SWEET ALERT -->
-
+<script>
+        if('serviceWorker' in navigator){
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw/sw.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
 <?php $this->endPage();

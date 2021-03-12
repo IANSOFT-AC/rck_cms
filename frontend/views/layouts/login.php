@@ -78,6 +78,19 @@ $this->title = Yii::$app->params['generalTitle'];
 </footer>
 
 <?php $this->endBody() ?>
+    <script>
+        if('serviceWorker' in navigator){
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw/sw.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
 <?php $this->endPage(); ?>
