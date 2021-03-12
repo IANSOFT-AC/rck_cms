@@ -411,7 +411,7 @@ $script = <<<JS
     }).change();;
 
     $('#refugee-source_of_info_id').on('change', function(){
-        if(this.value == 0){
+        if($('#refugee-source_of_info_id option[value=0]:selected').length > 0){
             $('.field-refugee-source_of_info_abt_rck').parent().fadeIn('slow');
         }else{
             $('.field-refugee-source_of_info_abt_rck').parent().fadeOut('slow');

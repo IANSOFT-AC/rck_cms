@@ -208,7 +208,7 @@ class Refugee extends \yii\db\ActiveRecord
     public function beforeValidate(){
         if (parent::beforeValidate()) {
             //Nullify the values if the value is other for the following fields
-            $this->source_of_info_id = ($this->source_of_info_id == 0) ? null : $this->source_of_info_id;
+            //$this->source_of_info_id = ($this->source_of_info_id == 0) ? null : $this->source_of_info_id;
             
             //$this->disability_type_id = ($this->disability_type_id == 0) ? null : $this->disability_type_id;
             return true;
