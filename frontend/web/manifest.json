@@ -5,7 +5,7 @@
     "scope": "./",
     "icons": [
       {
-        "src": "/images/android-chrome-96x96.png",
+        "src": "/images/RCK-Logo-square.png",
         "sizes": "114x114",
         "type": "image/png"
       }
