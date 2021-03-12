@@ -87,7 +87,8 @@ $script = <<<JS
                 "searchable": false
             }
         ],
-        order: [[0, "desc"]]
+        order: [[0, "desc"]],
+        responsive: true
     });
 JS;
 
