@@ -59,6 +59,7 @@ $script = <<<JS
         ],
         ajax: '/refugee/list',
         paging: true,
+        cache: true,
         columns: [
             {title : 'Id', data: 'id'},
             {title : 'First Name', data: 'first_name'},
