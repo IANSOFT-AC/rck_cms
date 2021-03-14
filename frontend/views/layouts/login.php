@@ -25,7 +25,8 @@ $this->title = Yii::$app->params['generalTitle'];
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+    <?php $this->head() ?>    
+    <link rel="manifest" href="/site.webmanifest">
 </head>
 <body class="hold-transition login-page">
 <?php $this->beginBody() ?>
