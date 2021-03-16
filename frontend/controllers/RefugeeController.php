@@ -59,11 +59,16 @@ class RefugeeController extends Controller
                 'only' => ['create', 'update', 'delete', 'files', 'index', 'upload', 'deleteFile'],
                 'rules' => [
                     [
+                        'allow' => false,
+                        'actions' => ['*'],
+                        'roles' => ['?'],
+                    ],
+                    [
                         'actions' => ['create'],
                         'allow' => true,
                         'roles' => [
                             User::CLIENT_CREATE,
-                            User::ROLE_ADMIN
+                            User::ROLE_ADMIN,
                         ],
                     ],
                     [
