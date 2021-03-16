@@ -43,11 +43,11 @@ self.addEventListener('fetch', function(event) {
         return fetch(event.request).then(
           function(response) {
             // Check if we received a valid response
-            // if(!response || response.status !== 200 || response.type !== 'basic') {
-            //   console.log("Error in response")
-            //   console.log(response)
-            //   return response
-            // }
+            if(!response || response.status !== 200 || response.type !== 'basic') {
+              console.log("Error in response")
+              console.log(response)
+              return response
+            }
 
             // IMPORTANT: Clone the response. A response is a stream
             // and because we want the browser to consume the response
