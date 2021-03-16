@@ -34,15 +34,15 @@ self.addEventListener('install', function(event) {
 self.addEventListener('activate', function(event) {
   // Perform some task
   console.log('[Service Worker] Activating Service Worker ....', event);
-  event.waitUntil(
-    caches.keys().then(function(keys){
-        return Promise.all(keys.map(function(key, i){
-            if(key !== CACHE_NAME){
-                return caches.delete(keys[i]);
-            }
-        }))
-    })
-  )
+  // event.waitUntil(
+  //   caches.keys().then(function(keys){
+  //       return Promise.all(keys.map(function(key, i){
+  //           if(key !== CACHE_NAME){
+  //               return caches.delete(keys[i]);
+  //           }
+  //       }))
+  //   })
+  // )
   
 });
 
