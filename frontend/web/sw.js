@@ -21,6 +21,7 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
+  credentials: 'include',
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
