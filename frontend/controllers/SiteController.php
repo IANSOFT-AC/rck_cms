@@ -40,10 +40,7 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-                'denyCallback' => function($rule, $action) {
-                    Yii::$app->response->redirect(['site/login']); 
-                },
+                ]
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
