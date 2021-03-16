@@ -11,7 +11,9 @@ self.addEventListener('install', function(event) {
     caches.open(CACHE_NAME)
       .then(function(cache) {
         console.log('Opened cache');
-        return cache.addAll(urlsToCache);
+        return cache.addAll(urlsToCache,{
+          redirect: 'follow'
+        });
       })
   );
 });
@@ -46,7 +48,7 @@ self.addEventListener('fetch', function(event) {
             if(!response || response.status !== 200 || response.type !== 'basic') {
               console.log("Error in response")
               console.log(response)
-              return response;
+              return response
             }
 
             // IMPORTANT: Clone the response. A response is a stream
