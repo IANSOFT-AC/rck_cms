@@ -34,6 +34,7 @@ class CountiesController extends Controller
                 ],
                 'only' => ['create', 'update', 'delete',  'index'],
                 'rules' => [
+                    
                     [
                         'actions' => ['create'],
                         'allow' => true,

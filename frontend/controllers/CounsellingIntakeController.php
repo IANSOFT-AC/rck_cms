@@ -28,6 +28,7 @@ class CounsellingIntakeController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            
         ];
     }
 

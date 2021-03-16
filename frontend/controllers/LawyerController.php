@@ -37,6 +37,10 @@ class LawyerController extends Controller
                 'only' => ['create', 'update', 'delete',  'index'],
                 'rules' => [
                     [
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],
+                    [
                         'actions' => ['create'],
                         'allow' => true,
                         // Allow users, moderators and admins to create

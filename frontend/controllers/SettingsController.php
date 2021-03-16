@@ -32,6 +32,10 @@ class SettingsController extends \yii\web\Controller
                 'only' => ['create', 'update', 'delete'],
                 'rules' => [
                     [
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],
+                    [
                         'actions' => ['create'],
                         'allow' => true,
                         // Allow users, moderators and admins to create
