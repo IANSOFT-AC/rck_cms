@@ -1,6 +1,7 @@
-var CACHE_NAME = 'cms-rck-cache-v2';
+var CACHE_NAME = 'cms-rck-cache-v3';
 var urlsToCache = [
   '/',
+  'site/login',
   '/refugee/list'
 ];
 
@@ -18,6 +19,15 @@ self.addEventListener('install', function(event) {
 self.addEventListener('activate', function(event) {
   // Perform some task
   console.log('[Service Worker] Activating Service Worker ....', event);
+  event.waitUntil(
+    caches.keys().then(function(keys){
+        return Promise.all(keys.map(function(key, i){
+            if(key !== CACHE_VERSION){
+                return caches.delete(keys[i]);
+            }
+        }))
+    })
+  )
   
 });
 
