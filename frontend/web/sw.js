@@ -1,5 +1,6 @@
-var CACHE_NAME = 'cms-rck-cache-v3';
+var CACHE_NAME = 'cms-rck-cache-v1';
 var urlsToCache = [
+  '/',
   '/site/login',
   '/court-cases/index',
   '/court-cases/create',
