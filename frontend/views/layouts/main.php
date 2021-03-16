@@ -32,6 +32,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
     <link rel="icon" href="https://ciskenya.co.ke/wp-content/files/2018/07/favicon-150x150.png" sizes="32x32" />
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <link rel="manifest" href="/site.webmanifest">
     <?php $this->head() ?>
 </head>
 
