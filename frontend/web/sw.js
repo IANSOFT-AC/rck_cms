@@ -1,6 +1,20 @@
 var CACHE_NAME = 'cms-rck-cache-v3';
 var urlsToCache = [
-  '/none'
+  '/site/login',
+  '/court-cases/index',
+  '/court-cases/create',
+  '/court-cases',
+  '/refugee',
+  '/refugee/create',
+  '/refugee/index',
+  '/police-cases',
+  '/police-cases/index',
+  '/police-cases/create',
+  '/intervention',
+  '/intervention/index',
+  '/intervention/create',
+  '/settings',
+  '/refugee/list'
 ];
 
 self.addEventListener('install', function(event) {
@@ -40,29 +54,31 @@ self.addEventListener('fetch', function(event) {
           return response;
         }
 
-        return fetch(event.request).then(
-          function(response) {
-            // Check if we received a valid response
-            // if(!response || response.status !== 200 || response.type !== 'basic') {
-            //   console.log("Error in response")
-            //   console.log(response)
-            //   return response
-            // }
+        // return fetch(event.request).then(
+        //   function(response) {
+        //     // Check if we received a valid response
+        //     // if(!response || response.status !== 200 || response.type !== 'basic') {
+        //     //   console.log("Error in response")
+        //     //   console.log(response)
+        //     //   return response
+        //     // }
 
-            // IMPORTANT: Clone the response. A response is a stream
-            // and because we want the browser to consume the response
-            // as well as the cache consuming the response, we need
-            // to clone it so we have two streams.
-            var responseToCache = response.clone();
+        //     // IMPORTANT: Clone the response. A response is a stream
+        //     // and because we want the browser to consume the response
+        //     // as well as the cache consuming the response, we need
+        //     // to clone it so we have two streams.
+        //     var responseToCache = response.clone();
 
-            caches.open(CACHE_NAME)
-              .then(function(cache) {
-                cache.put(event.request, responseToCache);
-              });
+        //     caches.open(CACHE_NAME)
+        //       .then(function(cache) {
+        //         cache.put(event.request, responseToCache);
+        //       });
 
-            return response;
-          }
-        );
+        //     return response;
+        //   }
+        // );
+
+        return fetch(event.request);
       })
     );
 });
