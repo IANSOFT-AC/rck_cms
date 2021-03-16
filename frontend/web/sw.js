@@ -1,20 +1,6 @@
 var CACHE_NAME = 'cms-rck-cache-v3';
 var urlsToCache = [
-  '/site/login',
-  '/court-cases/index',
-  '/court-cases/create',
-  '/court-cases',
-  '/refugee',
-  '/refugee/create',
-  '/refugee/index',
-  '/police-cases',
-  '/police-cases/index',
-  '/police-cases/create',
-  '/intervention',
-  '/intervention/index',
-  '/intervention/create',
-  '/settings',
-  '/refugee/list'
+  '/none'
 ];
 
 self.addEventListener('install', function(event) {
