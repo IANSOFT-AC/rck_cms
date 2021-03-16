@@ -1,6 +1,6 @@
 var CACHE_NAME = 'cms-rck-cache-v2';
 var urlsToCache = [
-  '/site/login',
+  '/site',
 ];
 
 self.addEventListener('install', function(event) {
