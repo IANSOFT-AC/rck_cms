@@ -60,7 +60,6 @@ class RefugeeController extends Controller
                 'rules' => [
                     [
                         'allow' => false,
-                        'actions' => ['*'],
                         'roles' => ['?'],
                     ],
                     [
