@@ -33,7 +33,6 @@ $absoluteUrl = \yii\helpers\Url::home(true);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <link rel="manifest" href="/site.webmanifest">
 </head>
 
 <?php $this->beginBody() ?>
