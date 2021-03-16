@@ -22,7 +22,7 @@ self.addEventListener('activate', function(event) {
   event.waitUntil(
     caches.keys().then(function(keys){
         return Promise.all(keys.map(function(key, i){
-            if(key !== CACHE_VERSION){
+            if(key !== CACHE_NAME){
                 return caches.delete(keys[i]);
             }
         }))
