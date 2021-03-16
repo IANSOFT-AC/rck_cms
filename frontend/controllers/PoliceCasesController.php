@@ -107,6 +107,7 @@ class PoliceCasesController extends Controller
                         ],
                     ],
                 ],
+                
                 'denyCallback' => function($rule, $action) {
                     Yii::$app->response->redirect(['site/login']); 
                 },
