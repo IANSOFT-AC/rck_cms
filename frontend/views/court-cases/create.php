@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\CourtCases */
 
 $this->title = Yii::t('app', 'Add Court Case');
-$this->params['breadcrumbs'][] = is_null($refugee_id) ? null : ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $refugee_id]];
+ is_null($refugee_id) ? null : ['label' => 'Client Biodata', 'url' => ['refugee/view', 'id' => $refugee_id]];
 $this->params['breadcrumbs'][] = is_null($refugee_id) ? ['label' => 'Court Cases', 'url' => ['index']] : ['label' => 'Court Cases', 'url' => ['client', 'id' => $refugee_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Create');
 ?>
