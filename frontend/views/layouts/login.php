@@ -25,8 +25,7 @@ $this->title = Yii::$app->params['generalTitle'];
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>    
-    <link rel="manifest" href="/site.webmanifest">
+    <?php $this->head() ?> 
 </head>
 <body class="hold-transition login-page">
 <?php $this->beginBody() ?>
@@ -72,19 +71,7 @@ $this->title = Yii::$app->params['generalTitle'];
 </footer>
 
 <?php $this->endBody() ?>
-    <script>
-        if('serviceWorker' in navigator){
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                // Registration was successful
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, function(err) {
-                // registration failed :(
-                console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
-    </script>
+    
 </body>
 </html>
 <?php $this->endPage(); ?>
