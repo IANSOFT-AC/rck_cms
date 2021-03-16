@@ -47,6 +47,10 @@ class PoliceCasesController extends Controller
                 'only' => ['create', 'update', 'delete', 'files', 'index', 'upload', 'deleteFile'],
                 'rules' => [
                     [
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],
+                    [
                         'actions' => ['create'],
                         'allow' => true,
                         // Allow users, moderators and admins to create
@@ -107,7 +111,7 @@ class PoliceCasesController extends Controller
                         ],
                     ],
                 ],
-                
+
                 'denyCallback' => function($rule, $action) {
                     Yii::$app->response->redirect(['site/login']); 
                 },

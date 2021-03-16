@@ -40,6 +40,10 @@ class CounselingController extends Controller
                 'only' => ['create', 'update', 'delete', 'files', 'index', 'upload', 'deleteFile'],
                 'rules' => [
                     [
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],
+                    [
                         'actions' => ['create'],
                         'allow' => true,
                         // Allow users, moderators and admins to create
