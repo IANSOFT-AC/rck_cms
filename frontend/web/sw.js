@@ -1,6 +1,5 @@
 var CACHE_NAME = 'cms-rck-cache-v3';
 var urlsToCache = [
-  '/',
   'site/login',
   '/refugee/list'
 ];
