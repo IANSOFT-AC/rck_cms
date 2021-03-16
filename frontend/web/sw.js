@@ -15,11 +15,11 @@ self.addEventListener('install', function(event) {
   );
 });
 
-self.addEventListener('activate', function(event) {
-  // Perform some task
-  console.log('[Service Worker] Activating Service Worker ....', event);
+// self.addEventListener('activate', function(event) {
+//   // Perform some task
+//   console.log('[Service Worker] Activating Service Worker ....', event);
   
-});
+// });
 
 self.addEventListener('fetch', function(event) {
   credentials: 'include',
