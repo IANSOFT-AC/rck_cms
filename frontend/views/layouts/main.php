@@ -545,7 +545,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                     navigator.serviceWorker.getRegistration().then(function(reg) {
                         var options = {
                             body: 'Here is a notification body!',
-                            icon: 'images/android/android-launchericon-48-48.png',
+                            icon: '/images/android/android-launchericon-48-48.png',
                             vibrate: [100, 50, 100],
                             data: {
                                 dateOfArrival: Date.now(),
