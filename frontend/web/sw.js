@@ -35,6 +35,7 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('fetch', function(event) {
   event.respondWith(
+    //do a fetch first and if there is an error fallback to cache
     fetch(event.request).then(
       function(response) {
         // Check if we received a valid response
@@ -44,7 +45,7 @@ self.addEventListener('fetch', function(event) {
           return response
         }
 
-        // IMPORTANT: Clone the response. A response is a stream
+        // IMPORTANT: Clone the fresh response. A response is a stream
         // and because we want the browser to consume the response
         // as well as the cache consuming the response, we need
         // to clone it so we have two streams.
@@ -57,7 +58,7 @@ self.addEventListener('fetch', function(event) {
 
         return response;
       }
-    )
+    )//the fall back
     .catch(() => caches.match(event.request)
       .then(function(response) {
         // Cache hit - return response

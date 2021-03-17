@@ -487,6 +487,8 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                     // }
                     ?>
 
+                    <div id="connectivity"></div>
+
                     <?= $content ?>
                     
                 </div><!-- /.container-fluid -->
@@ -540,6 +542,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 });
             });
 
+            //SENDING A NOTIFICATION
             function displayNotification() {
                 if (Notification.permission == 'granted') {
                     navigator.serviceWorker.getRegistration().then(function(reg) {
@@ -558,6 +561,25 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             }
 
            //displayNotification();
+
+           //CHECK CONNECTIVITY
+            //document.getElementById('online').style.display = "none";
+            //document.getElementById('offline').style.display = "none";
+            function updateOnlineStatus() {
+                var condition = navigator.onLine ? "online" : "offline";
+                if(condition == "online"){
+                    document.getElementById('connectivity').innerHTML = '<div class="alert alert-success alert-dismissible" id="online">\
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>\
+                            <h5><i class="icon fas fa-info"></i> Online!</h5>\
+                            Your data is upto date.</div>';
+                }else{
+                    document.getElementById('connectivity').innerHTML = '<div class="alert alert-danger alert-dismissible" id="offline">\
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>\
+                            <h5><i class="icon fas fa-exclamation-triangle"></i> Offline!</h5>\
+                            You are using cached data which might not be upto date.</div>';
+                }
+            }
+            updateOnlineStatus()
         }
     </script>
 </body>
