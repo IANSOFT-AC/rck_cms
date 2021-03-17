@@ -548,9 +548,10 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             icon: 'images/android/android-launchericon-48-48.png',
                             vibrate: [100, 50, 100],
                             data: {
-                            dateOfArrival: Date.now(),
-                            primaryKey: 1
-                        }
+                                dateOfArrival: Date.now(),
+                                primaryKey: 1
+                                }
+                            };
                         reg.showNotification('Hello world!', options);
                     });
                 }
