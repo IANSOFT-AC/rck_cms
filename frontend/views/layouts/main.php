@@ -591,8 +591,26 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                     if(navigator.onLine){
                         form.submit();
                     }else{
-                        console.log("form saved in indexdb");
+                        console.log("form saving in indexdb");
+                        let DBOpenRequest = null;
+                        let objectStore = null;
+                        let db = null;
                         //console.log("request jq",serializeForm(form));
+                        DBOpenRequest = indexedDB.open('RCK',1)
+                        DBOpenRequest.addEventListener('success', (ev) => {
+                            db = ev.target.result
+                            console.log('success', db)
+                        });
+                        DBOpenRequest.addEventListener('error', (err) => {
+                            console.warn(err)
+                        });
+                        DBOpenRequest.addEventListener('upgradeneeded', (ev) => {
+                            db = ev.target.result
+                            console.log('success', db)
+                            objectStore = db.createObjectStore('rckStore', {
+                                keyPath: "id", autoIncrement:true 
+                            })
+                        });
                     }
                 })
             });
