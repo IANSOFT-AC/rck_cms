@@ -557,7 +557,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 }
             }
 
-           displayNotification();
+           //displayNotification();
         }
     </script>
 </body>
