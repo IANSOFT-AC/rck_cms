@@ -530,7 +530,9 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 .then(registration => navigator.serviceWorker.ready)
                 .then(function(registration) {
                     // Registration was successful
-                    Notification.requestPermission();
+                    Notification.requestPermission(function(status) {
+                        console.log('Notification permission status:', status);
+                    });
                     console.log('ServiceWorker registration successful with scope: ', registration.scope);
                 }, function(err) {
                     // registration failed :(

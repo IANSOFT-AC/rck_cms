@@ -3,6 +3,16 @@ var urlsToCache = [
   '/site',
 ];
 
+function displayNotification() {
+  if (Notification.permission == 'granted') {
+    navigator.serviceWorker.getRegistration().then(function(reg) {
+      reg.showNotification('Hello world!');
+    });
+  }
+}
+
+displayNotification();
+
 self.addEventListener('install', function(event) {
   // Perform install steps
   event.waitUntil(
