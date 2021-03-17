@@ -580,6 +580,40 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 }
             }
             updateOnlineStatus()
+
+
+            //
+            $(function(){
+                $('form').on('submit', function(e){
+                    e.preventDefault();
+                    let form = e.target;
+                   
+                    if(navigator.onLine){
+                        form.submit();
+                    }else{
+                        console.log("form saved in indexdb");
+                        //console.log("request jq",serializeForm(form));
+                    }
+                })
+            });
+
+            let serializeForm = function (form) {
+                let obj = {};
+                let formData = new FormData(form);
+                for (let key of formData.keys()) {
+                    obj[key] = formData.get(key);
+                }
+                return obj;
+            };
+
+            // document.querySelector('form').addEventListener('submit', function (event) {
+            //     // Prevent form from submitting to the server
+            //     event.preventDefault();
+            //     // Do some stuff...
+            //     var form = event.target;
+            //     var data = new FormData(form);
+            //     console.log("request js",serializeForm(form));
+            // }, false);
         }
     </script>
 </body>
