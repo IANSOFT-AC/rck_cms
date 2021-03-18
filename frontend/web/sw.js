@@ -3,7 +3,13 @@ var urlsToCache = [
   '/site',
 ];
 
-
+/*****
+ * 
+ * 
+ * EVENTS FOR THE SERVICE WORKER AND THEIR FUNCTIONS
+ * 
+ */
+let csrfToken = null;
 
 self.addEventListener('install', function(event) {
   // Perform install steps
@@ -72,15 +78,23 @@ self.addEventListener('fetch', function(event) {
     );
 });
 
-//SUBMIT DATA TO SERVER
+//EVENT LISTENER FOR SUBMITING DATA TO SERVER
 self.addEventListener('sync', (event) => {
   console.log("sync event", event);
   if (event.tag == 'dataSyncToServer') {
     event.waitUntil(
-      displayNotification()
+      //displayNotification()
+      fetchFromIndexedDB()
     );
   }
 });
+
+//EVENT LISTENER FOR RECEIVING A MESSAGE IN THIS CASE WE NEED THE PAGE CSRF TOKEN
+// self.addEventListener('message', (event) =>{
+//   let data = JSON.parse(event.data)
+//   self.csrfToken = data.csrfToken
+// })
+
 
 //SENDING A NOTIFICATION
 function displayNotification() {
@@ -100,6 +114,44 @@ function displayNotification() {
   }
 }
 
-let sendToServer = (data) => {
-  
+let fetchFromIndexedDB = () => {
+  DBOpenRequest = indexedDB.open('RCK',2)
+  DBOpenRequest.addEventListener('success', (ev) => {
+      db = ev.target.result
+      //console.log('success', db)
+
+      //submit form data to indexeddb
+      let tx = db.transaction('rckStore')
+      tx.oncomplete = (ev) => {
+          //console.log(ev);
+      }
+      tx.onerror = (err) => {
+          console.warn(err)
+      }
+
+      let store = tx.objectStore('rckStore')
+
+      let req = store.getAll()
+      req.onsuccess = (ev) => {
+        let data = ev.target.result
+        //console.log("retrieved data", data)
+        data.forEach(elem => {
+          //console.log('Each data',elem)
+          self.clients.matchAll().then(clients => {
+            clients.forEach(client => client.postMessage({
+              type: 'FORM_DATA',
+              form: elem
+            }));
+          })
+        });
+        console.log("data retrived from indexeddb successfully")
+      }
+      req.onerror = (err) => {
+          console.warn("Adding to store failed")
+      }
+  });
+  DBOpenRequest.addEventListener('error', (err) => {
+      console.warn(err)
+  });
 }
+

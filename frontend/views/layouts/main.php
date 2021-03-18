@@ -523,10 +523,25 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 <?php $this->endBody() ?>
 
 <!-- START OF ADD SWEET ALERT -->
-<?php //$this->registerJsFile(""); ?>
+<?php //$csrftoken = Yii::$app->request->csrfParam ?>
 <!-- END OF ADD SWEET ALERT -->
 <script>
-        if('serviceWorker' in navigator){
+        //GET VALUE OF META TAG 
+        let getMeta = (metaName) => {
+            const metas = document.getElementsByTagName('meta');
+
+            for (let i = 0; i < metas.length; i++) {
+                if (metas[i].getAttribute('name') === metaName) {
+                    return metas[i].getAttribute('content');
+                }
+            }
+            return '';
+        }
+
+        
+        //console.log("token",getMeta('csrf-token'))
+
+         if('serviceWorker' in navigator){
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('/sw.js')
                 .then(registration => navigator.serviceWorker.ready)
@@ -538,6 +553,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                     console.log('ServiceWorker registration successful with scope: ', registration.scope);
                     // Request a one-off sync:
                     registration.sync.register('dataSyncToServer');
+                    registration.active.postMessage(JSON.stringify({csrfToken: getMeta('csrf-token')}))
                 }, function(err) {
                     // registration failed :(
                     console.log('ServiceWorker registration failed: ', err);
@@ -564,7 +580,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
             //
             $(function(){
-                $('form').on('submit', function(e){
+                $('form:not(.caseFileUpload)').on('submit', function(e){
                     e.preventDefault();
                     //to stop double execution 'stop executing any downstream chain of event handlers'
                     e.stopImmediatePropagation()
@@ -629,15 +645,56 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 }
                 return obj;
             };
+        }
 
-            // document.querySelector('form').addEventListener('submit', function (event) {
-            //     // Prevent form from submitting to the server
-            //     event.preventDefault();
-            //     // Do some stuff...
-            //     var form = event.target;
-            //     var data = new FormData(form);
-            //     console.log("request js",serializeForm(form));
-            // }, false);
+        navigator.serviceWorker.onmessage = (ev) => {
+            console.log("received data from service worker",ev.data)
+            if(ev.data && ev.data.type === 'FORM_DATA'){
+                sendToServer(ev.data.form)
+            }
+        }
+
+        let sendToServer = (data) => {
+            let action = data.action
+            let method = data.method
+            //data._csrf = csrf
+            delete data.action;
+            delete data.method;
+            delete data.id;
+            data['_csrf-frontend'] = getMeta('csrf-token')
+            data['_csrf'] = getMeta('csrf-token')
+            console.log('data to be posted', JSON.stringify(data))
+            fetch(action, {
+                method: method,
+                body: data,
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+            .then(async (response) => {
+                try {
+                    const data = await response.text()
+                    //console.log('response data?', data)
+
+                    // if (response.ok) {
+                    //   return await response.json();
+                    // }
+                    // return Promise.reject(response);
+                } catch(error) {
+                    console.log('Error happened here!')
+                    console.error(error)
+                }
+            })
+            .then(function (data) {
+                console.log(data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        let deleteFromIndexedDB = (key) =>{
+
         }
     </script>
 </body>

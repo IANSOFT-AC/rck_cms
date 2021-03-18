@@ -33,80 +33,80 @@ class TrainingController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
-            'access' => [
-                'class' => \yii\filters\AccessControl::className(),
-                // We will override the default rule config with the new AccessRule class
-                'ruleConfig' => [
-                    'class' => AccessRule::className(),
-                ],
-                'only' => ['create', 'update', 'delete', 'files', 'index', 'upload', 'deleteFile'],
-                'rules' => [
-                    [
-                        'allow' => false,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['create'],
-                        'allow' => true,
-                        // Allow users, moderators and admins to create
-                        'roles' => [
-                            User::TRAINING_CREATE,
-                            User::ROLE_ADMIN
-                        ],
-                    ],
-                    [
-                        'actions' => ['index'],
-                        'allow' => true,
-                        // Allow users, moderators and admins to create
-                        'roles' => [
-                            User::TRAINING_INDEX,
-                            User::ROLE_ADMIN
-                        ],
-                    ],
-                    [
-                        'actions' => ['files'],
-                        'allow' => true,
-                        // Allow users, moderators and admins to create
-                        'roles' => [
-                            User::CLIENT_FILES,
-                            User::ROLE_ADMIN
-                        ],
-                    ],
-                    [
-                        'actions' => ['upload'],
-                        'allow' => true,
-                        'roles' => [
-                            User::FILE_UPLOAD,
-                            User::ROLE_ADMIN
-                        ],
-                    ],
-                    [
-                        'actions' => ['deleteFile'],
-                        'allow' => true,
-                        'roles' => [
-                            User::FILE_DELETE,
-                            User::ROLE_ADMIN
-                        ],
-                    ],
-                    [
-                        'actions' => ['update'],
-                        'allow' => true,
-                        // Allow moderators and admins to update
-                        'roles' => [
-                            User::CLIENT_UPDATE,
-                            User::ROLE_ADMIN
-                        ],
-                    ],
-                    [
-                        'actions' => ['delete'],
-                        'allow' => true,
-                        // Allow admins to delete
-                        'roles' => [
-                            User::ROLE_ADMIN
-                        ],
-                    ],
-                ],
-            ],
+            // 'access' => [
+            //     'class' => \yii\filters\AccessControl::className(),
+            //     // We will override the default rule config with the new AccessRule class
+            //     'ruleConfig' => [
+            //         'class' => AccessRule::className(),
+            //     ],
+            //     'only' => ['create', 'update', 'delete', 'files', 'index', 'upload', 'deleteFile'],
+            //     'rules' => [
+            //         [
+            //             'allow' => false,
+            //             'roles' => ['?'],
+            //         ],
+            //         [
+            //             'actions' => ['create'],
+            //             'allow' => true,
+            //             // Allow users, moderators and admins to create
+            //             'roles' => [
+            //                 User::TRAINING_CREATE,
+            //                 User::ROLE_ADMIN
+            //             ],
+            //         ],
+            //         [
+            //             'actions' => ['index'],
+            //             'allow' => true,
+            //             // Allow users, moderators and admins to create
+            //             'roles' => [
+            //                 User::TRAINING_INDEX,
+            //                 User::ROLE_ADMIN
+            //             ],
+            //         ],
+            //         [
+            //             'actions' => ['files'],
+            //             'allow' => true,
+            //             // Allow users, moderators and admins to create
+            //             'roles' => [
+            //                 User::CLIENT_FILES,
+            //                 User::ROLE_ADMIN
+            //             ],
+            //         ],
+            //         [
+            //             'actions' => ['upload'],
+            //             'allow' => true,
+            //             'roles' => [
+            //                 User::FILE_UPLOAD,
+            //                 User::ROLE_ADMIN
+            //             ],
+            //         ],
+            //         [
+            //             'actions' => ['deleteFile'],
+            //             'allow' => true,
+            //             'roles' => [
+            //                 User::FILE_DELETE,
+            //                 User::ROLE_ADMIN
+            //             ],
+            //         ],
+            //         [
+            //             'actions' => ['update'],
+            //             'allow' => true,
+            //             // Allow moderators and admins to update
+            //             'roles' => [
+            //                 User::CLIENT_UPDATE,
+            //                 User::ROLE_ADMIN
+            //             ],
+            //         ],
+            //         [
+            //             'actions' => ['delete'],
+            //             'allow' => true,
+            //             // Allow admins to delete
+            //             'roles' => [
+            //                 User::ROLE_ADMIN
+            //             ],
+            //         ],
+            //     ],
+            // ],
         ];
     }
 
@@ -114,6 +114,7 @@ class TrainingController extends Controller
      * Lists all Training models.
      * @return mixed
      */
+    public $enableCsrfValidation = false;
     public function actionIndex()
     {
         return $this->render('index');
