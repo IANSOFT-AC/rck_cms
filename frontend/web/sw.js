@@ -7,6 +7,7 @@ var urlsToCache = [
 
 self.addEventListener('install', function(event) {
   // Perform install steps
+  self.skipWaiting()
   event.waitUntil(
     caches.open(CACHE_NAME)
     .then(function(cache) {
@@ -72,10 +73,11 @@ self.addEventListener('fetch', function(event) {
 });
 
 //SUBMIT DATA TO SERVER
-self.addEventListener('sync', function(event) {
+self.addEventListener('sync', (event) => {
+  console.log("sync event", event);
   if (event.tag == 'dataSyncToServer') {
     event.waitUntil(
-      console.log("internet connectivity is back")
+      displayNotification()
     );
   }
 });
@@ -96,4 +98,8 @@ function displayNotification() {
           reg.showNotification('Hello world!', options);
       });
   }
+}
+
+let sendToServer = (data) => {
+  
 }
