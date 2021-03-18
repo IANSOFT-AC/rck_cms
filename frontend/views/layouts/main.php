@@ -586,6 +586,8 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             $(function(){
                 $('form').on('submit', function(e){
                     e.preventDefault();
+                    //to stop double execution
+                    e.stopImmediatePropagation()
                     let form = e.target;
                    
                     if(navigator.onLine){
