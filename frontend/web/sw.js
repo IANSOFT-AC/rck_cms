@@ -9,12 +9,12 @@ self.addEventListener('install', function(event) {
   // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(function(cache) {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache,{
-          redirect: 'follow'
-        });
-      })
+    .then(function(cache) {
+      console.log('Opened cache');
+      return cache.addAll(urlsToCache,{
+        redirect: 'follow'
+      });
+    })
   );
 });
 
@@ -70,3 +70,30 @@ self.addEventListener('fetch', function(event) {
       )
     );
 });
+
+//SUBMIT DATA TO SERVER
+self.addEventListener('sync', function(event) {
+  if (event.tag == 'dataSyncToServer') {
+    event.waitUntil(
+      console.log("internet connectivity is back")
+    );
+  }
+});
+
+//SENDING A NOTIFICATION
+function displayNotification() {
+  if (Notification.permission == 'granted') {
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+          var options = {
+              body: 'Here is a notification body!',
+              icon: '/images/android/android-launchericon-48-48.png',
+              vibrate: [100, 50, 100],
+              data: {
+                  dateOfArrival: Date.now(),
+                  primaryKey: 1
+                  }
+              };
+          reg.showNotification('Hello world!', options);
+      });
+  }
+}

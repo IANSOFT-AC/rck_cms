@@ -536,6 +536,8 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         console.log('Notification permission status:', status);
                     });
                     console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    // Request a one-off sync:
+                    return registration.sync.register('dataSyncToServer');
                 }, function(err) {
                     // registration failed :(
                     console.log('ServiceWorker registration failed: ', err);
@@ -563,8 +565,6 @@ $absoluteUrl = \yii\helpers\Url::home(true);
            //displayNotification();
 
            //CHECK CONNECTIVITY
-            //document.getElementById('online').style.display = "none";
-            //document.getElementById('offline').style.display = "none";
             function updateOnlineStatus() {
                 var condition = navigator.onLine ? "online" : "offline";
                 if(condition == "online"){
@@ -586,7 +586,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             $(function(){
                 $('form').on('submit', function(e){
                     e.preventDefault();
-                    //to stop double execution
+                    //to stop double execution 'stop executing any downstream chain of event handlers'
                     e.stopImmediatePropagation()
                     let form = e.target;
                    
