@@ -596,7 +596,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         let objectStore = null;
                         let db = null;
                         //console.log("request jq",serializeForm(form));
-                        DBOpenRequest = indexedDB.open('RCK',1)
+                        DBOpenRequest = indexedDB.open('RCK',2)
                         DBOpenRequest.addEventListener('success', (ev) => {
                             db = ev.target.result
                             console.log('success', db)
@@ -611,7 +611,11 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             }
 
                             let store = tx.objectStore('rckStore')
-                            let req = store.add(serializeForm(form))
+                            let formData = serializeForm(form)
+                            formData.action = $(this).prop('action')
+                            formData.method = $(this).prop('method')
+
+                            let req = store.add(formData)
                             req.onsuccess = (ev) => {
                                 console.log("Added to indexeddb successfully")
                             }
