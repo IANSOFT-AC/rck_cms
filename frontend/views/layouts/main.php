@@ -600,6 +600,24 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         DBOpenRequest.addEventListener('success', (ev) => {
                             db = ev.target.result
                             console.log('success', db)
+
+                            //submit form data to indexeddb
+                            let tx = db.transaction('rckStore','readwrite')
+                            tx.oncomplete = (ev) => {
+                                console.log(ev);
+                            }
+                            tx.onerror = (err) => {
+                                console.warn(err)
+                            }
+
+                            let store = tx.objectStore('rckStore')
+                            let req = store.add(serializeForm(form))
+                            req.onsuccess = (ev) => {
+                                console.log("Added to indexeddb successfully")
+                            }
+                            req.onerror = (err) => {
+                                console.warn("Adding to store failed")
+                            }
                         });
                         DBOpenRequest.addEventListener('error', (err) => {
                             console.warn(err)
@@ -607,10 +625,12 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         DBOpenRequest.addEventListener('upgradeneeded', (ev) => {
                             db = ev.target.result
                             console.log('success', db)
-                            objectStore = db.createObjectStore('rckStore', {
-                                keyPath: "id", autoIncrement:true 
-                            })
-                        });
+                            if(! db.objectStoreNames.contains('rckStore')){
+                                objectStore = db.createObjectStore('rckStore', {
+                                    keyPath: "id", autoIncrement:true 
+                                })
+                            }                            
+                        });                        
                     }
                 })
             });
