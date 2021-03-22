@@ -186,14 +186,14 @@ class RefugeeController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $existingDependantsCount = Dependant::find()->where(['refugee_id' => Yii::$app->request->post()['refugee_id'] ])->count();
             $client = $this->findModel(Yii::$app->request->post()['refugee_id']);
-            if($client->dependants > $existingDependantsCount){
+            //if($client->dependants > $existingDependantsCount){
                 $model->save();
                 Yii::$app->getSession()->setFlash('success', 'Dependant successfully added');
                 return $this->redirect(['view', 'id' => Yii::$app->request->post()['refugee_id']]);
-            }else{
-                Yii::$app->getSession()->setFlash('error', 'You can only add upto '.$client->dependants.' dependants');
-                return $this->redirect(['view', 'id' => Yii::$app->request->post()['refugee_id']]);
-            }
+            // }else{
+            //     Yii::$app->getSession()->setFlash('error', 'You can only add upto '.$client->dependants.' dependants');
+            //     return $this->redirect(['view', 'id' => Yii::$app->request->post()['refugee_id']]);
+            // }
             
         }
     }

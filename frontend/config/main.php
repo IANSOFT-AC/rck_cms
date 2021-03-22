@@ -10,7 +10,17 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'controllerNamespace' => 'frontend\controllers',
+    'controllerNamespace' => 'frontend\controllers',    
+    'modules' => [
+        'api' => [
+            'basePath' => '@frontend/modules/api/v1/',
+            'class' => 'frontend\modules\api\v1\Api',
+        ],
+        'test' => [
+            'basePath' => '@frontend/modules/api/',
+            'class' => 'frontend\modules\api\Test',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -42,14 +52,16 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-    
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'training'],
+                //['class' => 'yii\rest\UrlRule', 'controller' => ['api/default']],
             ],
         ],
+
         
     ],
     'params' => $params,

@@ -658,9 +658,9 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             let action = data.action
             let method = data.method
             //data._csrf = csrf
-            delete data.action;
-            delete data.method;
-            delete data.id;
+            delete data.action
+            delete data.method
+            delete data.id
             data['_csrf-frontend'] = getMeta('csrf-token')
             data['_csrf'] = getMeta('csrf-token')
             console.log('data to be posted', JSON.stringify(data))
@@ -668,13 +668,13 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 method: method,
                 body: data,
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-type': 'application/x-www-form-urlencoded'
                 }
             })
-            .then(async (response) => {
+            .then((response) => {
                 try {
-                    const data = await response.text()
-                    //console.log('response data?', data)
+                    const data = response.text()
+                    console.log('response data?', data)
 
                     // if (response.ok) {
                     //   return await response.json();
