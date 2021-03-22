@@ -21,5 +21,22 @@ return [
                 ]
             ]
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                [
+                    'class' => \yii\rest\UrlRule::class,
+                    'controller' => ['api/client']
+                ]
+            ],
+        ],
+        
     ],
+    // Declare modules outside components arrray
+    'modules' => [
+        'api' => [
+            'class' => \common\modules\api\Module::class
+        ]
+    ]
 ];
