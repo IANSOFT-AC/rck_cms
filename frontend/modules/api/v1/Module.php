@@ -3,9 +3,9 @@
 namespace frontend\modules\api\v1;
 
 /**
- * v1 module definition class
+ * api module definition class
  */
-class Api extends \yii\base\Module
+class Module extends \yii\base\Module
 {
     /**
      * {@inheritdoc}

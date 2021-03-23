@@ -668,7 +668,8 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 method: method,
                 body: data,
                 headers: {
-                    'Content-type': 'application/x-www-form-urlencoded'
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json'
                 }
             })
             .then((response) => {

@@ -13,19 +13,14 @@ return [
     'controllerNamespace' => 'frontend\controllers',    
     'modules' => [
         'api' => [
-            'basePath' => '@frontend/modules/api/v1/',
-            'class' => 'frontend\modules\api\v1\Api',
-        ],
-        'test' => [
-            'basePath' => '@frontend/modules/api/',
-            'class' => 'frontend\modules\api\Test',
+            'class' => 'frontend\modules\api\v1\Module',
         ],
     ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'parsers' => [
-                'application/json' => 'yii\web\JsonParser',
+                'application/json' => yii\web\JsonParser::class,
             ]
         ],
         'user' => [
@@ -55,10 +50,10 @@ return [
         
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'enableStrictParsing' => true,
+            //'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                //['class' => 'yii\rest\UrlRule', 'controller' => ['api/default']],
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['api/training']],
             ],
         ],
 

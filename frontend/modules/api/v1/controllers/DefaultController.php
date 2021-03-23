@@ -5,7 +5,7 @@ namespace frontend\modules\api\v1\controllers;
 use yii\web\Controller;
 
 /**
- * Default controller for the `v1` module
+ * Default controller for the `api` module
  */
 class DefaultController extends Controller
 {
@@ -15,9 +15,6 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        echo "test this";
-        exit;
-        
         return $this->render('index');
     }
 }

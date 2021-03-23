@@ -2,14 +2,7 @@
 
 namespace frontend\modules\api\v1\controllers;
 
-class TrainingController extends \yii\web\Controller
+class TrainingController extends \yii\rest\ActiveController
 {
-    public function actionIndex()
-    {
-        echo "changes to us";
-        exit();
-        
-        return $this->render('index');
-    }
-
+    public $modelClass = \app\models\Training::class;
 }
