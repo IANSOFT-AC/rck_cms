@@ -35,6 +35,9 @@ return [
         'recruitment' => [
             'class' => 'common\Library\Recruitment'
         ],
+        'dashboard' => [
+            'class' => 'common\Library\Dashboard'
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

@@ -14,6 +14,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\User;
 
 /**
  * Site controller
@@ -77,14 +78,25 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    
+
+    public function beforeAction($action)
+    {            
+        if ($action->id == 'login' || $action->id == 'login-api') {
+            $this->enableCsrfValidation = false;
+        }
+    
+        return parent::beforeAction($action);
+    }
+
     /**
      * Logs in a user.
      *
      * @return mixed
      */
+
     public function actionLogin()
     {
-
         $this->layout = 'login';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
@@ -92,6 +104,10 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            //$model->save();
+
+            // Yii::$app->user->identity->generateAuthKey();
+            // return Yii::$app->user->identity->auth_key;
             return $this->goBack();
         } else {
             $model->password = '';
@@ -100,6 +116,57 @@ class SiteController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionLoginApi()
+    {
+        $user = User::findByUsername(Yii::$app->request->post()['username']);
+
+        if(!Yii::$app->request->post()['username'] or !Yii::$app->request->post()['password'] or !$user){
+            //throw new UserException( "There is an error!" );
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            Yii::$app->response->statusCode = 401;
+            return $this->asJson(['error' => "Error in Authentication!", "name" => "Unauthorized", "status" => 401]);
+        }
+        if ($user->validatePassword(Yii::$app->request->post()['password'])){
+            
+            $model = new LoginForm();
+            $model->username = Yii::$app->request->post()['username'];
+            $model->password = Yii::$app->request->post()['password'];
+            $model->login();
+            
+            //return $user;
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            Yii::$app->response->statusCode = 200;
+            return $this->asJson([
+                'msg' => "login successful",
+                'token' => $user->getAuthKey()
+            ]);
+        }
+        else{
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            Yii::$app->response->statusCode = 401;
+            return $this->asJson(['error' => "Wrong username or password!", "name" => "Unauthorized", "status" => 401]);
+        }
+
+
+        // $model = new LoginForm();
+        // if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            
+        //     //return $this->goBack();
+        //     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        //     Yii::$app->response->statusCode = 200;
+        //     return $this->asJson(['msg' => "file uploaded successfully"]);
+        // } else {
+        //     // $model->password = '';
+
+        //     // return $this->render('login', [
+        //     //     'model' => $model,
+        //     // ]);
+        //     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        //     Yii::$app->response->statusCode = 400;
+        //     return $this->asJson(['error' => Yii::$app->request->post()]);
+        // }
     }
 
     /**
