@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
 </div>
-<div class="card" id="loader">
+<div class="card m-1" id="loader">
     <div class="card-header center">
         <h1 class="card-title">Authenticating. Please Wait...</h1>
     </div>
