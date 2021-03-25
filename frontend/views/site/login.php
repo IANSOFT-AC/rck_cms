@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card-body">
 
 
-
+        <div class="m-1 p-2" id="login-status"></div>
         <div class="row">
             <div class="col-lg-12">
 
@@ -97,13 +97,12 @@ $script = <<<JS
             })
             .then((response) => {
                 try {
-                    // const data = response.text()
-                    // console.log('response data?', data)
+                    
 
-                    if (response.ok) {
+                    //if (response.ok) {
                       return response.json();
-                    }
-                    return Promise.reject(response);
+                    //}
+                    //return Promise.reject(response);
                 } catch(error) {
                     console.log('Error happened here!')
                     console.error(error)
@@ -111,6 +110,19 @@ $script = <<<JS
             })
             .then(function (data) {
                 console.log(data);
+                $("#loader").hide();
+                $("#content-login").fadeIn('slow');
+                if(data.status == 200){
+                    $('#login-status').html('<span class="center badge bg-green">'+data.msg+'</span>')
+
+                    //REDIRECT TO HOMEPAGE ON SUCCESS
+                    document.location.href="/";
+
+                    //STORE TOKEN IN LOCAL STORAGE
+                    window.localStorage.setItem('auth_token', data.token)
+                }else if(data.status == 401){
+                    $('#login-status').html('<span class="center badge bg-red"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> '+data.error+'</span>')
+                }
             })
             .catch(function (error) {
                 console.log(error);

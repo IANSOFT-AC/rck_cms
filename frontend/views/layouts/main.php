@@ -670,6 +670,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 headers: {
                     'Content-type': 'application/json',
                     'Accept': 'application/json'
+                    'Authorization': window.localStorage.getItem('auth_token')
                 }
             })
             .then((response) => {

@@ -126,7 +126,7 @@ class SiteController extends Controller
             //throw new UserException( "There is an error!" );
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             Yii::$app->response->statusCode = 401;
-            return $this->asJson(['error' => "Error in Authentication!", "name" => "Unauthorized", "status" => 401]);
+            return $this->asJson(['error' => "Error in Authentication! Please try again","status" => 401]);
         }
         if ($user->validatePassword(Yii::$app->request->post()['password'])){
             
@@ -140,13 +140,14 @@ class SiteController extends Controller
             Yii::$app->response->statusCode = 200;
             return $this->asJson([
                 'msg' => "login successful",
-                'token' => $user->getAuthKey()
+                'token' => $user->getAuthKey(),
+                "status" => 200
             ]);
         }
         else{
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             Yii::$app->response->statusCode = 401;
-            return $this->asJson(['error' => "Wrong username or password!", "name" => "Unauthorized", "status" => 401]);
+            return $this->asJson(['error' => "Oops, Wrong username or password!","status" => 401]);
         }
 
 
