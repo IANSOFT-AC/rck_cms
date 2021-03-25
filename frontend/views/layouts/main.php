@@ -570,7 +570,8 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
             //
             $(function(){
-                $('form:not(.caseFileUpload)').on('submit', function(e){
+                //$('form:not(.caseFileUpload)').on('submit', function(e){
+                $('body').on('submit', 'form:not(.caseFileUpload)', function(e) {
                     e.preventDefault();
                     //to stop double execution 'stop executing any downstream chain of event handlers'
                     e.stopImmediatePropagation()
@@ -584,7 +585,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         let objectStore = null;
                         let db = null;
                         //console.log("request jq",serializeForm(form));
-                        DBOpenRequest = indexedDB.open('RCK',4)
+                        DBOpenRequest = getDB()
                         DBOpenRequest.addEventListener('success', (ev) => {
                             db = ev.target.result
                             console.log('success', db)
@@ -644,6 +645,21 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             };
         }
 
+        let getDB = () =>{
+            let DBOpenRequest = indexedDB.open('RCK',4);
+            return DBOpenRequest;
+        }
+
+        let deleteFromIndexedDB = (key) =>{
+            DBOpenRequest = getDB()
+
+            DBOpenRequest.addEventListener('success', (ev) => {
+                db = ev.target.result
+                let tx = db.transaction('rckStore','readwrite').objectStore("rckStore").delete(+key);
+                //console.log("deleting from indexdb")
+            });
+        }
+
         navigator.serviceWorker.onmessage = (ev) => {
             console.log("received data from service worker",ev.data)
             if(ev.data && ev.data.type === 'FORM_DATA'){
@@ -657,7 +673,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             //data._csrf = csrf
             delete data.action
             delete data.method
-            delete data.id
+            let id = data.id
             console.log('data to be posted', JSON.stringify(data))
             fetch(action, {
                 method: method,
@@ -671,7 +687,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             .then((response) => {
                 try {
                     const data = response.text()
-                    console.log('response data?', data)
+                    //console.log('response data?', data)
 
                     // if (response.ok) {
                     //   return await response.json();
@@ -682,7 +698,9 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                     console.error(error)
                 }
             })
-            .then(function (data) {
+            .then(function (data) {           
+                //DELETE FROM THE DATABASE
+                deleteFromIndexedDB(id)
                 console.log(data);
             })
             .catch(function (error) {
@@ -690,9 +708,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             });
         }
 
-        let deleteFromIndexedDB = (key) =>{
-
-        }
+        
     </script>
 </body>
 </html>
