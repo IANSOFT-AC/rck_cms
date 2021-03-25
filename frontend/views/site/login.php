@@ -84,8 +84,6 @@ $script = <<<JS
 
             $("#loader").fadeIn('slow');
             $("#content-login").hide();
-
-            setTimeout(function(){  }, 1000);
             
             fetch('/site/login-api', {
                 method: 'POST',
@@ -116,7 +114,9 @@ $script = <<<JS
                     $('#login-status').html('<span class="center badge bg-green">'+data.msg+'</span>')
 
                     //REDIRECT TO HOMEPAGE ON SUCCESS
-                    document.location.href="/";
+                    setTimeout(function(){ 
+                        document.location.href="/";
+                     }, 1000);
 
                     //STORE TOKEN IN LOCAL STORAGE
                     window.localStorage.setItem('auth_token', data.token)
