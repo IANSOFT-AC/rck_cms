@@ -602,6 +602,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             let formData = serializeForm(form)
                             formData.action = document.location.origin+'/api'+$(this).attr('action')
                             formData.method = $(this).prop('method')
+                            //delete formData['_csrf-frontend']
 
                             let req = store.add(formData)
                             req.onsuccess = (ev) => {
@@ -631,7 +632,13 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 let obj = {};
                 let formData = new FormData(form);
                 for (let key of formData.keys()) {
-                    obj[key] = formData.get(key);
+                    var matches = key.match(/\[(.*?)\]/);
+                    //get the inner values from square
+                    if (matches) {
+                        obj[matches[1]] = formData.get(key);
+                    }else{
+                        obj[key] = formData.get(key);
+                    }
                 }
                 return obj;
             };
