@@ -527,16 +527,6 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 <!-- END OF ADD SWEET ALERT -->
 <script>
         //GET VALUE OF META TAG 
-        let getMeta = (metaName) => {
-            const metas = document.getElementsByTagName('meta');
-
-            for (let i = 0; i < metas.length; i++) {
-                if (metas[i].getAttribute('name') === metaName) {
-                    return metas[i].getAttribute('content');
-                }
-            }
-            return '';
-        }
 
         
         //console.log("token",getMeta('csrf-token'))
@@ -553,7 +543,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                     console.log('ServiceWorker registration successful with scope: ', registration.scope);
                     // Request a one-off sync:
                     registration.sync.register('dataSyncToServer');
-                    registration.active.postMessage(JSON.stringify({csrfToken: getMeta('csrf-token')}))
+                    //registration.active.postMessage(JSON.stringify({csrfToken: getMeta('csrf-token')}))
                 }, function(err) {
                     // registration failed :(
                     console.log('ServiceWorker registration failed: ', err);
@@ -594,7 +584,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         let objectStore = null;
                         let db = null;
                         //console.log("request jq",serializeForm(form));
-                        DBOpenRequest = indexedDB.open('RCK',2)
+                        DBOpenRequest = indexedDB.open('RCK',4)
                         DBOpenRequest.addEventListener('success', (ev) => {
                             db = ev.target.result
                             console.log('success', db)
@@ -610,7 +600,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                             let store = tx.objectStore('rckStore')
                             let formData = serializeForm(form)
-                            formData.action = $(this).prop('action')
+                            formData.action = document.location.origin+'/api'+$(this).attr('action')
                             formData.method = $(this).prop('method')
 
                             let req = store.add(formData)
@@ -661,16 +651,14 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             delete data.action
             delete data.method
             delete data.id
-            data['_csrf-frontend'] = getMeta('csrf-token')
-            data['_csrf'] = getMeta('csrf-token')
             console.log('data to be posted', JSON.stringify(data))
             fetch(action, {
                 method: method,
-                body: data,
+                body: JSON.stringify(data),
                 headers: {
                     'Content-type': 'application/json',
                     'Accept': 'application/json',
-                    'Authorization': window.localStorage.getItem('auth_token')
+                    'Authorization': 'Bearer '+window.localStorage.getItem('auth_token')
                 }
             })
             .then((response) => {

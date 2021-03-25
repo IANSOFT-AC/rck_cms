@@ -115,7 +115,7 @@ function displayNotification() {
 }
 
 let fetchFromIndexedDB = () => {
-  DBOpenRequest = indexedDB.open('RCK',3)
+  DBOpenRequest = indexedDB.open('RCK',4)
   DBOpenRequest.addEventListener('success', (ev) => {
       db = ev.target.result
       //console.log('success', db)
