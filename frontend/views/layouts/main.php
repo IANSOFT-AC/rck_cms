@@ -670,7 +670,6 @@ $absoluteUrl = \yii\helpers\Url::home(true);
         let sendToServer = (data) => {
             let action = data.action
             let method = data.method
-            //data._csrf = csrf
             delete data.action
             delete data.method
             let id = data.id
@@ -687,7 +686,6 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             .then((response) => {
                 try {
                     const data = response.text()
-                    //console.log('response data?', data)
 
                     // if (response.ok) {
                     //   return await response.json();
