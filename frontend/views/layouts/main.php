@@ -383,6 +383,35 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         }
                         ?>
 
+                        <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('t')?'menu-open':'' ?>">
+                            <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
+                                <i class="nav-icon fa fa-database"></i>
+                                <p>
+                                    Reports
+                                    <i class="fas fa-angle-left right"></i>
+                                    <!--<span class="badge badge-info right">6</span>-->
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('report','index')?'active':'' ?>">
+                                        <i class="fa fa-circle nav-icon"></i>
+                                        <p>Totals by age and sex
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('report','index')?'active':'' ?>">
+                                        <i class="fa fa-circle nav-icon"></i>
+                                        <p>Totals by age and sex
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
                         <!--Settings-->
                         <?php
                         if (!Yii::$app->user->getIsGuest() && Yii::$app->dashboard->user::ROLE_ADMIN == Yii::$app->user->identity->role) {
