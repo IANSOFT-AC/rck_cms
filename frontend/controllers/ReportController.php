@@ -63,16 +63,19 @@ class ReportController extends \yii\web\Controller
         foreach ($clients as $key => $val) {
             # code...
             if($val->gender == 1){
+                //male
                 $class = self::ageClassify($val->date_of_birth);
                 $data = self::arrayInitialize($data,0,$class);
             }
 
             if($val->gender == 2){
+                //female
                 $class = self::ageClassify($val->date_of_birth);
                 $data = self::arrayInitialize($data,1,$class);
             }
 
             if($val->gender == 3){
+                //LGBT AND THE GENDER FUNNY
                 $class = self::ageClassify($val->date_of_birth);
                 $data = self::arrayInitialize($data,2,$class);
             }
