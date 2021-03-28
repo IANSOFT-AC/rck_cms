@@ -394,17 +394,25 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('report','index')?'active':'' ?>">
+                                    <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-age')?'active':'' ?>">
                                         <i class="fa fa-circle nav-icon"></i>
-                                        <p>Totals by age and sex
+                                        <p>Totals by Age Group
                                             <!--<span class="badge badge-info right">0</span>-->
                                         </p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('report','index')?'active':'' ?>">
+                                    <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-country')?'active':'' ?>">
                                         <i class="fa fa-circle nav-icon"></i>
-                                        <p>Totals by age and sex
+                                        <p>Totals by Country
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-office')?'active':'' ?>">
+                                        <i class="fa fa-circle nav-icon"></i>
+                                        <p>Totals by Office
                                             <!--<span class="badge badge-info right">0</span>-->
                                         </p>
                                     </a>

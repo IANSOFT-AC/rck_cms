@@ -9,17 +9,137 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Refugee;
+use app\models\Country;
 use Carbon\Carbon;
+use app\models\RckOffices;
 
 class ReportController extends \yii\web\Controller
 {
+    //COMPUTATIONS BY COUNTRIES
     public function actionByCountry()
     {
         if (Yii::$app->request->post()) {
             Refugee::find()->where(['between', 'created_at', $start, $end])->all();
         }
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        Refugee::find()->asArray()->all();
+
+        $countries = Country::find()->all();
+        $data = [];
+        foreach ($countries as $key => $country):
+            $count = 0;
+            //male and is refugee
+            $data[$key] = [];
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'country_of_origin' => $country->id,
+                'gender' => 1,
+                'asylum_status' => 2
+            ])->asArray()->all()[0]['count'];
+            $data[$key][0] = $num;
+            $count += $num;
+
+            //male and is asylum seeker
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'country_of_origin' => $country->id,
+                'gender' => 1,
+                'asylum_status' => 1
+            ])->asArray()->all()[0]['count'];
+            $data[$key][1] = $num;
+            $count += $num;
+
+            //female and is refugee
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'country_of_origin' => $country->id,
+                'gender' => 2,
+                'asylum_status' => 1
+            ])->asArray()->all()[0]['count'];
+            $data[$key][2] = $num;
+            $count += $num;
+
+            //female and is asylum seeker
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'country_of_origin' => $country->id,
+                'gender' => 2,
+                'asylum_status' => 1
+            ])->asArray()->all()[0]['count'];
+            $data[$key][3] = $num;
+            $count += $num;
+
+            //Do Subtotals
+            $data[$key][4] = $count;
+            //reset the counter for subtotals
+            $count = 0;
+        endforeach;
+
+        return $this->asJson(['msg' => "formatted data",'data'=> $data]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    //COMPUTATIONS BY COUNTRIES
+    public function actionByOffice()
+    {
+        if (Yii::$app->request->post()) {
+            Refugee::find()->where(['between', 'created_at', $start, $end])->all();
+        }
+
+        $offices = RckOffices::find()->all();
+        $data = [];
+        foreach ($offices as $key => $office):
+            $count = 0;
+            //male and is refugee
+            $data[$key] = [];
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'rck_office_id' => $office->id,
+                'gender' => 1,
+                'asylum_status' => 2
+            ])->asArray()->all()[0]['count'];
+            $data[$key][0] = $num;
+            $count += $num;
+
+            //male and is asylum seeker
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'rck_office_id' => $office->id,
+                'gender' => 1,
+                'asylum_status' => 1
+            ])->asArray()->all()[0]['count'];
+            $data[$key][1] = $num;
+            $count += $num;
+
+            //female and is refugee
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'rck_office_id' => $office->id,
+                'gender' => 2,
+                'asylum_status' => 1
+            ])->asArray()->all()[0]['count'];
+            $data[$key][2] = $num;
+            $count += $num;
+
+            //female and is asylum seeker
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'rck_office_id' => $office->id,
+                'gender' => 2,
+                'asylum_status' => 1
+            ])->asArray()->all()[0]['count'];
+            $data[$key][3] = $num;
+            $count += $num;
+
+            //Do Subtotals
+            $data[$key][4] = $count;
+            //reset the counter for subtotals
+            $count = 0;
+        endforeach;
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $this->asJson(['msg' => "formatted data",'data'=> $data]);
     }
 
 
@@ -34,20 +154,7 @@ class ReportController extends \yii\web\Controller
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //COMPUTATIONS BY AGE ARRAYS WORKING
+    //COMPUTATIONS BY AGE GROUP
 
     public function actionByAge()
     {
