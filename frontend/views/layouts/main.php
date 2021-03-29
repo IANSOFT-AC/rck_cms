@@ -394,25 +394,41 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-age')?'active':'' ?>">
+                                    <a href="<?= $absoluteUrl ?>report/by-age" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-age')?'active':'' ?>">
                                         <i class="fa fa-circle nav-icon"></i>
-                                        <p>Totals by Age Group
+                                        <p>by Age Group
                                             <!--<span class="badge badge-info right">0</span>-->
                                         </p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-country')?'active':'' ?>">
+                                    <a href="<?= $absoluteUrl ?>report/by-country" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-country')?'active':'' ?>">
                                         <i class="fa fa-circle nav-icon"></i>
-                                        <p>Totals by Country
+                                        <p>by Country
                                             <!--<span class="badge badge-info right">0</span>-->
                                         </p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= $absoluteUrl ?>settings" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-office')?'active':'' ?>">
+                                    <a href="<?= $absoluteUrl ?>report/by-office" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-office')?'active':'' ?>">
                                         <i class="fa fa-circle nav-icon"></i>
-                                        <p>Totals by Office
+                                        <p>by RCK Office
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>report/by-source-of-info" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-source-of-info')?'active':'' ?>">
+                                        <i class="fa fa-circle nav-icon"></i>
+                                        <p>by Source of Info
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>report/by-forms-of-torture" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-forms-of-torture')?'active':'' ?>">
+                                        <i class="fa fa-circle nav-icon"></i>
+                                        <p>by Forms of Torture
                                             <!--<span class="badge badge-info right">0</span>-->
                                         </p>
                                     </a>

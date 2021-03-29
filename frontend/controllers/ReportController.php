@@ -12,6 +12,8 @@ use app\models\Refugee;
 use app\models\Country;
 use Carbon\Carbon;
 use app\models\RckOffices;
+use app\models\SourceOfInfo;
+use app\models\FormOfTorture;
 
 class ReportController extends \yii\web\Controller
 {
@@ -21,7 +23,6 @@ class ReportController extends \yii\web\Controller
         if (Yii::$app->request->post()) {
             Refugee::find()->where(['between', 'created_at', $start, $end])->all();
         }
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         $countries = Country::find()->all();
         $data = [];
@@ -34,7 +35,8 @@ class ReportController extends \yii\web\Controller
                 'gender' => 1,
                 'asylum_status' => 2
             ])->asArray()->all()[0]['count'];
-            $data[$key][0] = $num;
+            $data[$key][0] = $country->country;
+            $data[$key][1] = $num;
             $count += $num;
 
             //male and is asylum seeker
@@ -43,16 +45,16 @@ class ReportController extends \yii\web\Controller
                 'gender' => 1,
                 'asylum_status' => 1
             ])->asArray()->all()[0]['count'];
-            $data[$key][1] = $num;
+            $data[$key][2] = $num;
             $count += $num;
 
             //female and is refugee
             $num = Refugee::find()->select('COUNT(*) AS count')->where([
                 'country_of_origin' => $country->id,
                 'gender' => 2,
-                'asylum_status' => 1
+                'asylum_status' => 2
             ])->asArray()->all()[0]['count'];
-            $data[$key][2] = $num;
+            $data[$key][3] = $num;
             $count += $num;
 
             //female and is asylum seeker
@@ -61,16 +63,20 @@ class ReportController extends \yii\web\Controller
                 'gender' => 2,
                 'asylum_status' => 1
             ])->asArray()->all()[0]['count'];
-            $data[$key][3] = $num;
+            $data[$key][4] = $num;
             $count += $num;
 
             //Do Subtotals
-            $data[$key][4] = $count;
+            $data[$key][5] = $count;
             //reset the counter for subtotals
             $count = 0;
         endforeach;
 
-        return $this->asJson(['msg' => "formatted data",'data'=> $data]);
+        //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
+        return $this->render('index', [
+            'data' => $data,
+            'title' => 'Pull Report by Country'
+        ]);
     }
 
 
@@ -102,7 +108,8 @@ class ReportController extends \yii\web\Controller
                 'gender' => 1,
                 'asylum_status' => 2
             ])->asArray()->all()[0]['count'];
-            $data[$key][0] = $num;
+            $data[$key][0] = $office->name;
+            $data[$key][1] = $num;
             $count += $num;
 
             //male and is asylum seeker
@@ -111,16 +118,16 @@ class ReportController extends \yii\web\Controller
                 'gender' => 1,
                 'asylum_status' => 1
             ])->asArray()->all()[0]['count'];
-            $data[$key][1] = $num;
+            $data[$key][2] = $num;
             $count += $num;
 
             //female and is refugee
             $num = Refugee::find()->select('COUNT(*) AS count')->where([
                 'rck_office_id' => $office->id,
                 'gender' => 2,
-                'asylum_status' => 1
+                'asylum_status' => 2
             ])->asArray()->all()[0]['count'];
-            $data[$key][2] = $num;
+            $data[$key][3] = $num;
             $count += $num;
 
             //female and is asylum seeker
@@ -129,17 +136,69 @@ class ReportController extends \yii\web\Controller
                 'gender' => 2,
                 'asylum_status' => 1
             ])->asArray()->all()[0]['count'];
-            $data[$key][3] = $num;
+            $data[$key][4] = $num;
             $count += $num;
 
             //Do Subtotals
-            $data[$key][4] = $count;
+            $data[$key][5] = $count;
             //reset the counter for subtotals
             $count = 0;
         endforeach;
 
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return $this->asJson(['msg' => "formatted data",'data'=> $data]);
+        //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
+        return $this->render('index', [
+            'data' => $data,
+            'title' => 'Pull Report by Office'
+        ]);
+    }
+
+
+
+
+
+    //BY SOURCE OF INFO
+    public function actionBySourceOfInfo()
+    {
+        if (Yii::$app->request->post()) {
+            Refugee::find()->where(['between', 'created_at', $start, $end])->all();
+        }
+
+        $sources = SourceOfInfo::find()->all();
+        $data = [];
+        foreach ($sources as $key => $source):
+            $count = 0;
+            //male
+            $data[$key] = [];
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'source_of_info_id' => $source->id,
+                'gender' => 1,
+            ])->asArray()->all()[0]['count'];
+            $data[$key][0] = $source->name;
+            $data[$key][1] = $num;
+            $count += $num;
+
+            //female
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'source_of_info_id' => $source->id,
+                'gender' => 2,
+            ])->asArray()->all()[0]['count'];
+            $data[$key][3] = $num;
+            $count += $num;
+
+
+            //Do Subtotals
+            $data[$key][5] = $count;
+            //reset the counter for subtotals
+            $count = 0;
+        endforeach;
+
+        //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
+        return $this->render('index', [
+            'data' => $data,
+            'title' => 'Pull Report by Source of Information'
+        ]);
     }
 
 
@@ -147,7 +206,49 @@ class ReportController extends \yii\web\Controller
 
 
 
+    //BY FORMS OF TORTURE
+    public function actionByFormsOfTorture()
+    {
+        if (Yii::$app->request->post()) {
+            Refugee::find()->where(['between', 'created_at', $start, $end])->all();
+        }
 
+        $forms = FormOfTorture::find()->all();
+        $data = [];
+        foreach ($forms as $key => $form):
+            $count = 0;
+            //male
+            $data[$key] = [];
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'form_of_torture_id' => $form->id,
+                'gender' => 1,
+            ])->asArray()->all()[0]['count'];
+            $data[$key][0] = $form->name;
+            $data[$key][1] = $num;
+            $count += $num;
+
+            //female
+            $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                'form_of_torture_id' => $form->id,
+                'gender' => 2,
+            ])->asArray()->all()[0]['count'];
+            $data[$key][3] = $num;
+            $count += $num;
+
+
+            //Do Subtotals
+            $data[$key][5] = $count;
+            //reset the counter for subtotals
+            $count = 0;
+        endforeach;
+
+        //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
+        return $this->render('index', [
+            'data' => $data,
+            'title' => 'Pull Report by Forms of Torture'
+        ]);
+    }
 
 
 
@@ -170,13 +271,13 @@ class ReportController extends \yii\web\Controller
         foreach ($clients as $key => $val) {
             # code...
             if($val->gender == 1){
-                //male
+                //Male
                 $class = self::ageClassify($val->date_of_birth);
                 $data = self::arrayInitialize($data,0,$class);
             }
 
             if($val->gender == 2){
-                //female
+                //Female
                 $class = self::ageClassify($val->date_of_birth);
                 $data = self::arrayInitialize($data,1,$class);
             }
@@ -188,7 +289,7 @@ class ReportController extends \yii\web\Controller
             }
         }
 
-        //calculate sub-totals
+        //Calculate Sub-Totals
         $vertical = [];
         $horizontal = [];
         $totals = 0;
@@ -209,8 +310,15 @@ class ReportController extends \yii\web\Controller
             endforeach;
         }
 
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return $this->asJson(['msg' => "formatted data",'data'=> $data,'horizontal' => $horizontal, 'vertical' => $vertical, 'total' => $totals]);
+        //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        //return $this->asJson(['msg' => "formatted data",'data'=> $data,'horizontal' => $horizontal, 'vertical' => $vertical, 'total' => $totals]);
+        return $this->render('index', [
+            'data'=> $data,
+            'horizontal' => $horizontal, 
+            'vertical' => $vertical, 
+            'total' => $totals,
+            'title' => 'Pull Report by Age'
+        ]);
     }
 
     public static function arrayInitialize($main,$index,$key){
