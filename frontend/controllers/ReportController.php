@@ -193,42 +193,59 @@ class ReportController extends \yii\web\Controller
     public function actionBySourceOfInfo()
     {
         if (Yii::$app->request->post()) {
-            Refugee::find()->where(['between', 'created_at', $start, $end])->all();
+            $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
+            $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
+
+            $sources = SourceOfInfo::find()->all();
+            $data = [];
+            foreach ($sources as $key => $source):
+                $count = 0;
+                //male
+                $data[$key] = [];
+                $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                    'in','source_of_info_id' ,$source->id
+                ])->andWhere(['gender' => 1])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                array_push($data[$key],$source->name);
+                array_push($data[$key],$num);
+                $count += $num;
+
+                //female
+                $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                    'in','source_of_info_id' ,$source->id
+                ])->andWhere(['gender' => 2])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                array_push($data[$key],$num);
+                $count += $num;
+
+                //LGBT
+                $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                    'in','source_of_info_id' ,$source->id
+                ])->andWhere(['gender' => 1])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                array_push($data[$key],$num);
+                $count += $num;
+
+                //Do Subtotals
+                array_push($data[$key],$count);
+                //reset the counter for subtotals
+                $count = 0;
+            endforeach;
+
+            //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
+            return $this->render('index', [
+                'data' => $data,
+                'title' => 'Pull Report by Source of Information',
+                'type' => 'multiple',
+                'start_date' => date("H:ia l M j, Y",$start_date),
+                'end_date' => date("H:ia l M j, Y",$end_date),
+            ]);
         }
-
-        $sources = SourceOfInfo::find()->all();
-        $data = [];
-        foreach ($sources as $key => $source):
-            $count = 0;
-            //male
-            $data[$key] = [];
-            $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                'source_of_info_id' => $source->id,
-                'gender' => 1,
-            ])->asArray()->all()[0]['count'];
-            $data[$key][0] = $source->name;
-            $data[$key][1] = $num;
-            $count += $num;
-
-            //female
-            $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                'source_of_info_id' => $source->id,
-                'gender' => 2,
-            ])->asArray()->all()[0]['count'];
-            $data[$key][3] = $num;
-            $count += $num;
-
-
-            //Do Subtotals
-            $data[$key][5] = $count;
-            //reset the counter for subtotals
-            $count = 0;
-        endforeach;
-
-        //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
         return $this->render('index', [
-            'data' => $data,
             'title' => 'Pull Report by Source of Information'
         ]);
     }
@@ -242,42 +259,61 @@ class ReportController extends \yii\web\Controller
     public function actionByFormsOfTorture()
     {
         if (Yii::$app->request->post()) {
-            Refugee::find()->where(['between', 'created_at', $start, $end])->all();
+            $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
+            $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
+
+            $forms = FormOfTorture::find()->all();
+            $data = [];
+            foreach ($forms as $key => $form):
+                $count = 0;
+                //male
+                $data[$key] = [];
+                $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                    'in','form_of_torture_id', $form->id
+                ])->andWhere(['gender' => 1])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                array_push($data[$key],$form->name);
+                array_push($data[$key],$num);
+                $count += $num;
+
+                //female
+                $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                    'in','form_of_torture_id', $form->id
+                ])->andWhere(['gender' => 2])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                array_push($data[$key],$num);
+                $count += $num;
+
+                //LGBT
+                $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                    'in','form_of_torture_id', $form->id
+                ])->andWhere(['gender' => 3])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                array_push($data[$key],$num);
+                $count += $num;
+
+
+                //Do Subtotals
+                array_push($data[$key],$count);
+                //reset the counter for subtotals
+                $count = 0;
+            endforeach;
+
+            //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
+            return $this->render('index', [
+                'data' => $data,
+                'type' => 'multiple',
+                'title' => 'Pull Report by Forms of Torture',
+                'start_date' => date("H:ia l M j, Y",$start_date),
+                'end_date' => date("H:ia l M j, Y",$end_date),
+            ]);
         }
 
-        $forms = FormOfTorture::find()->all();
-        $data = [];
-        foreach ($forms as $key => $form):
-            $count = 0;
-            //male
-            $data[$key] = [];
-            $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                'form_of_torture_id' => $form->id,
-                'gender' => 1,
-            ])->asArray()->all()[0]['count'];
-            $data[$key][0] = $form->name;
-            $data[$key][1] = $num;
-            $count += $num;
-
-            //female
-            $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                'form_of_torture_id' => $form->id,
-                'gender' => 2,
-            ])->asArray()->all()[0]['count'];
-            $data[$key][3] = $num;
-            $count += $num;
-
-
-            //Do Subtotals
-            $data[$key][5] = $count;
-            //reset the counter for subtotals
-            $count = 0;
-        endforeach;
-
-        //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
         return $this->render('index', [
-            'data' => $data,
             'title' => 'Pull Report by Forms of Torture'
         ]);
     }
