@@ -404,7 +404,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                 <li class="nav-item">
                                     <a href="<?= $absoluteUrl ?>report/by-country" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-country')?'active':'' ?>">
                                         <i class="fa fa-circle nav-icon"></i>
-                                        <p>by Country
+                                        <p>by Nationality
                                             <!--<span class="badge badge-info right">0</span>-->
                                         </p>
                                     </a>
