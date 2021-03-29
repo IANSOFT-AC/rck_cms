@@ -21,60 +21,78 @@ class ReportController extends \yii\web\Controller
     public function actionByCountry()
     {
         if (Yii::$app->request->post()) {
-            Refugee::find()->where(['between', 'created_at', $start, $end])->all();
+            //Refugee::find()->where(['between', 'created_at', Yii::$app->request->post()['start_date'], Yii::$app->request->post()['end_date']])->all();
+            $countries = Country::find()->all();
+            $data = [];
+            $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
+            $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
+            foreach ($countries as $key => $country):
+                $count = 0;
+                //male and is refugee
+                $data[$key] = [];
+                $num = Refugee::find()->select('COUNT(*) AS count')
+                    ->where([
+                        'country_of_origin' => $country->id,
+                        'gender' => 1,
+                        'asylum_status' => 2
+                    ])
+                    ->andWhere(['between', 'created_at', $start_date, $end_date])
+                    ->asArray()->all()[0]['count'];
+                $data[$key][0] = $country->country;
+                $data[$key][1] = $num;
+                $count += $num;
+
+                //male and is asylum seeker
+                $num = Refugee::find()->select('COUNT(*) AS count')
+                ->where([
+                    'country_of_origin' => $country->id,
+                    'gender' => 1,
+                    'asylum_status' => 1
+                ])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                $data[$key][2] = $num;
+                $count += $num;
+
+                //female and is refugee
+                $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                    'country_of_origin' => $country->id,
+                    'gender' => 2,
+                    'asylum_status' => 2
+                ])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                $data[$key][3] = $num;
+                $count += $num;
+
+                //female and is asylum seeker
+                $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                    'country_of_origin' => $country->id,
+                    'gender' => 2,
+                    'asylum_status' => 1
+                ])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                $data[$key][4] = $num;
+                $count += $num;
+
+                //Do Subtotals
+                $data[$key][5] = $count;
+                //reset the counter for subtotals
+                $count = 0;
+            endforeach;
+
+            //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
+            return $this->render('index', [
+                'data' => $data,
+                'type' => 'country',
+                'title' => 'Pull Report by Country',
+                'start_date' => date("H:ia l M j, Y",$start_date),
+                'end_date' => date("H:ia l M j, Y",$end_date),
+            ]);
         }
 
-        $countries = Country::find()->all();
-        $data = [];
-        foreach ($countries as $key => $country):
-            $count = 0;
-            //male and is refugee
-            $data[$key] = [];
-            $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                'country_of_origin' => $country->id,
-                'gender' => 1,
-                'asylum_status' => 2
-            ])->asArray()->all()[0]['count'];
-            $data[$key][0] = $country->country;
-            $data[$key][1] = $num;
-            $count += $num;
-
-            //male and is asylum seeker
-            $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                'country_of_origin' => $country->id,
-                'gender' => 1,
-                'asylum_status' => 1
-            ])->asArray()->all()[0]['count'];
-            $data[$key][2] = $num;
-            $count += $num;
-
-            //female and is refugee
-            $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                'country_of_origin' => $country->id,
-                'gender' => 2,
-                'asylum_status' => 2
-            ])->asArray()->all()[0]['count'];
-            $data[$key][3] = $num;
-            $count += $num;
-
-            //female and is asylum seeker
-            $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                'country_of_origin' => $country->id,
-                'gender' => 2,
-                'asylum_status' => 1
-            ])->asArray()->all()[0]['count'];
-            $data[$key][4] = $num;
-            $count += $num;
-
-            //Do Subtotals
-            $data[$key][5] = $count;
-            //reset the counter for subtotals
-            $count = 0;
-        endforeach;
-
-        //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
         return $this->render('index', [
-            'data' => $data,
             'title' => 'Pull Report by Country'
         ]);
     }

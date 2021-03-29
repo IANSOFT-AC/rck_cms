@@ -22,12 +22,53 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     <i class="fa fa-calendar"></i>&nbsp;
                     <span></span> <i class="fa fa-caret-down"></i>
                 </div>
-                <form class='p-2 m-2'>
+                <form class='p-2 m-2' method="POST">
                  <input type="hidden" name="start_date" id="start_date" value="2021-03-29 00:00:00">
                  <input type="hidden" name="end_date" id="end_date" value="2021-03-29 23:59:59">
+                 <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->csrfToken; ?>" />
                  <button type="submit" class="btn btn-primary" style="">Filter</button>
                  <a href="https://app.endelezacapital.com/transactions" class="btn btn-secondary">Reset</a>
-               </form>
+                </form>
+                <?php if('country' == $type){ ?>
+                <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
+                <div class="container">
+                <div class="justify-content-center">
+                    <table class="table table-responsive">
+                        <tbody>
+                            <tr>
+                                <td class="table-primary table-bordered"></td>
+                                <td colspan="2" class="table-primary table-bordered">Male</td>
+                                <td colspan="2" class="table-primary  table-bordered">Female</td>
+                                <td class="table-primary table-bordered"></td>
+                            </tr>
+                            <tr>
+                                <td class="table-primary table-bordered">Country</td>
+                                <td class="table-primary table-bordered">Refugee</td>
+                                <td class="table-primary table-bordered">Asylum Seeker</td>
+                                <td class="table-primary table-bordered">Refugee</td>
+                                <td class="table-primary table-bordered">Asylum Seeker</td>
+                                <td class="table-primary table-bordered">Totals</td>
+                            </tr>
+                        <?php                    
+                            foreach ($data as $key => $val):
+                        ?>
+                            <tr>
+                                <td><?= $val[0] ?></td>
+                                <td><?= $val[1] ?></td>
+                                <td><?= $val[2] ?></td>
+                                <td><?= $val[3] ?></td>
+                                <td><?= $val[4] ?></td>
+                                <td><?= $val[5] ?></td>
+                            </tr>
+                        <?php
+                            endforeach;                        
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                
+                <?php } ?>
             </div>
 
         </div>
