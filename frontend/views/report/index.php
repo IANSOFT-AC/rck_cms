@@ -29,44 +29,45 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                  <button type="submit" class="btn btn-primary" style="">Filter</button>
                  <a href="https://app.endelezacapital.com/transactions" class="btn btn-secondary">Reset</a>
                 </form>
-                <?php if('country' == $type){ ?>
-                <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
-                <div class="container">
-                <div class="justify-content-center">
-                    <table class="table table-responsive">
-                        <tbody>
-                            <tr>
-                                <td class="table-primary table-bordered"></td>
-                                <td colspan="2" class="table-primary table-bordered">Male</td>
-                                <td colspan="2" class="table-primary  table-bordered">Female</td>
-                                <td class="table-primary table-bordered"></td>
-                            </tr>
-                            <tr>
-                                <td class="table-primary table-bordered">Country</td>
-                                <td class="table-primary table-bordered">Refugee</td>
-                                <td class="table-primary table-bordered">Asylum Seeker</td>
-                                <td class="table-primary table-bordered">Refugee</td>
-                                <td class="table-primary table-bordered">Asylum Seeker</td>
-                                <td class="table-primary table-bordered">Totals</td>
-                            </tr>
-                        <?php                    
-                            foreach ($data as $key => $val):
-                        ?>
-                            <tr>
-                                <td><?= $val[0] ?></td>
-                                <td><?= $val[1] ?></td>
-                                <td><?= $val[2] ?></td>
-                                <td><?= $val[3] ?></td>
-                                <td><?= $val[4] ?></td>
-                                <td><?= $val[5] ?></td>
-                            </tr>
-                        <?php
-                            endforeach;                        
-                        ?>
-                        </tbody>
-                    </table>
-                </div>
-                </div>
+                <?php if(isset($type) && 'country' == $type){ ?>
+                    
+                    <div class="container div-center">
+                    <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
+                    <div class="card p-3">
+                        <table class="table table-responsive">
+                            <tbody>
+                                <tr>
+                                    <td class="table-primary table-bordered"></td>
+                                    <td colspan="2" class="table-primary table-bordered">Male</td>
+                                    <td colspan="2" class="table-primary  table-bordered">Female</td>
+                                    <td class="table-primary table-bordered"></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-primary table-bordered">Country</td>
+                                    <td class="table-primary table-bordered">Refugee</td>
+                                    <td class="table-primary table-bordered">Asylum Seeker</td>
+                                    <td class="table-primary table-bordered">Refugee</td>
+                                    <td class="table-primary table-bordered">Asylum Seeker</td>
+                                    <td class="table-primary table-bordered">Totals</td>
+                                </tr>
+                            <?php                    
+                                foreach ($data as $key => $val):
+                            ?>
+                                <tr>
+                                    <td><?= $val[0] ?></td>
+                                    <td><?= $val[1] ?></td>
+                                    <td><?= $val[2] ?></td>
+                                    <td><?= $val[3] ?></td>
+                                    <td><?= $val[4] ?></td>
+                                    <td><?= $val[5] ?></td>
+                                </tr>
+                            <?php
+                                endforeach;                        
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
                 
                 <?php } ?>
             </div>

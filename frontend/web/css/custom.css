@@ -50,3 +50,10 @@
   width: 100%;
   overflow-x: auto;
 }
+
+.div-center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
