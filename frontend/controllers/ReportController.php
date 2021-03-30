@@ -223,7 +223,7 @@ class ReportController extends \yii\web\Controller
                 //LGBT
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','source_of_info_id' ,$source->id
-                ])->andWhere(['gender' => 1])
+                ])->andWhere(['gender' => 3])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$num);

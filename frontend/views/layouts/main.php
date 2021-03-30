@@ -433,6 +433,14 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                         </p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>report/by-court-cases-by-office" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-court-cases-by-office')?'active':'' ?>">
+                                        <i class="fa fa-circle nav-icon"></i>
+                                        <p>Court Cases by office
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 

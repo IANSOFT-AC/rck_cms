@@ -13,7 +13,7 @@ $this->title = "RCK: Control Panel";
 </p>
 
 <div class="wrapper">
-	<div class="card">
+	<div class="card m-2">
 	<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Client Settings</h3></div>
 	    <div class="card-body">
 	        <div class="box box-primary">
@@ -128,7 +128,7 @@ $this->title = "RCK: Control Panel";
 	        </div>
 	    </div>
 	</div>
-	<div class="card">
+	<div class="card m-2">
 		<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Court Case Settings</h3></div>
 	    <div class="card-body">
 	        <div class="box box-primary">
@@ -196,7 +196,7 @@ $this->title = "RCK: Control Panel";
 	        </div>
 	    </div>
 	</div>
-	<div class="card">
+	<div class="card m-2">
 		<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Police Case Settings</h3></div>
 	    <div class="card-body">
 	        <div class="box box-primary">
@@ -227,7 +227,7 @@ $this->title = "RCK: Control Panel";
 	        </div>
 	    </div>
 	</div>
-	<div class="card">
+	<div class="card m-2">
 		<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Intervention Settings</h3></div>
 	    <div class="card-body">
 	        <div class="box box-primary">
@@ -272,7 +272,7 @@ $this->title = "RCK: Control Panel";
 	        </div>
 	    </div>
 	</div>
-	<div class="card">
+	<div class="card m-2">
 		<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Training Settings</h3></div>
 	    <div class="card-body">
 	        <div class="box box-primary">
@@ -290,7 +290,7 @@ $this->title = "RCK: Control Panel";
 	        </div>
 	    </div>
 	</div>
-	<div class="card">
+	<div class="card m-2">
 		<div class="card-header"><h3 class="box-title" data-speechify-sentence="">Role Based Access Settings</h3></div>
 	    <div class="card-body">
 	        <div class="box box-primary">
