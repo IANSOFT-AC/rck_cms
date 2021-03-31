@@ -51,7 +51,7 @@ class Counseling extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['code', 'intervention_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['code', 'intervention_id', 'created_at', 'updated_at', 'created_by', 'updated_by','consent'], 'integer'],
             [['intervention_id','type'], 'required'],
             [['presenting_problem', 'date', 'therapeutic', 'conseptualization', 'intervention', 'counsellors', 'next_appointment_date', 'type', 'case_status'], 'string'],
             [['session', 'counseling_intake_form'], 'string', 'max' => 255],
@@ -86,6 +86,7 @@ class Counseling extends \yii\db\ActiveRecord
             'case_status' => 'Case Status',
             'counsellors' => 'Counsellors self Evaluation',
             'counseling_intake_form' => 'Counseling Intake Form',
+            'consent' => 'Consent',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

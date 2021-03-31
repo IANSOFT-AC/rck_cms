@@ -51,10 +51,11 @@ class Training extends \yii\db\ActiveRecord
     {
         return [
             [['no_of_participants','topic', 'venue','date'],'required'],
-            [['organizer_id', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['facilitators', 'no_of_participants','date'], 'string'],
+            [['organizer_id','type','created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['facilitators', 'no_of_participants','date','0-9','10-19','20-24','25-59','60+','boys','girls','men','women'], 'string'],
             [['organizer', 'topic', 'venue', 'participants_scan'], 'string', 'max' => 255],
             [['organizer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organizer::className(), 'targetAttribute' => ['organizer_id' => 'id']],
+            [['type'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingType::className(), 'targetAttribute' => ['type' => 'id']],
         ];
     }
 
@@ -110,5 +111,10 @@ class Training extends \yii\db\ActiveRecord
     public function getROrganizer()
     {
         return $this->hasOne(Organizer::className(), ['id' => 'organizer_id']);
+    }
+
+    public function getTType()
+    {
+        return $this->hasOne(TrainingType::className(), ['id' => 'type']);
     }
 }

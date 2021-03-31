@@ -174,7 +174,7 @@ $this->title = "RCK: Control Panel";
 					<div class="col-md-6">
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
-	                    	<?= Html::a('<b> Offences Settings</b>',['offence/index'],['class' => 'profile-link']) ?></p>
+	                    	<?= Html::a('<b>Offences Settings</b>',['offence/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>
@@ -268,6 +268,13 @@ $this->title = "RCK: Control Panel";
 	                    </p>
 	                    <br>
 	                </div>
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b>SGBV Type Settings</b>',['sgbv-type/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
 	            </div>
 	        </div>
 	    </div>
@@ -282,6 +289,13 @@ $this->title = "RCK: Control Panel";
 	                    <p class="setup-p" data-speechify-sentence="">
 	                    	<i class="fas fa-wrench"></i>
 	                    	<?= Html::a('<b>Organizer Settings</b>',['organizer/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
+					<div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b>Donor Settings</b>',['donor/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
 	                </div>

@@ -3,18 +3,19 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%civil_offence}}`.
+ * Handles the creation of table `{{%training_type}}`.
  */
-class m210330_173545_create_civil_offence_table extends Migration
+class m210331_061734_create_training_type_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%civil_offence}}', [
+        $this->createTable('{{%training_type}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string()->notNull(),
+            'name' => $this->string(),
+            'desc' => $this->text(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
             'created_by' => $this->integer(),
@@ -27,6 +28,6 @@ class m210330_173545_create_civil_offence_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%civil_offence}}');
+        $this->dropTable('{{%training_type}}');
     }
 }
