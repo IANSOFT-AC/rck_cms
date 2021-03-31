@@ -201,8 +201,12 @@ class InterventionController extends Controller
                 $model->case_id = implode(',',Yii::$app->request->post()['Intervention']['case_id']);
             }
             $model->intervention_type_id = implode(",",Yii::$app->request->post()['Intervention']['intervention_type_id']);
-            $model->sgbv = implode(",",Yii::$app->request->post()['Intervention']['sgbv']);
-            $model->agency_id = implode(",",Yii::$app->request->post()['Intervention']['agency_id']);
+            if(isset(Yii::$app->request->post()['Intervention']['sgbv'])){
+                $model->sgbv = implode(",",Yii::$app->request->post()['Intervention']['sgbv']);
+            }
+            if(isset(Yii::$app->request->post()['Intervention']['agency_id'])){
+                $model->agency_id = implode(",",Yii::$app->request->post()['Intervention']['agency_id']);
+            }
             $model->save();
             //return $this->redirect(['counseling/create', 'id' => $model->id]);
 
@@ -317,7 +321,12 @@ class InterventionController extends Controller
                 $model->case_id = implode(',',Yii::$app->request->post()['Intervention']['case_id']);
             }
             $model->intervention_type_id = implode(",",Yii::$app->request->post()['Intervention']['intervention_type_id']);
-            $model->sgbv = implode(",",Yii::$app->request->post()['Intervention']['sgbv']);
+            if(isset(Yii::$app->request->post()['Intervention']['sgbv'])){
+                $model->sgbv = implode(",",Yii::$app->request->post()['Intervention']['sgbv']);
+            }
+            if(isset(Yii::$app->request->post()['Intervention']['agency_id'])){
+                $model->agency_id = implode(",",Yii::$app->request->post()['Intervention']['agency_id']);
+            }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
