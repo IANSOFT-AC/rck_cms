@@ -15,6 +15,8 @@ use app\models\TrainingUpload;
 use yii\helpers\ArrayHelper;
 use common\models\User;
 use common\components\AccessRule;
+use app\models\TrainingType;
+use app\models\Donor;
 
 /**
  * TrainingController implements the CRUD actions for Training model.
@@ -175,11 +177,15 @@ class TrainingController extends Controller
         }
 
         $organizers = ArrayHelper::map(Organizer::find()->all(), 'id', 'name');
+        $donors = ArrayHelper::map(Donor::find()->all(), 'id', 'name');
+        $trainingTypes = ArrayHelper::map(TrainingType::find()->all(), 'id', 'name');
         $organizers[0] = 'other';
 
         return $this->render('create', [
             'model' => $model,
-            'organizers' => $organizers
+            'organizers' => $organizers,
+            'donors' => $donors,
+            'trainingTypes' => $trainingTypes
         ]);
     }
 
@@ -208,11 +214,15 @@ class TrainingController extends Controller
         }
 
         $organizers = ArrayHelper::map(Organizer::find()->all(), 'id', 'name');
+        $donors = ArrayHelper::map(Donor::find()->all(), 'id', 'name');
+        $trainingTypes = ArrayHelper::map(TrainingType::find()->all(), 'id', 'name');
         $organizers[0] = 'other';
 
         return $this->render('update', [
             'model' => $model,
-            'organizers' => $organizers
+            'organizers' => $organizers,
+            'donors' => $donors,
+            'trainingTypes' => $trainingTypes
         ]);
     }
 

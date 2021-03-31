@@ -51,11 +51,12 @@ class Training extends \yii\db\ActiveRecord
     {
         return [
             [['no_of_participants','topic', 'venue','date'],'required'],
-            [['organizer_id','type','created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['organizer_id','type','donor_id','created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['facilitators', 'no_of_participants','date','0-9','10-19','20-24','25-59','60+','boys','girls','men','women'], 'string'],
             [['organizer', 'topic', 'venue', 'participants_scan'], 'string', 'max' => 255],
             [['organizer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organizer::className(), 'targetAttribute' => ['organizer_id' => 'id']],
             [['type'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingType::className(), 'targetAttribute' => ['type' => 'id']],
+            [['donor_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingType::className(), 'targetAttribute' => ['donor_id' => 'id']],
         ];
     }
 
@@ -91,6 +92,7 @@ class Training extends \yii\db\ActiveRecord
             'facilitators' => 'Facilitators',
             'no_of_participants' => 'No. of Participants',
             'participants_scan' => 'Participants List',
+            'donor_id' => 'Donor',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created_at' => 'Created At',
@@ -116,5 +118,10 @@ class Training extends \yii\db\ActiveRecord
     public function getTType()
     {
         return $this->hasOne(TrainingType::className(), ['id' => 'type']);
+    }
+
+    public function getDonor()
+    {
+        return $this->hasOne(Donor::className(), ['id' => 'donor_id']);
     }
 }

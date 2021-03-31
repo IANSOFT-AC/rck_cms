@@ -19,6 +19,12 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'organizer')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-6">
+                    <?= $form->field($model, 'type')->dropDownList($trainingTypes,['prompt' => '-- Select Type of Training? --']) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'donor')->dropDownList($donors,['prompt' => '-- Select the Donor? --']) ?>
+                </div>
+                <div class="col-md-6">
                     <?= $form->field($model, 'date')->textInput(['type' => 'date','class' => 'form-control no-future','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date, 'yyyy-MM-dd')]) ?>
                 </div>
                 <div class="col-md-6">

@@ -17,7 +17,9 @@ $this->params['breadcrumbs'][] = ['label'=> $this->title];
         <div class="card-body">
             <?= $this->render('_form', [
                 'model' => $model,
-                'organizers' => $organizers
+                'organizers' => $organizers,
+                'donors' => $donors,
+                'trainingTypes' => $trainingTypes
             ]) ?>
         </div>
     </div>
