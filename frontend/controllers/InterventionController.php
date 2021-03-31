@@ -18,6 +18,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\RckOffices;
+use app\models\SGBVType;
 use app\models\Agency;
 use common\models\User;
 use common\components\AccessRule;
@@ -200,6 +201,8 @@ class InterventionController extends Controller
                 $model->case_id = implode(',',Yii::$app->request->post()['Intervention']['case_id']);
             }
             $model->intervention_type_id = implode(",",Yii::$app->request->post()['Intervention']['intervention_type_id']);
+            $model->sgbv = implode(",",Yii::$app->request->post()['Intervention']['sgbv']);
+            $model->agency_id = implode(",",Yii::$app->request->post()['Intervention']['agency_id']);
             $model->save();
             //return $this->redirect(['counseling/create', 'id' => $model->id]);
 
@@ -223,6 +226,7 @@ class InterventionController extends Controller
         $client = ArrayHelper::map(Refugee::find()->where(['id'=>$id])->all(),'id','fullNames');
         $rck_offices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
         $agencies = ArrayHelper::map(Agency::find()->all(),'id','name');
+        $sgbvTypes = ArrayHelper::map(SGBVType::find()->all(),'id','name');
 
         return $this->render('create', [
             'model' => $model,
@@ -232,7 +236,8 @@ class InterventionController extends Controller
             'court_cases' => $court_cases,
             'client' => $client,
             'rck_offices' => $rck_offices,
-            'agencies' => $agencies
+            'agencies' => $agencies,
+            'sgbvTypes' => $sgbvTypes
         ]);
     }
 
@@ -312,6 +317,7 @@ class InterventionController extends Controller
                 $model->case_id = implode(',',Yii::$app->request->post()['Intervention']['case_id']);
             }
             $model->intervention_type_id = implode(",",Yii::$app->request->post()['Intervention']['intervention_type_id']);
+            $model->sgbv = implode(",",Yii::$app->request->post()['Intervention']['sgbv']);
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -323,6 +329,7 @@ class InterventionController extends Controller
         $police_cases = ArrayHelper::map(PoliceCases::find()->all(),'id','name');
         $rck_offices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
         $agencies = ArrayHelper::map(Agency::find()->all(),'id','name');
+        $sgbvTypes = ArrayHelper::map(SGBVType::find()->all(),'id','name');
 
         return $this->render('update', [
             'model' => $model,
@@ -332,7 +339,8 @@ class InterventionController extends Controller
             'police_cases' => $police_cases,
             'court_cases' => $court_cases,
             'rck_offices' => $rck_offices,
-            'agencies' => $agencies 
+            'agencies' => $agencies,
+            'sgbvTypes' => $sgbvTypes
         ]);
     }
 

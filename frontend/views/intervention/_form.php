@@ -19,7 +19,10 @@ use common\models\Helper;
             <div class="row">
                 <div class="col-md-6">
                     <?= $form->field($model, 'case_id[]')->dropDownList($cases,['prompt' => '-- Select Case or Issue --','multiple'=>'multiple', 'data-live-search' => "true",'class' => 'form-control selectpicker', 'options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->case_id)]) ?>
-                </div>                
+                </div>  
+                <div class="col-md-6">
+                    <?= $form->field($model, 'sgbv[]')->dropDownList($sgbvTypes,['prompt' => '--Select SGBV Type...','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->sgbv)]) ?>
+                </div>              
                 <div class="col-md-6">
                     <?= $form->field($model, 'client_id')->dropDownList($client) ?>
                 </div>
@@ -41,7 +44,7 @@ use common\models\Helper;
                 </div>
 
                 <div class="col-md-6">
-                    <?= $form->field($model, 'agency_id')->dropDownList($agencies,['prompt' => '--Select the Agency--']) ?>
+                    <?= $form->field($model, 'agency_id[]')->dropDownList($agencies,['prompt' => '--Select the Agency--','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->agency_id)]) ?>
                 </div>
 
                 <div class="col-md-6">
