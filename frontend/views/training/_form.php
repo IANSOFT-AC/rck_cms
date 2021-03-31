@@ -40,6 +40,33 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'no_of_participants')->textInput() ?>
                 </div>
                 <div class="col-md-6">
+                    <?= $form->field($model, '0_9')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, '10_19')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, '20_24')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, '25_59')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, '60+')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'boys')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'girls')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'men')->textInput() ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'women')->textInput() ?>
+                </div>
+                <div class="col-md-6">
                     <div class="custom-file">
                         <?= $form->field($model, 'participants_scan',[
                             'options' => [

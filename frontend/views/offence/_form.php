@@ -16,6 +16,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
+    <?= $form->field($model, 'offence_type')->dropDownList([1 => 'Civil',2 => 'Criminal'],['prompt' => '--Offence Type? --']) ?>
+
     <?php $form->field($model, 'created_at')->textInput() ?>
 
     <?php $form->field($model, 'updated_at')->textInput() ?>

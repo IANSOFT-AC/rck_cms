@@ -47,7 +47,12 @@ use yii\widgets\ActiveForm;
                 <div class="col-md-12">
                     <?= $form->field($model, 'counsellors')->textarea(['rows' => 6]) ?>
                 </div>
-                
+                <div class="col-md-12">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1" name="Refugee[consent]">
+                      <label class="custom-control-label" for="customSwitch1">Client Consent</label>
+                    </div>
+                </div>
             </div>
 
             <?= $form->field($model, 'intervention_id')->hiddenInput(['value' => $intervention])->label(false) ?>

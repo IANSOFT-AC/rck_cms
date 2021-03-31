@@ -181,6 +181,7 @@ class TrainingController extends Controller
         $trainingTypes = ArrayHelper::map(TrainingType::find()->all(), 'id', 'name');
         $organizers[0] = 'other';
 
+        
         return $this->render('create', [
             'model' => $model,
             'organizers' => $organizers,

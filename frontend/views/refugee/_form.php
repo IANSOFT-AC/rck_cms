@@ -263,6 +263,20 @@ use common\models\Helper;
                 </div>
             </div>
         </div><!--Rwo Three-->
+        <div class="col-md-12 mt-2 mb-2" id="work-permits">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Client Consent</h3>
+                </div>
+                <div class="card-body">
+                <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1" name="Refugee[consent]">
+                      <label class="custom-control-label" for="customSwitch1">Client Consent</label>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
 
     </div>
 

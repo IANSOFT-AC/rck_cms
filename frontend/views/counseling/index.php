@@ -12,7 +12,7 @@ isset($intervention->id) ? $this->params['breadcrumbs'][] = ['label' => 'Interve
 $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 <div class="counseling-index">   
-<div class="card">
+<div class="card m-1">
         <div class="card-header"><h1>Counseling Intake Form</h1></div>
         <div class="card-body">
     <?php 
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             </div>
         </div>
 
-    <div class="card">
+    <div class="card m-1">
         <div class="card-header">
             <h1><?= Html::encode($this->title) ?></h1>
         </div>
