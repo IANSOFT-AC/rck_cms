@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles adding columns to table `{{%training}}`.
  */
-class m210330_184720_add_groupings_column_to_training_table extends Migration
+class m210332_184720_add_groupings_column_to_training_table extends Migration
 {
     /**
      * {@inheritdoc}
