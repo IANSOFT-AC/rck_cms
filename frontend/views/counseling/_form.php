@@ -49,8 +49,8 @@ use yii\widgets\ActiveForm;
                 </div>
                 <div class="col-md-12">
                     <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="customSwitch1" name="Refugee[consent]">
-                      <label class="custom-control-label" for="customSwitch1">Client Consent</label>
+                      <input type="checkbox" class="custom-control-input" id="consentSwitch" name="Refugee[consent]">
+                      <label class="custom-control-label" for="consentSwitch">Client Consent</label>
                     </div>
                 </div>
             </div>
@@ -65,9 +65,9 @@ use yii\widgets\ActiveForm;
 
             <?php $form->field($model, 'updated_by')->textInput() ?>
 
-            <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', '<i class="fa fa-check"></i> save'), ['class' => 'btn btn-success']); ?>
-        <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>
+            <div class="form-group"  id="actions">
+                <?= Html::submitButton(Yii::t('app', '<i class="fa fa-check"></i> save'), ['class' => 'btn btn-success']); ?>
+                <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>
@@ -78,6 +78,16 @@ use yii\widgets\ActiveForm;
 $script = <<<JS
 
     $('.field-counseling-next_appointment_date').parent().fadeOut()
+
+    $('#actions').hide();
+
+    $('input#consentSwitch').on('change', function(){
+        if ($(this).is(':checked')) {
+            $('#actions').show();
+        }else{
+            $('#actions').hide();
+        }
+    })
 
     $('#counseling-case_status').on('change', function(e){
         if(e.target.value == "open"){

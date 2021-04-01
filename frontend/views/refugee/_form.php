@@ -270,8 +270,8 @@ use common\models\Helper;
                 </div>
                 <div class="card-body">
                 <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="customSwitch1" name="Refugee[consent]">
-                      <label class="custom-control-label" for="customSwitch1">Client Consent</label>
+                      <input type="checkbox" class="custom-control-input" id="consentSwitch" name="Refugee[consent]">
+                      <label class="custom-control-label" for="consentSwitch">Client Consent</label>
                     </div>
                     
                 </div>
@@ -288,7 +288,7 @@ use common\models\Helper;
 
     <?php $form->field($model, 'updated_by')->textInput() ?>
 
-    <div class="form-group">
+    <div class="form-group" id="actions">
         <?= Html::submitButton('Next <i class="fa fa-check"></i>', ['class' => 'btn btn-success']) ?>
         <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>
     </div>
@@ -316,6 +316,16 @@ $script = <<<JS
         .field-refugee-form_of_torture_id,\
         .field-refugee-languages, \
         .field-refugee-custom_language').parent().hide()
+
+    $('#actions').hide();
+
+    $('input#consentSwitch').on('change', function(){
+        if ($(this).is(':checked')) {
+            $('#actions').show();
+        }else{
+            $('#actions').hide();
+        }
+    })
 
     $('#refugee-country_of_origin').on('change', function(){
         if(this.value == 3){

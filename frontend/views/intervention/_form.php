@@ -78,7 +78,8 @@ $script = <<<JS
         $('.field-intervention-court_case,\
             .field-intervention-police_case,\
             .field-intervention-office_id,\
-            .field-intervention-agency_id').parent().fadeOut();
+            .field-intervention-agency_id,\
+            .field-intervention-sgbv').parent().fadeOut();
     }
     hideEm()
 
@@ -96,6 +97,12 @@ $script = <<<JS
             $('.field-intervention-police_case').parent().fadeIn('slow')
         }else{
             $('.field-intervention-police_case').parent().fadeOut()
+        }
+
+        if($('#intervention-case_id option[value=14]:selected').length > 0){
+            $('.field-intervention-sgbv').parent().fadeIn();
+        }else{
+            $('.field-intervention-sgbv').parent().fadeOut();
         }
     }).change();
 

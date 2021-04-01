@@ -112,11 +112,19 @@ $script = <<<JS
     //Hide fields initially
     $('.field-training-organizer').hide()
 
+    $('.field-training-donor').parent().hide()
+
     $('#training-organizer_id').on('change', function(){
         if(this.value == 0){
             $('.field-training-organizer').fadeIn('slow');
         }else{
             $('.field-training-organizer').fadeOut('slow');
+        }
+
+        if(this.value == 1){
+            $('.field-training-donor').parent().show()
+        }else{
+            $('.field-training-donor').parent().hide()
         }
     });
 
