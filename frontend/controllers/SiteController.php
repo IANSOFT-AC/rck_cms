@@ -139,6 +139,9 @@ class SiteController extends Controller
             $model->username = Yii::$app->request->post()['username'];
             $model->password = Yii::$app->request->post()['password'];
             $model->login();
+
+            $user->generateAuthKey();
+            $user->save();
             
             //return $user;
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
