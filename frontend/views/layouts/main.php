@@ -170,7 +170,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                         <div class="dropdown-divider"></div>
 
-                        <?= (!Yii::$app->user->isGuest)? Html::a('<i class="fas fa-sign-out-alt"></i> Logout','/site/logout/',['class'=> 'dropdown-item','data' => ['method'=>'post']]):''; ?>
+                        <?= (!Yii::$app->user->isGuest)? Html::a('<i class="fas fa-sign-out-alt"></i> Logout','/site/logout',['class'=> 'dropdown-item','data' => ['method'=>'post']]):''; ?>
 
                         <div class="dropdown-divider"></div>
 
@@ -588,8 +588,6 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 <!-- END OF ADD SWEET ALERT -->
 <script>
         //GET VALUE OF META TAG 
-
-        
         //console.log("token",getMeta('csrf-token'))
 
          if('serviceWorker' in navigator){
@@ -688,6 +686,13 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         });                        
                     }
                 })
+
+
+                //get event click of logout link
+                $('a[href$="/site/logout"]').on('click', function(){
+                    //delete the authkey from the local storage
+                    window.localStorage.removeItem('auth_token');
+                });
             });
 
             let serializeForm = function (form) {
