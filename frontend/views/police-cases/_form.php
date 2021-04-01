@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 
 use app\models\Policestation;
 use app\models\Lawyer;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PoliceCases */
@@ -18,9 +19,6 @@ use app\models\Lawyer;
 
         <div class="card-body">
             <div class="row">
-                
-
-
 
                 <div class="col-md-6">
                     
@@ -55,6 +53,16 @@ use app\models\Lawyer;
                     <?= $form->field($model, 'ob_number')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'ob_details')->textarea() ?>
+                    
+                    
+                    <?= $form->field($model, 'offence_type')->dropDownList([1 => 'Civil',2 => 'Criminal'],['prompt' => '--Offence Type? --'//after prompt
+                                    ,'onchange'=>'
+                                    $.get( "'.Url::toRoute('police-cases/catlists').'", { id: $(this).val() } )
+                                                .done(function( data )
+                                        {
+                                            $( "select#policecases-offence_id" ).html( data );
+                                        });
+                                    ']) ?>
 
                     <?= $form->field($model, 'offence_id')->dropDownList($offences,
                             ['prompt' => '-- Choose Offence --']) ?>

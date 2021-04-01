@@ -57,7 +57,7 @@ class PoliceCases extends \yii\db\ActiveRecord
         return [
             [['complainant'], 'required'],
             [['first_instance_interview','policestation'],'string'],
-            [['police_station_id','refugee_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['police_station_id', 'refugee_id', 'offence_type', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name', 'gender', 'contacts', 'age', 'investigating_officer', 'ob_number', 'ob_details', 'offence', 'complainant'], 'string', 'max' => 255],
             [['investigating_officer_contacts'], 'string', 'max' => 100],
             [['police_station_id'], 'exist', 'skipOnError' => true, 'targetClass' => Policestation::className(), 'targetAttribute' => ['police_station_id' => 'id']],
@@ -95,7 +95,7 @@ class PoliceCases extends \yii\db\ActiveRecord
             'investigating_officer_contacts' => 'Investigating Officer Contacts',
             'ob_number' => 'OB Number',
             'ob_details' => 'OB Details',
-            'offence' => 'Offence',
+            'offence' => 'Describe Offence',
             'refugee_id' => 'Client',
             'complainant' => 'Complainant',
             'first_instance_interview' => 'First Instance Interview',
@@ -104,7 +104,8 @@ class PoliceCases extends \yii\db\ActiveRecord
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'policestation' => 'Police Station',
-            'offence_id' => 'Offence ID'
+            'offence_id' => 'Offence',
+            'offence_type' => 'Offence Type'
         ];
     }
 

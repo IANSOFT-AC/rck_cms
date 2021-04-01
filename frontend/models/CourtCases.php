@@ -59,7 +59,7 @@ class CourtCases extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['no_of_refugees', 'court_proceeding_id', 'legal_officer_id', 'counsellor_id', 'court_case_category_id', 'court_case_subcategory_id', 'refugee_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['no_of_refugees', 'court_proceeding_id','offence_type', 'legal_officer_id', 'counsellor_id', 'court_case_category_id', 'court_case_subcategory_id', 'refugee_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['first_instance_interview','counsellor','legal_officer'],'string'],
             [['name', 'offence', 'case_status','date_of_arrainment','next_court_date','magistrate','counsellor','legal_officer'], 'string', 'max' => 255],
             [['counsellor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Counsellors::className(), 'targetAttribute' => ['counsellor_id' => 'id']],
@@ -82,7 +82,7 @@ class CourtCases extends \yii\db\ActiveRecord
             'id' => 'ID',
             'no_of_refugees' => 'No Of Refugees',
             'name' => 'Name',
-            'offence' => 'Offence',
+            'offence' => 'Describe Offence',
             'offence_id' => 'Offence',
             'first_instance_interview' => 'First Instance Interview',
             'magistrate' => 'Magistrate',
@@ -97,6 +97,7 @@ class CourtCases extends \yii\db\ActiveRecord
             'refugee_id' => 'Client',
             'court_case_category_id' => 'Court Case Category',
             'court_case_subcategory_id' => 'Court Case Subcategory',
+            'offence_type' => 'Offence Type',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

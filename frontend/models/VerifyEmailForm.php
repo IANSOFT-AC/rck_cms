@@ -31,7 +31,20 @@ class VerifyEmailForm extends Model
         if (empty($token) || !is_string($token)) {
             throw new InvalidArgumentException('Verify email token cannot be blank.');
         }
-        $this->_user = User::findByVerificationToken($token);
+        $allegedUser = User::findByVerificationToken($token);
+
+        //implement token expiry
+        $start_date = new \DateTime('@' .$allegedUser->updated_at);
+        $since_start = $start_date->diff(new \DateTime());
+        $hours = $since_start->days * 24;
+        $hours += $since_start->h;
+
+        if($minutes < 48){
+            $this->_user = $allegedUser;
+        }else{
+            throw new InvalidArgumentException('The token has already expired. Kindly sent another one and use it before 30 minutes');
+        }
+
         if (!$this->_user) {
             throw new InvalidArgumentException('Wrong verify email token.');
         }
@@ -47,6 +60,7 @@ class VerifyEmailForm extends Model
     {
         $user = $this->_user;
         $user->status = User::STATUS_ACTIVE;
+
         return $user->save(false) ? $user : null;
     }
 }

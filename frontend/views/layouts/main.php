@@ -174,7 +174,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                         <div class="dropdown-divider"></div>
 
-                        <?= Html::a('<i class="fas fa-user"></i> Profile',['./employee'],['class'=> 'dropdown-item']); ?>
+                        <?= Html::a('<i class="fas fa-user"></i> Profile',['./site/profile'],['class'=> 'dropdown-item']); ?>
 
                         <div class="dropdown-divider"></div>
 

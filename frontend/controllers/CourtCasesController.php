@@ -126,19 +126,19 @@ class CourtCasesController extends Controller
 
     public function actionCatlists($id)
     {
-        $posts = CourtCaseSubcategory::find()
-         ->where(['category_id' => $id])
+        $posts = Offence::find()
+         ->where(['offence_type' => $id])
          ->orderBy('id DESC')
          ->all();
 
          if($posts){
-         echo "<option>--Select Sub Category--</option>";
-         foreach($posts as $post){
-            echo "<option value='".$post->id."'>".$post->name."</option>";
-         }
+            echo "<option>--Select Offence--</option>";
+            foreach($posts as $post){
+                echo "<option value='".$post->id."'>".$post->name."</option>";
+            }
          }
          else{
-            echo "<option>-</option>";
+            echo "<option>--No offences--</option>";
          }
 
     }

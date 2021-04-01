@@ -9,7 +9,6 @@ use app\models\CourtProceeding;
 use app\models\Counsellors;
 use app\models\CourtCaseCategory;
 use yii\helpers\Url;
-use kartik\select2\Select2;
 
 
 
@@ -30,6 +29,15 @@ use kartik\select2\Select2;
                         <?= $form->field($model, 'no_of_refugees')->textInput() ?>
 
                         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                        
+                        <?= $form->field($model, 'offence_type')->dropDownList([1 => 'Civil',2 => 'Criminal'],['prompt' => '--Offence Type? --'//after prompt
+                                    ,'onchange'=>'
+                                    $.get( "'.Url::toRoute('court-cases/catlists').'", { id: $(this).val() } )
+                                                .done(function( data )
+                                        {
+                                            $( "select#courtcases-offence_id" ).html( data );
+                                        });
+                                    ']) ?>
 
                         <?= $form->field($model, 'offence_id')->dropDownList($offences,
                             ['prompt' => '-- Choose Offence --']) ?>

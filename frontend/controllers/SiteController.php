@@ -37,7 +37,7 @@ class SiteController extends Controller
                     //     'roles' => ['@'],
                     // ],
                     [
-                        'actions' => ['logout','index','create','update','delete'],
+                        'actions' => ['logout','index','create','update','delete','profile'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -46,7 +46,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'logout' => ['post','get'],
                 ],
             ],
         ];
@@ -76,6 +76,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionProfile()
+    {
+        return $this->render('profile');
     }
 
     
@@ -295,14 +300,14 @@ class SiteController extends Controller
      */
     public function actionVerifyEmail($token)
     {
+        $this->layout = 'login';
         try {
             $model = new VerifyEmailForm($token);
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
-        $this->layout = 'login';
-        if ($user = $model->verifyEmail()) {
 
+        if ($user = $model->verifyEmail()) {
             Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
             return $this->goHome();
             /*if (Yii::$app->user->login($user)) {
@@ -325,6 +330,7 @@ class SiteController extends Controller
         $model = new ResendVerificationEmailForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
+                
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
                 return $this->goHome();
             }

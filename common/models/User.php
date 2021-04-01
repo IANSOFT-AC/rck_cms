@@ -6,6 +6,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use app\models\UserGroup;
 
 /**
  * User model
@@ -190,6 +191,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAuthKey()
     {
         return $this->auth_key;
+    }
+
+    //find the role
+    public function getRole(){
+        return UserGroup::findOne($this->id)->group;
     }
 
     /**

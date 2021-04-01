@@ -216,6 +216,26 @@ class PoliceCasesController extends Controller
         ]);
     }
 
+
+    public function actionCatlists($id)
+    {
+        $posts = Offence::find()
+         ->where(['offence_type' => $id])
+         ->orderBy('id DESC')
+         ->all();
+
+         if($posts){
+         echo "<option>--Select Offence--</option>";
+         foreach($posts as $post){
+            echo "<option value='".$post->id."'>".$post->name."</option>";
+         }
+         }
+         else{
+            echo "<option>-- No Offences --</option>";
+         }
+
+    }
+
     /**
      * Displays a single PoliceCases model.
      * @param integer $id
