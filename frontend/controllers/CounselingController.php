@@ -151,8 +151,24 @@ class CounselingController extends Controller
         $model = new Counseling();
         $intervention = Intervention::findOne($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {            
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+          if(isset(Yii::$app->request->post()['Counseling']['consent'])){
+            if(Yii::$app->request->post()['Counseling']['consent'] == "on"){
+              $model->consent = 1;
+            }else{
+              $model->consent = 0;
+            }
+          }else{
+            $model->consent = 0;
+          }
+
+          if($model->save()){
             return $this->redirect(['view', 'id' => $model->id]);
+          }else{
+            foreach ($model->getErrors() as $error){
+              Yii::$app->session->setFlash('error', $error[0]);
+            }
+          }
         }
 
         return $this->render('create', [

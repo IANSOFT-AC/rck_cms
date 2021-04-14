@@ -71,7 +71,7 @@ $script = <<<JS
             {title : 'Gender', data : 'gender'},
             {title : 'RCK No', data : 'rck_no'},
             {title : 'Old RCK', data : 'old_rck'},
-            {title : 'Country', data : 'country'},
+            {title : 'Nationality', data : 'country'},
             //{title : 'created At', data: 'created_at'},
             {
                 title: 'Actions',

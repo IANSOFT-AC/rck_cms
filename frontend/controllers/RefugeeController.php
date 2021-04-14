@@ -119,7 +119,7 @@ class RefugeeController extends Controller
                     ],
                 ],
                 'denyCallback' => function($rule, $action) {
-                    Yii::$app->response->redirect(['site/login']); 
+                    Yii::$app->response->redirect(['site/login']);
                 },
             ],
         ];
@@ -154,7 +154,7 @@ class RefugeeController extends Controller
             'model' => $this->findModel($id),
             'dependant' => new Dependant(),
             'dependants' => Dependant::find()->where(['refugee_id' => $id])->all(),
-            'relationships' => ArrayHelper::map(Relationship::find()->all(),'id','name')  
+            'relationships' => ArrayHelper::map(Relationship::find()->all(),'id','name')
         ]);
     }
 
@@ -181,7 +181,7 @@ class RefugeeController extends Controller
     {
         $model = new Dependant();
 
-        
+
 
         if ($model->load(Yii::$app->request->post())) {
             $existingDependantsCount = Dependant::find()->where(['refugee_id' => Yii::$app->request->post()['refugee_id'] ])->count();
@@ -194,14 +194,14 @@ class RefugeeController extends Controller
             //     Yii::$app->getSession()->setFlash('error', 'You can only add upto '.$client->dependants.' dependants');
             //     return $this->redirect(['view', 'id' => Yii::$app->request->post()['refugee_id']]);
             // }
-            
+
         }
     }
 
     public function actionFiles($id){
         $model = $this->findModel($id);
         $uploads = RefugeeUploads::find()->where(['type'=> $model->asylum_status])->all();
-        
+
 
         //HANDLE POST OF FILES.
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -222,11 +222,11 @@ class RefugeeController extends Controller
 
         if (Yii::$app->request->isPost) {
             $rst = 5;
-            
+
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if($model->imageFile){
-                $rst = $model->upload("refugees", Yii::$app->request->post()['id'], Yii::$app->request->post()['refugee_upload_id']); 
-            }   
+                $rst = $model->upload("refugees", Yii::$app->request->post()['id'], Yii::$app->request->post()['refugee_upload_id']);
+            }
 
             $model->multipleFiles = UploadedFile::getInstances($model, 'multipleFiles');
             if($model->multipleFiles){
@@ -341,12 +341,26 @@ class RefugeeController extends Controller
                 $model->spoken_languages = implode(',',Yii::$app->request->post()['Refugee']['spoken_languages']);
             }
             if(isset(Yii::$app->request->post()['Refugee']['source_of_info_id'])){
-                $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_info_id']);
+                $model->source_of_info_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_info_id']);
+            }
+            if(isset(Yii::$app->request->post()['Refugee']['consent'])){
+              if(Yii::$app->request->post()['Refugee']['consent'] == "on"){
+                $model->consent = 1;
+              }else{
+                $model->consent = 0;
+              }
+            }else{
+              $model->consent = 0;
             }
 
-            $model->save();
-            
-            return $this->redirect(['files', 'id' => $model->id]);
+            if($model->save()){
+                return $this->redirect(['files', 'id' => $model->id]);
+            }else{
+                foreach ($model->getErrors() as $error){
+                  Yii::$app->session->setFlash('error', $error[0]);
+        				}
+                //return $this->redirect(['create', 'model' => $model]);
+            }
         }
 
         return $this->render('create', [
@@ -369,7 +383,7 @@ class RefugeeController extends Controller
 
     /***
 
-        
+
 
     */
 
@@ -438,7 +452,7 @@ class RefugeeController extends Controller
             'camps' => $camps ,
             'conflicts' => $conflicts,
             'countries' => $countries,
-            'gender' => $gender,            
+            'gender' => $gender,
             'modeOfEntry' => $modeOfEntry,
             'rck_offices' => $rck_offices,
             'asylum_types' => $asylum_types,

@@ -207,20 +207,25 @@ class InterventionController extends Controller
             if(isset(Yii::$app->request->post()['Intervention']['agency_id'])){
                 $model->agency_id = implode(",",Yii::$app->request->post()['Intervention']['agency_id']);
             }
-            $model->save();
             //return $this->redirect(['counseling/create', 'id' => $model->id]);
 
-            //check if the record has uploads in the interventions upload part
-            $uploads = InterventionUpload::find()->where(['in','issue_id', Yii::$app->request->post()['Intervention']['case_id'] ])->all();
-            // echo "<pre>";
-            // echo count($uploads);
-            // print_r($uploads);
-            // exit();
-            if(count($uploads) > 0){
-                return $this->redirect(['files', 'id' => $model->id, 'uploads' => $uploads]);
+
+            if($model->save()){
+              //check if the record has uploads in the interventions upload part
+              $uploads = InterventionUpload::find()->where(['in','issue_id', Yii::$app->request->post()['Intervention']['case_id'] ])->all();
+              // echo "<pre>";
+              // echo count($uploads);
+              // print_r($uploads);
+              // exit();
+              if(count($uploads) > 0){
+                  return $this->redirect(['files', 'id' => $model->id, 'uploads' => $uploads]);
+              }
+              return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+              foreach ($model->getErrors() as $error){
+                Yii::$app->session->setFlash('error', $error[0]);
+              }
             }
-            return $this->redirect(['view', 'id' => $model->id]);
-            
         }
 
         $cases = ArrayHelper::map(Casetype::find()->all(),'id','type');
@@ -278,11 +283,11 @@ class InterventionController extends Controller
 
         if (Yii::$app->request->isPost) {
             $rst = 5;
-            
+
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if($model->imageFile){
-                $rst = $model->upload("interventions", Yii::$app->request->post()['id'], Yii::$app->request->post()['intervention_upload_id']); 
-            }   
+                $rst = $model->upload("interventions", Yii::$app->request->post()['id'], Yii::$app->request->post()['intervention_upload_id']);
+            }
 
             $model->multipleFiles = UploadedFile::getInstances($model, 'multipleFiles');
             if($model->multipleFiles){
@@ -303,7 +308,7 @@ class InterventionController extends Controller
         }
         //return $this->redirect(['police-cases/index']);
     }
-    
+
 
     /**
      * Updates an existing Intervention model.
@@ -422,5 +427,5 @@ class InterventionController extends Controller
         return $rst;
     }
 
-    
+
 }

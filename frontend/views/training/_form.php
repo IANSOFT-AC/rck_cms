@@ -16,8 +16,9 @@ use yii\widgets\ActiveForm;
             <div class="row">
                 <div class="col-md-6">
                     <?= $form->field($model, 'organizer_id')->dropDownList($organizers,['prompt' => '-- Select Organizer? --']) ?>
-                    <?= $form->field($model, 'organizer')->textInput(['maxlength' => true]) ?>
                 </div>
+                <div class="col-md-6">
+                  <?= $form->field($model, 'organizer')->textInput(['maxlength' => true]) ?></div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'type')->dropDownList($trainingTypes,['prompt' => '-- Select Type of Training? --']) ?>
                 </div>
@@ -74,7 +75,7 @@ use yii\widgets\ActiveForm;
                             ],
                             'labelOptions' => [ 'class' => 'custom-file-label' ]
                         ])->fileInput(['class' => 'custom-file-input']) ?>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="custom-file">
@@ -82,9 +83,9 @@ use yii\widgets\ActiveForm;
                             'options' => [
                                 'class' => 'custom-file has-icon has-label',
                             ],
-                            'labelOptions' => [ 'class' => 'custom-file-label' ]
-                            ])->fileInput(['multiple'=> true, 'class' => 'custom-file-input uploadform-imagefile']) ?>
-                    </div>                    
+                            'labelOptions' => [ 'class' => 'custom-file-label','value' => 'photos' ]
+                            ])->fileInput(['multiple'=> true, 'class' => 'custom-file-input uploadform-imagefile'])->label('Photos') ?>
+                    </div>
                 </div>
 
                     <?php $form->field($model, 'created_by')->textInput() ?>
@@ -110,21 +111,22 @@ use yii\widgets\ActiveForm;
 $script = <<<JS
 
     //Hide fields initially
-    $('.field-training-organizer').hide()
+    $('.field-training-donor, .field-training-type, .field-training-organizer').parent().hide()
 
-    $('.field-training-donor').parent().hide()
+    $('#training-0_9, #training-10_19, #training-20_24, #training-25_59, #training-boys, #training-girls, #training-men, #training-women, #training-no_of_participants').val(0)
+    $('#training-60+').val(0)
 
     $('#training-organizer_id').on('change', function(){
         if(this.value == 0){
-            $('.field-training-organizer').fadeIn('slow');
+            $('.field-training-organizer').parent().fadeIn('slow');
         }else{
-            $('.field-training-organizer').fadeOut('slow');
+            $('.field-training-organizer').parent().fadeOut('slow');
         }
 
         if(this.value == 1){
-            $('.field-training-donor').parent().show()
+            $('.field-training-donor, .field-training-type').parent().show()
         }else{
-            $('.field-training-donor').parent().hide()
+            $('.field-training-donor, .field-training-type').parent().hide()
         }
     });
 
@@ -136,14 +138,13 @@ $script = <<<JS
 
     $('#training-photos').on('change', function() {
         let count =0
-        count = $(this)[0].files.length;        
+        count = $(this)[0].files.length;
         var file = $(this)[0].files[0].name;
         let title = $(this).siblings( "label" ).text();
         file = (count == 1) ? file : count
         $(this).siblings( "label" ).text(" ("+ file + ") File selected");
     });
-    
+
 JS;
 
 $this->registerJs($script);
-

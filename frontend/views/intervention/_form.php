@@ -99,7 +99,7 @@ $script = <<<JS
             $('.field-intervention-police_case').parent().fadeOut()
         }
 
-        if($('#intervention-case_id option[value=14]:selected').length > 0){
+        if($('#intervention-case_id option[value=16]:selected').length > 0){
             $('.field-intervention-sgbv').parent().fadeIn();
         }else{
             $('.field-intervention-sgbv').parent().fadeOut();

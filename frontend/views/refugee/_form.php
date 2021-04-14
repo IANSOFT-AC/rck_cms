@@ -46,7 +46,7 @@ use common\models\Helper;
                             <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?></div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'user_group_id')->hiddenInput(['value' => 4])->label(false) ?>
-                            
+
                             <?= $form->field($model, 'date_of_birth')->textInput(['type' => 'date', 'class' => 'form-control no-future','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date_of_birth, 'yyyy-MM-dd')]) ?>
                             </div>
                         <div class="col-md-6">
@@ -130,7 +130,7 @@ use common\models\Helper;
                         </div>
                         <div class="col-md-6">
 
-                            
+
                             <?= $form->field($model, 'conflict')->dropDownList($conflicts, ['prompt' => 'Select ...']) ?>
 
                         </div>
@@ -171,11 +171,11 @@ use common\models\Helper;
                         <div class="col-md-6">
 
                             <?php $form->field($model, 'rck_no')->textInput() ?>
-                            
+
                             <?= $form->field($model, 'camp')->dropDownList([], ['prompt' => 'Select']) ?>
                             </div>
                         <div class="col-md-6">
-                            
+
                             <?= $form->field($model, 'physical_address')->textInput(['maxlength' => true]) ?>
 
                         </div>
@@ -255,8 +255,8 @@ use common\models\Helper;
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'interested_in_work_permit')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Interested in getting a Work Permit? --']) ?>
-                        
-                            <?= $form->field($model, 'interested_in_citizenship')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- interested in getting Kenyan Citizenship? --']) ?>
+
+                            <?php $form->field($model, 'interested_in_citizenship')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- interested in getting Kenyan Citizenship? --']) ?>
                         </div>
                     </div>
 
@@ -273,7 +273,7 @@ use common\models\Helper;
                       <input type="checkbox" class="custom-control-input" id="consentSwitch" name="Refugee[consent]">
                       <label class="custom-control-label" for="consentSwitch">Client Consent</label>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -304,7 +304,7 @@ $script = <<<JS
 
     //COnfirm if its new record
     let isNewRecord = $model->isNewRecord
-    
+
     //Hide fields initially
     $('.field-refugee-disability_desc, \
         .field-refugee-form_of_torture, \
@@ -325,7 +325,7 @@ $script = <<<JS
         }else{
             $('#actions').hide();
         }
-    })
+    }).change();
 
     $('#refugee-country_of_origin').on('change', function(){
         if(this.value == 3){
@@ -334,7 +334,7 @@ $script = <<<JS
                 .field-refugee-nhcr_case_no,\
                 #work-permits'
             ).fadeOut();
-            
+
             //Select an option for the asyslum seeker select field
             if(isNewRecord == 1){
                 $("#refugee-asylum_status option[value=" + 3 + "]").prop("selected",true);
@@ -379,7 +379,7 @@ $script = <<<JS
     }).change();
 
     $('#refugee-rck_office_id').on('change', function(){
-        if(this.value == 1 || this.value == 2){
+        if(this.value == 5 || this.value == 2){
             $('.field-refugee-camp').parent().fadeOut('slow');
         }else{
             $('.field-refugee-camp').parent().fadeIn('slow');
@@ -450,11 +450,11 @@ $script = <<<JS
         }
     }).change();;
 
-    
 
-    //$('#refugee-asylum_status').change();
+
+    $('#refugee-asylum_status').change();
     //$('#refugee-asylum_status').selectmenu('refresh', true);
-    
+
 JS;
 
 $this->registerJs($script);
