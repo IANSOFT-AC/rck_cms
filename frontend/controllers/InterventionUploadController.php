@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use app\models\InterventionUpload;
 use app\models\Casetype;
+use app\models\InterventionType;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -119,10 +120,12 @@ class InterventionUploadController extends Controller
         }
 
         $casetypes = ArrayHelper::map(Casetype::find()->all(),'id','type');
+        $interventiontypes = ArrayHelper::map(InterventionType::find()->all(),'id','intervention_type');
 
         return $this->render('create', [
             'model' => $model,
-            'casetypes' => $casetypes
+            'casetypes' => $casetypes,
+            'interventiontypes' => $interventiontypes
         ]);
     }
 
@@ -142,10 +145,12 @@ class InterventionUploadController extends Controller
         }
 
         $casetypes = ArrayHelper::map(Casetype::find()->all(),'id','type');
+        $interventiontypes = ArrayHelper::map(InterventionType::find()->all(),'id','intervention_type');
 
         return $this->render('update', [
             'model' => $model,
-            'casetypes' => $casetypes
+            'casetypes' => $casetypes,
+            'interventiontypes' => $interventiontypes
         ]);
     }
 

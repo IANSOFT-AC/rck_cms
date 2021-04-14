@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'issue_id',
+            'intervention_type',
             'name',
             'description:ntext',
             'created_by:datetime',

@@ -45,10 +45,11 @@ class InterventionUpload extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['issue_id', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['issue_id', 'intervention_type', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['description'], 'string'],
             [['name'], 'string', 'max' => 255],
             [['issue_id'], 'exist', 'skipOnError' => true, 'targetClass' => Casetype::className(), 'targetAttribute' => ['issue_id' => 'id']],
+            [['intervention_type'], 'exist', 'skipOnError' => true, 'targetClass' => InterventionType::className(), 'targetAttribute' => ['intervention_type' => 'id']],
         ];
     }
 
@@ -60,6 +61,7 @@ class InterventionUpload extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'issue_id' => 'Issue ID',
+            'intervention_type' => 'Intervention Type',
             'name' => 'Name',
             'description' => 'Description',
             'created_by' => 'Created By',
@@ -87,5 +89,10 @@ class InterventionUpload extends \yii\db\ActiveRecord
     public function getIssue()
     {
         return $this->hasOne(Casetype::className(), ['id' => 'issue_id']);
+    }
+
+    public function getInterventionType()
+    {
+        return $this->hasOne(InterventionType::className(), ['id' => 'intervention_type']);
     }
 }

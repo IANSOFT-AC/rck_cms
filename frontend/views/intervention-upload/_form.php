@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'issue_id')->dropDownList($casetypes, ['prompt' => '-- Select Case Type--']) ?>
 
+    <?= $form->field($model, 'intervention_type')->dropDownList($interventiontypes, ['prompt' => '-- Select Intervention Type--']) ?>
+
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>

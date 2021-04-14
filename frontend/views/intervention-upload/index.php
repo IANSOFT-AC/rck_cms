@@ -21,8 +21,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'issue_id',
+            [
+              'label'=> 'Issue Id',
+              'attribute' => 'issue_id',
+              'format' => 'raw',
+              'value' => function ($model, $key, $index, $column) {
+                if(isset($model->issue)){
+                    return $model->issue->type;
+                }else{
+
+                }
+              }
+            ],
+            [
+              'label'=> 'Intervention Type',
+              'attribute' => 'intervention_type',
+              'format' => 'raw',
+              'value' => function ($model, $key, $index, $column) {
+                if(isset($model->interventionType)){
+                    return $model->interventionType->intervention_type;
+                }else{
+
+                }
+              }
+            ],
             'name',
             'description:ntext',
             'created_by',
