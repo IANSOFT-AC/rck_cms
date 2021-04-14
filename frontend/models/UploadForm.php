@@ -26,7 +26,7 @@ class UploadForm extends Model
     public function upload($model, $id, $upload_id, $subcat = null)
     {
         if ($this->validate()) {
-            if($this->imageFile){                
+            if($this->imageFile){
                 $BasePath = Yii::getAlias('@webroot').'/uploads/'.$model.'/';
 
                 $filename = time().'-'.$this->imageFile->baseName.'.'.$this->imageFile->extension;
@@ -38,9 +38,9 @@ class UploadForm extends Model
             }
             else{
                 print_r($this->imageFile);
-                return false; 
+                return false;
             }
-        } else {            
+        } else {
             print_r($this->errors);
             return false;
         }
@@ -51,7 +51,7 @@ class UploadForm extends Model
         if($model == "training"){
             $data = TrainingUpload::findOne($upload_id);
             try {
-                unlink(Yii::getAlias('@webroot'). $data->doc_path);   
+                unlink(Yii::getAlias('@webroot'). $data->doc_path);
             } catch (\Throwable $th) {
                 //throw $th;
             }
@@ -62,7 +62,7 @@ class UploadForm extends Model
                 unlink(Yii::getAlias('@webroot'). $data->doc_path);
             } catch (\Throwable $th) {
                 //throw $th;
-            }            
+            }
             $rst = $data->delete();
         }else if($model == "interventions"){
             $data = InterventionAttachment::findOne($upload_id);
@@ -70,7 +70,7 @@ class UploadForm extends Model
                 unlink(Yii::getAlias('@webroot'). $data->doc_path);
             } catch (\Throwable $th) {
                 //throw $th;
-            }            
+            }
             $rst = $data->delete();
         }else if($model == "police_cases"){
             $data = PoliceDocsUpload::findOne($upload_id);
@@ -110,7 +110,7 @@ class UploadForm extends Model
                     $file->saveAs($BasePath.$filename);
                 }
             }
-            return true; 
+            return true;
         }else{
             return false;
         }
@@ -180,8 +180,7 @@ class UploadForm extends Model
                 $doc->court_case_id = $case_id;
                 $doc->subcat_id = $uploads_id;
                 $doc->save();
-            }
-            
+            }            
         }else if($model == "refugees"){
             $doc = new RefugeeDocsUpload();
             $doc->doc_path = $BasePath.$filename;
@@ -202,14 +201,12 @@ class UploadForm extends Model
             //False due to date must be a string validation rule
             $doc->save(false);
             //print_r($doc->errors());
-        } 
-        else if($model == "counseling"){
+        }else if($model == "counseling"){
             $doc = Intervention::findOne($case_id);
             $doc->counseling_intake_form = $filename;
             //False due to date must be a string validation rule
             $doc->save(false);
             //print_r($doc->errors());
-        } 
+        }
     }
 }
-

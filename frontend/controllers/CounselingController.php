@@ -198,6 +198,27 @@ class CounselingController extends Controller
         }
     }
 
+    public function actionUploadConsent(){
+        $intervention = Intervention::findOne(Yii::$app->request->post()['Intervention']['intervention_id']);
+        if($intervention){
+            $model = new Intervention();
+
+            $upload = new UploadForm();
+            $upload->imageFile = UploadedFile::getInstance($model, 'counseling_consent_scan');
+            $rst = $upload->upload("counseling-scan", $intervention->id, 0 );
+            if($rst){
+                Yii::$app->session->setFlash('success', "You have successfully uploaded the files and created a record");
+                return $this->redirect(['index', 'id' => $intervention->id]);
+            }else{
+                Yii::$app->session->setFlash('error', "You have an error in your upload process, kindly try again");
+                return $this->redirect(['index', 'id' => $intervention->id]);
+            }
+        }else{
+            Yii::$app->session->setFlash('error', "You have an error: No intervention found");
+                return $this->redirect(['index', 'id' => Yii::$app->request->post()['Intervention']['intervention_id']]);
+        }
+    }
+
     /**
      * Updates an existing Counseling model.
      * If update is successful, the browser will be redirected to the 'view' page.
