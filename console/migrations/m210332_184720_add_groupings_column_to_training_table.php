@@ -12,11 +12,11 @@ class m210332_184720_add_groupings_column_to_training_table extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%training}}', '0_9', $this->string());
-        $this->addColumn('{{%training}}', '10_19', $this->string());
-        $this->addColumn('{{%training}}', '20_24', $this->string());
-        $this->addColumn('{{%training}}', '25_59', $this->string());
-        $this->addColumn('{{%training}}', '60+', $this->string());
+        $this->addColumn('{{%training}}', 't0_9', $this->string());
+        $this->addColumn('{{%training}}', 't10_19', $this->string());
+        $this->addColumn('{{%training}}', 't20_24', $this->string());
+        $this->addColumn('{{%training}}', 't25_59', $this->string());
+        $this->addColumn('{{%training}}', 't60plus', $this->string());
         $this->addColumn('{{%training}}', 'boys', $this->string());
         $this->addColumn('{{%training}}', 'girls', $this->string());
         $this->addColumn('{{%training}}', 'men', $this->string());

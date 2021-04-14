@@ -126,7 +126,7 @@ class TrainingController extends Controller
             ->joinWith('rOrganizer')
             ->asArray()
             ->all();
-            
+
         foreach ($cases as $key => $value) {
             # code...
             if(isset($value['organizer_id'])){
@@ -162,18 +162,21 @@ class TrainingController extends Controller
         $upload = new UploadForm();
 
         if ($model->load(Yii::$app->request->post())) {
-
-            $model->save();
-            
             //Upload participants scan
             $upload->imageFile = UploadedFile::getInstance($model, 'participants_scan');
             $rst = $upload->upload("training",$model->id, 2 );
-            
+
             //Upload photos scans
             $upload->multipleFiles = UploadedFile::getInstances($model, 'photos');
             $rst2 = $upload->multipleUpload("training",$model->id, 2 );
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+              foreach ($model->getErrors() as $error){
+                Yii::$app->session->setFlash('error', $error[0]);
+              }
+            }
         }
 
         $organizers = ArrayHelper::map(Organizer::find()->all(), 'id', 'name');
@@ -181,7 +184,7 @@ class TrainingController extends Controller
         $trainingTypes = ArrayHelper::map(TrainingType::find()->all(), 'id', 'name');
         $organizers[0] = 'other';
 
-        
+
         return $this->render('create', [
             'model' => $model,
             'organizers' => $organizers,
@@ -203,11 +206,11 @@ class TrainingController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
-            
+
             //Upload participants scan
             $upload->imageFile = UploadedFile::getInstance($model, 'participants_scan');
             $rst = $upload->upload("training",$model->id, 2 );
-            
+
             //Upload photos scans
             $upload->multipleFiles = UploadedFile::getInstances($model, 'photos');
             $rst2 = $upload->multipleUpload("training",$model->id, 2 );
@@ -278,7 +281,7 @@ class TrainingController extends Controller
                 'topic' => $case['topic'],
                 'venue' => $case['venue'],
                 'facilitators' => $case['facilitators'],
-                'no_of_participants' => $case['no_of_participants'],               
+                'no_of_participants' => $case['no_of_participants'],
                 'created_at' => date("H:ia l M j, Y",$case['created_at'])
             ];
         }

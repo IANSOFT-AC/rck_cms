@@ -441,9 +441,25 @@ class RefugeeController extends Controller
                 $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_info_id']);
             }
 
-            $model->save();
+            if(isset(Yii::$app->request->post()['Refugee']['consent'])){
+              if(Yii::$app->request->post()['Refugee']['consent'] == "on"){
+                $model->consent = 1;
+              }else{
+                $model->consent = 0;
+              }
+            }else{
+              $model->consent = 0;
+            }
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            if($model->save()){
+                          return $this->redirect(['view', 'id' => $model->id]);
+            }
+            else{
+                foreach ($model->getErrors() as $error){
+                  Yii::$app->session->setFlash('error', $error[0]);
+        				}
+                //return $this->redirect(['create', 'model' => $model]);
+            }
         }
 
         return $this->render('update', [

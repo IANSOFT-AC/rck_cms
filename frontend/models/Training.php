@@ -52,12 +52,39 @@ class Training extends \yii\db\ActiveRecord
         return [
             [['no_of_participants','topic', 'venue','date'],'required'],
             [['organizer_id','type','donor_id','created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['facilitators', 'no_of_participants','date','0_9','10_19','20_24','25_59','60+','boys','girls','men','women'], 'string'],
+            [['facilitators', 'no_of_participants','date','t0_9','t10_19','t20_24','t25_59','t60plus','boys','girls','men','women'], 'string'],
             [['organizer', 'topic', 'venue', 'participants_scan'], 'string', 'max' => 255],
+            [['no_of_participants','date','t0_9','t10_19','t20_24','t25_59','t60plus','boys','girls','men','women'], 'default', 'value' => '0'],
             [['organizer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organizer::className(), 'targetAttribute' => ['organizer_id' => 'id']],
             [['type'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingType::className(), 'targetAttribute' => ['type' => 'id']],
             [['donor_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingType::className(), 'targetAttribute' => ['donor_id' => 'id']],
+            //Conditional Validation
+            [
+                'no_of_participants',
+                'validateParticipants',
+                'when' => function($model){
+                    return $model->no_of_participants > 0;
+                },
+                // 'whenClient' => "function(attribute, value){
+                //     //alert('has disability')
+                //     if( $('#refugee-disability_type_id').val() == 'other'){
+                //         return true;
+                //     }else{
+                //         return false;
+                //     }
+                // }"
+            ],
         ];
+    }
+
+    public function validateParticipants($attribute, $params){
+      $agesCount = $this->t0_9 + $this->t10_19 + $this->t20_24 + $this->t25_59 + $this->t60plus;
+      $agesGender = $this->boys + $this->girls + $this->men + $this->women;
+      if($agesCount != $this->no_of_participants){
+        $this->addError('error', 'Total <strong>number of participants</strong> does not much the <strong>age groups.</strong>');
+      }else if($agesGender != $this->no_of_participants){
+        $this->addError('error', 'Total <strong>number of participants</strong> does not much the <strong>boys, girls, men and women</strong> summation.');
+      }
     }
 
      public function beforeSave($insert)
@@ -93,11 +120,11 @@ class Training extends \yii\db\ActiveRecord
             'no_of_participants' => 'No. of Participants',
             'participants_scan' => 'Participants List',
             'donor_id' => 'Donor',
-            '0_9' => '0-9',
-            '10_19' => '10-19',
-            '20_24' => '20-24',
-            '25_59' => '25-59',
-            '60+' => '60+',
+            't0_9' => '0-9',
+            't10_19' => '10-19',
+            't20_24' => '20-24',
+            't25_59' => '25-59',
+            't60plus' => '60+',
             'boys' => 'Boys',
             'girls' =>'Girls',
             'men' => 'Men',

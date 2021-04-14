@@ -13,10 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="agency-view">
     <div class="card">
-        <div class="card-header">    
+        <div class="card-header">
             <h1><?= Html::encode($this->title) ?></h1>
 
             <p>
+                <?= Html::a(Yii::t('app', 'Add'), ['create'], ['class' => 'btn btn-success']) ?>
                 <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
                 <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger',

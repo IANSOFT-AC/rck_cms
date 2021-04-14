@@ -20,19 +20,20 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?= Html::a(Yii::t('app', 'Add Client'), ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Interventions', ['/intervention/client', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Police Cases', ['/police-cases/client', 'id' => $model->id], ['class' => 'btn btn-info']) ?>        
+        <?= Html::a('Police Cases', ['/police-cases/client', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
         <?= Html::a('Court Cases', ['/court-cases/client', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
         <?= Html::a('Attachments', ['files', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
-        <?php 
+        <?php
         Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) 
+        ])
         ?>
 
         <?= Html::a('view All', ['index'], ['class' => 'btn btn-warning']) ?>
@@ -56,7 +57,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                 </p>
                                 <hr>
                             </div>
-                          
+
                             <div class="col-md-6">
                                 <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> RSD appointment date</strong>
 
@@ -75,8 +76,8 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             <div class="col-md-6">
                                     <strong data-speechify-sentence=""> Languages Spoken</strong>
                                     <div class="btn-group">
-                                    <?php  
-                                        $spoken = explode(",", $model->spoken_languages);                               
+                                    <?php
+                                        $spoken = explode(",", $model->spoken_languages);
                                         foreach ($spoken as $key => $value) {
                                             # code...
                                             $record = Language::findOne($value);
@@ -90,10 +91,10 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                     }
                                     ?>
                                     </div>
-                                    
+
                                 <hr>
                                 </div>
-                            
+
 
                             <div class="col-md-6">
                               <strong data-speechify-sentence=""><i class="fas fa-exclamation-circle"></i> Phone Number</strong>
@@ -120,14 +121,14 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                   <hr>
                             </div>
 
-                            <?php 
+                            <?php
                             $incomes = explode(",", $model->languages);
                             if(!empty($incomes[0])){
                             ?>
                                 <div class="col-md-6">
                                     <strong data-speechify-sentence=""> Languages That need an Interpreter</strong>
                                     <div class="btn-group">
-                                    <?php                                 
+                                    <?php
                                         foreach ($incomes as $key => $value) {
                                             # code...
                                             $record = Language::findOne($value);
@@ -141,10 +142,10 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                     }
                                     ?>
                                     </div>
-                                    
+
                                 <hr>
                                 </div>
-                            <?php 
+                            <?php
                             }
                             ?>
 
@@ -203,7 +204,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
                                   <hr>
                             </div>
-                            
+
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Reason for Fleeing</strong>
 
@@ -231,8 +232,8 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                             <?php
                             if($model->has_disability){
                             ?>
-                                
-                                <?php 
+
+                                <?php
                                 $incomes = explode(",", $model->disability_type_id);
                                 if(!empty($incomes[0])){
                                 ?>
@@ -240,7 +241,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                         <strong data-speechify-sentence=""> Disability</strong>
                                         <?php print_r($incomes) ?>
                                         <div class="btn-group">
-                                        <?php                                 
+                                        <?php
                                             foreach ($incomes as $key => $value) {
                                                 # code...
                                                 $record = DisabilityType::findOne($value);
@@ -254,10 +255,10 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                         }
                                         ?>
                                         </div>
-                                        
+
                                     <hr>
                                     </div>
-                                <?php 
+                                <?php
                                 }else{
                                 ?>
                                 <div class="col-md-6">
@@ -267,7 +268,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
                                       <hr>
                                 </div>
-                                <?php 
+                                <?php
                                 }
                                 ?>
                             <?php
@@ -323,7 +324,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                 <div class="col-md-6">
                                     <strong data-speechify-sentence=""> Form of Torture</strong>
                                     <div class="btn-group">
-                                    <?php 
+                                    <?php
 
                                     $tortures = explode(",", $model->form_of_torture_id);
                                     foreach ($tortures as $key => $value) {
@@ -342,21 +343,21 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
                                     ?>
                                     </div>
-                                    
+
                                 <hr>
                                 </div>
                             <?php
                             }
                             ?>
-                            
-                            <?php 
+
+                            <?php
                             $incomes = explode(",", $model->source_of_income_id);
                             if(!empty($incomes[0])){
                             ?>
                                 <div class="col-md-6">
                                     <strong data-speechify-sentence=""> Sources of Income</strong>
                                     <div class="btn-group">
-                                    <?php                                 
+                                    <?php
                                         foreach ($incomes as $key => $value) {
                                             # code...
                                             $record = SourceOfIncome::findOne($value);
@@ -370,14 +371,14 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                     }
                                     ?>
                                     </div>
-                                    
+
                                 <hr>
                                 </div>
-                            <?php 
+                            <?php
                             }
                             ?>
 
-                            
+
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Job Details</strong>
 
@@ -413,8 +414,8 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
                                   <hr>
                             </div>
-                            
-                            
+
+
                         </div>
                     <!-- /.box-body -->
                     </div>
@@ -476,8 +477,8 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
                                     <p class="text-muted" data-speechify-sentence="">
                                         <?= Html::a('Preview Document: '.$file->filename, [$file->doc_path], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
-                                        <?= Html::a(' Delete <i class="fa fa-trash"></i>', 
-                                        ['delete-file', 'id' => $file->id], 
+                                        <?= Html::a(' Delete <i class="fa fa-trash"></i>',
+                                        ['delete-file', 'id' => $file->id],
                                         [
                                             'title' => 'delete the file?',
                                             'data' => [
@@ -488,7 +489,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                     </p>
                                     <hr>
                                 </div>
-                            <?php 
+                            <?php
                             }
                             ?>
                         </div>

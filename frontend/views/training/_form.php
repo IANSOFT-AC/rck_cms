@@ -41,19 +41,19 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'no_of_participants')->textInput() ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, '0_9')->textInput() ?>
+                    <?= $form->field($model, 't0_9')->textInput() ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, '10_19')->textInput() ?>
+                    <?= $form->field($model, 't10_19')->textInput() ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, '20_24')->textInput() ?>
+                    <?= $form->field($model, 't20_24')->textInput() ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, '25_59')->textInput() ?>
+                    <?= $form->field($model, 't25_59')->textInput() ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, '60+')->textInput() ?>
+                    <?= $form->field($model, 't60plus')->textInput() ?>
                 </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'boys')->textInput() ?>
@@ -112,9 +112,6 @@ $script = <<<JS
 
     //Hide fields initially
     $('.field-training-donor, .field-training-type, .field-training-organizer').parent().hide()
-
-    $('#training-0_9, #training-10_19, #training-20_24, #training-25_59, #training-boys, #training-girls, #training-men, #training-women, #training-no_of_participants').val(0)
-    $('#training-60+').val(0)
 
     $('#training-organizer_id').on('change', function(){
         if(this.value == 0){

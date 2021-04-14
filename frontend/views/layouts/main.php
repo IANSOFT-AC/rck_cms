@@ -239,7 +239,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                 <li class="nav-item">
                                     <a href="<?= $absoluteUrl ?>refugee" class="nav-link <?= Yii::$app->recruitment->currentaction('refugee','index')?'active':'' ?>">
                                         <i class="fa fa-circle nav-icon"></i>
-                        
+
                                         <p>Client List</p>
                                     </a>
                                 </li>
@@ -250,7 +250,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         <?php
                         }
                         ?>
-                        
+
 <!--end Aprroval Management-->
 
                         <?php
@@ -279,7 +279,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         <?php
                         }
                         ?>
-                        
+
                         <?php
                         if (!Yii::$app->user->getIsGuest() && (Yii::$app->dashboard->user::ROLE_ADMIN == Yii::$app->user->identity->role || in_array(Yii::$app->dashboard->user::COURT_INDEX,Yii::$app->dashboard->permissionCodes(Yii::$app->user->identity->permissions)))) {
                         ?>
@@ -310,7 +310,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                     </a>
                                 </li>
 
-                                
+
                             </ul>
                         </li>
                         <?php
@@ -346,7 +346,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         <?php
                         }
                         ?>
-                        
+
                         <!-- Training -->
                         <?php
                         if (!Yii::$app->user->getIsGuest() && (Yii::$app->dashboard->user::ROLE_ADMIN == Yii::$app->user->identity->role || in_array(Yii::$app->dashboard->user::TRAINING_INDEX,Yii::$app->dashboard->permissionCodes(Yii::$app->user->identity->permissions)))) {
@@ -355,7 +355,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('t')?'active':'' ?>">
                                 <i class="nav-icon fa fa-cubes"></i>
                                 <p>
-                                    Training 
+                                    Training
                                     <i class="fas fa-angle-left right"></i>
                                     <!--<span class="badge badge-info right">6</span>-->
                                 </p>
@@ -551,7 +551,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                     <div id="connectivity"></div>
 
                     <?= $content ?>
-                    
+
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
@@ -587,7 +587,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 <?php //$csrftoken = Yii::$app->request->csrfParam ?>
 <!-- END OF ADD SWEET ALERT -->
 <script>
-        //GET VALUE OF META TAG 
+        //GET VALUE OF META TAG
         //console.log("token",getMeta('csrf-token'))
 
          if('serviceWorker' in navigator){
@@ -635,9 +635,9 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                     //to stop double execution 'stop executing any downstream chain of event handlers'
                     e.stopImmediatePropagation()
                     let form = e.target;
-                   
+
                     if(navigator.onLine){
-                        form.submit();
+                          form.submit();
                     }else{
                         console.log("form saving in indexdb");
                         let DBOpenRequest = null;
@@ -680,10 +680,10 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             console.log('success', db)
                             if(! db.objectStoreNames.contains('rckStore')){
                                 objectStore = db.createObjectStore('rckStore', {
-                                    keyPath: "id", autoIncrement:true 
+                                    keyPath: "id", autoIncrement:true
                                 })
-                            }                            
-                        });                        
+                            }
+                        });
                     }
                 })
 
@@ -762,7 +762,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                     console.error(error)
                 }
             })
-            .then(function (data) {           
+            .then(function (data) {
                 //DELETE FROM THE DATABASE
                 deleteFromIndexedDB(id)
                 console.log(data);
@@ -772,7 +772,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             });
         }
 
-        
+
     </script>
 </body>
 </html>

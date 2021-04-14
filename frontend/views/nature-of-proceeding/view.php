@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
         <div class="card-header">    <h1><?= Html::encode($this->title) ?></h1>
 
         <p>
+                          <?= Html::a(Yii::t('app', 'Add'), ['create'], ['class' => 'btn btn-success']) ?>
             <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
             <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
                 ],
             ]) ?>
         </p></div>
-        <div class="card-body">    
+        <div class="card-body">
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
@@ -38,7 +39,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => '#'];
                     //'updated_by',
                 ],
             ]) ?>
-            
+
         </div>
     </div>
 
