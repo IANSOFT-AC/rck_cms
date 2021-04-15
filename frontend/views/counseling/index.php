@@ -35,13 +35,6 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         <?php
             }
         ?>
-        <?php 
-            if($intervention->counselingIntake){
-                echo Html::a('Counseling Intake Online Form', ['/counselling-intake/index', 'id' => $intervention->id], ['class' => 'label label-primary', 'title'=> 'Counseling Intake Online Form']);
-            }else{
-                echo Html::a('Counseling Intake Online Form', ['/counselling-intake/create', 'id' => $intervention->id], ['class' => 'label label-primary', 'title'=> 'Counseling Intake Online Form']);
-            }
-        ?>
             </div>
         </div>
 
