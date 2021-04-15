@@ -328,7 +328,6 @@ class ReportController extends \yii\web\Controller
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$source->name);
                 array_push($data[$key],$num);
-                $count += $num;
 
                 //female
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
@@ -337,7 +336,6 @@ class ReportController extends \yii\web\Controller
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$num);
-                $count += $num;
 
                 //LGBT
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
@@ -346,18 +344,36 @@ class ReportController extends \yii\web\Controller
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$num);
-                $count += $num;
+            endforeach;
 
-                //Do Subtotals
-                array_push($data[$key],$count);
-                //reset the counter for subtotals
-                $count = 0;
+            //GET TOTALS FOR THE HORIZONTAL ROW
+            $horizontal= [];
+            $horizontal[0] = "Subtotals by Gender";
+            $vertical= [];
+            $total = 0;
+            foreach ($data as $key => $innerRow):
+                foreach ($innerRow as $innerKey => $val):
+                    if(!isset($horizontal[$innerKey])){
+                        $horizontal[$innerKey] = 0;
+                    }
+                    if(!isset($vertical[$key])){
+                        $vertical[$key] = 0;
+                    }
+                    if($innerKey != 0){
+                        $horizontal[$innerKey] += $val;
+                        $vertical[$key] += $val;
+                        $total += $val;
+                    }
+                endforeach;
             endforeach;
 
             //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
             return $this->render('index', [
                 'data' => $data,
+                'horizontal' => $horizontal, 
+                'vertical' => $vertical, 
+                'total' => $total,
                 'title' => 'Pull Report by Source of Information',
                 'type' => 'multiple',
                 'start_date' => date("H:ia l M j, Y",$start_date),
@@ -394,7 +410,6 @@ class ReportController extends \yii\web\Controller
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$form->name);
                 array_push($data[$key],$num);
-                $count += $num;
 
                 //female
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
@@ -403,7 +418,6 @@ class ReportController extends \yii\web\Controller
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$num);
-                $count += $num;
 
                 //LGBT
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
@@ -412,19 +426,36 @@ class ReportController extends \yii\web\Controller
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$num);
-                $count += $num;
+            endforeach;
 
-
-                //Do Subtotals
-                array_push($data[$key],$count);
-                //reset the counter for subtotals
-                $count = 0;
+            //GET TOTALS FOR THE HORIZONTAL ROW
+            $horizontal= [];
+            $horizontal[0] = "Subtotals by Gender";
+            $vertical= [];
+            $total = 0;
+            foreach ($data as $key => $innerRow):
+                foreach ($innerRow as $innerKey => $val):
+                    if(!isset($horizontal[$innerKey])){
+                        $horizontal[$innerKey] = 0;
+                    }
+                    if(!isset($vertical[$key])){
+                        $vertical[$key] = 0;
+                    }
+                    if($innerKey != 0){
+                        $horizontal[$innerKey] += $val;
+                        $vertical[$key] += $val;
+                        $total += $val;
+                    }
+                endforeach;
             endforeach;
 
             //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
             return $this->render('index', [
                 'data' => $data,
+                'horizontal' => $horizontal, 
+                'vertical' => $vertical, 
+                'total' => $total,
                 'type' => 'multiple',
                 'title' => 'Pull Report by Forms of Torture',
                 'start_date' => date("H:ia l M j, Y",$start_date),

@@ -196,17 +196,26 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                             ?>
                                 <tr>
                                     <?php 
-                                    for ($i=0; $i < 5; $i++) { 
+                                    for ($i=0; $i < 4; $i++) { 
                                         # code...
                                         ?>
                                             <td><?= $val[$i] ?></td>
                                         <?php
                                     }
                                     ?>
+                                    <td><?= $vertical[$key] ?></td>
                                 </tr>
                             <?php
                                 endforeach;                        
                             ?>
+                            <tr>
+                            <?php                    
+                                foreach ($horizontal as $key => $val):
+                            ?>
+                                    <td><?= $val ?></td>
+                            <?php
+                                endforeach;                        
+                            ?><td><?= $total ?></td></tr>
                             </tbody>
                         </table>
                     </div>
