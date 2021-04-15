@@ -30,38 +30,87 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="card-body">
 
-        <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'code',
-            'date',
-            'session',
-            [
-                'label' => 'Type',
-                'value' => function($model) {
-		            if($model->type == 1){
-                        return "Individual";
-                    }else if($model->type == 2){
-                        return "Family";
-                    }else if($model->type == 3){
-                        return "Group";
-                    }
-	            }
-            ],
-            'intervention_id',
-            'presenting_problem:ntext',
-            'therapeutic:ntext',
-            'conseptualization:ntext',
-            'intervention:ntext',
-            'counsellors:ntext',
-            'counseling_intake_form',
-            'created_at:datetime',
-            'updated_at:datetime',
-            'created_by',
-            'updated_by',
-        ],
-    ]) ?>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('code') ?> </strong>
+                    <p class="text-muted" data-speechify-sentence=""><?= $model->code ?></p>
+                </div>
+                <div class="col-md-6">
+                    <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('date') ?></strong>
+                    <p class="text-muted" data-speechify-sentence=""><?=  date("l M j, Y",$model->date) ?></p>
+                </div>
+                <div class="col-md-6">
+                    <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('case_status') ?></strong>
+                    <p class="text-muted" data-speechify-sentence=""><?= $model->case_status ?></p>
+                </div>
+                <div class="col-md-6">
+                    <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('next_appointment_date') ?></strong>
+                    <p class="text-muted" data-speechify-sentence=""><?=  date("l M j, Y",$model->next_appointment_date) ?></p>
+                </div>
+                <div class="col-md-6">
+                    <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('session') ?></strong>
+                    <p class="text-muted" data-speechify-sentence=""><?= $model->session ?></p>
+                </div>
+                <div class="col-md-6">
+                    <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('type') ?></strong>
+                    <p class="text-muted" data-speechify-sentence=""><?= $model->type ?></p>
+                </div>
+                <div class="col-md-12">
+                    <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('presenting_problem') ?></strong>
+                    <p class="text-muted" data-speechify-sentence=""><?= $model->presenting_problem ?></p>
+                </div>
+                <div class="col-md-12">
+                    <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('therapeutic') ?></strong>
+                    <p class="text-muted" data-speechify-sentence=""><?= $model->therapeutic ?></p>
+                </div>
+                <div class="col-md-12">
+                    <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('conseptualization') ?></strong>
+                    <p class="text-muted" data-speechify-sentence=""><?= $model->conseptualization ?></p>
+                </div>
+                <div class="col-md-12">
+                    <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('intervention') ?></strong>
+                    <p class="text-muted" data-speechify-sentence=""><?= $model->intervention ?></p>
+                </div>
+                <div class="col-md-12">
+                    <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('counsellors') ?></strong>
+                    <p class="text-muted" data-speechify-sentence=""><?= $model->counsellors ?></p>
+                </div>
+                <?php 
+                
+                if($model->type != 1){
+                ?>
+                    <div class="col-md-12">
+                        <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('session_goals') ?></strong>
+                        <p class="text-muted" data-speechify-sentence=""><?= $model->session_goals ?></p>
+                    </div>
+                    <div class="col-md-12">
+                        <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('key_tasks_achieved') ?></strong>
+                        <p class="text-muted" data-speechify-sentence=""><?= $model->key_tasks_achieved ?></p>
+                    </div>
+                    <div class="col-md-12">
+                        <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('challenges_emerging') ?></strong>
+                        <p class="text-muted" data-speechify-sentence=""><?= $model->challenges_emerging ?></p>
+                    </div>
+                    <div class="col-md-12">
+                        <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('interventions_by_facilitator') ?></strong>
+                        <p class="text-muted" data-speechify-sentence=""><?= $model->interventions_by_facilitator ?></p>
+                    </div>
+                    <div class="col-md-12">
+                        <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('achievement_of_goals') ?></strong>
+                        <p class="text-muted" data-speechify-sentence=""><?= $model->achievement_of_goals ?></p>
+                    </div>
+                    <div class="col-md-12">
+                        <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('stage') ?></strong>
+                        <p class="text-muted" data-speechify-sentence=""><?= $model->stage ?></p>
+                    </div>
+                    <div class="col-md-12">
+                        <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('remarks') ?></strong>
+                        <p class="text-muted" data-speechify-sentence=""><?= $model->remarks ?></p>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
 
         </div>
     </div>

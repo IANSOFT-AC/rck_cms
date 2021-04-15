@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'code')->textInput() ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'date')->textInput(['type' => 'date']) ?>
+                    <?= $form->field($model, 'date')->textInput(['type' => 'date','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date, 'yyyy-MM-dd')]) ?>
                 </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'case_status')->dropDownList(['open' => 'Open', 'closed' => 'Closed'],
@@ -47,6 +47,34 @@ use yii\widgets\ActiveForm;
                 <div class="col-md-12">
                     <?= $form->field($model, 'counsellors')->textarea(['rows' => 6]) ?>
                 </div>
+
+
+                <!-- FOR GROUP AND FAMILY -->
+
+                <div class="col-md-12">
+                    <?= $form->field($model, 'session_goals')->textarea(['rows' => 6]) ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'key_tasks_achieved')->textarea(['rows' => 6]) ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'challenges_emerging')->textarea(['rows' => 6]) ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'interventions_by_facilitator')->textarea(['rows' => 6]) ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'achievement_of_goals')->textarea(['rows' => 6]) ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'stage')->textarea(['rows' => 6]) ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'remarks')->textarea(['rows' => 6]) ?>
+                </div>
+
+                <!--  END OF GROUP AND FAMILY  -->
+
                 <div class="col-md-12">
                     <div class="custom-control custom-switch">
                       <input type="checkbox" class="custom-control-input" id="consentSwitch" name="Refugee[consent]">
@@ -56,14 +84,6 @@ use yii\widgets\ActiveForm;
             </div>
 
             <?= $form->field($model, 'intervention_id')->hiddenInput(['value' => $intervention])->label(false) ?>
-
-            <?php $form->field($model, 'created_at')->textInput() ?>
-
-            <?php $form->field($model, 'updated_at')->textInput() ?>
-
-            <?php $form->field($model, 'created_by')->textInput() ?>
-
-            <?php $form->field($model, 'updated_by')->textInput() ?>
 
             <div class="form-group"  id="actions">
                 <?= Html::submitButton(Yii::t('app', '<i class="fa fa-check"></i> save'), ['class' => 'btn btn-success']); ?>
@@ -78,6 +98,21 @@ use yii\widgets\ActiveForm;
 $script = <<<JS
 
     $('.field-counseling-next_appointment_date').parent().fadeOut()
+
+    $('.field-counseling-session_goals, .field-counseling-key_tasks_achieved, .field-counseling-challenges_emerging, .field-counseling-interventions_by_facilitator,\
+            .field-counseling-achievement_of_goals, .field-counseling-stage, .field-counseling-remarks')
+    .parent().fadeOut('slow');
+
+    $('#counseling-type').on('change', function(){
+        if($('#counseling-type option[value=1]:selected').length > 0 || this.value == 0){
+            $('.field-counseling-session_goals, .field-counseling-key_tasks_achieved, .field-counseling-challenges_emerging, .field-counseling-interventions_by_facilitator,\
+                .field-counseling-achievement_of_goals, .field-counseling-stage,.field-counseling-remarks')
+            .parent().fadeOut('slow');
+        }else{
+            $('.field-counseling-session_goals, .field-counseling-key_tasks_achieved, .field-counseling-challenges_emerging, .field-counseling-interventions_by_facilitator,\
+                .field-counseling-achievement_of_goals, .field-counseling-stage,.field-counseling-remarks').parent().fadeIn('slow');
+        }
+    }).change();
 
     $('#actions').hide();
 

@@ -151,7 +151,7 @@ class CounselingController extends Controller
         $model = new Counseling();
         $intervention = Intervention::findOne($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
           if(isset(Yii::$app->request->post()['Counseling']['consent'])){
             if(Yii::$app->request->post()['Counseling']['consent'] == "on"){
               $model->consent = 1;

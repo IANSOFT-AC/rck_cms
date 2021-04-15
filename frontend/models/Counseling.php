@@ -55,6 +55,7 @@ class Counseling extends \yii\db\ActiveRecord
             [['intervention_id','type'], 'required'],
             [['presenting_problem', 'date', 'therapeutic', 'conseptualization', 'intervention', 'counsellors', 'next_appointment_date', 'type', 'case_status'], 'string'],
             [['session', 'counseling_intake_form'], 'string', 'max' => 255],
+            [['session_goals', 'key_tasks_achieved', 'challenges_emerging', 'interventions_by_facilitator', 'achievement_of_goals', 'stage','remarks'], 'string'],
             [['intervention_id'], 'exist', 'skipOnError' => true, 'targetClass' => Intervention::className(), 'targetAttribute' => ['intervention_id' => 'id']],
         ];
     }
@@ -91,6 +92,14 @@ class Counseling extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+
+            'session_goals' => 'What were the session goals',
+            'key_tasks_achieved' => 'Summary of key tasks achieved',
+            'challenges_emerging' => 'Challenges/Issues that emerged',
+            'interventions_by_facilitator' => 'Skills/Interventions by facilitators',
+            'achievement_of_goals' => 'Achievement of goals',
+            'stage' => 'What stage is the group at and why',
+            'remarks' => 'Remarks/Way forward'
         ];
     }
 
