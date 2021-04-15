@@ -688,7 +688,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 })
 
 
-                //get event click of logout link
+                //get event click of logout link and delete token
                 $('a[href$="/site/logout"]').on('click', function(){
                     //delete the authkey from the local storage
                     window.localStorage.removeItem('auth_token');

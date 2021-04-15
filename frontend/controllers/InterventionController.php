@@ -315,6 +315,8 @@ class InterventionController extends Controller
         //return $this->redirect(['police-cases/index']);
     }
 
+    
+
 
     /**
      * Updates an existing Intervention model.

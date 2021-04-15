@@ -183,29 +183,19 @@ class CounselingController extends Controller
             $model = new Intervention();
 
             $upload = new UploadForm();
-            $upload->imageFile = UploadedFile::getInstance($model, 'counseling_intake_form');
-            $rst = $upload->upload("counseling", $intervention->id, 0 );
-            if($rst){
-                Yii::$app->session->setFlash('success', "You have successfully uploaded the files and created a record");
-                return $this->redirect(['index', 'id' => $intervention->id]);
-            }else{
-                Yii::$app->session->setFlash('error', "You have an error in your upload process, kindly try again");
-                return $this->redirect(['index', 'id' => $intervention->id]);
+            $rst = false;
+            if(UploadedFile::getInstance($model, 'counseling_intake_form')){
+                $upload->imageFile = UploadedFile::getInstance($model, 'counseling_intake_form');
+                $rst = $upload->upload("counseling", $intervention->id, 0 );
+            }else if(UploadedFile::getInstance($model, 'consent_scan')){
+                $upload->imageFile = UploadedFile::getInstance($model, 'consent_scan');
+                $rst = $upload->upload("counseling-scan", $intervention->id, 0 );
             }
-        }else{
-            Yii::$app->session->setFlash('error', "You have an error: No intervention found");
-                return $this->redirect(['index', 'id' => Yii::$app->request->post()['Intervention']['intervention_id']]);
-        }
-    }
 
-    public function actionUploadConsent(){
-        $intervention = Intervention::findOne(Yii::$app->request->post()['Intervention']['intervention_id']);
-        if($intervention){
-            $model = new Intervention();
+            // echo "<pre>";
+            // print_r(UploadedFile::getInstance($model, 'consent_scan'));
+            // exit;
 
-            $upload = new UploadForm();
-            $upload->imageFile = UploadedFile::getInstance($model, 'counseling_consent_scan');
-            $rst = $upload->upload("counseling-scan", $intervention->id, 0 );
             if($rst){
                 Yii::$app->session->setFlash('success', "You have successfully uploaded the files and created a record");
                 return $this->redirect(['index', 'id' => $intervention->id]);

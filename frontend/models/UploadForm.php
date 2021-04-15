@@ -180,7 +180,7 @@ class UploadForm extends Model
                 $doc->court_case_id = $case_id;
                 $doc->subcat_id = $uploads_id;
                 $doc->save();
-            }            
+            }
         }else if($model == "refugees"){
             $doc = new RefugeeDocsUpload();
             $doc->doc_path = $BasePath.$filename;
@@ -207,6 +207,11 @@ class UploadForm extends Model
             //False due to date must be a string validation rule
             $doc->save(false);
             //print_r($doc->errors());
+        }else if($model == "counseling-scan"){
+          $doc = Intervention::findOne($case_id);
+          $doc->consent_scan = $filename;
+          //False due to date must be a string validation rule
+          $doc->save(false);
         }
     }
 }

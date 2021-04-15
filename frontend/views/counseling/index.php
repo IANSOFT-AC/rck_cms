@@ -11,9 +11,10 @@ $this->title = Yii::t('app', 'My Counseling Sessions');
 isset($intervention->id) ? $this->params['breadcrumbs'][] = ['label' => 'Intervention', 'url' => ['intervention/view', 'id' => $intervention->id]] : null ;
 $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
-<div class="counseling-index">   
-<div class="card m-1">
-        <div class="card-header"><h1>Counseling Intake Form</h1></div>
+<div class="counseling-index"> 
+    <div class="row p-2">
+    <div class="card col-md-6">
+        <div class="card-header"><h2>Counseling Intake Form</h2></div>
         <div class="card-body">
     <?php 
     if(empty($intervention->counseling_intake_form)){
@@ -24,7 +25,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                 <?= $form->field($model, 'counseling_intake_form')->fileInput(['maxlength' => true])->label('Upload Counseling Intake Form') ?>
                 <?= $form->field($model, 'intervention_id')->hiddenInput(['value' => $intervention->id])->label(false) ?>
                 <div class="form-group">
-                    <?= Html::submitButton(Yii::t('app', 'Upload'), ['class' => 'btn btn-success']) ?>
+                    <?= Html::submitButton(Yii::t('app', 'Upload Intake Form'), ['class' => 'btn btn-success']) ?>
                 </div>
             <?php ActiveForm::end(); ?>
         <?php 
@@ -44,6 +45,37 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             </div>
         </div>
 
+    <div class="card col-md-6">
+        <div class="card-header"><h2>Counseling Consent</h2></div>
+        <div class="card-body">
+    <?php 
+    if(empty($intervention->consent_scan)){
+    ?>
+    
+            <?php $form = ActiveForm::begin(['action' => 'upload','options' => ['enctype' => 'multipart/form-data']]); ?>
+
+                <?= $form->field($model, 'consent_scan')->fileInput(['maxlength' => true])->label('Upload Client Consent Scan') ?>
+                <?= $form->field($model, 'intervention_id')->hiddenInput(['value' => $intervention->id])->label(false) ?>
+                <div class="form-group">
+                    <?= Html::submitButton(Yii::t('app', 'Upload Consent'), ['class' => 'btn btn-success']) ?>
+                </div>
+            <?php ActiveForm::end(); ?>
+        <?php 
+            }else{
+        ?>
+            <?= Html::a('Preview Document: Client Counseling Consent Scan', ['/uploads/counseling-scan/'.$intervention->consent_scan], ['class' => 'label label-primary', 'title'=> 'Uploaded Client Consent Scan']) ?>
+        <?php
+            }
+        ?>
+            </div>
+        </div>
+    </div>
+    
+    <?php 
+    
+    if(!empty($intervention->consent_scan)){
+
+    ?>
     <div class="card m-1">
         <div class="card-header">
             <h1><?= Html::encode($this->title) ?></h1>
@@ -95,6 +127,11 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             </table>
         </div>
     </div>
+    <?php
+
+        }
+
+    ?>
 
 </div>
 
