@@ -205,6 +205,45 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     </div>
                 
                 <?php } ?>
+
+                <!-- Court Cases -->
+
+                <?php if(isset($type) && 'court-cases' == $type){ ?>
+                    
+                    <div class="container div-center">
+                    <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
+                    <div class="card p-3">
+                        <table class="table table-responsive">
+                            <tbody>
+                                <tr>
+                                    <td class="table-primary table-bordered"></td>
+                                    <td class="table-primary table-bordered">Male</td>
+                                    <td class="table-primary table-bordered">Female</td>
+                                    <td class="table-primary table-bordered">Other</td>
+                                    <td class="table-primary table-bordered">Totals</td>
+                                </tr>
+                            <?php                    
+                                foreach ($data as $key => $val):
+                            ?>
+                                <tr>
+                                    <?php 
+                                    for ($i=0; $i < 5; $i++) { 
+                                        # code...
+                                        ?>
+                                            <td><?= $val[$i] ?></td>
+                                        <?php
+                                    }
+                                    ?>
+                                </tr>
+                            <?php
+                                endforeach;                        
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                
+                <?php } ?>
             </div>
 
         </div>

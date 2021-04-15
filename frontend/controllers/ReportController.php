@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Refugee;
 use app\models\Country;
+use app\models\CourtCases;
 use Carbon\Carbon;
 use app\models\RckOffices;
 use app\models\SourceOfInfo;
@@ -101,14 +102,84 @@ class ReportController extends \yii\web\Controller
 
 
 
-
-
-
-
-
-
-
     //COMPUTATIONS BY COUNTRIES
+    public function actionCourtCasesByOffice(){
+        if (Yii::$app->request->post()) {
+            $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
+            $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
+            $offices = RckOffices::find()->all();
+            $data = [];
+            foreach ($offices as $key => $office):
+                $count = 0;
+                $data[$key] = [];
+                //GET THE IDS OF MALE CLIENTS FROM EACH OFFICE
+                $clientIds = Refugee::find()->select('id')->where([
+                    'rck_office_id' => $office->id,
+                    'gender' => 1,
+                ])->column();
+                //GET THE NUMBER OF COURT CASES OF THE CLIENTS
+                $num = CourtCases::find()->select('COUNT(*) AS count')->where([
+                    'in','refugee_id' , $clientIds
+                ])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                $data[$key][0] = $office->name;
+                $data[$key][1] = $num;
+
+
+                //GET THE IDS OF FEMALE CLIENTS FROM EACH OFFICE
+                $clientIds = Refugee::find()->select('id')->where([
+                    'rck_office_id' => $office->id,
+                    'gender' => 2,
+                ])->column();
+                //GET THE NUMBER OF COURT CASES OF THE CLIENTS
+                $num = CourtCases::find()->select('COUNT(*) AS count')->where([
+                    'in','refugee_id' , $clientIds
+                ])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                $data[$key][2] = $num;
+
+
+                //GET THE IDS OF LGBT CLIENTS FROM EACH OFFICE
+                $clientIds = Refugee::find()->select('id')->where([
+                    'rck_office_id' => $office->id,
+                    'gender' => 3,
+                ])->column();
+                //GET THE NUMBER OF COURT CASES OF THE CLIENTS
+                $num = CourtCases::find()->select('COUNT(*) AS count')->where([
+                    'in','refugee_id' , $clientIds
+                ])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+                $data[$key][3] = $num;
+
+                $count += $num;
+            endforeach;
+
+            echo "<pre>";
+                print_r(json_encode($data));
+                exit;
+
+            return $this->render('index', [
+                'data' => $data,
+                'title' => 'Pull Court Cases Report by Office',
+                'type' => 'court-cases',
+                'start_date' => date("H:ia l M j, Y",$start_date),
+                'end_date' => date("H:ia l M j, Y",$end_date),
+            ]);
+        }
+        return $this->render('index', [
+            'title' => 'Pull Court Cases Report by Office'
+        ]);
+    }
+
+
+
+
+
+
+    //COMPUTATIONS BY OFFICE
     public function actionByOffice()
     {
         if (Yii::$app->request->post()) {
@@ -398,6 +469,16 @@ class ReportController extends \yii\web\Controller
             'title' => 'Pull Report by Age'
         ]);
     }
+
+
+
+
+
+
+
+
+
+
 
     public static function arrayInitialize($main,$index,$key){
         if(!isset($main[$index][$key])){

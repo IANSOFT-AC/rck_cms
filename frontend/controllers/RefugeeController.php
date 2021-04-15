@@ -181,8 +181,6 @@ class RefugeeController extends Controller
     {
         $model = new Dependant();
 
-
-
         if ($model->load(Yii::$app->request->post())) {
             $existingDependantsCount = Dependant::find()->where(['refugee_id' => Yii::$app->request->post()['refugee_id'] ])->count();
             $client = $this->findModel(Yii::$app->request->post()['refugee_id']);
