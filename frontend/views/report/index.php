@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">Asylum Seeker</td>
                                     <td class="table-primary table-bordered">Refugee</td>
                                     <td class="table-primary table-bordered">Asylum Seeker</td>
-                                    <td class="table-primary table-bordered">Totals</td>
+                                    <td class="table-primary table-bordered">Totals by Nationality</td>
                                 </tr>
                             <?php                    
                                 foreach ($data as $key => $val):
@@ -59,11 +59,19 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td><?= $val[2] ?></td>
                                     <td><?= $val[3] ?></td>
                                     <td><?= $val[4] ?></td>
-                                    <td><?= $val[5] ?></td>
+                                    <td><?= $vertical[$key] ?></td>
                                 </tr>
                             <?php
                                 endforeach;                        
                             ?>
+                            <tr>
+                            <?php                    
+                                foreach ($horizontal as $key => $val):
+                            ?>
+                                    <td><?= $val ?></td>
+                            <?php
+                                endforeach;                        
+                            ?><td><?= $total ?></td></tr>
                             </tbody>
                         </table>
                     </div>

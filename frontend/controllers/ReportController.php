@@ -42,7 +42,6 @@ class ReportController extends \yii\web\Controller
                     ->asArray()->all()[0]['count'];
                 $data[$key][0] = $country->country;
                 $data[$key][1] = $num;
-                $count += $num;
 
                 //male and is asylum seeker
                 $num = Refugee::find()->select('COUNT(*) AS count')
@@ -54,7 +53,6 @@ class ReportController extends \yii\web\Controller
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 $data[$key][2] = $num;
-                $count += $num;
 
                 //female and is refugee
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
@@ -65,7 +63,6 @@ class ReportController extends \yii\web\Controller
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 $data[$key][3] = $num;
-                $count += $num;
 
                 //female and is asylum seeker
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
@@ -76,17 +73,35 @@ class ReportController extends \yii\web\Controller
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 $data[$key][4] = $num;
-                $count += $num;
-
-                //Do Subtotals
-                $data[$key][5] = $count;
-                //reset the counter for subtotals
-                $count = 0;
+            endforeach;
+            
+            //GET TOTALS FOR THE HORIZONTAL ROW
+            $horizontal= [];
+            $horizontal[0] = "Subtotals by Gender";
+            $vertical= [];
+            $total = 0;
+            foreach ($data as $key => $innerRow):
+                foreach ($innerRow as $innerKey => $val):
+                    if(!isset($horizontal[$innerKey])){
+                        $horizontal[$innerKey] = 0;
+                    }
+                    if(!isset($vertical[$key])){
+                        $vertical[$key] = 0;
+                    }
+                    if($innerKey != 0){
+                        $horizontal[$innerKey] += $val;
+                        $vertical[$key] += $val;
+                        $total += $val;
+                    }
+                endforeach;
             endforeach;
 
-            //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
+            //return $this->asJson(['msg' => "formatted data",'data'=> $data,'vertical' => $vertical]);
             return $this->render('index', [
                 'data' => $data,
+                'horizontal' => $horizontal, 
+                'vertical' => $vertical, 
+                'total' => $total, 
                 'type' => 'country',
                 'title' => 'Pull Report by Country',
                 'start_date' => date("H:ia l M j, Y",$start_date),
@@ -193,9 +208,9 @@ class ReportController extends \yii\web\Controller
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
 
-                echo "<pre>";
-                print_r(json_encode($data));
-                exit;
+            echo "<pre>";
+            print_r(json_encode($data));
+            exit;
 
             return $this->render('index', [
                 'data' => $data,
