@@ -441,6 +441,14 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                         </p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>report/by-security-interview" class="nav-link <?= Yii::$app->recruitment->currentaction('report','by-security-interview')?'active':'' ?>">
+                                        <i class="fa fa-circle nav-icon"></i>
+                                        <p>By Security Interview
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 

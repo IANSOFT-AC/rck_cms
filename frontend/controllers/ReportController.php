@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use app\models\RckOffices;
 use app\models\SourceOfInfo;
 use app\models\FormOfTorture;
+use app\models\SecurityInterview;
 
 class ReportController extends \yii\web\Controller
 {
@@ -176,6 +177,38 @@ class ReportController extends \yii\web\Controller
 
 
 
+    public function actionBySecurityInterview(){
+        if (Yii::$app->request->post()) {
+            $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
+            $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
+            $data = [];
+            $data[0] = "Security Interview";
+            $data[1] = SecurityInterview::find()->select('COUNT(*) AS count')->where(['sex'=> 1])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+            $male[2] = SecurityInterview::find()->select('COUNT(*) AS count')->where(['sex'=> 2])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+            $male[3] = SecurityInterview::find()->select('COUNT(*) AS count')->where(['sex'=> 3])
+                ->andWhere(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all()[0]['count'];
+
+                echo "<pre>";
+                print_r(json_encode($data));
+                exit;
+
+            return $this->render('index', [
+                'data' => $data,
+                'title' => 'Pull Security Interview Report by Gender',
+                'type' => 'security-report',
+                'start_date' => date("H:ia l M j, Y",$start_date),
+                'end_date' => date("H:ia l M j, Y",$end_date),
+            ]);
+        }
+        return $this->render('index', [
+            'title' => 'Pull Security Interview Report by Gender'
+        ]);
+    }
 
 
 
