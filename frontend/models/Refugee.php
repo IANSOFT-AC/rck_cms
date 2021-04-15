@@ -96,7 +96,7 @@ class Refugee extends \yii\db\ActiveRecord
             [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at', 
                 'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status','interpreter',
                  'mode_of_entry_id', 'victim_of_turture', 'has_work_permit', 'arrested_due_to_lack_of_work_permit','consent',
-                  'interested_in_work_permit', 'dependants','interested_in_citizenship','source_of_info_id','disability_type_id'
+                  'interested_in_work_permit', 'dependants','interested_in_citizenship','disability_type_id'
                 ], 'integer'],
             [['disability_desc', 'reason_for_rsd_appointment', 'custom_language', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date','arrival_date', 'date_of_birth', 'physical_address',  'old_rck'], 'string'],
             [['first_name', 'middle_name', 'last_name', 'email_address'], 'string', 'max' => 50],
@@ -109,7 +109,7 @@ class Refugee extends \yii\db\ActiveRecord
             [['user_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserGroup::className(), 'targetAttribute' => ['user_group_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['conflict'], 'exist', 'skipOnError' => true, 'targetClass' => Conflict::className(), 'targetAttribute' => ['conflict' => 'id']],
-            [['source_of_info_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfInfo::className(), 'targetAttribute' => ['source_of_info_id' => 'id']],
+            //[['source_of_info_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfInfo::className(), 'targetAttribute' => ['source_of_info_id' => 'id']],
             //[['source_of_income_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfIncome::className(), 'targetAttribute' => ['source_of_income_id' => 'id']],
             [['asylum_status'], 'exist', 'skipOnError' => true, 'targetClass' => AsylumType::className(), 'targetAttribute' => ['asylum_status' => 'id']],
             [['disability_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DisabilityType::className(), 'targetAttribute' => ['disability_type_id' => 'id']],
@@ -345,11 +345,6 @@ class Refugee extends \yii\db\ActiveRecord
     // {
     //     return $this->hasOne(FormOfTorture::className(), ['id' => 'form_of_torture_id']);
     // }
-
-    public function getSourceOfInfo()
-    {
-        return $this->hasOne(SourceOfInfo::className(), ['id' => 'source_of_info_id']);
-    }
 
     public function getRconflict()
     {

@@ -436,7 +436,7 @@ class RefugeeController extends Controller
                 $model->spoken_languages = implode(',',Yii::$app->request->post()['Refugee']['spoken_languages']);
             }
             if(isset(Yii::$app->request->post()['Refugee']['source_of_info_id'])){
-                $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_info_id']);
+                $model->source_of_info_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_info_id']);
             }
 
             if(isset(Yii::$app->request->post()['Refugee']['consent'])){
@@ -450,12 +450,12 @@ class RefugeeController extends Controller
             }
 
             if($model->save()){
-                          return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
             else{
                 foreach ($model->getErrors() as $error){
                   Yii::$app->session->setFlash('error', $error[0]);
-        				}
+        		}
                 //return $this->redirect(['create', 'model' => $model]);
             }
         }
