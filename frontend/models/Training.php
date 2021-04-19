@@ -81,9 +81,9 @@ class Training extends \yii\db\ActiveRecord
       $agesCount = $this->t0_9 + $this->t10_19 + $this->t20_24 + $this->t25_59 + $this->t60plus;
       $agesGender = $this->boys + $this->girls + $this->men + $this->women;
       if($agesCount != $this->no_of_participants){
-        $this->addError('error', 'Total <strong>number of participants</strong> does not much the <strong>age groups.</strong>');
+        $this->addError('error', 'Total <strong>number of participants</strong> does not match the <strong>age groups.</strong>');
       }else if($agesGender != $this->no_of_participants){
-        $this->addError('error', 'Total <strong>number of participants</strong> does not much the <strong>boys, girls, men and women</strong> summation.');
+        $this->addError('error', 'Total <strong>number of participants</strong> does not match the <strong>boys, girls, men and women</strong> summation.');
       }
     }
 

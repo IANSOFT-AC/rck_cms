@@ -11,15 +11,14 @@ $this->title = Yii::t('app', 'My Counseling Sessions');
 isset($intervention->id) ? $this->params['breadcrumbs'][] = ['label' => 'Intervention', 'url' => ['intervention/view', 'id' => $intervention->id]] : null ;
 $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
-<div class="counseling-index"> 
+<div class="counseling-index">
     <div class="row p-2">
     <div class="card col-md-6">
         <div class="card-header"><h2>Counseling Intake Form</h2></div>
         <div class="card-body">
-    <?php 
+    <?php
     if(empty($intervention->counseling_intake_form)){
     ?>
-    
             <?php $form = ActiveForm::begin(['action' => 'upload','options' => ['enctype' => 'multipart/form-data']]); ?>
 
                 <?= $form->field($model, 'counseling_intake_form')->fileInput(['maxlength' => true])->label('Upload Counseling Intake Form') ?>
@@ -28,7 +27,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     <?= Html::submitButton(Yii::t('app', 'Upload Intake Form'), ['class' => 'btn btn-success']) ?>
                 </div>
             <?php ActiveForm::end(); ?>
-        <?php 
+        <?php
             }else{
         ?>
             <?= Html::a('Preview Document: Counseling Intake Form', ['/uploads/counseling/'.$intervention->counseling_intake_form], ['class' => 'label label-primary', 'title'=> 'Upload Intake Form']) ?>
@@ -41,10 +40,10 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
     <div class="card col-md-6">
         <div class="card-header"><h2>Counseling Consent</h2></div>
         <div class="card-body">
-    <?php 
+    <?php
     if(empty($intervention->consent_scan)){
     ?>
-    
+
             <?php $form = ActiveForm::begin(['action' => 'upload','options' => ['enctype' => 'multipart/form-data']]); ?>
 
                 <?= $form->field($model, 'consent_scan')->fileInput(['maxlength' => true])->label('Upload Client Consent Scan') ?>
@@ -53,7 +52,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     <?= Html::submitButton(Yii::t('app', 'Upload Consent'), ['class' => 'btn btn-success']) ?>
                 </div>
             <?php ActiveForm::end(); ?>
-        <?php 
+        <?php
             }else{
         ?>
             <?= Html::a('Preview Document: Client Counseling Consent Scan', ['/uploads/counseling-scan/'.$intervention->consent_scan], ['class' => 'label label-primary', 'title'=> 'Uploaded Client Consent Scan']) ?>
@@ -63,9 +62,9 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             </div>
         </div>
     </div>
-    
-    <?php 
-    
+
+    <?php
+
     if(!empty($intervention->consent_scan)){
 
     ?>
@@ -86,7 +85,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    <?php 
+                    <?php
                     foreach ($data as $key => $value) {
                         # code...
                     ?>
@@ -95,7 +94,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                         <td><?= date("l M j, Y",$value->date) ?></td>
                         <td><?= $value->session ?></td>
                         <td>
-                            <?php 
+                            <?php
                                 if($value->type == 1){
                                     echo "Individual";
                                 }else if($value->type == 2){
@@ -113,7 +112,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                             </div>
                         </td>
                     </tr>
-                    <?php 
+                    <?php
                     }
                     ?>
                 </tbody>
@@ -134,7 +133,7 @@ $script = <<<JS
 
     $('#counseling').DataTable({
         language: {
-            emptyTable: "No data available in table", // 
+            emptyTable: "No data available in table", //
            // loadingRecords: "Please wait .. ", // default Loading...
             zeroRecords: "No matching records found"
         },

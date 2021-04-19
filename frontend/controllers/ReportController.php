@@ -16,6 +16,8 @@ use app\models\RckOffices;
 use app\models\SourceOfInfo;
 use app\models\FormOfTorture;
 use app\models\SecurityInterview;
+use app\models\Training;
+use app\models\TrainingType;
 
 class ReportController extends \yii\web\Controller
 {
@@ -74,7 +76,7 @@ class ReportController extends \yii\web\Controller
                 ->asArray()->all()[0]['count'];
                 $data[$key][4] = $num;
             endforeach;
-            
+
             //GET TOTALS FOR THE HORIZONTAL ROW
             $horizontal= [];
             $horizontal[0] = "Subtotals by Gender";
@@ -99,9 +101,9 @@ class ReportController extends \yii\web\Controller
             //return $this->asJson(['msg' => "formatted data",'data'=> $data,'vertical' => $vertical]);
             return $this->render('index', [
                 'data' => $data,
-                'horizontal' => $horizontal, 
-                'vertical' => $vertical, 
-                'total' => $total, 
+                'horizontal' => $horizontal,
+                'vertical' => $vertical,
+                'total' => $total,
                 'type' => 'country',
                 'title' => 'Pull Report by Country',
                 'start_date' => date("H:ia l M j, Y",$start_date),
@@ -115,6 +117,44 @@ class ReportController extends \yii\web\Controller
     }
 
 
+
+    //COMPUTATIONS BY COUNTRIES
+    public function actionByTraining(){
+        if (Yii::$app->request->post()) {
+            $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
+            $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
+            $trainings = Training::find()->select([
+              'tt.name as trainingName',
+              'sum(training.t0_9) as t0_9',
+              'sum(training.t10_19) as t10_19',
+              'sum(training.t20_24) as t20-24',
+              'sum(training.t25_59) as t25_59',
+              'sum(training.t60plus) as t60plus',
+              'sum(training.boys) as boys',
+              'sum(training.girls) as girls',
+              'sum(training.men) as men',
+              'sum(training.women) as women',
+            ])->leftJoin(['tt'=>TrainingType::find()
+                ->select('id,name')
+              ], 'tt.id = training.type')
+            ->where(['type' => 1])
+            ->andWhere(['between', 'created_at', $start_date, $end_date])
+            ->groupBy(['training.type'])
+            ->asArray()
+            ->all();
+
+            echo "<pre>";
+            print_r($trainings);
+            exit;
+            $data = [];
+            foreach ($trainings as $key => $office):
+            endforeach;
+        }
+
+        return $this->render('index', [
+            'title' => 'Pull Report by Trainings'
+        ]);
+    }
 
 
 
@@ -301,7 +341,7 @@ class ReportController extends \yii\web\Controller
         }
         return $this->render('index', [
             'title' => 'Pull Report by Office'
-        ]);        
+        ]);
     }
 
 
@@ -371,8 +411,8 @@ class ReportController extends \yii\web\Controller
             //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
             return $this->render('index', [
                 'data' => $data,
-                'horizontal' => $horizontal, 
-                'vertical' => $vertical, 
+                'horizontal' => $horizontal,
+                'vertical' => $vertical,
                 'total' => $total,
                 'title' => 'Pull Report by Source of Information',
                 'type' => 'multiple',
@@ -453,8 +493,8 @@ class ReportController extends \yii\web\Controller
             //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
             return $this->render('index', [
                 'data' => $data,
-                'horizontal' => $horizontal, 
-                'vertical' => $vertical, 
+                'horizontal' => $horizontal,
+                'vertical' => $vertical,
                 'total' => $total,
                 'type' => 'multiple',
                 'title' => 'Pull Report by Forms of Torture',
@@ -478,7 +518,7 @@ class ReportController extends \yii\web\Controller
     public function actionByAge()
     {
         if (Yii::$app->request->post()) {
-            
+
             $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
             $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
             $clients = Refugee::find()->where(['between', 'created_at', $start_date, $end_date])->all();
@@ -511,7 +551,7 @@ class ReportController extends \yii\web\Controller
             $vertical = [];
             $horizontal = [];
             $totals = 0;
-            
+
             foreach ($data as $key => $array) {
                 # code...
                 //$total = 0;
@@ -535,8 +575,8 @@ class ReportController extends \yii\web\Controller
             //return $this->asJson(['msg' => "formatted data",'data'=> $data,'horizontal' => $horizontal, 'vertical' => $vertical, 'total' => $totals]);
             return $this->render('index', [
                 'data'=> $data,
-                'horizontal' => $horizontal, 
-                'vertical' => $vertical, 
+                'horizontal' => $horizontal,
+                'vertical' => $vertical,
                 'total' => $totals,
                 'type' => 'age',
                 'start_date' => date("H:ia l M j, Y",$start_date),
@@ -575,17 +615,17 @@ class ReportController extends \yii\web\Controller
         $age = Carbon::now()->diffInYears($dob);
         //classify age.
         if($age <= 18){// 0-18 years
-            return 1; 
+            return 1;
         }else if($age > 18 && $age <= 25){// 19-25 years
-            return 2; 
+            return 2;
         }else if($age > 25 && $age <= 35){// 26-35 years
-            return 3; 
+            return 3;
         }else if($age > 35 && $age <= 45){// 36-45 years
-            return 4; 
+            return 4;
         }else if($age > 45 && $age <= 60){// 46-60 years
-            return 5; 
+            return 5;
         }else if($age > 60){// 60+ years
-            return 6; 
-        }  
+            return 6;
+        }
     }
 }
