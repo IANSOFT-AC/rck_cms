@@ -146,7 +146,7 @@ class ReportController extends \yii\web\Controller
             ->all();
 
             echo "<pre>";
-            print_r($trainings);
+            print_r(json_encode($trainings));
             exit;
             $data = [];
             foreach ($trainings as $key => $office):
@@ -243,12 +243,41 @@ class ReportController extends \yii\web\Controller
                 //$count += $num;
             endforeach;
 
-            echo "<pre>";
-            print_r($data);
-            exit;
+            $vertical = [];
+            $horizontal = [];
+            $totals = 0;
+
+            foreach ($data as $key => $array) {
+                # code...
+                //$total = 0;
+                foreach ($array as $innerKey => $val):
+                    if(!isset($vertical[$key])){
+                        $vertical[$key] = 0;
+                    }
+                    if(!isset($horizontal[$innerKey])){
+                        $horizontal[$innerKey][0] = 0;
+                        $horizontal[$innerKey][1] = 0;
+                    }
+                    if($innerKey != 0){
+                        $vertical[$key] += $val[0];
+                        $vertical[$key] += $val[1];
+                        $horizontal[$innerKey][0] += $val[0];
+                        $horizontal[$innerKey][1] += $val[1];
+                        $totals += $val[0];
+                        $totals += $val[1];
+                    }
+                endforeach;
+            }
+
+            //echo "<pre>";
+            //print_r(json_encode($data));
+            //exit;
 
             return $this->render('index', [
                 'data' => $data,
+                'horizontal' => $horizontal,
+                'vertical' => $vertical,
+                'total' => $totals,
                 'title' => 'Pull Court Cases Report by Office',
                 'type' => 'court-cases',
                 'start_date' => date("H:ia l M j, Y",$start_date),
@@ -363,6 +392,9 @@ class ReportController extends \yii\web\Controller
             //return $this->asJson(['msg' => "formatted data",'data'=> $data]);
             return $this->render('index', [
                 'data' => $data,
+                // 'horizontal' => $horizontal,
+                // 'vertical' => $vertical,
+                // 'total' => $totals,
                 'title' => 'Pull Report by Office',
                 'type' => 'office',
                 'start_date' => date("H:ia l M j, Y",$start_date),
@@ -415,7 +447,7 @@ class ReportController extends \yii\web\Controller
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$num);
             endforeach;
-            
+
 
             //GET TOTALS FOR THE HORIZONTAL ROW
             $horizontal= [];
@@ -579,27 +611,10 @@ class ReportController extends \yii\web\Controller
             }
 
             //Calculate Sub-Totals
-            $vertical = [];
-            $horizontal = [];
-            $totals = 0;
-
-            foreach ($data as $key => $array) {
-                # code...
-                //$total = 0;
-                foreach ($array as $innerKey => $val):
-                    if(!isset($vertical[$key])){
-                        $vertical[$key] = 0;
-                    }
-                    if(!isset($horizontal[$innerKey])){
-                        $horizontal[$innerKey] = 0;
-                    }
-                    if($innerKey != 0){
-                        $vertical[$key] += $val;
-                        $horizontal[$innerKey] += $val;
-                        $totals += $val;
-                    }
-                endforeach;
-            }
+            $rst = self::calculateSubTotals($data);
+            $horizontal = $rst['horizontal'];
+            $vertical = $rst['vertical'];
+            $totals = $rst['totals'];
 
             //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             array_unshift($horizontal, "Sub-totals by age");
@@ -657,7 +672,7 @@ class ReportController extends \yii\web\Controller
           }
           Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
           echo "<pre>";
-          print_r($data);
+          print_r(json_encode($data));
           exit;
         }
         return $this->render('index', [
@@ -700,10 +715,10 @@ class ReportController extends \yii\web\Controller
                 $data = self::arrayInitialize($data,2,$class);
             }
           }
-          // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-          // echo "<pre>";
-          // print_r($data);
-          // exit;
+          Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+          echo "<pre>";
+          print_r(json_encode($data));
+          exit;
         }
         return $this->render('index', [
             'title' => 'Pull Report by Court Case through Legal Representation'
@@ -745,10 +760,10 @@ class ReportController extends \yii\web\Controller
                 $data = self::arrayInitialize($data,2,$class);
             }
           }
-          // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-          // echo "<pre>";
-          // print_r($data);
-          // exit;
+          Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+          echo "<pre>";
+          print_r(json_encode($data));
+          exit;
         }
         return $this->render('index', [
             'title' => 'Pull Report by Police Case through Legal Representation'
@@ -791,5 +806,30 @@ class ReportController extends \yii\web\Controller
         }else if($age > 60){// 60+ years
             return 6;
         }
+    }
+
+    public static function calculateSubTotals($data){
+      $vertical = [];
+      $horizontal = [];
+      $totals = 0;
+
+      foreach ($data as $key => $array) {
+          # code...
+          //$total = 0;
+          foreach ($array as $innerKey => $val):
+              if(!isset($vertical[$key])){
+                  $vertical[$key] = 0;
+              }
+              if(!isset($horizontal[$innerKey])){
+                  $horizontal[$innerKey] = 0;
+              }
+              if($innerKey != 0){
+                  $vertical[$key] += $val;
+                  $horizontal[$innerKey] += $val;
+                  $totals += $val;
+              }
+          endforeach;
+      }
+      return ['vertical' => $vertical,'horizontal' => $horizontal, 'totals' => $totals];
     }
 }

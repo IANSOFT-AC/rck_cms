@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                  <a href="https://app.endelezacapital.com/transactions" class="btn btn-secondary">Reset</a>
                 </form>
                 <?php if(isset($type) && 'country' == $type){ ?>
-                    
+
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">Asylum Seeker</td>
                                     <td class="table-primary table-bordered">Totals by Nationality</td>
                                 </tr>
-                            <?php                    
+                            <?php
                                 foreach ($data as $key => $val):
                             ?>
                                 <tr>
@@ -62,26 +62,26 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td><?= $vertical[$key] ?></td>
                                 </tr>
                             <?php
-                                endforeach;                        
+                                endforeach;
                             ?>
                             <tr>
-                            <?php                    
+                            <?php
                                 foreach ($horizontal as $key => $val):
                             ?>
                                     <td><?= $val ?></td>
                             <?php
-                                endforeach;                        
+                                endforeach;
                             ?><td><?= $total ?></td></tr>
                             </tbody>
                         </table>
                     </div>
                     </div>
-                
+
                 <?php } ?>
 
 
                 <?php if(isset($type) && 'office' == $type){ ?>
-                    
+
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
@@ -101,7 +101,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">Asylum Seeker</td>
                                     <td class="table-primary table-bordered">Totals</td>
                                 </tr>
-                            <?php                    
+                            <?php
                                 foreach ($data as $key => $val):
                             ?>
                                 <tr>
@@ -113,17 +113,17 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td><?= $val[5] ?></td>
                                 </tr>
                             <?php
-                                endforeach;                        
+                                endforeach;
                             ?>
                             </tbody>
                         </table>
                     </div>
                     </div>
-                
+
                 <?php } ?>
 
                 <?php if(isset($type) && 'age' == $type){ ?>
-                    
+
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered"></td>
                                 </tr>
                                 <tr>
-                                    <td class="table-primary table-bordered"></td>    
+                                    <td class="table-primary table-bordered"></td>
                                     <td class="table-primary table-bordered">0-18</td>
                                     <td class="table-primary table-bordered">19-25</td>
                                     <td class="table-primary table-bordered">26-35</td>
@@ -144,7 +144,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">60+</td>
                                     <td class="table-primary table-bordered">Sub-totals by Sex</td>
                                 </tr>
-                            <?php                    
+                            <?php
                                 foreach ($data as $key => $val):
                             ?>
                                 <tr>
@@ -158,7 +158,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td><?= $vertical[$key] ?></td>
                                 </tr>
                             <?php
-                                endforeach;                        
+                                endforeach;
                             ?>
                             <tr>
                                 <td><?= $horizontal[0] ?></td>
@@ -174,11 +174,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                         </table>
                     </div>
                     </div>
-                
+
                 <?php } ?>
 
                 <?php if(isset($type) && 'multiple' == $type){ ?>
-                    
+
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
@@ -191,12 +191,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">Other</td>
                                     <td class="table-primary table-bordered">Totals</td>
                                 </tr>
-                            <?php                    
+                            <?php
                                 foreach ($data as $key => $val):
                             ?>
                                 <tr>
-                                    <?php 
-                                    for ($i=0; $i < 4; $i++) { 
+                                    <?php
+                                    for ($i=0; $i < 4; $i++) {
                                         # code...
                                         ?>
                                             <td><?= $val[$i] ?></td>
@@ -206,27 +206,27 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td><?= $vertical[$key] ?></td>
                                 </tr>
                             <?php
-                                endforeach;                        
+                                endforeach;
                             ?>
                             <tr>
-                            <?php                    
+                            <?php
                                 foreach ($horizontal as $key => $val):
                             ?>
                                     <td><?= $val ?></td>
                             <?php
-                                endforeach;                        
+                                endforeach;
                             ?><td><?= $total ?></td></tr>
                             </tbody>
                         </table>
                     </div>
                     </div>
-                
+
                 <?php } ?>
 
                 <!-- Court Cases -->
 
                 <?php if(isset($type) && 'court-cases' == $type){ ?>
-                    
+
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
@@ -234,32 +234,74 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                             <tbody>
                                 <tr>
                                     <td class="table-primary table-bordered"></td>
-                                    <td class="table-primary table-bordered">Male</td>
-                                    <td class="table-primary table-bordered">Female</td>
-                                    <td class="table-primary table-bordered">Other</td>
+                                    <td class="table-primary table-bordered" colspan="2">Male</td>
+                                    <td class="table-primary table-bordered" colspan="2">Female</td>
+                                    <td class="table-primary table-bordered" colspan="2">Other</td>
                                     <td class="table-primary table-bordered">Totals</td>
                                 </tr>
-                            <?php                    
+                                <tr>
+                                    <td class="table-primary table-bordered"></td>
+                                    <td class="table-primary table-bordered">Open</td>
+                                    <td class="table-primary table-bordered">Closed</td>
+                                    <td class="table-primary table-bordered">Open</td>
+                                    <td class="table-primary table-bordered">Closed</td>
+                                    <td class="table-primary table-bordered">Open</td>
+                                    <td class="table-primary table-bordered">Closed</td>
+                                    <td class="table-primary table-bordered"></td>
+                                </tr>
+                            <?php
                                 foreach ($data as $key => $val):
                             ?>
                                 <tr>
-                                    <?php 
-                                    for ($i=0; $i < 5; $i++) { 
+                                    <?php
+                                    for ($i=0; $i < sizeof($val); $i++) {
                                         # code...
+                                        if($i == 0){
                                         ?>
                                             <td><?= $val[$i] ?></td>
                                         <?php
+                                      }else if($i == (sizeof($val) -1)){
+                                          ?>
+                                            <td><?= $val[$i]{0} ?></td>
+                                            <td><?= $val[$i]{1} ?></td>
+                                            <td><?= $vertical[$key] ?></td>
+                                          <?php
+                                        }else{
+                                          ?>
+                                              <td><?= $val[$i]{0} ?></td>
+                                              <td><?= $val[$i]{1} ?></td>
+                                          <?php
+                                        }
+                                    }
+                                    if($key == sizeof($data) -1){
+                                      //output HORIZONTAL totals
+                                      ?>
+                                      <tr>
+                                        <td>Sub Totals</td>
+                                        <?php
+                                          foreach ($horizontal as $key => $val) {
+                                            if($key != 0){
+                                            ?>
+                                            <td><?= $val[0] ?></td>
+                                            <td><?= $val[1] ?></td>
+                                            <?php
+                                            }
+                                          }
+                                        ?>
+                                        <td><?= $total ?></td>
+                                      </tr>
+                                      <?php
                                     }
                                     ?>
                                 </tr>
                             <?php
-                                endforeach;                        
+                                endforeach;
                             ?>
                             </tbody>
                         </table>
                     </div>
                     </div>
-                
+
                 <?php } ?>
             </div>
 
