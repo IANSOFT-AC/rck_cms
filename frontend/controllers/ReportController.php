@@ -300,16 +300,16 @@ class ReportController extends \yii\web\Controller
             $data[1] = SecurityInterview::find()->select('COUNT(*) AS count')->where(['sex'=> 1])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
-            $male[2] = SecurityInterview::find()->select('COUNT(*) AS count')->where(['sex'=> 2])
+            $data[2] = SecurityInterview::find()->select('COUNT(*) AS count')->where(['sex'=> 2])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
-            $male[3] = SecurityInterview::find()->select('COUNT(*) AS count')->where(['sex'=> 3])
+            $data[3] = SecurityInterview::find()->select('COUNT(*) AS count')->where(['sex'=> 3])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
 
-            echo "<pre>";
-            print_r(json_encode($data));
-            exit;
+            // echo "<pre>";
+            // print_r(json_encode($data));
+            // exit;
 
             return $this->render('index', [
                 'data' => $data,

@@ -303,6 +303,41 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     </div>
 
                 <?php } ?>
+
+
+                <?php if(isset($type) && 'security-report' == $type){ ?>
+
+                    <div class="container div-center">
+                    <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
+                    <div class="card p-3">
+                        <table class="table table-responsive">
+                            <tbody>
+                                <tr>
+                                    <td class="table-primary table-bordered"></td>
+                                    <td class="table-primary table-bordered">Male</td>
+                                    <td class="table-primary table-bordered">Female</td>
+                                    <td class="table-primary table-bordered">Other</td>
+                                    <td class="table-primary table-bordered">Totals</td>
+                                </tr>
+                                <tr>
+                            <?php
+                                $total = 0;
+                                foreach ($data as $key => $val):
+                                  if($key != 0){
+                                    $total += $val;
+                                  }
+                            ?>
+                                  <td><?= $val ?></td>
+                            <?php
+                                endforeach;
+                            ?>
+                            <td><?= $total ?></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+                <?php } ?>
             </div>
 
         </div>
