@@ -457,6 +457,30 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                         </p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>report/intervention-by-legal" class="nav-link <?= Yii::$app->recruitment->currentaction('report','intervention-by-legal')?'active':'' ?>">
+                                        <i class="fa fa-circle nav-icon"></i>
+                                        <p>Legal (Intervention)
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>report/court-by-legal" class="nav-link <?= Yii::$app->recruitment->currentaction('report','court-by-legal')?'active':'' ?>">
+                                        <i class="fa fa-circle nav-icon"></i>
+                                        <p>Legal (Court Cases)
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= $absoluteUrl ?>report/police-by-legal" class="nav-link <?= Yii::$app->recruitment->currentaction('report','police-by-legal')?'active':'' ?>">
+                                        <i class="fa fa-circle nav-icon"></i>
+                                        <p>Legal (Police Cases)
+                                            <!--<span class="badge badge-info right">0</span>-->
+                                        </p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 

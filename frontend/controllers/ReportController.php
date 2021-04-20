@@ -18,6 +18,8 @@ use app\models\FormOfTorture;
 use app\models\SecurityInterview;
 use app\models\Training;
 use app\models\TrainingType;
+use app\models\Intervention;
+use yii\db\Expression;
 
 class ReportController extends \yii\web\Controller
 {
@@ -174,13 +176,22 @@ class ReportController extends \yii\web\Controller
                     'gender' => 1,
                 ])->column();
                 //GET THE NUMBER OF COURT CASES OF THE CLIENTS
-                $num = CourtCases::find()->select('COUNT(*) AS count')->where([
+                $numOpen = CourtCases::find()->select(new Expression('COALESCE(COUNT(*), 0) as count'))->where([
                     'in','refugee_id' , $clientIds
                 ])
-                ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+                  ->andWhere(['case_status' => 'open'])
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->asArray()
+                  ->all();
+                $numClosed = CourtCases::find()->select(new Expression('COALESCE(COUNT(*), 0) as count'))->where([
+                    'in','refugee_id' , $clientIds
+                ])
+                  ->andWhere(['case_status' => 'closed'])
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->asArray()
+                  ->all();
                 $data[$key][0] = $office->name;
-                $data[$key][1] = $num;
+                $data[$key][1] = [$numOpen[0]['count'],$numClosed[0]['count']];
 
 
                 //GET THE IDS OF FEMALE CLIENTS FROM EACH OFFICE
@@ -189,12 +200,21 @@ class ReportController extends \yii\web\Controller
                     'gender' => 2,
                 ])->column();
                 //GET THE NUMBER OF COURT CASES OF THE CLIENTS
-                $num = CourtCases::find()->select('COUNT(*) AS count')->where([
+                $numOpen = CourtCases::find()->select('COUNT(*) AS count')->where([
                     'in','refugee_id' , $clientIds
                 ])
-                ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
-                $data[$key][2] = $num;
+                  ->andWhere(['case_status' => 'open'])
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->asArray()
+                  ->all();
+                $numClosed = CourtCases::find()->select('COUNT(*) AS count')->where([
+                    'in','refugee_id' , $clientIds
+                ])
+                  ->andWhere(['case_status' => 'closed'])
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->asArray()
+                  ->all();
+                $data[$key][2] = [$numOpen[0]['count'], $numClosed[0]['count']];
 
 
                 //GET THE IDS OF LGBT CLIENTS FROM EACH OFFICE
@@ -203,18 +223,28 @@ class ReportController extends \yii\web\Controller
                     'gender' => 3,
                 ])->column();
                 //GET THE NUMBER OF COURT CASES OF THE CLIENTS
-                $num = CourtCases::find()->select('COUNT(*) AS count')->where([
+                $numOpen = CourtCases::find()->select('COUNT(*) AS count')->where([
                     'in','refugee_id' , $clientIds
                 ])
-                ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
-                $data[$key][3] = $num;
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->andWhere(['case_status' => 'open'])
+                  ->asArray()
+                  ->all();
 
-                $count += $num;
+                $numClosed = CourtCases::find()->select('COUNT(*) AS count')->where([
+                    'in','refugee_id' , $clientIds
+                ])
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->andWhere(['case_status' => 'closed'])
+                  ->asArray()
+                  ->all();
+                $data[$key][3] = [$numOpen[0]['count'], $numClosed[0]['count']];
+
+                //$count += $num;
             endforeach;
 
             echo "<pre>";
-                print_r(json_encode($data));
+                print_r($data);
                 exit;
 
             return $this->render('index', [
@@ -590,12 +620,139 @@ class ReportController extends \yii\web\Controller
     }
 
 
+    //Legal Representation for Intervention
+    public function actionInterventionByLegal(){
+      if (Yii::$app->request->post()) {
+
+          $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
+          $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
+          $interventions = Intervention::find()
+            ->where(['between', 'created_at', $start_date, $end_date])
+            ->andWhere(['in','intervention_type_id',6])
+            ->all();
+          $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
+          $dates = [];
+
+          //clasify cumulatives by gender and age
+          foreach ($interventions as $key => $intervention) {
+            //echo  $intervention->client->gender."/n";
+            if($intervention->client->gender == 1){
+                //Male
+                $class = self::ageClassify($intervention->client->date_of_birth, $intervention->created_at);
+                $data = self::arrayInitialize($data,0,$class);
+            }
+
+            if($intervention->client->gender == 2){
+                //Female
+                $class = self::ageClassify($intervention->client->date_of_birth, $intervention->created_at);
+                $data = self::arrayInitialize($data,1,$class);
+            }
+
+            if($intervention->client->gender == 3){
+                //LGBT AND THE GENDER FUNNY
+                $class = self::ageClassify($intervention->client->date_of_birth, $intervention->created_at);
+                $data = self::arrayInitialize($data,2,$class);
+            }
+          }
+          Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+          echo "<pre>";
+          print_r($data);
+          exit;
+        }
+        return $this->render('index', [
+            'title' => 'Pull Report by Intervention through Legal Representation'
+        ]);
+    }
 
 
+    //Legal Representation for Court Cases
+    public function actionCourtByLegal(){
+      if (Yii::$app->request->post()) {
+
+          $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
+          $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
+          $courts = CourtCases::find()
+            ->where(['between', 'created_at', $start_date, $end_date])
+            //->andWhere(['in','intervention_type_id',6])
+            ->all();
+          $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
+          $dates = [];
+
+          //clasify cumulatives by gender and age
+          foreach ($courts as $key => $court) {
+            //echo  $intervention->client->gender."/n";
+            if($court->client->gender == 1){
+                //Male
+                $class = self::ageClassify($court->client->date_of_birth, $court->created_at);
+                $data = self::arrayInitialize($data,0,$class);
+            }
+
+            if($court->client->gender == 2){
+                //Female
+                $class = self::ageClassify($court->client->date_of_birth, $court->created_at);
+                $data = self::arrayInitialize($data,1,$class);
+            }
+
+            if($court->client->gender == 3){
+                //LGBT AND THE GENDER FUNNY
+                $class = self::ageClassify($court->client->date_of_birth, $court->created_at);
+                $data = self::arrayInitialize($data,2,$class);
+            }
+          }
+          // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+          // echo "<pre>";
+          // print_r($data);
+          // exit;
+        }
+        return $this->render('index', [
+            'title' => 'Pull Report by Court Case through Legal Representation'
+        ]);
+    }
 
 
+    //Legal Representation for Intervention
+    public function actionPoliceByLegal(){
+      if (Yii::$app->request->post()) {
 
+          $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
+          $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
+          $police_cases = PoliceCases::find()
+            ->where(['between', 'created_at', $start_date, $end_date])
+            //->andWhere(['in','intervention_type_id',6])
+            ->all();
+          $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
+          $dates = [];
 
+          //clasify cumulatives by gender and age
+          foreach ($police_cases as $key => $policecase) {
+            //echo  $intervention->client->gender."/n";
+            if($policecase->client->gender == 1){
+                //Male
+                $class = self::ageClassify($policecase->client->date_of_birth, $policecase->created_at);
+                $data = self::arrayInitialize($data,0,$class);
+            }
+
+            if($policecase->client->gender == 2){
+                //Female
+                $class = self::ageClassify($policecase->client->date_of_birth, $policecase->created_at);
+                $data = self::arrayInitialize($data,1,$class);
+            }
+
+            if($policecase->client->gender == 3){
+                //LGBT AND THE GENDER FUNNY
+                $class = self::ageClassify($policecase->client->date_of_birth, $policecase->created_at);
+                $data = self::arrayInitialize($data,2,$class);
+            }
+          }
+          // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+          // echo "<pre>";
+          // print_r($data);
+          // exit;
+        }
+        return $this->render('index', [
+            'title' => 'Pull Report by Police Case through Legal Representation'
+        ]);
+    }
 
 
 
@@ -608,11 +765,17 @@ class ReportController extends \yii\web\Controller
         return $main;
     }
 
-    public static function ageClassify($dobTimestamp){
+    public static function ageClassify($dobTimestamp, $dobFrom = 'now'){
         $ageRanges = ['0-18','19-25','26-35','36-45','46-60','60+'];
         //calculate age.
         $dob = Carbon::createFromTimestamp($dobTimestamp, 'Africa/Nairobi');
-        $age = Carbon::now()->diffInYears($dob);
+        $age = 0;
+        if($dobFrom == 'now'){
+            $age = Carbon::now()->diffInYears($dob);
+        }else{
+            $age = Carbon::createFromTimestamp($dobFrom, 'Africa/Nairobi')->diffInYears($dob);
+        }
+
         //classify age.
         if($age <= 18){// 0-18 years
             return 1;
