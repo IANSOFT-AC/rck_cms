@@ -338,6 +338,68 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     </div>
 
                 <?php } ?>
+
+                <?php if(isset($type) && 'training' == $type){ ?>
+
+                    <div class="container div-center">
+                    <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
+                    <div class="card p-3">
+                        <table class="table table-responsive">
+                            <tbody>
+                                <tr>
+                                    <td class="table-primary table-bordered">Training Type</td>
+                                    <td class="table-primary table-bordered">0-9 years</td>
+                                    <td class="table-primary table-bordered">10-19 years</td>
+                                    <td class="table-primary table-bordered">20-24 years</td>
+                                    <td class="table-primary table-bordered">25-59 years</td>
+                                    <td class="table-primary table-bordered">60+ years</td>
+                                    <td class="table-primary table-bordered">boys</td>
+                                    <td class="table-primary table-bordered">girls</td>
+                                    <td class="table-primary table-bordered">men</td>
+                                    <td class="table-primary table-bordered">Women</td>
+                                    <td class="table-primary table-bordered">Subtotals</td>
+                                </tr>
+                                  <?php
+                                      foreach ($data as $key => $val):
+                                  ?>
+                                              <tr>
+                                                  <td><?= $val['trainingName'] ?></td>
+                                                  <td><?= is_null($val['t0_9']) ? '0' : $val['t0_9'] ?></td>
+                                                  <td><?= is_null($val['t10_19']) ? '0' : $val['t10_19'] ?></td>
+                                                  <td><?= is_null($val['t20_24']) ? '0' : $val['t20_24']?></td>
+                                                  <td><?= is_null($val['t25_59']) ? '0' : $val['t25_59'] ?></td>
+                                                  <td><?= is_null($val['t60plus']) ? '0' : $val['t60plus'] ?></td>
+                                                  <td><?= is_null($val['boys']) ? '0' : $val['boys'] ?></td>
+                                                  <td><?= is_null($val['girls']) ? '0' : $val['girls'] ?></td>
+                                                  <td><?= is_null($val['men']) ? '0' : $val['men'] ?></td>
+                                                  <td><?= is_null($val['women']) ? '0' : $val['women'] ?></td>
+                                                  <td><?= $vertical[$key] ?></td>
+                                                </tr>
+                                      </tr>
+                                  <?php
+                                      endforeach;
+                                      if($data){
+                                      ?>
+                                        <tr>
+                                          <td>Sub Totals</td>
+                                          <td><?= is_null($horizontal['t0_9']) ? '0' : $horizontal['t0_9'] ?></td>
+                                          <td><?= is_null($horizontal['t10_19']) ? '0' : $horizontal['t10_19'] ?></td>
+                                          <td><?= is_null($horizontal['t20_24']) ? '0' : $horizontal['t20_24']?></td>
+                                          <td><?= is_null($horizontal['t25_59']) ? '0' : $horizontal['t25_59'] ?></td>
+                                          <td><?= is_null($horizontal['t60plus']) ? '0' : $horizontal['t60plus'] ?></td>
+                                          <td><?= is_null($horizontal['boys']) ? '0' : $horizontal['boys'] ?></td>
+                                          <td><?= is_null($horizontal['girls']) ? '0' : $horizontal['girls'] ?></td>
+                                          <td><?= is_null($horizontal['men']) ? '0' : $horizontal['men'] ?></td>
+                                          <td><?= is_null($horizontal['women']) ? '0' : $horizontal['women'] ?></td>
+                                          <td><?= $total ?></td>
+                                        </tr>
+                                      <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+                <?php } ?>
             </div>
 
         </div>

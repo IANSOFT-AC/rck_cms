@@ -129,7 +129,7 @@ class ReportController extends \yii\web\Controller
               'tt.name as trainingName',
               'sum(training.t0_9) as t0_9',
               'sum(training.t10_19) as t10_19',
-              'sum(training.t20_24) as t20-24',
+              'sum(training.t20_24) as t20_24',
               'sum(training.t25_59) as t25_59',
               'sum(training.t60plus) as t60plus',
               'sum(training.boys) as boys',
@@ -139,18 +139,32 @@ class ReportController extends \yii\web\Controller
             ])->leftJoin(['tt'=>TrainingType::find()
                 ->select('id,name')
               ], 'tt.id = training.type')
-            ->where(['type' => 1])
+            //->where(['type' => 1])
             ->andWhere(['between', 'created_at', $start_date, $end_date])
             ->groupBy(['training.type'])
             ->asArray()
             ->all();
 
-            echo "<pre>";
-            print_r(json_encode($trainings));
-            exit;
-            $data = [];
-            foreach ($trainings as $key => $office):
-            endforeach;
+            //calculate Subtotals
+            $rst = self::calculateSubTotals($trainings);
+            $horizontal = $rst['horizontal'];
+            $vertical = $rst['vertical'];
+            $totals = $rst['totals'];
+
+            // echo "<pre>";
+            // print_r(json_encode($trainings));
+            // exit;
+
+            return $this->render('index', [
+                'data' => $trainings,
+                'horizontal' => $horizontal,
+                'vertical' => $vertical,
+                'total' => $totals,
+                'title' => 'Pull Trainings against Age',
+                'type' => 'training',
+                'start_date' => date("H:ia l M j, Y",$start_date),
+                'end_date' => date("H:ia l M j, Y",$end_date),
+            ]);
         }
 
         return $this->render('index', [
