@@ -26,8 +26,8 @@ use app\models\UserGroup;
 class User extends ActiveRecord implements IdentityInterface
 {
     const ROLE_ADMIN = 2;
-    
-    
+
+
     const STATUS_DELETED        = 0;
     const STATUS_INACTIVE       = 9;
     const STATUS_ACTIVE         = 10;
@@ -129,7 +129,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Finds user by password reset token
-     * 
+     *
      *
      * @param string $token password reset token
      * @return static|null
@@ -195,7 +195,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     //find the role
     public function getRole(){
-        return UserGroup::findOne($this->id)->group;
+        return UserGroup::findOne($this->role)->group;
     }
 
     /**
