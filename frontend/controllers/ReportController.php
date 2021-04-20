@@ -244,8 +244,8 @@ class ReportController extends \yii\web\Controller
             endforeach;
 
             echo "<pre>";
-                print_r($data);
-                exit;
+            print_r($data);
+            exit;
 
             return $this->render('index', [
                 'data' => $data,
@@ -415,6 +415,7 @@ class ReportController extends \yii\web\Controller
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$num);
             endforeach;
+            
 
             //GET TOTALS FOR THE HORIZONTAL ROW
             $horizontal= [];
