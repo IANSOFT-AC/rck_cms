@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
-                        <table class="table table-responsive">
+                        <table class="table">
                             <tbody>
                                 <tr>
                                     <td class="table-primary table-bordered"></td>
@@ -50,9 +50,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">Asylum Seeker</td>
                                     <td class="table-primary table-bordered">Totals by Nationality</td>
                                 </tr>
+                              </thead>
                             <?php
                                 foreach ($data as $key => $val):
                             ?>
+                            <tbody>
                                 <tr>
                                     <td><?= $val[0] ?></td>
                                     <td><?= $val[1] ?></td>
@@ -72,6 +74,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                             <?php
                                 endforeach;
                             ?><td><?= $total ?></td></tr>
+                          </tbody>
                             </tbody>
                         </table>
                     </div>
@@ -85,8 +88,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
-                        <table class="table table-responsive">
-                            <tbody>
+                        <table class="table">
+                            <thead>
                                 <tr>
                                     <td class="table-primary table-bordered"></td>
                                     <td colspan="2" class="table-primary table-bordered">Male</td>
@@ -101,6 +104,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">Asylum Seeker</td>
                                     <td class="table-primary table-bordered">Totals</td>
                                 </tr>
+                              </thead>
+                              <tbody>
                             <?php
                                 foreach ($data as $key => $val):
                             ?>
@@ -127,8 +132,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
-                        <table class="table table-responsive">
-                            <tbody>
+                        <table class="table">
+                            <thead>
                                 <tr>
                                     <td class="table-primary table-bordered">Sex</td>
                                     <td colspan="6" class="table-primary table-bordered">Age Group</td>
@@ -144,6 +149,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">60+</td>
                                     <td class="table-primary table-bordered">Sub-totals by Sex</td>
                                 </tr>
+                              </thead>
+                              <tbody>
                             <?php
                                 foreach ($data as $key => $val):
                             ?>
@@ -182,8 +189,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
-                        <table class="table table-responsive">
-                            <tbody>
+                        <table class="table">
+                            <thead>
                                 <tr>
                                     <td class="table-primary table-bordered"></td>
                                     <td class="table-primary table-bordered">Male</td>
@@ -191,6 +198,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">Other</td>
                                     <td class="table-primary table-bordered">Totals</td>
                                 </tr>
+                              </thead>
+                              <tbody>
                             <?php
                                 foreach ($data as $key => $val):
                             ?>
@@ -230,8 +239,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
-                        <table class="table table-responsive">
-                            <tbody>
+                        <table class="table">
+                            <thead>
                                 <tr>
                                     <td class="table-primary table-bordered"></td>
                                     <td class="table-primary table-bordered" colspan="2">Male</td>
@@ -249,6 +258,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">Closed</td>
                                     <td class="table-primary table-bordered"></td>
                                 </tr>
+                              </thead>
+                              <tbody>
                             <?php
                                 foreach ($data as $key => $val):
                             ?>
@@ -310,15 +321,15 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
-                        <table class="table table-responsive">
-                            <tbody>
-                                <tr>
+                        <table class="table">
+                            <thead>
                                     <td class="table-primary table-bordered"></td>
                                     <td class="table-primary table-bordered">Male</td>
                                     <td class="table-primary table-bordered">Female</td>
                                     <td class="table-primary table-bordered">Other</td>
                                     <td class="table-primary table-bordered">Totals</td>
-                                </tr>
+                                </thead>
+                                <tbody>
                                 <tr>
                             <?php
                                 $total = 0;
@@ -344,8 +355,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
-                        <table class="table table-responsive">
-                            <tbody>
+                        <table class="table">
+                            <thead>
                                 <tr>
                                     <td class="table-primary table-bordered">Training Type</td>
                                     <td class="table-primary table-bordered">0-9 years</td>
@@ -359,9 +370,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">Women</td>
                                     <td class="table-primary table-bordered">Subtotals</td>
                                 </tr>
+                              </thead>
                                   <?php
                                       foreach ($data as $key => $val):
                                   ?>
+                                  <tbody>
                                               <tr>
                                                   <td><?= $val['trainingName'] ?></td>
                                                   <td><?= is_null($val['t0_9']) ? '0' : $val['t0_9'] ?></td>
@@ -406,8 +419,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     <div class="container div-center">
                     <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
                     <div class="card p-3">
-                        <table class="table table-responsive">
-                            <tbody>
+                        <table class="table">
+                            <thead>
                                 <tr>
                                     <td class="table-primary table-bordered">Sex</td>
                                     <td colspan="6" class="table-primary table-bordered">Age Group</td>
@@ -423,6 +436,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">60+</td>
                                     <td class="table-primary table-bordered">Sub-totals by Sex</td>
                                 </tr>
+                              </thead>
+                              <tbody>
                             <?php
                                 foreach ($data as $key => $val):
                             ?>
@@ -495,6 +510,25 @@ $(function() {
     }, cb);
 
     cb(start, end);
+
+    $('.table').DataTable({
+        language: {
+            emptyTable: "No data available in table", //
+           // loadingRecords: "Please wait .. ", // default Loading...
+            zeroRecords: "No matching records found"
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        "columnDefs": [
+            {
+                "visible": false,
+                "searchable": false
+            }
+        ],
+        responsive:true
+    });
 });
 
 JS;

@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => 'interventions'];
 ?>
 <div class="intervention-index">
 
-    
+
     <div class="card">
         <div class="card-header">
             <h1 class="header-title"><?= Html::encode($this->title) ?></h1>
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = ['label' => 'interventions'];
         </div>
         <div class="card-body table-responsive">
              <table class="table " id="interventions">
-                
+
             </table>
         </div>
 
@@ -56,7 +56,7 @@ $script = <<<JS
 
     $('#interventions').DataTable({
         language: {
-            emptyTable: "No data available in table", // 
+            emptyTable: "No data available in table", //
            // loadingRecords: "Please wait .. ", // default Loading...
             zeroRecords: "No matching records found"
         },
