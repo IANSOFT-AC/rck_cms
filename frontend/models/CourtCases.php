@@ -71,7 +71,7 @@ class CourtCases extends \yii\db\ActiveRecord
         ];
     }
 
-    
+
 
     /**
      * {@inheritdoc}
@@ -117,11 +117,21 @@ class CourtCases extends \yii\db\ActiveRecord
         if (parent::beforeValidate()) {
             //Nullify the values if the value is other for the following fields
             $this->offence_id = ($this->offence_id == 0) ? null : $this->offence_id;
-            $this->counsellor_id = ($this->counsellor_id == 0) ? null : $this->counsellor_id;             
+            $this->counsellor_id = ($this->counsellor_id == 0) ? null : $this->counsellor_id;
             $this->legal_officer_id = ($this->legal_officer_id == 0) ? null : $this->legal_officer_id;
             return true;
         }
         return false;
+    }
+
+    /**
+     * Gets query for [[Client]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getClient()
+    {
+        return $this->hasOne(Refugee::className(), ['id' => 'refugee_id']);
     }
 
     /**

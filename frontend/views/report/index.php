@@ -400,6 +400,62 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     </div>
 
                 <?php } ?>
+
+                <?php if(isset($type) && 'legal' == $type){ ?>
+
+                    <div class="container div-center">
+                    <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
+                    <div class="card p-3">
+                        <table class="table table-responsive">
+                            <tbody>
+                                <tr>
+                                    <td class="table-primary table-bordered">Sex</td>
+                                    <td colspan="6" class="table-primary table-bordered">Age Group</td>
+                                    <td class="table-primary table-bordered"></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-primary table-bordered"></td>
+                                    <td class="table-primary table-bordered">0-18</td>
+                                    <td class="table-primary table-bordered">19-25</td>
+                                    <td class="table-primary table-bordered">26-35</td>
+                                    <td class="table-primary table-bordered">36-45</td>
+                                    <td class="table-primary table-bordered">45-60</td>
+                                    <td class="table-primary table-bordered">60+</td>
+                                    <td class="table-primary table-bordered">Sub-totals by Sex</td>
+                                </tr>
+                            <?php
+                                foreach ($data as $key => $val):
+                            ?>
+                                <tr>
+                                    <td><?= $val[0] ?></td>
+                                    <td><?= $val[1] ?></td>
+                                    <td><?= $val[2] ?></td>
+                                    <td><?= $val[3] ?></td>
+                                    <td><?= $val[4] ?></td>
+                                    <td><?= $val[5] ?></td>
+                                    <td><?= $val[6] ?></td>
+                                    <td><?= $vertical[$key] ?></td>
+                                </tr>
+                            <?php
+                                endforeach;
+                            ?>
+                            <tr>
+                                <td>Sub Totals</td>
+                                <td><?= $horizontal[1] ?></td>
+                                <td><?= $horizontal[2] ?></td>
+                                <td><?= $horizontal[3] ?></td>
+                                <td><?= $horizontal[4] ?></td>
+                                <td><?= $horizontal[5] ?></td>
+                                <td><?= $horizontal[6] ?></td>
+                                <td><?= $total ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+                <?php } ?>
+
             </div>
 
         </div>

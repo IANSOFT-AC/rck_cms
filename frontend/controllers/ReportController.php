@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use app\models\Refugee;
 use app\models\Country;
 use app\models\CourtCases;
+use app\models\PoliceCases;
 use Carbon\Carbon;
 use app\models\RckOffices;
 use app\models\SourceOfInfo;
@@ -684,10 +685,26 @@ class ReportController extends \yii\web\Controller
                 $data = self::arrayInitialize($data,2,$class);
             }
           }
-          Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-          echo "<pre>";
-          print_r(json_encode($data));
-          exit;
+          // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+          // echo "<pre>";
+          // print_r(json_encode($data));
+          // exit;
+
+          $rst = self::calculateSubTotals($data);
+          $horizontal = $rst['horizontal'];
+          $vertical = $rst['vertical'];
+          $totals = $rst['totals'];
+
+          return $this->render('index', [
+              'data'=> $data,
+              'horizontal' => $horizontal,
+              'vertical' => $vertical,
+              'total' => $totals,
+              'type' => 'legal',
+              'start_date' => date("H:ia l M j, Y",$start_date),
+              'end_date' => date("H:ia l M j, Y",$end_date),
+              'title' => 'Pull Legal Report by Intervention '
+          ]);
         }
         return $this->render('index', [
             'title' => 'Pull Report by Intervention through Legal Representation'
@@ -704,6 +721,7 @@ class ReportController extends \yii\web\Controller
           $courts = CourtCases::find()
             ->where(['between', 'created_at', $start_date, $end_date])
             //->andWhere(['in','intervention_type_id',6])
+            ->andWhere(['not', ['refugee_id' => null]])
             ->all();
           $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
           $dates = [];
@@ -729,10 +747,26 @@ class ReportController extends \yii\web\Controller
                 $data = self::arrayInitialize($data,2,$class);
             }
           }
-          Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-          echo "<pre>";
-          print_r(json_encode($data));
-          exit;
+          // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+          // echo "<pre>";
+          // print_r(json_encode($data));
+          // exit;
+
+          $rst = self::calculateSubTotals($data);
+          $horizontal = $rst['horizontal'];
+          $vertical = $rst['vertical'];
+          $totals = $rst['totals'];
+
+          return $this->render('index', [
+              'data'=> $data,
+              'horizontal' => $horizontal,
+              'vertical' => $vertical,
+              'total' => $totals,
+              'type' => 'legal',
+              'start_date' => date("H:ia l M j, Y",$start_date),
+              'end_date' => date("H:ia l M j, Y",$end_date),
+              'title' => 'Pull Legal Report by Court Case'
+          ]);
         }
         return $this->render('index', [
             'title' => 'Pull Report by Court Case through Legal Representation'
@@ -749,6 +783,7 @@ class ReportController extends \yii\web\Controller
           $police_cases = PoliceCases::find()
             ->where(['between', 'created_at', $start_date, $end_date])
             //->andWhere(['in','intervention_type_id',6])
+            ->andWhere(['not', ['refugee_id' => null]])
             ->all();
           $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
           $dates = [];
@@ -774,10 +809,26 @@ class ReportController extends \yii\web\Controller
                 $data = self::arrayInitialize($data,2,$class);
             }
           }
-          Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-          echo "<pre>";
-          print_r(json_encode($data));
-          exit;
+          // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+          // echo "<pre>";
+          // print_r(json_encode($data));
+          // exit;
+
+          $rst = self::calculateSubTotals($data);
+          $horizontal = $rst['horizontal'];
+          $vertical = $rst['vertical'];
+          $totals = $rst['totals'];
+
+          return $this->render('index', [
+              'data'=> $data,
+              'horizontal' => $horizontal,
+              'vertical' => $vertical,
+              'total' => $totals,
+              'type' => 'legal',
+              'start_date' => date("H:ia l M j, Y",$start_date),
+              'end_date' => date("H:ia l M j, Y",$end_date),
+              'title' => 'Pull Legal Report by Police Case'
+          ]);
         }
         return $this->render('index', [
             'title' => 'Pull Report by Police Case through Legal Representation'
