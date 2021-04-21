@@ -19,7 +19,8 @@ $this->params['breadcrumbs'][] = ['label'=> $this->title];
                 'model' => $model,
                 'organizers' => $organizers,
                 'donors' => $donors,
-                'trainingTypes' => $trainingTypes
+                'trainingTypes' => $trainingTypes,
+                'offices' => $offices
             ]) ?>
         </div>
     </div>

@@ -51,12 +51,13 @@ class Intervention extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at','agency_id','updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id','office_id'], 'integer'],
+            [['created_at','agency_id','updated_at', 'created_by', 'updated_by', 'court_case', 'police_case', 'client_id','office_id','legal_representation_id'], 'integer'],
             [['situation_description','intervention_details','sgbv','consent_scan','referal_file'], 'string'],
             [['counseling_intake_form'], 'string', 'max' => 255],
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Refugee::className(), 'targetAttribute' => ['client_id' => 'id']],
             [['court_case'], 'exist', 'skipOnError' => true, 'targetClass' => CourtCases::className(), 'targetAttribute' => ['court_case' => 'id']],
             [['police_case'], 'exist', 'skipOnError' => true, 'targetClass' => PoliceCases::className(), 'targetAttribute' => ['police_case' => 'id']],
+            [['legal_representation_id'],'exist', 'skipOnEmpty' => true, 'targetClass' => LegalRepresentation::className(), 'targetAttribute' => ['legal_representation_id' => 'id']]
         ];
     }
 
@@ -83,7 +84,8 @@ class Intervention extends \yii\db\ActiveRecord
             'agency_id' => 'Referred Agency',
             'sgbv' => 'SGBV Type',
             'referal_file' => 'Referal file',
-            'consent_scan' => 'Consent Scan'
+            'consent_scan' => 'Consent Scan',
+            'legal_representation_id' => 'Legal Representation'
         ];
     }
 
@@ -130,6 +132,11 @@ class Intervention extends \yii\db\ActiveRecord
     public function getPoliceCase()
     {
         return $this->hasOne(PoliceCases::className(), ['id' => 'police_case']);
+    }
+
+    public function getLegalRepresentation()
+    {
+        return $this->hasOne(LegalRepresentation::className(), ['id' => 'legal_representation_id']);
     }
 
     /**

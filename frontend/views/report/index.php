@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                 </div>
                 <div class="p-2">
                  <button type="submit" class="btn btn-primary" style="">Filter</button>
-                 <a href="https://app.endelezacapital.com/transactions" class="btn btn-secondary">Reset</a>
+                 <a href="/transactions" class="btn btn-secondary">Reset</a>
                </div>
                 </form>
                 <?php if(isset($type) && 'country' == $type){ ?>

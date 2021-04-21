@@ -19,7 +19,8 @@ $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' 
         'model' => $model,
         'organizers' => $organizers,
         'donors' => $donors,
-        'trainingTypes' => $trainingTypes
+        'trainingTypes' => $trainingTypes,
+        'offices' => $offices
     ]) ?>
 
 </div>

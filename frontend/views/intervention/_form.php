@@ -19,10 +19,10 @@ use common\models\Helper;
             <div class="row">
                 <div class="col-md-6">
                     <?= $form->field($model, 'case_id[]')->dropDownList($cases,['prompt' => '-- Select Case or Issue --','multiple'=>'multiple', 'data-live-search' => "true",'class' => 'form-control selectpicker', 'options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->case_id)]) ?>
-                </div>  
+                </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'sgbv[]')->dropDownList($sgbvTypes,['prompt' => '--Select SGBV Type...','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->sgbv)]) ?>
-                </div>              
+                </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'client_id')->dropDownList($client) ?>
                 </div>
@@ -31,6 +31,9 @@ use common\models\Helper;
                 </div>
                 <div class="col-md-12">
                     <?= $form->field($model, 'intervention_type_id[]')->dropDownList($interventionType,['prompt' => '--Select ...','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->intervention_type_id)]) ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'legal_representation_id')->dropDownList($legalRepresentation,['prompt' => '--Select ...','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->legal_representation_id)]) ?>
                 </div>
                 <div class="col-md-12">
                     <?= $form->field($model, 'intervention_details')->textarea(['rows' => 6]) ?>
@@ -49,7 +52,7 @@ use common\models\Helper;
 
                 <div class="col-md-6">
                     <?= $form->field($model, 'police_case')->dropDownList($police_cases,['prompt' => '--Select Police Case--']) ?>
-                </div>                
+                </div>
                 <?php $form->field($model, 'created_at')->textInput() ?>
 
                 <?php $form->field($model, 'updated_at')->textInput() ?>
@@ -79,7 +82,7 @@ $script = <<<JS
             .field-intervention-police_case,\
             .field-intervention-office_id,\
             .field-intervention-agency_id,\
-            .field-intervention-sgbv').parent().fadeOut();
+            .field-intervention-sgbv, .field-intervention-legal_representation_id').parent().fadeOut();
     }
     hideEm()
 
@@ -92,7 +95,7 @@ $script = <<<JS
         }else{
             $('.field-intervention-court_case').parent().fadeOut()
         }
-        
+
         if($('#intervention-case_id option[value=12]:selected').length > 0){
             $('.field-intervention-police_case').parent().fadeIn('slow')
         }else{
@@ -116,11 +119,17 @@ $script = <<<JS
         }else{
             $('.field-intervention-office_id').parent().fadeOut()
         }
-        
+
         if($('#intervention-intervention_type_id option[value=5]:selected').length > 0){
             $('.field-intervention-agency_id').parent().fadeIn('slow')
         }else{
             $('.field-intervention-agency_id').parent().fadeOut()
+        }
+
+        if($('#intervention-intervention_type_id option[value=6]:selected').length > 0){
+            $('.field-intervention-legal_representation_id').parent().fadeIn('slow')
+        }else{
+            $('.field-intervention-legal_representation_id').parent().fadeOut()
         }
     }).change();
 JS;

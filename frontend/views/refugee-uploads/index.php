@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->type == 1 ? 'Asylum' : 'Refugee';
                 }
             ],
+            'mandatory',
             'created_at:datetime',
             //'updated_at',
             //'created_by',

@@ -7,25 +7,24 @@ use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 
 /**
- * This is the model class for table "refugee_uploads".
+ * This is the model class for table "legal_representation".
  *
  * @property int $id
- * @property string|null $name
- * @property string|null $desc
- * @property int|null $type
+ * @property string|null $title
+ * @property string|null $body
  * @property int|null $created_at
  * @property int|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
  */
-class RefugeeUploads extends \yii\db\ActiveRecord
+class LegalRepresentation extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'refugee_uploads';
+        return 'legal_representation';
     }
 
     public function behaviors()
@@ -42,9 +41,9 @@ class RefugeeUploads extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'string'],
-            [['type', 'mandatory', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['body'], 'string'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['title'], 'string', 'max' => 255],
         ];
     }
 
@@ -55,10 +54,8 @@ class RefugeeUploads extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'desc' => 'Desc',
-            'type' => 'Type',
-            'mandatory' => 'Mandatory',
+            'title' => 'Title',
+            'body' => 'Body',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

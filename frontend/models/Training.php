@@ -51,13 +51,14 @@ class Training extends \yii\db\ActiveRecord
     {
         return [
             [['no_of_participants','topic', 'venue','date'],'required'],
-            [['organizer_id','type','donor_id','created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['organizer_id','type','donor_id','rck_office_id','created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['facilitators', 'no_of_participants','date','t0_9','t10_19','t20_24','t25_59','t60plus','boys','girls','men','women'], 'string'],
             [['organizer', 'topic', 'venue', 'participants_scan'], 'string', 'max' => 255],
             [['no_of_participants','date','t0_9','t10_19','t20_24','t25_59','t60plus','boys','girls','men','women'], 'default', 'value' => '0'],
             [['organizer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organizer::className(), 'targetAttribute' => ['organizer_id' => 'id']],
             [['type'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingType::className(), 'targetAttribute' => ['type' => 'id']],
             [['donor_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingType::className(), 'targetAttribute' => ['donor_id' => 'id']],
+            [['rck_office_id'], 'exist', 'skipOnError' => true, 'targetClass' => RckOffices::className(), 'targetAttribute' => ['rck_office_id' => 'id']],
             //Conditional Validation
             [
                 'no_of_participants',
@@ -120,6 +121,7 @@ class Training extends \yii\db\ActiveRecord
             'no_of_participants' => 'No. of Participants',
             'participants_scan' => 'Participants List',
             'donor_id' => 'Donor',
+            'rck_office_id' => 'RCK Office',
             't0_9' => '0-9',
             't10_19' => '10-19',
             't20_24' => '20-24',
@@ -159,5 +161,10 @@ class Training extends \yii\db\ActiveRecord
     public function getDonor()
     {
         return $this->hasOne(Donor::className(), ['id' => 'donor_id']);
+    }
+
+    public function getOffice()
+    {
+        return $this->hasOne(RckOffices::className(), ['id' => 'rck_office_id']);
     }
 }

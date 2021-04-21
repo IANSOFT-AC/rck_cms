@@ -25,14 +25,14 @@ $this->title = "RCK: Control Panel";
 	                    	<?= Html::a('<b>Nationalities Settings</b>',['country/index'],['class' => 'profile-link']) ?></p>
 	                    <br>
 	                </div>
-	              
+
 	                <div class="col-md-6">
 	                    <p class="setup-p">
 	                    	<i class="fas fa-wrench"></i>
 	                    	<?= Html::a('<b>Gender Settings</b>',['gender/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
-	                </div> 
+	                </div>
 	                <div class="col-md-6">
 	                    <p  class="setup-p">
 	                    	<i class="fas fa-wrench"></i>
@@ -275,6 +275,13 @@ $this->title = "RCK: Control Panel";
 	                    </p>
 	                    <br>
 	                </div>
+          <div class="col-md-6">
+	                    <p class="setup-p" data-speechify-sentence="">
+	                    	<i class="fas fa-wrench"></i>
+	                    	<?= Html::a('<b>Legal Representation Settings</b>',['legal-representation/index'],['class' => 'profile-link']) ?></p>
+	                    </p>
+	                    <br>
+	                </div>
 	            </div>
 	        </div>
 	    </div>
@@ -306,7 +313,7 @@ $this->title = "RCK: Control Panel";
 	                    </p>
 	                    <br>
 	                </div>
-	                
+
 	            </div>
 	        </div>
 	    </div>
@@ -330,7 +337,7 @@ $this->title = "RCK: Control Panel";
 	                    	<?= Html::a('<b>User Group Settings</b>',['user-group/index'],['class' => 'profile-link']) ?></p>
 	                    </p>
 	                    <br>
-	                </div>	                
+	                </div>
 	            </div>
 	        </div>
 	    </div>

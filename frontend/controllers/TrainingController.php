@@ -17,6 +17,7 @@ use common\models\User;
 use common\components\AccessRule;
 use app\models\TrainingType;
 use app\models\Donor;
+use app\models\RckOffices;
 
 /**
  * TrainingController implements the CRUD actions for Training model.
@@ -162,15 +163,21 @@ class TrainingController extends Controller
         $upload = new UploadForm();
 
         if ($model->load(Yii::$app->request->post())) {
-            //Upload participants scan
-            $upload->imageFile = UploadedFile::getInstance($model, 'participants_scan');
-            $rst = $upload->upload("training",$model->id, 2 );
-
-            //Upload photos scans
-            $upload->multipleFiles = UploadedFile::getInstances($model, 'photos');
-            $rst2 = $upload->multipleUpload("training",$model->id, 2 );
 
             if($model->save()){
+                //Upload participants scan
+                $imageFile = UploadedFile::getInstance($model, 'participants_scan');
+                if($imageFile){
+                  $upload->imageFile = $imageFile;
+                  $rst = $upload->upload("training",$model->id, 2 );
+                }
+
+                //Upload photos scans
+                $multipleFiles = UploadedFile::getInstances($model, 'photos');
+                if($multipleFiles){
+                  $upload->multipleFiles = $multipleFiles;
+                  $rst2 = $upload->multipleUpload("training",$model->id, 2 );
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             }else{
               foreach ($model->getErrors() as $error){
@@ -182,14 +189,15 @@ class TrainingController extends Controller
         $organizers = ArrayHelper::map(Organizer::find()->all(), 'id', 'name');
         $donors = ArrayHelper::map(Donor::find()->all(), 'id', 'name');
         $trainingTypes = ArrayHelper::map(TrainingType::find()->all(), 'id', 'name');
+        $offices = ArrayHelper::map(RckOffices::find()->all(), 'id','name');
         $organizers[0] = 'other';
-
 
         return $this->render('create', [
             'model' => $model,
             'organizers' => $organizers,
             'donors' => $donors,
-            'trainingTypes' => $trainingTypes
+            'trainingTypes' => $trainingTypes,
+            'offices' => $offices
         ]);
     }
 
@@ -203,30 +211,48 @@ class TrainingController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $upload = new UploadForm();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->save();
 
             //Upload participants scan
-            $upload->imageFile = UploadedFile::getInstance($model, 'participants_scan');
-            $rst = $upload->upload("training",$model->id, 2 );
+            $scan = UploadedFile::getInstance($model, 'participants_scan');
+            // echo "<pre>";
+            // print_r($model);
+            // exit;
+            if($scan){
+              $model->save();
+              $upload->imageFile = $scan;
+              $rst = $upload->upload("training",$model->id, 2 );
+            }else{
+              unset($model->participants_scan);
+              $model->save();
+            }
 
             //Upload photos scans
-            $upload->multipleFiles = UploadedFile::getInstances($model, 'photos');
-            $rst2 = $upload->multipleUpload("training",$model->id, 2 );
+            // echo "<pre>";
+            // print_r(UploadedFile::getInstances($model, 'photos'));
+            // exit;
+            if(!empty(UploadedFile::getInstances($model, 'photos'))){
+              $upload->multipleFiles = UploadedFile::getInstances($model, 'photos');
+              $rst2 = $upload->multipleUpload("training",$model->id, 2 );
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         $organizers = ArrayHelper::map(Organizer::find()->all(), 'id', 'name');
         $donors = ArrayHelper::map(Donor::find()->all(), 'id', 'name');
         $trainingTypes = ArrayHelper::map(TrainingType::find()->all(), 'id', 'name');
+        $offices = ArrayHelper::map(RckOffices::find()->all(), 'id','name');
         $organizers[0] = 'other';
 
         return $this->render('update', [
             'model' => $model,
             'organizers' => $organizers,
             'donors' => $donors,
-            'trainingTypes' => $trainingTypes
+            'trainingTypes' => $trainingTypes,
+            'offices' => $offices
         ]);
     }
 

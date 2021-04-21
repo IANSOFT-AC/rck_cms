@@ -198,7 +198,8 @@ class RefugeeController extends Controller
 
     public function actionFiles($id){
         $model = $this->findModel($id);
-        $uploads = RefugeeUploads::find()->where(['type'=> $model->asylum_status])->all();
+        $uploads = RefugeeUploads::find()->where(['type'=> $model->asylum_status])
+          ->orWhere(['mandatory'=>1])->all();
 
 
         //HANDLE POST OF FILES.

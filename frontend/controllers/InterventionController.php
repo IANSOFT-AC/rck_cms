@@ -20,6 +20,7 @@ use yii\web\UploadedFile;
 use app\models\RckOffices;
 use app\models\SGBVType;
 use app\models\Agency;
+use app\models\LegalRepresentation;
 use common\models\User;
 use common\components\AccessRule;
 
@@ -239,6 +240,7 @@ class InterventionController extends Controller
         $rck_offices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
         $agencies = ArrayHelper::map(Agency::find()->all(),'id','name');
         $sgbvTypes = ArrayHelper::map(SGBVType::find()->all(),'id','name');
+        $legalRepresentation = ArrayHelper::map(LegalRepresentation::find()->all(),'id','title');
 
         return $this->render('create', [
             'model' => $model,
@@ -249,7 +251,8 @@ class InterventionController extends Controller
             'client' => $client,
             'rck_offices' => $rck_offices,
             'agencies' => $agencies,
-            'sgbvTypes' => $sgbvTypes
+            'sgbvTypes' => $sgbvTypes,
+            'legalRepresentation' => $legalRepresentation
         ]);
     }
 
@@ -315,7 +318,7 @@ class InterventionController extends Controller
         //return $this->redirect(['police-cases/index']);
     }
 
-    
+
 
 
     /**
@@ -352,6 +355,7 @@ class InterventionController extends Controller
         $rck_offices = ArrayHelper::map(RckOffices::find()->all(),'id','name');
         $agencies = ArrayHelper::map(Agency::find()->all(),'id','name');
         $sgbvTypes = ArrayHelper::map(SGBVType::find()->all(),'id','name');
+        $legalRepresentation = ArrayHelper::map(LegalRepresentation::find()->all(),'id','title');
 
         return $this->render('update', [
             'model' => $model,
@@ -362,7 +366,8 @@ class InterventionController extends Controller
             'court_cases' => $court_cases,
             'rck_offices' => $rck_offices,
             'agencies' => $agencies,
-            'sgbvTypes' => $sgbvTypes
+            'sgbvTypes' => $sgbvTypes,
+            'legalRepresentation' => $legalRepresentation
         ]);
     }
 

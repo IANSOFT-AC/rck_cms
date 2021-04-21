@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'type')->dropDownList($asylum_types,['prompt' => '-- Upload Type? --']) ?>
 
+    <?= $form->field($model, 'mandatory')->checkBox(['label' => 'Mandatory','data-size'=>'small', 'class'=>'bs_switch','style'=>'margin-bottom:4px;', 'id'=>'active']) ?>
+
     <?php $form->field($model, 'created_at')->textInput() ?>
 
     <?php $form->field($model, 'updated_at')->textInput() ?>

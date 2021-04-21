@@ -199,8 +199,7 @@ class UploadForm extends Model
             $doc = Training::findOne($case_id);
             $doc->participants_scan = $filename;
             //False due to date must be a string validation rule
-            $doc->save(false);
-            //print_r($doc->errors());
+            $r = $doc->save(false);
         }else if($model == "counseling"){
             $doc = Intervention::findOne($case_id);
             $doc->counseling_intake_form = $filename;

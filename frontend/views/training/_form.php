@@ -29,6 +29,9 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'date')->textInput(['type' => 'date','class' => 'form-control no-future','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date, 'yyyy-MM-dd')]) ?>
                 </div>
                 <div class="col-md-6">
+                    <?= $form->field($model, 'rck_office_id')->dropDownList($offices,['prompt' => '-- Select RCK Office? --']) ?>
+                </div>
+                <div class="col-md-6">
                     <?= $form->field($model, 'topic')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-6">

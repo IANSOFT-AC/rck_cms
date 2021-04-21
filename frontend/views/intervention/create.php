@@ -25,9 +25,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         'client' => $client,
         'rck_offices' => $rck_offices,
         'agencies' => $agencies,
-        'sgbvTypes' => $sgbvTypes
+        'sgbvTypes' => $sgbvTypes,
+        'legalRepresentation' => $legalRepresentation
     ]) ?>
 
 </div>
-
-
