@@ -18,16 +18,30 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                 <h1 class="header-title"><?= Html::encode($this->title) ?></h1><br>
             </div>
             <div class="card-body table-responsive">
-                <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                    <i class="fa fa-calendar"></i>&nbsp;
-                    <span></span> <i class="fa fa-caret-down"></i>
-                </div>
                 <form class='p-2 m-2' method="POST">
+                  <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" class="m-2 p-2">
+                      <i class="fa fa-calendar"></i>&nbsp;
+                      <span></span> <i class="fa fa-caret-down"></i>
+                  </div>
                  <input type="hidden" name="start_date" id="start_date" value="2021-03-29 00:00:00">
                  <input type="hidden" name="end_date" id="end_date" value="2021-03-29 23:59:59">
                  <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->csrfToken; ?>" />
+                 <div style="background: #fff; cursor: pointer; padding: 5px 10px; width: 100%">
+                   <select name="office" class="form-control">
+                     <?php
+                        foreach ($offices as $key => $value) {
+                          // code...
+                          ?>
+                          <option value="<?= $value->id ?>"><?= $value->name ?></option>
+                          <?php
+                        }
+                     ?>
+                   </select>
+                </div>
+                <div class="p-2">
                  <button type="submit" class="btn btn-primary" style="">Filter</button>
                  <a href="https://app.endelezacapital.com/transactions" class="btn btn-secondary">Reset</a>
+               </div>
                 </form>
                 <?php if(isset($type) && 'country' == $type){ ?>
 

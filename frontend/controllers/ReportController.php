@@ -27,6 +27,7 @@ class ReportController extends \yii\web\Controller
     //COMPUTATIONS BY COUNTRIES
     public function actionByCountry()
     {
+        $offices = RckOffices::find()->all();
         if (Yii::$app->request->post()) {
             //Refugee::find()->where(['between', 'created_at', Yii::$app->request->post()['start_date'], Yii::$app->request->post()['end_date']])->all();
             $countries = Country::find()->all();
@@ -41,6 +42,7 @@ class ReportController extends \yii\web\Controller
                     ->where([
                         'country_of_origin' => $country->id,
                         'gender' => 1,
+                        'rck_office_id' => Yii::$app->request->post()['office'],
                         'asylum_status' => 2
                     ])
                     ->andWhere(['between', 'created_at', $start_date, $end_date])
@@ -53,6 +55,7 @@ class ReportController extends \yii\web\Controller
                 ->where([
                     'country_of_origin' => $country->id,
                     'gender' => 1,
+                    'rck_office_id' => Yii::$app->request->post()['office'],
                     'asylum_status' => 1
                 ])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
@@ -63,6 +66,7 @@ class ReportController extends \yii\web\Controller
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'country_of_origin' => $country->id,
                     'gender' => 2,
+                    'rck_office_id' => Yii::$app->request->post()['office'],
                     'asylum_status' => 2
                 ])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
@@ -73,6 +77,7 @@ class ReportController extends \yii\web\Controller
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'country_of_origin' => $country->id,
                     'gender' => 2,
+                    'rck_office_id' => Yii::$app->request->post()['office'],
                     'asylum_status' => 1
                 ])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
@@ -111,11 +116,13 @@ class ReportController extends \yii\web\Controller
                 'title' => 'Pull Report by Country',
                 'start_date' => date("H:ia l M j, Y",$start_date),
                 'end_date' => date("H:ia l M j, Y",$end_date),
+                'offices' => $offices
             ]);
         }
 
         return $this->render('index', [
-            'title' => 'Pull Report by Nationality'
+            'title' => 'Pull Report by Nationality',
+            'offices' => $offices
         ]);
     }
 
@@ -123,6 +130,7 @@ class ReportController extends \yii\web\Controller
 
     //COMPUTATIONS BY COUNTRIES
     public function actionByTraining(){
+        $offices = RckOffices::find()->all();
         if (Yii::$app->request->post()) {
             $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
             $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
@@ -161,6 +169,7 @@ class ReportController extends \yii\web\Controller
                 'horizontal' => $horizontal,
                 'vertical' => $vertical,
                 'total' => $totals,
+                'offices' => $offices,
                 'title' => 'Pull Trainings against Age',
                 'type' => 'training',
                 'start_date' => date("H:ia l M j, Y",$start_date),
@@ -169,7 +178,8 @@ class ReportController extends \yii\web\Controller
         }
 
         return $this->render('index', [
-            'title' => 'Pull Report by Trainings'
+            'title' => 'Pull Report by Trainings',
+            'offices' => $offices
         ]);
     }
 
@@ -177,10 +187,11 @@ class ReportController extends \yii\web\Controller
 
     //COMPUTATIONS BY COUNTRIES
     public function actionCourtCasesByOffice(){
+        $offices = RckOffices::find()->all();
         if (Yii::$app->request->post()) {
             $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
             $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
-            $offices = RckOffices::find()->all();
+
             $data = [];
             foreach ($offices as $key => $office):
                 $count = 0;
@@ -189,6 +200,7 @@ class ReportController extends \yii\web\Controller
                 $clientIds = Refugee::find()->select('id')->where([
                     'rck_office_id' => $office->id,
                     'gender' => 1,
+                    'rck_office_id' => Yii::$app->request->post()['office'],
                 ])->column();
                 //GET THE NUMBER OF COURT CASES OF THE CLIENTS
                 $numOpen = CourtCases::find()->select(new Expression('COALESCE(COUNT(*), 0) as count'))->where([
@@ -213,6 +225,7 @@ class ReportController extends \yii\web\Controller
                 $clientIds = Refugee::find()->select('id')->where([
                     'rck_office_id' => $office->id,
                     'gender' => 2,
+                    'rck_office_id' => Yii::$app->request->post()['office'],
                 ])->column();
                 //GET THE NUMBER OF COURT CASES OF THE CLIENTS
                 $numOpen = CourtCases::find()->select('COUNT(*) AS count')->where([
@@ -236,6 +249,7 @@ class ReportController extends \yii\web\Controller
                 $clientIds = Refugee::find()->select('id')->where([
                     'rck_office_id' => $office->id,
                     'gender' => 3,
+                    'rck_office_id' => Yii::$app->request->post()['office'],
                 ])->column();
                 //GET THE NUMBER OF COURT CASES OF THE CLIENTS
                 $numOpen = CourtCases::find()->select('COUNT(*) AS count')->where([
@@ -293,6 +307,7 @@ class ReportController extends \yii\web\Controller
                 'horizontal' => $horizontal,
                 'vertical' => $vertical,
                 'total' => $totals,
+                'offices' => $offices,
                 'title' => 'Pull Court Cases Report by Office',
                 'type' => 'court-cases',
                 'start_date' => date("H:ia l M j, Y",$start_date),
@@ -300,7 +315,8 @@ class ReportController extends \yii\web\Controller
             ]);
         }
         return $this->render('index', [
-            'title' => 'Pull Court Cases Report by Office'
+            'title' => 'Pull Court Cases Report by Office',
+            'offices' => $offices
         ]);
     }
 
@@ -344,10 +360,11 @@ class ReportController extends \yii\web\Controller
     //COMPUTATIONS BY OFFICE
     public function actionByOffice()
     {
+        $offices = RckOffices::find()->all();
         if (Yii::$app->request->post()) {
             $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
             $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
-            $offices = RckOffices::find()->all();
+            //$offices = RckOffices::find()->all();
             $data = [];
             foreach ($offices as $key => $office):
                 $count = 0;
@@ -410,6 +427,7 @@ class ReportController extends \yii\web\Controller
                 // 'horizontal' => $horizontal,
                 // 'vertical' => $vertical,
                 // 'total' => $totals,
+                'offices' => $offices,
                 'title' => 'Pull Report by Office',
                 'type' => 'office',
                 'start_date' => date("H:ia l M j, Y",$start_date),
@@ -417,7 +435,8 @@ class ReportController extends \yii\web\Controller
             ]);
         }
         return $this->render('index', [
-            'title' => 'Pull Report by Office'
+            'title' => 'Pull Report by Office',
+            'offices' => $offices
         ]);
     }
 
@@ -428,6 +447,7 @@ class ReportController extends \yii\web\Controller
     //BY SOURCE OF INFO
     public function actionBySourceOfInfo()
     {
+        $offices = RckOffices::find()->all();
         if (Yii::$app->request->post()) {
             $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
             $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
@@ -440,7 +460,7 @@ class ReportController extends \yii\web\Controller
                 $data[$key] = [];
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','source_of_info_id' ,$source->id
-                ])->andWhere(['gender' => 1])
+                ])->andWhere(['gender' => 1,'rck_office_id' => Yii::$app->request->post()['office']])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$source->name);
@@ -449,7 +469,7 @@ class ReportController extends \yii\web\Controller
                 //female
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','source_of_info_id' ,$source->id
-                ])->andWhere(['gender' => 2])
+                ])->andWhere(['gender' => 2,'rck_office_id' => Yii::$app->request->post()['office']])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$num);
@@ -457,7 +477,7 @@ class ReportController extends \yii\web\Controller
                 //LGBT
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','source_of_info_id' ,$source->id
-                ])->andWhere(['gender' => 3])
+                ])->andWhere(['gender' => 3,'rck_office_id' => Yii::$app->request->post()['office']])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$num);
@@ -492,6 +512,7 @@ class ReportController extends \yii\web\Controller
                 'horizontal' => $horizontal,
                 'vertical' => $vertical,
                 'total' => $total,
+                'offices' => $offices,
                 'title' => 'Pull Report by Source of Information',
                 'type' => 'multiple',
                 'start_date' => date("H:ia l M j, Y",$start_date),
@@ -499,7 +520,8 @@ class ReportController extends \yii\web\Controller
             ]);
         }
         return $this->render('index', [
-            'title' => 'Pull Report by Source of Information'
+            'title' => 'Pull Report by Source of Information',
+            'offices' => $offices
         ]);
     }
 
@@ -511,6 +533,7 @@ class ReportController extends \yii\web\Controller
     //BY FORMS OF TORTURE
     public function actionByFormsOfTorture()
     {
+        $offices = RckOffices::find()->all();
         if (Yii::$app->request->post()) {
             $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
             $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
@@ -523,7 +546,7 @@ class ReportController extends \yii\web\Controller
                 $data[$key] = [];
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','form_of_torture_id', $form->id
-                ])->andWhere(['gender' => 1])
+                ])->andWhere(['gender' => 1,'rck_office_id' => Yii::$app->request->post()['office']])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$form->name);
@@ -532,7 +555,7 @@ class ReportController extends \yii\web\Controller
                 //female
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','form_of_torture_id', $form->id
-                ])->andWhere(['gender' => 2])
+                ])->andWhere(['gender' => 2,'rck_office_id' => Yii::$app->request->post()['office']])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$num);
@@ -540,7 +563,7 @@ class ReportController extends \yii\web\Controller
                 //LGBT
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','form_of_torture_id', $form->id
-                ])->andWhere(['gender' => 3])
+                ])->andWhere(['gender' => 3,'rck_office_id' => Yii::$app->request->post()['office']])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
                 ->asArray()->all()[0]['count'];
                 array_push($data[$key],$num);
@@ -574,6 +597,7 @@ class ReportController extends \yii\web\Controller
                 'horizontal' => $horizontal,
                 'vertical' => $vertical,
                 'total' => $total,
+                'offices' => $offices,
                 'type' => 'multiple',
                 'title' => 'Pull Report by Forms of Torture',
                 'start_date' => date("H:ia l M j, Y",$start_date),
@@ -582,7 +606,8 @@ class ReportController extends \yii\web\Controller
         }
 
         return $this->render('index', [
-            'title' => 'Pull Report by Forms of Torture'
+            'title' => 'Pull Report by Forms of Torture',
+            'offices' => $offices
         ]);
     }
 
@@ -595,11 +620,13 @@ class ReportController extends \yii\web\Controller
 
     public function actionByAge()
     {
+        $offices = RckOffices::find()->all();
         if (Yii::$app->request->post()) {
 
             $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
             $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
-            $clients = Refugee::find()->where(['between', 'created_at', $start_date, $end_date])->all();
+            $clients = Refugee::find()->where(['between', 'created_at', $start_date, $end_date])
+            ->andWhere(['rck_office_id' => Yii::$app->request->post()['office']])->all();
             $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
             $dates = [];
 
@@ -639,6 +666,7 @@ class ReportController extends \yii\web\Controller
                 'horizontal' => $horizontal,
                 'vertical' => $vertical,
                 'total' => $totals,
+                'offices' => $offices,
                 'type' => 'age',
                 'start_date' => date("H:ia l M j, Y",$start_date),
                 'end_date' => date("H:ia l M j, Y",$end_date),
@@ -646,20 +674,24 @@ class ReportController extends \yii\web\Controller
             ]);
         }
         return $this->render('index', [
-            'title' => 'Pull Report by Age'
+            'title' => 'Pull Report by Age',
+            'offices' => $offices
         ]);
     }
 
 
     //Legal Representation for Intervention
     public function actionInterventionByLegal(){
+      $offices = RckOffices::find()->all();
       if (Yii::$app->request->post()) {
-
           $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
           $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
           $interventions = Intervention::find()
-            ->where(['between', 'created_at', $start_date, $end_date])
-            ->andWhere(['in','intervention_type_id',6])
+            ->select("intervention.*,c.rck_office_id")
+            ->leftJoin('refugee as c', 'c.id=intervention.client_id')
+            ->where(['between', 'intervention.created_at', $start_date, $end_date])
+            ->andWhere(['in','intervention.intervention_type_id',6])
+            ->andWhere(['c.rck_office_id' => Yii::$app->request->post()['office']])
             ->all();
           $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
           $dates = [];
@@ -700,6 +732,7 @@ class ReportController extends \yii\web\Controller
               'horizontal' => $horizontal,
               'vertical' => $vertical,
               'total' => $totals,
+              'offices' => $offices,
               'type' => 'legal',
               'start_date' => date("H:ia l M j, Y",$start_date),
               'end_date' => date("H:ia l M j, Y",$end_date),
@@ -707,20 +740,24 @@ class ReportController extends \yii\web\Controller
           ]);
         }
         return $this->render('index', [
-            'title' => 'Pull Report by Intervention through Legal Representation'
+            'title' => 'Pull Report by Intervention through Legal Representation',
+            'offices' => $offices
         ]);
     }
 
 
     //Legal Representation for Court Cases
     public function actionCourtByLegal(){
+      $offices = RckOffices::find()->all();
       if (Yii::$app->request->post()) {
 
           $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
           $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
           $courts = CourtCases::find()
-            ->where(['between', 'created_at', $start_date, $end_date])
-            //->andWhere(['in','intervention_type_id',6])
+            ->select("court_cases.*,c.rck_office_id")
+            ->leftJoin('refugee as c', 'c.id=court_cases.refugee_id')
+            ->where(['between', 'court_cases.created_at', $start_date, $end_date])
+            ->andWhere(['c.rck_office_id' => Yii::$app->request->post()['office']])
             ->andWhere(['not', ['refugee_id' => null]])
             ->all();
           $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
@@ -762,6 +799,7 @@ class ReportController extends \yii\web\Controller
               'horizontal' => $horizontal,
               'vertical' => $vertical,
               'total' => $totals,
+              'offices' => $offices,
               'type' => 'legal',
               'start_date' => date("H:ia l M j, Y",$start_date),
               'end_date' => date("H:ia l M j, Y",$end_date),
@@ -769,20 +807,23 @@ class ReportController extends \yii\web\Controller
           ]);
         }
         return $this->render('index', [
-            'title' => 'Pull Report by Court Case through Legal Representation'
+            'title' => 'Pull Report by Court Case through Legal Representation',
+            'offices' => $offices
         ]);
     }
 
 
     //Legal Representation for Intervention
     public function actionPoliceByLegal(){
+      $offices = RckOffices::find()->all();
       if (Yii::$app->request->post()) {
-
           $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
           $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
           $police_cases = PoliceCases::find()
-            ->where(['between', 'created_at', $start_date, $end_date])
-            //->andWhere(['in','intervention_type_id',6])
+            ->select("police_cases.*,c.rck_office_id")
+            ->leftJoin('refugee as c', 'c.id=court_cases.refugee_id')
+            ->where(['between', 'police_cases.created_at', $start_date, $end_date])
+            ->andWhere(['c.rck_office_id' => Yii::$app->request->post()['office']])
             ->andWhere(['not', ['refugee_id' => null]])
             ->all();
           $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
@@ -824,6 +865,7 @@ class ReportController extends \yii\web\Controller
               'horizontal' => $horizontal,
               'vertical' => $vertical,
               'total' => $totals,
+              'offices' => $offices,
               'type' => 'legal',
               'start_date' => date("H:ia l M j, Y",$start_date),
               'end_date' => date("H:ia l M j, Y",$end_date),
@@ -831,7 +873,8 @@ class ReportController extends \yii\web\Controller
           ]);
         }
         return $this->render('index', [
-            'title' => 'Pull Report by Police Case through Legal Representation'
+            'title' => 'Pull Report by Police Case through Legal Representation',
+            'offices' => $offices
         ]);
     }
 
