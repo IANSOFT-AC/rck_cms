@@ -201,7 +201,6 @@ class RefugeeController extends Controller
         $uploads = RefugeeUploads::find()->where(['type'=> $model->asylum_status])
           ->orWhere(['mandatory'=>1])->all();
 
-
         //HANDLE POST OF FILES.
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

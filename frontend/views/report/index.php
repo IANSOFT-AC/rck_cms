@@ -39,14 +39,24 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                    </select>
                 </div>
                 <div class="p-2">
-                 <button type="submit" class="btn btn-primary" style="">Filter</button>
-                 <a href="/transactions" class="btn btn-secondary">Reset</a>
+                 <button type="submit" class="btn btn-primary" style=""><i class="nav-icon fa fa-filter"></i> Filter</button>
+                 <a href="/transactions" class="btn btn-secondary"><i class="nav-icon fa fa-eraser"></i> Reset</a>
+                 <?php if(isset($type)){ ?>
+                 <button type="button" class="btn bg-maroon margin" style="" id="print"><i class="nav-icon fa fa-print"></i> Print</button>
+                 <?php } ?>
                </div>
                 </form>
+
+
+                <div class="print">
                 <?php if(isset($type) && 'country' == $type){ ?>
 
-                    <div class="container div-center">
-                    <em>Start Date: </em><code><?= $start_date?></code><em> End Date: </em><code><?= $end_date?></code>
+                    <div class="container div-center center">
+                      <img src="/images/rck-logo.jpg" width="50px">
+                    <p class='p'><em>Start Date: </em></p>
+                    <p class='p'><code><?= $start_date?></code></p>
+                    <p class='p'><em> End Date: </em></p>
+                    <p class='p'><code><?= $end_date?></code></p>
                     <div class="card p-3">
                         <table class="table">
                             <tbody>
@@ -484,6 +494,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     </div>
 
                 <?php } ?>
+              </div><!-- END OF PRINT -->
 
             </div>
 
@@ -525,24 +536,45 @@ $(function() {
 
     cb(start, end);
 
-    $('.table').DataTable({
-        language: {
-            emptyTable: "No data available in table", //
-           // loadingRecords: "Please wait .. ", // default Loading...
-            zeroRecords: "No matching records found"
-        },
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        "columnDefs": [
-            {
-                "visible": false,
-                "searchable": false
-            }
-        ],
-        responsive:true
-    });
+    // $('.table').DataTable({
+    //     language: {
+    //         emptyTable: "No data available in table", //
+    //        // loadingRecords: "Please wait .. ", // default Loading...
+    //         zeroRecords: "No matching records found"
+    //     },
+    //     //dom: 'Bfrtip',
+    //     // buttons: [
+    //     //     'copy', 'csv', 'excel', 'pdf'
+    //     // ],
+    //     "columnDefs": [
+    //         {
+    //             "visible": false,
+    //             "searchable": false
+    //         }
+    //     ],
+    //     responsive:true
+    // });
+
+    $("#print").on('click', function(){
+      Popup($('.print').html());
+    })
+
+    function Popup(data)
+    {
+         var MainWindow = window.open('', '', 'height=500,width=800');
+         MainWindow.document.write('<html><head><title></title>');
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/dist/css/adminlte.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/css/custom.css\" type=\"text/css\"/>");
+         MainWindow.document.write('</head><body onload="window.print();window.close()">');
+         MainWindow.document.write(data);
+         MainWindow.document.write('</body></html>');
+         MainWindow.document.close();
+         setTimeout(function () {
+             MainWindow.print();
+         }, 500)
+         return true;
+    }
 });
 
 JS;

@@ -150,6 +150,7 @@ class ReportController extends \yii\web\Controller
               ], 'tt.id = training.type')
             //->where(['type' => 1])
             ->andWhere(['between', 'created_at', $start_date, $end_date])
+            ->andWhere(['rck_office_id' => Yii::$app->request->post()['office']])
             ->groupBy(['training.type'])
             ->asArray()
             ->all();
