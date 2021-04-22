@@ -53,7 +53,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="col-md-6">
                     <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('type') ?></strong>
-                    <p class="text-muted" data-speechify-sentence=""><?= $model->type ?></p>
+                    <p class="text-muted" data-speechify-sentence="">
+                      <?php
+                      if($model->type == 1){
+                        echo "Individual";
+                      }else if($model->type == 2){
+                        echo "Family";
+                      }else if($model->type == 3){
+                        echo "Group";
+                      }else if($model->type == 4){
+                        echo "Couple";
+                      }
+                      ?></p>
                 </div>
                 <div class="col-md-12">
                     <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('presenting_problem') ?></strong>
@@ -75,10 +86,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('counsellors') ?></strong>
                     <p class="text-muted" data-speechify-sentence=""><?= $model->counsellors ?></p>
                 </div>
-                <?php 
-                
+
+                <?php
+
                 if($model->type != 1){
                 ?>
+                    <div class="col-md-12">
+                      <strong data-speechify-sentence=""><?= $model->getAttributeLabel('other_clients') ?></strong>
+                      <?php
+                        foreach ($model->otherClients as $key => $value) {
+                          // code...
+                          ?><span class="label label-default"><?php
+                          echo Html::a(Yii::t('app', $value->fullDetails), ['/refugee/view', 'id' => $value->id], ['class' => 'btn btn-default m-1 btn-sm']) ;
+                          ?></span><?php
+                        }
+                      ?>
+                    </div>
                     <div class="col-md-12">
                         <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('session_goals') ?></strong>
                         <p class="text-muted" data-speechify-sentence=""><?= $model->session_goals ?></p>

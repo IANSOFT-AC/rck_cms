@@ -57,6 +57,7 @@ class Counseling extends \yii\db\ActiveRecord
             [['session', 'counseling_intake_form'], 'string', 'max' => 255],
             [['session_goals', 'key_tasks_achieved', 'challenges_emerging', 'interventions_by_facilitator', 'achievement_of_goals', 'stage','remarks'], 'string'],
             [['intervention_id'], 'exist', 'skipOnError' => true, 'targetClass' => Intervention::className(), 'targetAttribute' => ['intervention_id' => 'id']],
+            [['type'], 'exist', 'skipOnError' => true, 'targetClass' => CounselingType::className(), 'targetAttribute' => ['type' => 'id']],
         ];
     }
 
@@ -112,5 +113,18 @@ class Counseling extends \yii\db\ActiveRecord
     public function getIntervention()
     {
         return $this->hasOne(Intervention::className(), ['id' => 'intervention_id']);
+    }
+
+    public function getCounselingType()
+    {
+        return $this->hasOne(CounselingType::className(), ['id' => 'type']);
+    }
+
+    public function getOtherClients()
+    {
+      $clients = Refugee::find()->where([
+        'in', 'id', [3,20]
+        ])->all();
+      return $clients;
     }
 }

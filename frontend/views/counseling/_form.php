@@ -31,7 +31,7 @@ use common\models\Helper;
                     <?= $form->field($model, 'session')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'type')->dropDownList([1 => 'Individual',2 => 'Family', 3 => 'Group' ],['prompt' => '--Select Type--']) ?>
+                    <?= $form->field($model, 'type')->dropDownList([1 => 'Individual',2 => 'Family', 3 => 'Group', 4 => 'Couple' ],['prompt' => '--Select Type--']) ?>
                 </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'other_clients[]')->dropDownList($clients, ['prompt' => '--Select Other Clients--','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->other_clients)]) ?>
