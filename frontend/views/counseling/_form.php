@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\Helper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Counseling */
@@ -17,7 +18,7 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'code')->textInput() ?>
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'date')->textInput(['type' => 'date','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date, 'yyyy-MM-dd')]) ?>
+                    <?= $form->field($model, 'date')->textInput(['type' => 'date','class' => 'form-control no-future','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date, 'yyyy-MM-dd')]) ?>
                 </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'case_status')->dropDownList(['open' => 'Open', 'closed' => 'Closed'],
@@ -31,6 +32,9 @@ use yii\widgets\ActiveForm;
                 </div>
                 <div class="col-md-6">
                     <?= $form->field($model, 'type')->dropDownList([1 => 'Individual',2 => 'Family', 3 => 'Group' ],['prompt' => '--Select Type--']) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'other_clients[]')->dropDownList($clients, ['prompt' => '--Select Other Clients--','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->other_clients)]) ?>
                 </div>
                 <div class="col-md-12">
                     <?= $form->field($model, 'presenting_problem')->textarea(['rows' => 6]) ?>

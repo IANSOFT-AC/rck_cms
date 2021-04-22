@@ -93,7 +93,7 @@ class Refugee extends \yii\db\ActiveRecord
     {
         return [
             [['first_name', 'last_name', 'user_group_id', 'gender', 'rck_office_id', 'country_of_origin','has_disability','victim_of_turture','asylum_status'], 'required'],
-            [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at', 
+            [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at',
                 'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status','interpreter',
                  'mode_of_entry_id', 'victim_of_turture', 'has_work_permit', 'arrested_due_to_lack_of_work_permit','consent',
                   'interested_in_work_permit', 'dependants','interested_in_citizenship','disability_type_id'
@@ -115,9 +115,9 @@ class Refugee extends \yii\db\ActiveRecord
             [['disability_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DisabilityType::className(), 'targetAttribute' => ['disability_type_id' => 'id']],
 
             //Conditional Validation
-            [  
-                ['disability_desc'], 
-                'required', 
+            [
+                ['disability_desc'],
+                'required',
                 'when' => function($model){
                     return ($model->disability_type_id == 'other') ? true : false;
                 },
@@ -130,9 +130,9 @@ class Refugee extends \yii\db\ActiveRecord
                     }
                 }"
             ],
-            [  
-                ['mode_of_entry_id','arrival_date','has_work_permit'], 
-                'required', 
+            [
+                ['mode_of_entry_id','arrival_date','has_work_permit'],
+                'required',
                 'when' => function($model){
                     return ($model->country_of_origin != 3) ? true : false;
                 },
@@ -145,9 +145,9 @@ class Refugee extends \yii\db\ActiveRecord
                     }
                 }"
             ],
-            // [  
-            //     ['rsd_appointment_date'], 
-            //     'required', 
+            // [
+            //     ['rsd_appointment_date'],
+            //     'required',
             //     'when' => function($model){
             //         return ($model->asylum_status == 1) ? true : false;
             //     },
@@ -173,9 +173,9 @@ class Refugee extends \yii\db\ActiveRecord
                     }
                 }"
             ],
-            // [  
-            //     ['form_of_torture'], 
-            //     'required', 
+            // [
+            //     ['form_of_torture'],
+            //     'required',
             //     'when' => function($model){
             //         return ($model->form_of_torture_id == 'other') ? true : false;
             //     },
@@ -208,7 +208,7 @@ class Refugee extends \yii\db\ActiveRecord
         if (parent::beforeValidate()) {
             //Nullify the values if the value is other for the following fields
             //$this->source_of_info_id = ($this->source_of_info_id == 0) ? null : $this->source_of_info_id;
-            
+
             //$this->disability_type_id = ($this->disability_type_id == 0) ? null : $this->disability_type_id;
             return true;
         }
@@ -409,5 +409,9 @@ class Refugee extends \yii\db\ActiveRecord
 
     public function getFullNames(){
         return $this->first_name." ".$this->middle_name." ".$this->last_name;
+    }
+
+    public function getFullDetails(){
+        return $this->first_name." ".$this->middle_name." ".$this->last_name. ", RCK No:".$this->rck_no.", Old RCK No: ". $this->old_rck;
     }
 }

@@ -16,8 +16,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 <div class="card">
         <div class="card-header">    <h1><?= Html::encode($this->title) ?></h1></div>
         <div class="card-body">    <?= $this->render('_form', [
-        'model' => $model,        
-        'intervention' => $intervention
+        'model' => $model,
+        'intervention' => $intervention,
+        'clients' => $clients
     ]) ?></div>
     </div>
 

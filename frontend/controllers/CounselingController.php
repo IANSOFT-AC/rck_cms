@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use app\models\Counseling;
 use app\models\Intervention;
+use app\models\Refugee;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -13,6 +14,7 @@ use app\models\UploadForm;
 use yii\web\UploadedFile;
 use common\models\User;
 use common\components\AccessRule;
+use yii\helpers\ArrayHelper;
 
 /**
  * CounselingController implements the CRUD actions for Counseling model.
@@ -150,6 +152,7 @@ class CounselingController extends Controller
     {
         $model = new Counseling();
         $intervention = Intervention::findOne($id);
+        $clients = ArrayHelper::map(Refugee::find()->all(), 'id','fullDetails');
 
         if ($model->load(Yii::$app->request->post())) {
           if(isset(Yii::$app->request->post()['Counseling']['consent'])){
@@ -160,6 +163,10 @@ class CounselingController extends Controller
             }
           }else{
             $model->consent = 0;
+          }
+
+          if(isset(Yii::$app->request->post()['Counseling']['other_clients'])){
+              $model->other_clients = implode(',',Yii::$app->request->post()['Counseling']['other_clients']);
           }
 
           if($model->save()){
@@ -173,7 +180,8 @@ class CounselingController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'intervention' => $intervention->id
+            'intervention' => $intervention->id,
+            'clients' => $clients
         ]);
     }
 
@@ -219,19 +227,20 @@ class CounselingController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $clients = ArrayHelper::map(Refugee::find()->all(), 'id','fullDetails');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             $upload = new UploadForm();
             $upload->imageFile = UploadedFile::getInstance($model, 'counseling_intake_form');
             $rst = $upload->upload("counseling", $model->id, 0 );
-
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'intervention' => $model->intervention_id
+            'intervention' => $model->intervention_id,
+            'clients' => $clients
         ]);
     }
 

@@ -99,7 +99,8 @@ class Counseling extends \yii\db\ActiveRecord
             'interventions_by_facilitator' => 'Skills/Interventions by facilitators',
             'achievement_of_goals' => 'Achievement of goals',
             'stage' => 'What stage is the group at and why',
-            'remarks' => 'Remarks/Way forward'
+            'remarks' => 'Remarks/Way forward',
+            'other_clients' => 'Other Clients'
         ];
     }
 
