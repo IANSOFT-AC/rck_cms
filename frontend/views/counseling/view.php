@@ -54,17 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-6">
                     <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('type') ?></strong>
                     <p class="text-muted" data-speechify-sentence="">
-                      <?php
-                      if($model->type == 1){
-                        echo "Individual";
-                      }else if($model->type == 2){
-                        echo "Family";
-                      }else if($model->type == 3){
-                        echo "Group";
-                      }else if($model->type == 4){
-                        echo "Couple";
-                      }
-                      ?></p>
+                      <?= $model->counselingType  ?></p>
                 </div>
                 <div class="col-md-12">
                     <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('presenting_problem') ?></strong>
