@@ -47,6 +47,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                 <div class="card-body">
                     <div class="box box-primary">
                         <div class="box-header with-border">
+                          <img src="/images/rck-logo.jpg" width="50px" class="print-logo">
                           <h3 class="box-title" data-speechify-sentence="">About This Client</h3>
                         </div>
                     <!-- /.box-header -->
@@ -427,6 +428,9 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
         <div class="col-md-5">
             <!--Add Dependancts-->
             <div class="card">
+                <div class="card-header">
+                  <h4>Dependants</h4>
+                </div>
                 <div class="card-body">
                     <?= $this->render('_dependant', [
                         'model' => $dependant,
@@ -434,7 +438,6 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                         'relationships' => $relationships,
                         'refugee' => $model
                     ]) ?>
-                    <hr>
                     <table id="dependants" class="table">
                         <thead>
                             <th>Id</th>
