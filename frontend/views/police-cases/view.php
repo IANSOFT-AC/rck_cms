@@ -21,13 +21,15 @@ yii\web\YiiAsset::register($this);
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Police Case Updates'), ['/police-case-proceeding\list', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Attachments', ['files', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+        <button type="button" class="btn bg-maroon margin" style="" id="print"><i class="nav-icon fa fa-print"></i> Print</button>
     </p>
 
 
     <div class="card">
-        <div class="card-body">
+        <div class="card-body print">
             <div class="box box-primary">
                 <div class="box-header with-border">
+                  <img src="/images/rck-logo.jpg" width="50px" class="print-logo">
                   <h3 class="box-title" data-speechify-sentence="">About This Police Case</h3>
                 </div>
             <!-- /.box-header -->
@@ -40,7 +42,7 @@ yii\web\YiiAsset::register($this);
                         </p>
                         <hr>
                     </div>
-                  
+
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""><i class="fas fa-venus-mars"></i> Gender</strong>
 
@@ -48,7 +50,7 @@ yii\web\YiiAsset::register($this);
                             <?= $model->gender ?>
                         </p>
                         <hr>
-                    </div> 
+                    </div>
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""><i class="far fa-address-book"></i> Contacts</strong>
 
@@ -64,7 +66,7 @@ yii\web\YiiAsset::register($this);
                             <?= $model->age ?>
                         </p>
                         <hr>
-                    </div> 
+                    </div>
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""> Police Station</strong>
 
@@ -72,7 +74,7 @@ yii\web\YiiAsset::register($this);
                             <?= ($model->police_station_id) ? $model->rPoliceStation->name : $model->policestation ?>
                         </p>
                         <hr>
-                    </div>  
+                    </div>
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""> Investigating Officer</strong>
 
@@ -80,7 +82,7 @@ yii\web\YiiAsset::register($this);
                             <?= $model->investigating_officer ?>
                         </p>
                         <hr>
-                    </div>  
+                    </div>
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""> Investigating Officer Contacts</strong>
 
@@ -88,7 +90,7 @@ yii\web\YiiAsset::register($this);
                             <?= $model->investigating_officer_contacts ?>
                         </p>
                         <hr>
-                    </div> 
+                    </div>
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""> Ob Number</strong>
 
@@ -104,7 +106,7 @@ yii\web\YiiAsset::register($this);
                             <?= $model->ob_details ?>
                         </p>
                         <hr>
-                    </div> 
+                    </div>
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""> Offence</strong>
 
@@ -112,7 +114,7 @@ yii\web\YiiAsset::register($this);
                             <?= ($model->offence_id) ? $model->rOffence->name : $model->offence ?>
                         </p>
                         <hr>
-                    </div>  
+                    </div>
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""> Complainant</strong>
 
@@ -120,7 +122,7 @@ yii\web\YiiAsset::register($this);
                             <?= $model->complainant ?>
                         </p>
                         <hr>
-                    </div>   
+                    </div>
                     <div class="col-md-6">
                           <strong data-speechify-sentence=""><i class="fas fa-question"></i> First Instance Interview</strong>
 
@@ -158,8 +160,8 @@ yii\web\YiiAsset::register($this);
 
                             <p class="text-muted" data-speechify-sentence="">
                                 <?= Html::a('Preview Document: '.$file->filename, [$file->doc_path], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
-                                <?= Html::a(' | <i class="fa fa-trash"></i>', 
-                                  ['delete-file', 'id' => $file->id], 
+                                <?= Html::a(' | <i class="fa fa-trash"></i>',
+                                  ['delete-file', 'id' => $file->id],
                                   [
                                     'title' => 'delete the file?',
                                     'data' => [
@@ -170,7 +172,7 @@ yii\web\YiiAsset::register($this);
                             </p>
                             <hr>
                         </div>
-                    <?php 
+                    <?php
                     }
                     ?>
                 </div>
@@ -179,3 +181,31 @@ yii\web\YiiAsset::register($this);
     </div>
 
 </div>
+
+<?php
+
+$script = <<<JS
+
+    $("#print").on('click', function(){
+      Popup($('.print').html());
+    })
+
+    function Popup(data)
+    {
+         var MainWindow = window.open('', '', 'height=500,width=800');
+         MainWindow.document.write('<html><head><title></title>');
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/dist/css/adminlte.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/css/custom.css\" type=\"text/css\"/>");
+         MainWindow.document.write('</head><body onload="window.print();window.close()">');
+         MainWindow.document.write(data);
+         MainWindow.document.write('</body></html>');
+         MainWindow.document.close();
+         setTimeout(function () {
+             MainWindow.print();
+         }, 500)
+         return true;
+    }
+JS;
+
+$this->registerJs($script);

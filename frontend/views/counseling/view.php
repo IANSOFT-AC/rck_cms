@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Counseling */
 
-$this->title = $model->id;
+$this->title = $model->code;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Counselings'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="counseling-view">
     <div class="card">
         <div class="card-header">
-            <h1><?= Html::encode($this->title) ?></h1>
+
 
             <p>
                 <?= Html::a(Yii::t('app', 'Add'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -26,10 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'method' => 'post',
                     ],
                 ]) ?>
+                <button type="button" class="btn bg-maroon margin" style="" id="print"><i class="nav-icon fa fa-print"></i> Print</button>
             </p>
         </div>
-        <div class="card-body">
-
+        <div class="card-body print">
+          <p><img src="/images/rck-logo.jpg" width="50px" class="print-logo">
+          <h1>Counseling Session: <?= Html::encode($this->title) ?></h1></p>
+          <hr>
             <div class="row">
                 <div class="col-md-6">
                     <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('code') ?> </strong>
@@ -129,3 +132,31 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+
+<?php
+
+$script = <<<JS
+
+    $("#print").on('click', function(){
+      Popup($('.print').html());
+    })
+
+    function Popup(data)
+    {
+         var MainWindow = window.open('', '', 'height=500,width=800');
+         MainWindow.document.write('<html><head><title></title>');
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/dist/css/adminlte.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/css/custom.css\" type=\"text/css\"/>");
+         MainWindow.document.write('</head><body onload="window.print();window.close()">');
+         MainWindow.document.write(data);
+         MainWindow.document.write('</body></html>');
+         MainWindow.document.close();
+         setTimeout(function () {
+             MainWindow.print();
+         }, 500)
+         return true;
+    }
+JS;
+
+$this->registerJs($script);

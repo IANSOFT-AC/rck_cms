@@ -29,7 +29,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                 'method' => 'post',
             ],
         ]) ?>
-        <?php 
+        <button type="button" class="btn bg-maroon margin" style="" id="print"><i class="nav-icon fa fa-print"></i> Print</button>
+        <?php
 
             $interventions = explode(",", $model->intervention_type_id);
             foreach ($interventions as $key => $value) {
@@ -42,14 +43,16 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             }
 
         ?>
-        <div class="box-header with-border">
-                  <h3 class="box-title" data-speechify-sentence="">About This Intervention Case</h3>
-                </div>
+
     </p>
         </div>
-        <div class="card-body">
+        <div class="card-body print">
+          <div class="box-header with-border">
+                    <img src="/images/rck-logo.jpg" width="50px" class="print-logo">
+                      <h3 class="box-title" data-speechify-sentence="">About This Intervention Case</h3>
+                  </div>
             <div class="box box-primary">
-                
+
             <!-- /.box-header -->
                 <div class="box-body row" data-read-aloud-multi-block="true">
                     <div class="col-md-6">
@@ -69,7 +72,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                         </p>
                         <br>
                     </div>
-                  
+
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""> Created At</strong>
 
@@ -81,7 +84,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""> Interventions</strong>
                         <ul>
-                        <?php 
+                        <?php
 
                         $interventions = explode(",", $model->intervention_type_id);
                         foreach ($interventions as $key => $value) {
@@ -103,11 +106,11 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 
                         ?>
                         </ul>
-                        
+
                       <br>
                     </div>
 
-                    <?php 
+                    <?php
                     if($model->police_case){
                         ?>
                         <div class="col-md-6">
@@ -121,7 +124,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     }
                     ?>
 
-                    <?php 
+                    <?php
                     if($model->office_id){
                         ?>
                         <div class="col-md-6">
@@ -135,7 +138,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     }
                     ?>
 
-                    <?php 
+                    <?php
                     if(!is_null($model->agency_id)){
                         ?>
                         <div class="col-md-6">
@@ -149,7 +152,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     }
                     ?>
 
-                    <?php 
+                    <?php
                     if($model->court_case){
                         ?>
                         <div class="col-md-6">
@@ -171,7 +174,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                       <br>
                     </div>
 
-                    
+
 
                     <div class="col-md-12">
                         <strong data-speechify-sentence=""> Intervention Details</strong>
@@ -181,7 +184,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                       <br>
                     </div>
 
-                    
+
             <!-- /.box-body -->
             </div>
         </div>
@@ -208,8 +211,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 
                                 <p class="text-muted" data-speechify-sentence="">
                                     <?= Html::a('Preview Document: '.$file->filename, [$file->doc_path], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
-                                    <?= Html::a(' | <i class="fa fa-trash"></i>', 
-                                    ['delete-file', 'id' => $file->id], 
+                                    <?= Html::a(' | <i class="fa fa-trash"></i>',
+                                    ['delete-file', 'id' => $file->id],
                                     [
                                         'title' => 'delete the file?',
                                         'data' => [
@@ -220,7 +223,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                 </p>
                                 <hr>
                             </div>
-                        <?php 
+                        <?php
                         }
                         ?>
                     </div>
@@ -231,3 +234,31 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 
 
 </div>
+
+<?php
+
+$script = <<<JS
+
+    $("#print").on('click', function(){
+      Popup($('.print').html());
+    })
+
+    function Popup(data)
+    {
+         var MainWindow = window.open('', '', 'height=500,width=800');
+         MainWindow.document.write('<html><head><title></title>');
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/dist/css/adminlte.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/css/custom.css\" type=\"text/css\"/>");
+         MainWindow.document.write('</head><body onload="window.print();window.close()">');
+         MainWindow.document.write(data);
+         MainWindow.document.write('</body></html>');
+         MainWindow.document.close();
+         setTimeout(function () {
+             MainWindow.print();
+         }, 500)
+         return true;
+    }
+JS;
+
+$this->registerJs($script);

@@ -27,11 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'method' => 'post',
                     ],
                 ]) ?>
+                <button type="button" class="btn bg-maroon margin" style="" id="print"><i class="nav-icon fa fa-print"></i> Print</button>
             </p>
         </div>
-        <div class="card-body">
+        <div class="card-body print">
             <div class="box box-primary">
                 <div class="box-header with-border">
+                  <img src="/images/rck-logo.jpg" width="50px" class="print-logo">
                   <h3 class="box-title" data-speechify-sentence="">About This Training</h3>
                 </div>
             <!-- /.box-header -->
@@ -44,6 +46,29 @@ $this->params['breadcrumbs'][] = $this->title;
                         </p>
                         <hr>
                     </div>
+
+                    <?php if($model->organizer_id == 1){ ?>
+                      <?php if($model->donor_id){ ?>
+                        <div class="col-md-6">
+                          <strong data-speechify-sentence=""><i class="far fa-address-book"></i> <?= $model->getAttributeLabel('donor') ?></strong>
+
+                          <p class="text-muted" data-speechify-sentence="">
+                              <?= $model->donor->name ?>
+                          </p>
+                          <hr>
+                      </div>
+                      <?php  } ?>
+                      <?php if($model->type){ ?>
+                      <div class="col-md-6">
+                          <strong data-speechify-sentence=""><i class="far fa-address-book"></i> <?= $model->getAttributeLabel('type') ?></strong>
+
+                          <p class="text-muted" data-speechify-sentence="">
+                              <?= $model->tType->name ?>
+                          </p>
+                          <hr>
+                      </div>
+                      <?php  } ?>
+                  <?php  } ?>
 
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""><i class="fas fa-venus-mars"></i> Date</strong>
@@ -89,7 +114,44 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-md-6">
                       <strong data-speechify-sentence=""><i class="fas fa-calendar-day"></i> Created On</strong>
 
-                      <p data-speechify-sentence=""><?= date("H:ia l M j, Y",$model->created_at)?></p>
+                      <p data-speechify-sentence=""><?= date("H:ia l M j, Y",$model->created_at)?></p><hr>
+                    </div>
+
+                    <div class="col-md-6">
+                      <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('t0_9') ?></strong>
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->t0_9 ?></p><hr>
+                    </div>
+                    <div class="col-md-6">
+                      <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('t10_19') ?></strong>
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->t10_19 ?></p><hr>
+                    </div>
+                    <div class="col-md-6">
+                      <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('t20_24') ?></strong>
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->t20_24 ?></p><hr>
+                    </div>
+                    <div class="col-md-6">
+                      <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('t25_59') ?></strong>
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->t25_59 ?></p><hr>
+                    </div>
+                    <div class="col-md-6">
+                      <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('t60plus') ?></strong>
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->t60plus ?></p><hr>
+                    </div>
+                    <div class="col-md-6">
+                      <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('boys') ?></strong>
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->boys ?></p><hr>
+                    </div>
+                    <div class="col-md-6">
+                      <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('girls') ?></strong>
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->girls ?></p><hr>
+                    </div>
+                    <div class="col-md-6">
+                      <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('men') ?></strong>
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->men ?></p><hr>
+                    </div>
+                    <div class="col-md-6">
+                      <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('women') ?></strong>
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->women ?></p><hr>
                     </div>
 
                     <div class="col-md-12">
@@ -111,6 +173,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card-body">
                 <div class="box box-primary">
                     <div class="box-header with-border">
+
                       <h3 class="box-title" data-speechify-sentence="">Uploads for this Training</h3>
                     </div>
                 <!-- /.box-header -->
@@ -145,3 +208,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php } ?>
 
 </div>
+<?php
+
+$script = <<<JS
+
+    $("#print").on('click', function(){
+      Popup($('.print').html());
+    })
+
+    function Popup(data)
+    {
+         var MainWindow = window.open('', '', 'height=500,width=800');
+         MainWindow.document.write('<html><head><title></title>');
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/dist/css/adminlte.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/css/custom.css\" type=\"text/css\"/>");
+         MainWindow.document.write('</head><body onload="window.print();window.close()">');
+         MainWindow.document.write(data);
+         MainWindow.document.write('</body></html>');
+         MainWindow.document.close();
+         setTimeout(function () {
+             MainWindow.print();
+         }, 500)
+         return true;
+    }
+JS;
+
+$this->registerJs($script);

@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 <div class="court-cases-view">
 
-    
+
 
     <div class="card">
       <div class="card-header">
@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 
         <p>
             <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            
+
             <?= Html::a(Yii::t('app', 'Court Case Updates'), ['/court-case-proceeding\list', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
             <?= Html::a(Yii::t('app', 'View Client Biodata'), ['/refugee\view', 'id' => $model->refugee_id], ['class' => 'btn btn-warning']) ?>
             <?php Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
@@ -34,11 +34,13 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                 ],
             ]) ?>
             <?= Html::a('Attachments', ['files', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+            <button type="button" class="btn bg-maroon margin" style="" id="print"><i class="nav-icon fa fa-print"></i> Print</button>
         </p>
       </div>
-        <div class="card-body">
+        <div class="card-body print">
             <div class="box box-primary">
                 <div class="box-header with-border">
+                  <img src="/images/rck-logo.jpg" width="50px" class="print-logo">
                   <h3 class="box-title" data-speechify-sentence="">About This Court Case</h3>
                 </div>
             <!-- /.box-header -->
@@ -51,7 +53,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                         </p>
                         <hr>
                     </div>
-                  
+
                     <div class="col-md-6">
                         <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> No. of Refugees</strong>
 
@@ -97,8 +99,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 
                       <hr>
                     </div>
-                    <?php 
-                    
+                    <?php
+
                     if($model->case_status == "open"){
 
                     ?>
@@ -109,7 +111,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 
                         <hr>
                       </div>
-                      <?php 
+                      <?php
                         }
                       ?>
                     <div class="col-md-6">
@@ -172,20 +174,20 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     foreach ($model->uploads as $file) {
                     ?>
                         <div class="col-md-6">
-                            <strong data-speechify-sentence=""><i class="fas fa-file"></i> 
-                            <?php 
+                            <strong data-speechify-sentence=""><i class="fas fa-file"></i>
+                            <?php
                               if($file->courtCaseSubcategory || $file->courtUploads){
-                                echo isset($file->courtUploads) ? $file->courtUploads->desc : null ; 
-                                echo isset($file->courtCaseSubcategory) ? $file->courtCaseSubcategory->name : null ; 
+                                echo isset($file->courtUploads) ? $file->courtUploads->desc : null ;
+                                echo isset($file->courtCaseSubcategory) ? $file->courtCaseSubcategory->name : null ;
                               }else{
                                 echo "Other";
-                              }                      
+                              }
                             ?></strong>
 
                             <p class="text-muted" data-speechify-sentence="">
                                 <?= Html::a('Preview Document: '.$file->filename, [$file->doc_path], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
-                                <?= Html::a(' | <i class="fa fa-trash"></i>', 
-                                  ['delete-file', 'id' => $file->id], 
+                                <?= Html::a(' | <i class="fa fa-trash"></i>',
+                                  ['delete-file', 'id' => $file->id],
                                   [
                                     'title' => 'delete the file?',
                                     'data' => [
@@ -196,7 +198,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                             </p>
                             <hr>
                         </div>
-                    <?php 
+                    <?php
                     }
                     ?>
                 </div>
@@ -206,3 +208,31 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 
 
 </div>
+
+<?php
+
+$script = <<<JS
+
+    $("#print").on('click', function(){
+      Popup($('.print').html());
+    })
+
+    function Popup(data)
+    {
+         var MainWindow = window.open('', '', 'height=500,width=800');
+         MainWindow.document.write('<html><head><title></title>');
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/dist/css/adminlte.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/css/custom.css\" type=\"text/css\"/>");
+         MainWindow.document.write('</head><body onload="window.print();window.close()">');
+         MainWindow.document.write(data);
+         MainWindow.document.write('</body></html>');
+         MainWindow.document.close();
+         setTimeout(function () {
+             MainWindow.print();
+         }, 500)
+         return true;
+    }
+JS;
+
+$this->registerJs($script);
