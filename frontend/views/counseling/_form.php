@@ -114,7 +114,8 @@ $script = <<<JS
             .parent().fadeOut('slow');
         }else{
             $('.field-counseling-session_goals, .field-counseling-key_tasks_achieved, .field-counseling-challenges_emerging, .field-counseling-interventions_by_facilitator,\
-                .field-counseling-achievement_of_goals, .field-counseling-stage,.field-counseling-remarks, .field-counseling-other_clients').parent().fadeIn('fast');
+                .field-counseling-achievement_of_goals, .field-counseling-stage,.field-counseling-remarks, .field-counseling-other_clients')
+            .parent().fadeIn('fast');
         }
     }).change();
 

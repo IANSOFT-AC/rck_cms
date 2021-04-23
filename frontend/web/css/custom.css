@@ -64,9 +64,12 @@
 
 @media print {
   .p {
-        margin-bottom: 0rem;
+    margin-bottom: 0rem;
   }
   .center{
     padding:3rem;
+  }
+  .dependant-form{
+    display: none;
   }
 }

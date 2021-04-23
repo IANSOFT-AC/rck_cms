@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
         <?= Html::a('Police Cases', ['/police-cases/client', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
         <?= Html::a('Court Cases', ['/court-cases/client', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
         <?= Html::a('Attachments', ['files', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+        <button type="button" class="btn bg-maroon margin" style="" id="print"><i class="nav-icon fa fa-print"></i> Print</button>
         <?php
         Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -37,9 +38,10 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
         ?>
 
         <?= Html::a('view All', ['index'], ['class' => 'btn btn-warning']) ?>
+
     </p>
 
-    <div class="row">
+    <div class="row print">
         <div class="col-md-7">
             <div class="card">
                 <div class="card-body">
@@ -515,6 +517,27 @@ $script = <<<JS
         ],
         order: [[0, "desc"]]
     });
+
+    $("#print").on('click', function(){
+      Popup($('.print').html());
+    })
+
+    function Popup(data)
+    {
+         var MainWindow = window.open('', '', 'height=500,width=800');
+         MainWindow.document.write('<html><head><title></title>');
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/dist/css/adminlte.css\" type=\"text/css\"/>");
+         MainWindow.document.write("<link rel=\"stylesheet\" href=\"/css/custom.css\" type=\"text/css\"/>");
+         MainWindow.document.write('</head><body onload="window.print();window.close()">');
+         MainWindow.document.write(data);
+         MainWindow.document.write('</body></html>');
+         MainWindow.document.close();
+         setTimeout(function () {
+             MainWindow.print();
+         }, 500)
+         return true;
+    }
 JS;
 
 $this->registerJs($script);
