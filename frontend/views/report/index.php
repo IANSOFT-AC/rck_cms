@@ -347,26 +347,32 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                     <div class="card p-3">
                         <table class="table">
                             <thead>
-                                    <td class="table-primary table-bordered"></td>
-                                    <td class="table-primary table-bordered">Male</td>
-                                    <td class="table-primary table-bordered">Female</td>
-                                    <td class="table-primary table-bordered">Other</td>
-                                    <td class="table-primary table-bordered">Totals</td>
+                                    <td class="table-primary table-bordered">Name</td>
+                                    <td class="table-primary table-bordered">Gender</td>
+                                    <td class="table-primary table-bordered">Unhcr Case No</td>
+                                    <td class="table-primary table-bordered">Refugee No</td>
+                                    <td class="table-primary table-bordered">Nationality</td>
+                                    <td class="table-primary table-bordered">Telephone</td>
+                                    <td class="table-primary table-bordered">Actions</td>
                                 </thead>
                                 <tbody>
-                                <tr>
-                            <?php
-                                $total = 0;
-                                foreach ($data as $key => $val):
-                                  if($key != 0){
-                                    $total += $val;
-                                  }
-                            ?>
-                                  <td><?= $val ?></td>
-                            <?php
-                                endforeach;
-                            ?>
-                            <td><?= $total ?></td></tr>
+                                  <?php
+                                      foreach ($data[1] as $key => $val):
+                                  ?>
+
+                                              <tr>
+                                                  <td><?= $val['name'] ?></td>
+                                                  <td><?= $val['sex'] ?></td>
+                                                  <td><?= $val['unhcr_case_no']?></td>
+                                                  <td><?= $val['refugee_no'] ?></td>
+                                                  <td><?= $val['nationality'] ?></td>
+                                                  <td><?= $val['telephone'] ?></td>
+                                                  <td>
+                                                    <div class="d-inline-flex"><a href="/security-interview/view?id=<?= $val['id'] ?>" class="p-1" title="View Record"><i class="far fa-eye"></i></a></div>
+                                                  </td>
+                                                </tr>
+                                      </tr>
+                                    <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -395,10 +401,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                                     <td class="table-primary table-bordered">Subtotals</td>
                                 </tr>
                               </thead>
+                              <tbody>
                                   <?php
                                       foreach ($data as $key => $val):
                                   ?>
-                                  <tbody>
+
                                               <tr>
                                                   <td><?= $val['trainingName'] ?></td>
                                                   <td><?= is_null($val['t0_9']) ? '0' : $val['t0_9'] ?></td>

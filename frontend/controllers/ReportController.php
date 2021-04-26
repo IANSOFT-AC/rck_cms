@@ -325,20 +325,14 @@ class ReportController extends \yii\web\Controller
 
 
     public function actionBySecurityInterview(){
+      $offices = RckOffices::find()->all();
         if (Yii::$app->request->post()) {
             $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
             $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
             $data = [];
             $data[0] = "Security Interview";
-            $data[1] = SecurityInterview::find()->select('COUNT(*) AS count')->where(['sex'=> 1])
-                ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
-            $data[2] = SecurityInterview::find()->select('COUNT(*) AS count')->where(['sex'=> 2])
-                ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
-            $data[3] = SecurityInterview::find()->select('COUNT(*) AS count')->where(['sex'=> 3])
-                ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+            $data[1] = SecurityInterview::find()->where(['between', 'created_at', $start_date, $end_date])
+                ->asArray()->all();
 
             // echo "<pre>";
             // print_r(json_encode($data));
@@ -348,12 +342,14 @@ class ReportController extends \yii\web\Controller
                 'data' => $data,
                 'title' => 'Pull Security Interview Report by Gender',
                 'type' => 'security-report',
+                'offices' => $offices,
                 'start_date' => date("H:ia l M j, Y",$start_date),
                 'end_date' => date("H:ia l M j, Y",$end_date),
             ]);
         }
         return $this->render('index', [
-            'title' => 'Pull Security Interview Report by Gender'
+            'title' => 'Pull Security Interview Report by Gender',
+            'offices' => $offices
         ]);
     }
 

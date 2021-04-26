@@ -230,7 +230,7 @@ $script = <<<JS
          setTimeout(function () {
              MainWindow.print();
          }, 500)
-         return true;
+         return false;
     }
 JS;
 
