@@ -130,7 +130,7 @@ class Counseling extends \yii\db\ActiveRecord
     public function getOtherClients()
     {
       $clients = Refugee::find()->where([
-        'in', 'id', [3,20]
+        'in', 'id', explode(",",$this->other_clients)
         ])->all();
       return $clients;
     }

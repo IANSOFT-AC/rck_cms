@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use frontend\models\Gender;
 
 /**
  * This is the model class for table "security_interview".
@@ -65,6 +66,7 @@ class SecurityInterview extends \yii\db\ActiveRecord
             [['names_of_parents', 'dependants', 'reason_for_flight', 'life_in_country_of_asylum', 'assessment', 'dob'], 'string'],
             [['name', 'unhcr_case_no', 'refugee_no', 'telephone', 'education_level', 'place_of_birth', 'religion', 'siblings', 'ethnicity', 'marital_status', 'flight'], 'string', 'max' => 255],
             [['intervention_id'], 'exist', 'skipOnError' => true, 'targetClass' => Intervention::className(), 'targetAttribute' => ['intervention_id' => 'id']],
+            [['sex'], 'exist', 'skipOnError' => true, 'targetClass' => Gender::className(), 'targetAttribute' => ['sex' => 'id']],
         ];
     }
 
@@ -100,6 +102,11 @@ class SecurityInterview extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    public function getGender()
+    {
+        return $this->hasOne(Gender::className(), ['id' => 'sex']);
     }
 
     /**

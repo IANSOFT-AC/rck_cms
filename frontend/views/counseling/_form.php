@@ -79,12 +79,7 @@ use common\models\Helper;
 
                 <!--  END OF GROUP AND FAMILY  -->
 
-                <div class="col-md-12">
-                    <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" id="consentSwitch" name="Refugee[consent]">
-                      <label class="custom-control-label" for="consentSwitch">Client Consent</label>
-                    </div>
-                </div>
+                
             </div>
 
             <?= $form->field($model, 'intervention_id')->hiddenInput(['value' => $intervention])->label(false) ?>
@@ -118,16 +113,6 @@ $script = <<<JS
             .parent().fadeIn('fast');
         }
     }).change();
-
-    $('#actions').hide();
-
-    $('input#consentSwitch').on('change', function(){
-        if ($(this).is(':checked')) {
-            $('#actions').show();
-        }else{
-            $('#actions').hide();
-        }
-    })
 
     $('#counseling-case_status').on('change', function(e){
         if(e.target.value == "open"){

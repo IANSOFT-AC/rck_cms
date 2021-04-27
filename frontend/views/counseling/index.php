@@ -13,27 +13,27 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 <div class="counseling-index">
     <div class="row p-2">
-    <div class="card col-md-6">
+      <div class="card col-md-6">
         <div class="card-header"><h2>Counseling Intake Form</h2></div>
         <div class="card-body">
-    <?php
-    if(empty($intervention->counseling_intake_form)){
-    ?>
-            <?php $form = ActiveForm::begin(['action' => 'upload','options' => ['enctype' => 'multipart/form-data']]); ?>
+          <?php
+          if(empty($intervention->counseling_intake_form)){
+          ?>
+                  <?php $form = ActiveForm::begin(['action' => 'upload','options' => ['enctype' => 'multipart/form-data']]); ?>
 
-                <?= $form->field($model, 'counseling_intake_form')->fileInput(['maxlength' => true])->label('Upload Counseling Intake Form') ?>
-                <?= $form->field($model, 'intervention_id')->hiddenInput(['value' => $intervention->id])->label(false) ?>
-                <div class="form-group">
-                    <?= Html::submitButton(Yii::t('app', 'Upload Intake Form'), ['class' => 'btn btn-success']) ?>
-                </div>
-            <?php ActiveForm::end(); ?>
-        <?php
-            }else{
-        ?>
-            <?= Html::a('Preview Document: Counseling Intake Form', ['/uploads/counseling/'.$intervention->counseling_intake_form], ['class' => 'label label-primary', 'title'=> 'Upload Intake Form']) ?>
-        <?php
-            }
-        ?>
+                      <?= $form->field($model, 'counseling_intake_form')->fileInput(['maxlength' => true])->label('Upload Counseling Intake Form') ?>
+                      <?= $form->field($model, 'intervention_id')->hiddenInput(['value' => $intervention->id])->label(false) ?>
+                      <div class="form-group">
+                          <?= Html::submitButton(Yii::t('app', 'Upload Intake Form'), ['class' => 'btn btn-success']) ?>
+                      </div>
+                  <?php ActiveForm::end(); ?>
+              <?php
+                  }else{
+              ?>
+                  <?= Html::a('Preview Document: Counseling Intake Form', ['/uploads/counseling/'.$intervention->counseling_intake_form], ['class' => 'label label-primary', 'title'=> 'Upload Intake Form']) ?>
+              <?php
+                  }
+              ?>
             </div>
         </div>
 
@@ -63,12 +63,13 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
         </div>
     </div>
 
-    <?php
-
-    if(!empty($intervention->consent_scan)){
-
-    ?>
-    <div class="card m-1">
+    <div class="col-md-12">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="consentSwitch" name="Refugee[consent]">
+          <label class="custom-control-label" for="consentSwitch">Client Consent</label>
+        </div>
+    </div>
+    <div class="card m-1" id="actions">
         <div class="card-header">
             <h1><?= Html::encode($this->title) ?></h1>
         </div>
@@ -113,17 +114,15 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                         </td>
                     </tr>
                     <?php
-                    }
+
+                        }
+
                     ?>
                 </tbody>
             </table>
         </div>
     </div>
-    <?php
 
-        }
-
-    ?>
 
 </div>
 
@@ -138,6 +137,16 @@ $script = <<<JS
             zeroRecords: "No matching records found"
         },
     });
+
+    $('#actions').hide();
+
+    $('input#consentSwitch').on('change', function(){
+        if ($(this).is(':checked')) {
+            $('#actions').show();
+        }else{
+            $('#actions').hide();
+        }
+    })
 JS;
 
 $this->registerJs($script);

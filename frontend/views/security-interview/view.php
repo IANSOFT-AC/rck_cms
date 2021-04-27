@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                   </div>
                   <div class="col-md-6">
                       <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('sex') ?> </strong>
-                      <p class="text-muted" data-speechify-sentence=""><?= $model->sex ?></p>
+                      <p class="text-muted" data-speechify-sentence=""><?= $model->gender->gender ?></p>
                   </div>
                   <div class="col-md-6">
                       <strong data-speechify-sentence=""> <?= $model->getAttributeLabel('unhcr_case_no') ?> </strong>

@@ -28,6 +28,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Report'];
                  <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->csrfToken; ?>" />
                  <div style="background: #fff; cursor: pointer; padding: 5px 10px; width: 100%">
                    <select name="office" class="form-control">
+                     <option value="">--Select Office--</option>
+                     <option value="all">All Records</option>
                      <?php
                         foreach ($offices as $key => $value) {
                           // code...

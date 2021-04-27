@@ -38,50 +38,96 @@ class ReportController extends \yii\web\Controller
                 $count = 0;
                 //male and is refugee
                 $data[$key] = [];
-                $num = Refugee::find()->select('COUNT(*) AS count')
-                    ->where([
-                        'country_of_origin' => $country->id,
-                        'gender' => 1,
-                        'rck_office_id' => Yii::$app->request->post()['office'],
-                        'asylum_status' => 2
-                    ])
-                    ->andWhere(['between', 'created_at', $start_date, $end_date])
-                    ->asArray()->all()[0]['count'];
+
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num = Refugee::find()->select('COUNT(*) AS count')
+                      ->where([
+                          'country_of_origin' => $country->id,
+                          'gender' => 1,
+                          'rck_office_id' => Yii::$app->request->post()['office'],
+                          'asylum_status' => 2
+                      ])
+                      ->andWhere(['between', 'created_at', $start_date, $end_date])
+                      ->asArray()->all()[0]['count'];
+                }else{
+                  $num = Refugee::find()->select('COUNT(*) AS count')
+                      ->where([
+                          'country_of_origin' => $country->id,
+                          'gender' => 1,
+                          'asylum_status' => 2
+                      ])
+                      ->andWhere(['between', 'created_at', $start_date, $end_date])
+                      ->asArray()->all()[0]['count'];
+                }
                 $data[$key][0] = $country->country;
                 $data[$key][1] = $num;
 
                 //male and is asylum seeker
-                $num = Refugee::find()->select('COUNT(*) AS count')
-                ->where([
-                    'country_of_origin' => $country->id,
-                    'gender' => 1,
-                    'rck_office_id' => Yii::$app->request->post()['office'],
-                    'asylum_status' => 1
-                ])
-                ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num = Refugee::find()->select('COUNT(*) AS count')
+                  ->where([
+                      'country_of_origin' => $country->id,
+                      'gender' => 1,
+                      'rck_office_id' => Yii::$app->request->post()['office'],
+                      'asylum_status' => 1
+                  ])
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->asArray()->all()[0]['count'];
+                }else{
+                  $num = Refugee::find()->select('COUNT(*) AS count')
+                  ->where([
+                      'country_of_origin' => $country->id,
+                      'gender' => 1,
+                      'asylum_status' => 1
+                  ])
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->asArray()->all()[0]['count'];
+                }
                 $data[$key][2] = $num;
 
                 //female and is refugee
-                $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                    'country_of_origin' => $country->id,
-                    'gender' => 2,
-                    'rck_office_id' => Yii::$app->request->post()['office'],
-                    'asylum_status' => 2
-                ])
-                ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                      'country_of_origin' => $country->id,
+                      'gender' => 2,
+                      'rck_office_id' => Yii::$app->request->post()['office'],
+                      'asylum_status' => 2
+                  ])
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->asArray()->all()[0]['count'];
+                }else{
+                  $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                      'country_of_origin' => $country->id,
+                      'gender' => 2,
+                      'asylum_status' => 2
+                  ])
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->asArray()->all()[0]['count'];
+                }
                 $data[$key][3] = $num;
 
                 //female and is asylum seeker
-                $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                    'country_of_origin' => $country->id,
-                    'gender' => 2,
-                    'rck_office_id' => Yii::$app->request->post()['office'],
-                    'asylum_status' => 1
-                ])
-                ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                      'country_of_origin' => $country->id,
+                      'gender' => 2,
+                      'rck_office_id' => Yii::$app->request->post()['office'],
+                      'asylum_status' => 1
+                  ])
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->asArray()->all()[0]['count'];
+                }else{
+                  $num = Refugee::find()->select('COUNT(*) AS count')->where([
+                      'country_of_origin' => $country->id,
+                      'gender' => 2,
+                      'asylum_status' => 1
+                  ])
+                  ->andWhere(['between', 'created_at', $start_date, $end_date])
+                  ->asArray()->all()[0]['count'];
+                }
                 $data[$key][4] = $num;
             endforeach;
 
@@ -150,11 +196,13 @@ class ReportController extends \yii\web\Controller
               ], 'tt.id = training.type')
             ->where(['organizer_id' => 1])
             ->andWhere(['between', 'created_at', $start_date, $end_date])
-            ->andWhere(['rck_office_id' => Yii::$app->request->post()['office']])
+            //->andWhere(['rck_office_id' => Yii::$app->request->post()['office']])
             ->groupBy(['training.type'])
-            ->asArray()
-            ->all();
-
+            ->asArray();
+            if(Yii::$app->request->post()['office'] != 'all'){
+              $trainings->andWhere(['rck_office_id' => Yii::$app->request->post()['office']]);
+            }
+            $trainings = $trainings->all();
 
             //calculate Subtotals
             $rst = self::calculateSubTotals($trainings);
@@ -200,10 +248,12 @@ class ReportController extends \yii\web\Controller
                 $data[$key] = [];
                 //GET THE IDS OF MALE CLIENTS FROM EACH OFFICE
                 $clientIds = Refugee::find()->select('id')->where([
-                    'rck_office_id' => $office->id,
                     'gender' => 1,
-                    'rck_office_id' => Yii::$app->request->post()['office'],
-                ])->column();
+                ]);
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $clientIds->andWhere(['rck_office_id' => Yii::$app->request->post()['office']]);
+                }
+                $clientIds = $clientIds->column();
                 //GET THE NUMBER OF COURT CASES OF THE CLIENTS
                 $numOpen = CourtCases::find()->select(new Expression('COALESCE(COUNT(*), 0) as count'))->where([
                     'in','refugee_id' , $clientIds
@@ -225,10 +275,12 @@ class ReportController extends \yii\web\Controller
 
                 //GET THE IDS OF FEMALE CLIENTS FROM EACH OFFICE
                 $clientIds = Refugee::find()->select('id')->where([
-                    'rck_office_id' => $office->id,
                     'gender' => 2,
-                    'rck_office_id' => Yii::$app->request->post()['office'],
-                ])->column();
+                ]);
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $clientIds->andWhere(['rck_office_id' => Yii::$app->request->post()['office']]);
+                }
+                $clientIds = $clientIds->column();
                 //GET THE NUMBER OF COURT CASES OF THE CLIENTS
                 $numOpen = CourtCases::find()->select('COUNT(*) AS count')->where([
                     'in','refugee_id' , $clientIds
@@ -249,10 +301,12 @@ class ReportController extends \yii\web\Controller
 
                 //GET THE IDS OF LGBT CLIENTS FROM EACH OFFICE
                 $clientIds = Refugee::find()->select('id')->where([
-                    'rck_office_id' => $office->id,
                     'gender' => 3,
-                    'rck_office_id' => Yii::$app->request->post()['office'],
-                ])->column();
+                ]);
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $clientIds->andWhere(['rck_office_id' => Yii::$app->request->post()['office']]);
+                }
+                $clientIds = $clientIds->column();
                 //GET THE NUMBER OF COURT CASES OF THE CLIENTS
                 $numOpen = CourtCases::find()->select('COUNT(*) AS count')->where([
                     'in','refugee_id' , $clientIds
@@ -369,46 +423,58 @@ class ReportController extends \yii\web\Controller
                 //male and is refugee
                 $data[$key] = [];
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                    'rck_office_id' => $office->id,
                     'gender' => 1,
                     'asylum_status' => 2
                 ])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+                ->asArray();
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num->andWhere(['rck_office_id' => $office->id]);
+                }
+                $num = $num->all()[0]['count'];
                 $data[$key][0] = $office->name;
                 $data[$key][1] = $num;
                 $count += $num;
 
                 //male and is asylum seeker
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                    'rck_office_id' => $office->id,
                     'gender' => 1,
                     'asylum_status' => 1
                 ])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+                ->asArray();
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num->andWhere(['rck_office_id' => $office->id]);
+                }
+                $num = $num->all()[0]['count'];
                 $data[$key][2] = $num;
                 $count += $num;
 
                 //female and is refugee
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                    'rck_office_id' => $office->id,
                     'gender' => 2,
                     'asylum_status' => 2
                 ])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+                ->asArray();
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num->andWhere(['rck_office_id' => $office->id]);
+                }
+                $num = $num->all()[0]['count'];
                 $data[$key][3] = $num;
                 $count += $num;
 
                 //female and is asylum seeker
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
-                    'rck_office_id' => $office->id,
                     'gender' => 2,
                     'asylum_status' => 1
                 ])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+                ->asArray();
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num->andWhere(['rck_office_id' => $office->id]);
+                }
+                $num = $num->all()[0]['count'];
                 $data[$key][4] = $num;
                 $count += $num;
 
@@ -458,26 +524,38 @@ class ReportController extends \yii\web\Controller
                 $data[$key] = [];
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','source_of_info_id' ,$source->id
-                ])->andWhere(['gender' => 1,'rck_office_id' => Yii::$app->request->post()['office']])
+                ])->andWhere(['gender' => 1])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+                ->asArray();
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num->andWhere(['rck_office_id' => Yii::$app->request->post()['office']]);
+                }
+                $num = $num->all()[0]['count'];
                 array_push($data[$key],$source->name);
                 array_push($data[$key],$num);
 
                 //female
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','source_of_info_id' ,$source->id
-                ])->andWhere(['gender' => 2,'rck_office_id' => Yii::$app->request->post()['office']])
+                ])->andWhere(['gender' => 2])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+                ->asArray();
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num->andWhere(['rck_office_id' => Yii::$app->request->post()['office']]);
+                }
+                $num = $num->all()[0]['count'];
                 array_push($data[$key],$num);
 
                 //LGBT
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','source_of_info_id' ,$source->id
-                ])->andWhere(['gender' => 3,'rck_office_id' => Yii::$app->request->post()['office']])
+                ])->andWhere(['gender' => 3])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+                ->asArray();
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num->andWhere(['rck_office_id' => Yii::$app->request->post()['office']]);
+                }
+                $num = $num->all()[0]['count'];
                 array_push($data[$key],$num);
             endforeach;
 
@@ -544,18 +622,26 @@ class ReportController extends \yii\web\Controller
                 $data[$key] = [];
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','form_of_torture_id', $form->id
-                ])->andWhere(['gender' => 1,'rck_office_id' => Yii::$app->request->post()['office']])
+                ])->andWhere(['gender' => 1])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+                ->asArray();
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num->andWhere(['rck_office_id' => Yii::$app->request->post()['office']]);
+                }
+                $num = $num->all()[0]['count'];
                 array_push($data[$key],$form->name);
                 array_push($data[$key],$num);
 
                 //female
                 $num = Refugee::find()->select('COUNT(*) AS count')->where([
                     'in','form_of_torture_id', $form->id
-                ])->andWhere(['gender' => 2,'rck_office_id' => Yii::$app->request->post()['office']])
+                ])->andWhere(['gender' => 2])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+                ->asArray();
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num->andWhere(['rck_office_id' => Yii::$app->request->post()['office']]);
+                }
+                $num = $num->all()[0]['count'];
                 array_push($data[$key],$num);
 
                 //LGBT
@@ -563,7 +649,11 @@ class ReportController extends \yii\web\Controller
                     'in','form_of_torture_id', $form->id
                 ])->andWhere(['gender' => 3,'rck_office_id' => Yii::$app->request->post()['office']])
                 ->andWhere(['between', 'created_at', $start_date, $end_date])
-                ->asArray()->all()[0]['count'];
+                ->asArray();
+                if(Yii::$app->request->post()['office'] != 'all'){
+                  $num->andWhere(['rck_office_id' => Yii::$app->request->post()['office']]);
+                }
+                $num = $num->all()[0]['count'];
                 array_push($data[$key],$num);
             endforeach;
 
@@ -623,8 +713,11 @@ class ReportController extends \yii\web\Controller
 
             $start_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['start_date'])->timestamp;
             $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
-            $clients = Refugee::find()->where(['between', 'created_at', $start_date, $end_date])
-            ->andWhere(['rck_office_id' => Yii::$app->request->post()['office']])->all();
+            $clients = Refugee::find()->where(['between', 'created_at', $start_date, $end_date]);
+            if(Yii::$app->request->post()['office'] != 'all'){
+              $clients->andWhere(['rck_office_id' => Yii::$app->request->post()['office']]);
+            }
+            $clients = $clients->all();
             $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
             $dates = [];
 
@@ -688,9 +781,11 @@ class ReportController extends \yii\web\Controller
             ->select("intervention.*,c.rck_office_id")
             ->leftJoin('refugee as c', 'c.id=intervention.client_id')
             ->where(['between', 'intervention.created_at', $start_date, $end_date])
-            ->andWhere(['in','intervention.intervention_type_id',6])
-            ->andWhere(['c.rck_office_id' => Yii::$app->request->post()['office']])
-            ->all();
+            ->andWhere(['in','intervention.intervention_type_id',6]);
+            if(Yii::$app->request->post()['office'] != 'all'){
+              $interventions->andWhere(['c.rck_office_id' => Yii::$app->request->post()['office']]);
+            }
+            $interventions = $interventions->all();
           $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
           $dates = [];
 
@@ -755,9 +850,11 @@ class ReportController extends \yii\web\Controller
             ->select("court_cases.*,c.rck_office_id")
             ->leftJoin('refugee as c', 'c.id=court_cases.refugee_id')
             ->where(['between', 'court_cases.created_at', $start_date, $end_date])
-            ->andWhere(['c.rck_office_id' => Yii::$app->request->post()['office']])
-            ->andWhere(['not', ['refugee_id' => null]])
-            ->all();
+            ->andWhere(['not', ['refugee_id' => null]]);
+            if(Yii::$app->request->post()['office'] != 'all'){
+              $courts->andWhere(['c.rck_office_id' => Yii::$app->request->post()['office']]);
+            }
+            $courts = $courts->all();
           $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
           $dates = [];
 
@@ -819,11 +916,13 @@ class ReportController extends \yii\web\Controller
           $end_date = Carbon::createFromFormat('Y-m-d H:i:s', Yii::$app->request->post()['end_date'])->timestamp;
           $police_cases = PoliceCases::find()
             ->select("police_cases.*,c.rck_office_id")
-            ->leftJoin('refugee as c', 'c.id=court_cases.refugee_id')
+            ->leftJoin('refugee as c', 'c.id=police_cases.refugee_id')
             ->where(['between', 'police_cases.created_at', $start_date, $end_date])
-            ->andWhere(['c.rck_office_id' => Yii::$app->request->post()['office']])
-            ->andWhere(['not', ['refugee_id' => null]])
-            ->all();
+            ->andWhere(['not', ['refugee_id' => null]]);
+            if(Yii::$app->request->post()['office'] != 'all'){
+              $police_cases->andWhere(['c.rck_office_id' => Yii::$app->request->post()['office']]);
+            }
+            $police_cases = $police_cases->all();
           $data =[['Male',0,0,0,0,0,0],['Female',0,0,0,0,0,0],['Other',0,0,0,0,0,0]];
           $dates = [];
 

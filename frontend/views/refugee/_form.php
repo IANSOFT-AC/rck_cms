@@ -263,7 +263,7 @@ use common\models\Helper;
                 </div>
             </div>
         </div><!--Rwo Three-->
-        <div class="col-md-12 mt-2 mb-2" id="work-permits">
+        <div class="col-md-12 mt-2 mb-2">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Client Consent</h3>
@@ -306,16 +306,15 @@ $script = <<<JS
     let isNewRecord = $model->isNewRecord
 
     //Hide fields initially
-    $('.field-refugee-disability_desc, \
-        .field-refugee-form_of_torture, \
-        .field-refugee-id_no, \
-        .field-refugee-disability_type_id,\
-        .field-refugee-reason_for_rsd_appointment, \
-        .field-refugee-rsd_appointment_date,\
-        .field-refugee-source_of_info_abt_rck,\
-        .field-refugee-form_of_torture_id,\
-        .field-refugee-languages, \
-        .field-refugee-custom_language').parent().hide()
+    $('.field-refugee-disability_desc,\
+      .field-refugee-form_of_torture,\
+      .field-refugee-disability_type_id,\
+      .field-refugee-reason_for_rsd_appointment,\
+      .field-refugee-rsd_appointment_date,\
+      .field-refugee-source_of_info_abt_rck,\
+      .field-refugee-form_of_torture_id,\
+      .field-refugee-languages,\
+      .field-refugee-custom_language').parent().hide()
 
     $('#actions').hide();
 
@@ -331,26 +330,27 @@ $script = <<<JS
         if(this.value == 3){
             $('.field-refugee-conflict, .field-refugee-arrival_date,\
                 .field-refugee-mode_of_entry_id,\
-                .field-refugee-nhcr_case_no,\
-                #work-permits'
-            ).fadeOut();
+                .field-refugee-nhcr_case_no'
+            ).parent().fadeOut();
+            $('#work-permits').fadeOut();
 
             //Select an option for the asyslum seeker select field
             if(isNewRecord == 1){
                 $("#refugee-asylum_status option[value=" + 3 + "]").prop("selected",true);
+                $("#refugee-asylum_status").attr('disabled','disabled');
             }
         }else{
             $('.field-refugee-conflict, .field-refugee-arrival_date,\
                 .field-refugee-mode_of_entry_id,\
-                .field-refugee-nhcr_case_no,\
-                #work-permits'
-            ).fadeIn();
+                .field-refugee-nhcr_case_no'
+            ).parent().fadeIn();
+            $('#work-permits').fadeOut();
 
             //Offset asyslum seeker select field
             if(isNewRecord == 1){
                 $("#refugee-asylum_status option:selected").prop("selected",false);
+                $("#refugee-asylum_status").removeAttr('disabled');
             }
-
         }
     }).change();
 
@@ -362,7 +362,7 @@ $script = <<<JS
         $('.field-refugee-reason_for_rsd_appointment, .field-refugee-rsd_appointment_date').parent().fadeOut('slow')
       }
 
-      if(this.value == 3 || this.value == 2){
+      if((this.value == 3 || this.value == 2) || this.value == ''){
         $('.field-refugee-id_no').parent().fadeIn('slow');
       }else{
         $('.field-refugee-id_no').parent().fadeOut('slow');

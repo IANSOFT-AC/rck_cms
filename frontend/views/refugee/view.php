@@ -188,23 +188,18 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                   <strong data-speechify-sentence=""> Old RCK No</strong>
 
                                   <p class="text-muted" data-speechify-sentence=""><?= $model->old_rck ?></p>
-
                                   <hr>
                             </div>
 
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> D.O.B</strong>
-
                                   <p class="text-muted" data-speechify-sentence=""><?= date("l M j, Y",$model->date_of_birth) ?></p>
-
                                   <hr>
                             </div>
 
                             <div class="col-md-6">
                                   <strong data-speechify-sentence=""> Identification Type</strong>
-
                                   <p class="text-muted" data-speechify-sentence=""><?= isset($model->idType) ? $model->idType->identification : "None"; ?></p>
-
                                   <hr>
                             </div>
 
