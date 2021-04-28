@@ -344,7 +344,7 @@ $script = <<<JS
                 .field-refugee-mode_of_entry_id,\
                 .field-refugee-nhcr_case_no'
             ).parent().fadeIn();
-            $('#work-permits').fadeOut();
+            $('#work-permits').fadeIn();
 
             //Offset asyslum seeker select field
             if(isNewRecord == 1){
