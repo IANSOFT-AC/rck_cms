@@ -15,6 +15,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use common\models\User;
+use app\models\Refugee;
 
 /**
  * Site controller
@@ -75,7 +76,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $genderArr = Refugee::find()->select('COUNT(*) AS count')
+          ->groupBy(['refugee.gender'])
+          ->asArray()
+          ->all();
+
+        $gender = [$genderArr[0]['count'],$genderArr[1]['count']];
+        
+        return $this->render('index',[
+            'gender' => $gender
+        ]);
     }
 
     public function actionProfile()

@@ -30,16 +30,30 @@ $this->params['breadcrumbs'][] = ['label' => 'Dashboard','url' => 'index'];
 <div class="row">
     <div class="col-lg-3 col-6">
         <!-- small box -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3><?= Yii::$app->dashboard->clients(); ?></h3>
+
+                <p>Clients</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+            <a href="/refugee" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3><?= Yii::$app->dashboard->interventions(); ?></h3>
+                <h3><?= Yii::$app->dashboard->police_cases(); ?></h3>
 
-                <p>Interventions</p>
+                <p>Police Cases</p>
             </div>
             <div class="icon">
                 <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/police_cases" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -54,22 +68,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Dashboard','url' => 'index'];
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-warning">
-            <div class="inner">
-                <h3><?= Yii::$app->dashboard->clients(); ?></h3>
-
-                <p>Clients</p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/training" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -79,12 +78,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Dashboard','url' => 'index'];
             <div class="inner">
                 <h3><?= Yii::$app->dashboard->court_cases(); ?></h3>
 
-                <p>Active Court Cases</p>
+                <p>Court Cases</p>
             </div>
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/court_cases" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -99,7 +98,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Dashboard','url' => 'index'];
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Refugees By Demography</h3>
+                <h3 class="card-title">Clients By Gender</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -131,34 +130,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Dashboard','url' => 'index'];
                 <!-- /.row -->
             </div>
             <!-- /.card-body -->
-            <div class="card-footer bg-white p-0">
-                <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Male
-                            <span class="float-right text-danger">
-                        <i class="fas fa-arrow-down text-sm"></i>
-                        12%</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Female
-                            <span class="float-right text-success">
-                        <i class="fas fa-arrow-up text-sm"></i> 4%
-                      </span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Children
-                            <span class="float-right text-warning">
-                        <i class="fas fa-arrow-left text-sm"></i> 0%
-                      </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
             <!-- /.footer -->
         </div>
     </div>
@@ -196,35 +167,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Dashboard','url' => 'index'];
                 </div>
                 <!-- /.row -->
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer bg-white p-0">
-                <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Convictions
-                            <span class="float-right text-danger">
-                        <i class="fas fa-arrow-down text-sm"></i>
-                        12%</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Settlements
-                            <span class="float-right text-success">
-                        <i class="fas fa-arrow-up text-sm"></i> 4%
-                      </span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Dismissals
-                            <span class="float-right text-warning">
-                        <i class="fas fa-arrow-left text-sm"></i> 0%
-                      </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            
             <!-- /.footer -->
         </div>
     </div>
@@ -234,9 +177,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Dashboard','url' => 'index'];
 <!--Pie Chart-->
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 mt-2">
         <!-- PIE CHART -->
-        <div class="card card-danger">
+        <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Court Cases By Status</h3>
 
@@ -254,9 +197,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Dashboard','url' => 'index'];
         <!-- /.card -->
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 mt-2">
         <!-- PIE CHART -->
-        <div class="card card-danger">
+        <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Interventions By Type</h3>
 
@@ -307,8 +250,6 @@ var donutData        = {
           'Health',
           'Political', 
           'Legal',
-          
-          
       ],
       datasets: [
         {
@@ -324,17 +265,16 @@ var donutData        = {
   // Get context with jQuery - using jQuery's .get() method.
     var pieChartCanvas = $('#genderPieChart').get(0).getContext('2d')
     var pieData        = {
-      labels: [
-          'Male', 
-          'Female',
-          'Children',  
-      ],
-      datasets: [
-        {
-          data: [700,500,400],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12'],
-        }
-      ]
+        labels: [
+            'Male', 
+            'Female',  
+        ],
+        datasets: [
+            {
+            data: [$gender[0],$gender[1]],
+            backgroundColor : ['#00c0ef', '#3c8dbc'],
+            }
+        ]
     }
     var pieOptions     = {
       legend: {
@@ -362,7 +302,7 @@ var donutData        = {
   
   
   
-  // Get context with jQuery - using jQuery's .get() method.
+  // Get context with jQuery - using jQuery's .get() method. Outcomes
     var pieChartCanvas = $('#outcomeChart').get(0).getContext('2d')
     var pieData        = {
       labels: [
