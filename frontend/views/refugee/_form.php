@@ -13,7 +13,9 @@ use common\models\Helper;
 <div class="refugee-form">
 
     <?php $form = ActiveForm::begin([
-        'enableClientValidation' => true
+        'enableClientValidation' => true,
+        'encodeErrorSummary' => false,
+        'errorSummaryCssClass' => 'help-block',
     ]); ?>
 
     <?= $form->field($model, 'id')->hiddenInput(['maxlength' => true])->label(false) ?>
@@ -203,9 +205,11 @@ use common\models\Helper;
                             <?= $form->field($model, 'disability_desc')->textarea() ?>
                             </div>
                         <div class="col-md-6">
-
                             <?= $form->field($model, 'victim_of_turture')->dropDownList([1 => 'Yes',0 => 'No'],['prompt' => '-- Select Yes or No --']) ?>
-                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'torture_manifestation')->dropDownList(['Direct' => 'Direct','Indirect' => 'Indirect'],['prompt' => 'Select ...']) ?>
+                        </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'form_of_torture_id[]')->dropDownList($formOfTorture,['prompt' => '-- Select Form of Torture --','multiple data-live-search' => "true",'class' => 'form-control selectpicker','options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->form_of_torture_id)]) ?>
                             </div>
@@ -303,7 +307,7 @@ use common\models\Helper;
 $script = <<<JS
 
     //COnfirm if its new record
-    let isNewRecord = $model->isNewRecord
+    let isNewRecord = $model->isNewRecord;
 
     //Hide fields initially
     $('.field-refugee-disability_desc,\
@@ -408,7 +412,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-disability_type_id').parent().fadeOut('slow');
         }
-    }).change();;
+    }).change();
 
     $('#refugee-disability_type_id').on('change', function(){
         if($('#refugee-disability_type_id option[value=0]:selected').length > 0){
@@ -416,15 +420,19 @@ $script = <<<JS
         }else{
             $('.field-refugee-disability_desc').parent().fadeOut('slow');
         }
-    }).change();;
+    }).change();
 
+    /*Initially hide field-refugee-torture_manifestation*/
+    $('.field-refugee-torture_manifestation').parent().hide();
     $('#refugee-victim_of_turture').on('change', function(){
         if(this.value == 1){
             $('.field-refugee-form_of_torture_id').parent().fadeIn('slow');
+            $('.field-refugee-torture_manifestation').parent().fadeIn('slow');
         }else{
             $('.field-refugee-form_of_torture_id').parent().fadeOut('slow');
+            $('.field-refugee-torture_manifestation').parent().fadeOut('slow');
         }
-    }).change();;
+    }).change();
 
     $('#refugee-form_of_torture_id').on('change', function(){
         if($('#refugee-form_of_torture_id option[value=0]:selected').length > 0){
@@ -432,7 +440,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-form_of_torture').parent().fadeOut('slow');
         }
-    }).change();;
+    }).change();
 
     $('#refugee-source_of_info_id').on('change', function(){
         if($('#refugee-source_of_info_id option[value=0]:selected').length > 0){
@@ -440,7 +448,7 @@ $script = <<<JS
         }else{
             $('.field-refugee-source_of_info_abt_rck').parent().fadeOut('slow');
         }
-    }).change();;
+    }).change();
 
     $('#refugee-source_of_income_id').on('change', function(){
         if($('#refugee-source_of_income_id option[value=0]:selected').length > 0){
@@ -448,7 +456,7 @@ $script = <<<JS
         }else{
             //$('.field-refugee-source_of_income').fadeOut('slow');
         }
-    }).change();;
+    }).change();
 
 
 

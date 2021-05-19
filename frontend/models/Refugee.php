@@ -113,7 +113,7 @@ class Refugee extends \yii\db\ActiveRecord
             //[['source_of_income_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfIncome::className(), 'targetAttribute' => ['source_of_income_id' => 'id']],
             [['asylum_status'], 'exist', 'skipOnError' => true, 'targetClass' => AsylumType::className(), 'targetAttribute' => ['asylum_status' => 'id']],
             [['disability_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DisabilityType::className(), 'targetAttribute' => ['disability_type_id' => 'id']],
-
+            ['torture_manifestation', 'string'],
             //Conditional Validation
             [
                 ['disability_desc'],

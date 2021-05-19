@@ -316,6 +316,11 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
                                   <hr>
                             </div>
+
+                            <div class="col-md-6">
+                                <strong data-speechify-sentence=""> Torture Manifestation </strong>
+                                <p class="text-muted" data-speechify-sentence=""><?= $model->torture_manifestation ?></p>
+                            </div>
                             <?php
                             if($model->victim_of_turture){
                             ?>
