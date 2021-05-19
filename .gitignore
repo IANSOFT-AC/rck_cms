@@ -48,3 +48,11 @@ phpunit.phar
 /backend/web/index.php
 /backend/web/index-test.php
 /backend/web/robots.txt
+
+
+# Project Assets
+
+.png
+.jpeg
+.jpg
+.pdf
