@@ -76,7 +76,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        // Yii::$app->recruitment->printrr(Yii::$app->user->id);
+       //  Yii::$app->recruitment->printrr(Yii::$app->user->identity);
         $genderArr = Refugee::find()->select('COUNT(*) AS count')
             ->groupBy(['refugee.gender'])
             ->asArray()
@@ -114,17 +114,19 @@ class SiteController extends Controller
     public function actionLogin()
     {
         $this->layout = 'login';
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            //$model->save();
 
-            // Yii::$app->user->identity->generateAuthKey();
-            // return Yii::$app->user->identity->auth_key;
+
+        if ($model->load(Yii::$app->request->post()) && $model->login()  ) {
+
+            //var_dump($model->login()); exit;
             return $this->goBack();
+
         } else {
             $model->password = '';
 
@@ -152,7 +154,7 @@ class SiteController extends Controller
             $model->login();
 
 
-          //Yii::$app->recruitment->printrr(Yii::$app->user->identity);
+            //Yii::$app->recruitment->printrr(Yii::$app->user->identity);
           //  print_r(Yii::$app->user->identity);
 
             $user->generateAuthKey();
@@ -161,6 +163,7 @@ class SiteController extends Controller
             //return $user;
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             Yii::$app->response->statusCode = 200;
+
             return $this->asJson([
                 'msg' => "login successful",
                 'token' => $user->getAuthKey(),

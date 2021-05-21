@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
     </div>
-    <div class="card m-1" id="loader">
+    <!--<div class="card m-1" id="loader">
         <div class="card-header center">
             <h1 class="card-title">Authenticating. Please Wait...</h1>
         </div>
@@ -64,14 +64,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body center">
             <img src="/images/gif/loader.gif">
         </div>
-    </div>
+    </div>-->
 
 </div>
 
 <?php
 
 $script = <<<JS
-
+/*
     $(function(){
 
         $("#loader").hide();
@@ -130,6 +130,8 @@ $script = <<<JS
             return false
         });
     });
+    
+    */
 JS;
 $this->registerJs($script);
 ?>

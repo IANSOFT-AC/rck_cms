@@ -4,10 +4,10 @@ var urlsToCache = [
 ];
 
 /*****
- * 
- * 
+ *
+ *
  * EVENTS FOR THE SERVICE WORKER AND THEIR FUNCTIONS
- * 
+ *
  */
 let csrfToken = null;
 
@@ -37,13 +37,13 @@ self.addEventListener('activate', function(event) {
   //       }))
   //   })
   // )
-  
+
 });
 
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     //do a fetch first and if there is an error fallback to cache
-    
+
     fetch(event.request).then(
       function(response) {
         // Check if we received a valid response

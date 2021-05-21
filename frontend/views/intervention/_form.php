@@ -154,7 +154,7 @@ use common\models\Helper;
                                             <td>
                                                 <?= Html::a('<i class="fa fa-edit"></i>',['intervention-progress-lines/update','id' => $pro->id],['class' => 'btn btn-sm btn-outline-primary add']) ?>
                                                 <?= Html::a('<i class="fa fa-trash"></i>',['intervention-progress-lines/delete','id' => $pro->id],['class' => 'btn btn-sm btn-outline-danger delete','data' => [
-                                                    'params' => ['id' => $ln->id],
+                                                    'params' => ['id' => $pro->id],
                                                     'method' => 'post']]) ?>
                                             </td>
                                         </tr>
@@ -204,7 +204,7 @@ use common\models\Helper;
                                                 <?= Html::a('<i class="fa fa-eye"></i>',['intervention/read','id' => $doc->id],['class' => 'btn btn-sm btn-outline-info']) ?>
                                                 <?= Html::a('<i class="fa fa-edit"></i>',['intervention-vulnerability-upload-lines/update','id' => $doc->id],['class' => 'btn btn-sm btn-outline-primary add']) ?>
                                                 <?= Html::a('<i class="fa fa-trash"></i>',['intervention-vulnerability-upload-lines/delete','id' => $doc->id],['class' => 'btn btn-sm btn-outline-danger delete','data' => [
-                                                    'params' => ['id' => $ln->id],
+                                                    'params' => ['id' => $doc->id],
                                                     'method' => 'post']]) ?>
                                             </td>
                                         </tr>
