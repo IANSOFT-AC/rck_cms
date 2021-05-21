@@ -76,13 +76,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        // Yii::$app->recruitment->printrr(Yii::$app->user->id);
         $genderArr = Refugee::find()->select('COUNT(*) AS count')
-          ->groupBy(['refugee.gender'])
-          ->asArray()
-          ->all();
+            ->groupBy(['refugee.gender'])
+            ->asArray()
+            ->all();
 
         $gender = [$genderArr[0]['count'],$genderArr[1]['count']];
-        
+
         return $this->render('index',[
             'gender' => $gender
         ]);
@@ -93,14 +94,14 @@ class SiteController extends Controller
         return $this->render('profile');
     }
 
-    
+
 
     public function beforeAction($action)
-    {            
+    {
         if ($action->id == 'login' || $action->id == 'login-api') {
             $this->enableCsrfValidation = false;
         }
-    
+
         return parent::beforeAction($action);
     }
 
@@ -144,15 +145,19 @@ class SiteController extends Controller
             return $this->asJson(['error' => "Error in Authentication! Please try again","status" => 401]);
         }
         if ($user->validatePassword(Yii::$app->request->post()['password'])){
-            
+
             $model = new LoginForm();
             $model->username = Yii::$app->request->post()['username'];
             $model->password = Yii::$app->request->post()['password'];
             $model->login();
 
+
+          //Yii::$app->recruitment->printrr(Yii::$app->user->identity);
+          //  print_r(Yii::$app->user->identity);
+
             $user->generateAuthKey();
             $user->save();
-            
+
             //return $user;
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             Yii::$app->response->statusCode = 200;
@@ -171,7 +176,7 @@ class SiteController extends Controller
 
         // $model = new LoginForm();
         // if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            
+
         //     //return $this->goBack();
         //     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         //     Yii::$app->response->statusCode = 200;
@@ -324,7 +329,7 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
             return $this->goHome();
             /*if (Yii::$app->user->login($user)) {
-                
+
             }*/
         }
 
@@ -343,7 +348,7 @@ class SiteController extends Controller
         $model = new ResendVerificationEmailForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                
+
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
                 return $this->goHome();
             }

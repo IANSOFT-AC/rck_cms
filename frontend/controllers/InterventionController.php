@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use app\models\InterventionType;
 use app\models\InterventionUpload;
+use app\models\InterventionVulnerabilityUploadLines;
 use app\models\UploadForm;
 use Yii;
 use app\models\Intervention;
@@ -439,6 +440,20 @@ class InterventionController extends Controller
         }
         return $rst;
     }
+
+    public function actionRead($id)
+    {
+        $model =  InterventionVulnerabilityUploadLines::findOne(['id' => $id]);
+
+        $content = base64_encode(file_get_contents($model->filename));
+
+        // Yii::$app->recruitment->printrr($content);
+
+        return $this->render('read',[
+            'content' => $content
+        ]);
+    }
+
 
 
 }

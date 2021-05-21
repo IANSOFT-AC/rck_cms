@@ -12,24 +12,24 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
 
-<?php if(\Yii::$app->session->hasFlash('success')){ ?>
-    <div class="alert alert-success"><?= Yii::$app->session->getFlash('success') ?></div>
-<?php } ?>
+    <?php if(\Yii::$app->session->hasFlash('success')){ ?>
+        <div class="alert alert-success"><?= Yii::$app->session->getFlash('success') ?></div>
+    <?php } ?>
 
-<div class="card" style="padding: 1.2rem;" id="content-login">
-    <div class="card-header">
-        <h1 class="card-title"><?= Html::encode("RCK - ".$this->title) ?></h1>
-    </div>
+    <div class="card" style="padding: 1.2rem;" id="content-login">
+        <div class="card-header">
+            <h1 class="card-title"><?= Html::encode("RCK - ".$this->title) ?></h1>
+        </div>
 
-    <div class="card-body">
+        <div class="card-body">
 
 
-        <div class="m-1 p-2" id="login-status"></div>
-        <div class="row">
-            <div class="col-lg-12">
+            <div class="m-1 p-2" id="login-status"></div>
+            <div class="row">
+                <div class="col-lg-12">
 
-                <p>Please fill out the following fields to login:</p>
-                <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+                    <p>Please fill out the following fields to login:</p>
+                    <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
                     <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
@@ -44,28 +44,28 @@ $this->params['breadcrumbs'][] = $this->title;
                     <hr>
                     <div style="color:#999;margin:1em 0">
                         <p class="center">If you forgot your password you can <?= Html::a('Reset it', ['site/request-password-reset'],[
-                    'class' => 'pl-1',
-                ]) ?>.</p>
-                        
+                                'class' => 'pl-1',
+                            ]) ?>.</p>
+
                         <p class="center">Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?></p>
                     </div>
 
-                <?php ActiveForm::end(); ?>
+                    <?php ActiveForm::end(); ?>
+                </div>
             </div>
+
+        </div>
+    </div>
+    <div class="card m-1" id="loader">
+        <div class="card-header center">
+            <h1 class="card-title">Authenticating. Please Wait...</h1>
         </div>
 
-    </div>
-</div>
-<div class="card m-1" id="loader">
-    <div class="card-header center">
-        <h1 class="card-title">Authenticating. Please Wait...</h1>
+        <div class="card-body center">
+            <img src="/images/gif/loader.gif">
+        </div>
     </div>
 
-    <div class="card-body center">
-        <img src="/images/gif/loader.gif">
-    </div>
-</div>
-    
 </div>
 
 <?php
@@ -133,4 +133,3 @@ $script = <<<JS
 JS;
 $this->registerJs($script);
 ?>
-

@@ -124,6 +124,29 @@ class Intervention extends \yii\db\ActiveRecord
         return $this->hasOne(CourtCases::className(), ['id' => 'court_case']);
     }
 
+    // Get Budget Lines
+
+    public function getBudget()
+    {
+        return $this->hasMany(InterventionBudgetLines::className(), ['intervention_id' => 'id']);
+    }
+
+    public function getProgress()
+    {
+        return $this->hasMany(InterventionProgressLines::className(), ['intervention_id' => 'id']);
+    }
+
+    public function getDocuments()
+    {
+        return $this->hasMany(InterventionVulnerabilityUploadLines::className(), ['intervention_id' => 'id']);
+    }
+
+
+
+
+
+
+
     /**
      * Gets query for [[PoliceCase]].
      *
