@@ -172,4 +172,9 @@ class Training extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TrainingClientTypeLines::className(), ['training_id' => 'id']);
     }
+
+    public function getNationality()
+    {
+        return $this->hasMany(TrainingClientNationalityLines::className(), ['training_id' => 'id']);
+    }
 }

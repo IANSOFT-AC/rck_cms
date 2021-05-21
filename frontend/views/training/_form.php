@@ -123,7 +123,6 @@ use yii\widgets\ActiveForm;
 
                         <!--Client Type BD div-->
 
-
                         <div id="client Type">
 
                             <p class="lead text-center">Client Type Lines</p>
@@ -154,6 +153,7 @@ use yii\widgets\ActiveForm;
                                                 <?= Html::a('<i class="fa fa-edit"></i>',['training-client-type-line/update','id' => $ln->id],['class' => 'btn btn-sm btn-outline-primary add']) ?>
                                                 <?= Html::a('<i class="fa fa-trash"></i>',['training-client-type-line/delete','id' => $ln->id],['class' => 'btn btn-sm btn-outline-danger delete','data' => [
                                                     'params' => ['id' => $ln->id],
+                                                    'confirm' => 'Are you sure you want to delete this record? ',
                                                     'method' => 'post']]) ?>
                                             </td>
                                         </tr>
@@ -165,12 +165,60 @@ use yii\widgets\ActiveForm;
                             </table>
                         </div>
 
-
                         <!--Client Type BD div-->
 
 
                     </div><!--/col one-->
                     <div class="col-md-6">
+
+
+
+                        <!--Nationality BD div-->
+
+                        <div id="Nationality">
+
+                            <p class="lead text-center">Nationality Break Down Lines</p>
+
+                            <?= Html::a('<i class="fa fa-plus-square"></i> New',['training-client-nationality-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add text-white']) ?>
+
+
+
+                            <table class="table my-2">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nationality</th>
+                                    <th>Number (Attendance)</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php if(is_array($model->nationality)): ?>
+
+                                    <?php $i=0; foreach($model->nationality as $n): ++$i; ?>
+
+                                        <tr>
+                                            <td><?= $i ?></td>
+                                            <td><?= $n->country->country ?></td>
+                                            <td><?= $n->number ?></td>
+                                            <td>
+                                                <?= Html::a('<i class="fa fa-edit"></i>',['training-client-nationality-lines/update','id' => $n->id],['class' => 'btn btn-sm btn-outline-primary add']) ?>
+                                                <?= Html::a('<i class="fa fa-trash"></i>',['training-client-nationality-lines/delete','id' => $n->id],['class' => 'btn btn-sm btn-outline-danger delete','data' => [
+                                                    'params' => ['id' => $n->id],
+                                                    'confirm' => 'Are you sure you want to delete this record? ',
+                                                    'method' => 'post']]) ?>
+                                            </td>
+                                        </tr>
+
+                                    <?php endforeach; ?>
+
+                                <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--Nationality BD div-->
+
 
                     </div><!--/col Two-->
                 </div><!--End card row-->

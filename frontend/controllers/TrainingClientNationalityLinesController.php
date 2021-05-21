@@ -2,9 +2,11 @@
 
 namespace frontend\controllers;
 
+use app\models\Country;
 use Yii;
 use app\models\TrainingClientNationalityLines;
 use app\models\TrainingClientNationalityLinesSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,13 +67,31 @@ class TrainingClientNationalityLinesController extends Controller
     public function actionCreate()
     {
         $model = new TrainingClientNationalityLines();
+        $model->training_id = Yii::$app->request->get('iid');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if($model->save()){
+                Yii::$app->session->setFlash('info','Line Added Successfully.');
+                return $this->redirect(Yii::$app->request->referrer);
+
+            }else{
+                Yii::$app->session->setFlash('error','Error Adding Record.');
+                return $this->redirect(Yii::$app->request->referrer);
+
+            }
+        }
+
+        if(Yii::$app->request->isAjax)
+        {
+            return $this->renderAjax('create', [
+                'model' => $model,
+                'country' => $this->Country()
+            ]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'country' => $this->Country()
         ]);
     }
 
@@ -87,7 +107,16 @@ class TrainingClientNationalityLinesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('info','Line Updated  Successfully.');
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+
+        if(Yii::$app->request->isAjax)
+        {
+            return $this->renderAjax('update', [
+                'model' => $model,
+                'country' => $this->Country()
+            ]);
         }
 
         return $this->render('update', [
@@ -123,5 +152,11 @@ class TrainingClientNationalityLinesController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function Country()
+    {
+        $result = Country::find()->all();
+        return ArrayHelper::map($result,'id','country');
     }
 }

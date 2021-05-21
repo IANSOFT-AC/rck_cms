@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "training_client_nationality_lines".
@@ -26,6 +28,14 @@ class TrainingClientNationalityLines extends \yii\db\ActiveRecord
         return 'training_client_nationality_lines';
     }
 
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+            BlameableBehavior::className()
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -33,6 +43,8 @@ class TrainingClientNationalityLines extends \yii\db\ActiveRecord
     {
         return [
             [['training_id', 'nationality', 'number', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['nationality','number'],'required'],
+            ['nationality', 'unique']
         ];
     }
 
@@ -60,5 +72,10 @@ class TrainingClientNationalityLines extends \yii\db\ActiveRecord
     public static function find()
     {
         return new TrainingClientNationalityLinesQuery(get_called_class());
+    }
+
+    public function getCountry()
+    {
+        return $this->hasOne(Country::className(),['id' => 'nationality']);
     }
 }
