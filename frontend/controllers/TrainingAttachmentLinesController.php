@@ -8,6 +8,7 @@ use app\models\TrainingAttachmentLinesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * TrainingAttachmentLinesController implements the CRUD actions for TrainingAttachmentLines model.
@@ -65,9 +66,27 @@ class TrainingAttachmentLinesController extends Controller
     public function actionCreate()
     {
         $model = new TrainingAttachmentLines();
+        $model->training_id = Yii::$app->request->get('iid');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->imageFile = UploadedFile::getInstanceByName('imageFile');
+            if($model->save())
+            {
+                Yii::$app->session->setFlash('info','Line Added Successfully.');
+                return $this->redirect(Yii::$app->request->referrer);
+            }else{
+                Yii::$app->session->setFlash('error','Error Adding Record.');
+                return $this->redirect(Yii::$app->request->referrer);
+            }
+
+        }
+
+        if(Yii::$app->request->isAjax)
+        {
+            return $this->renderAjax('create', [
+                'model' => $model,
+            ]);
         }
 
         return $this->render('create', [
@@ -86,8 +105,23 @@ class TrainingAttachmentLinesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->imageFile = UploadedFile::getInstanceByName('imageFile');
+            if($model->save())
+            {
+                Yii::$app->session->setFlash('info','Line Updated Successfully.');
+                return $this->redirect(Yii::$app->request->referrer);
+            }else{
+                Yii::$app->session->setFlash('error','Error Updating Record.');
+                return $this->redirect(Yii::$app->request->referrer);
+            }
+        }
+
+        if(Yii::$app->request->isAjax)
+        {
+            return $this->renderAjax('update', [
+                'model' => $model,
+            ]);
         }
 
         return $this->render('update', [
@@ -106,7 +140,8 @@ class TrainingAttachmentLinesController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash('info','Line Deleted  Successfully.');
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**

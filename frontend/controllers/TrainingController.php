@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use app\models\TrainingAttachmentLines;
 use Yii;
 use app\models\Training;
 use app\models\Organizer;
@@ -313,5 +314,16 @@ class TrainingController extends Controller
         }
 
         return $result;
+    }
+
+    public function actionRead($id)
+    {
+        $model =  TrainingAttachmentLines::findOne(['id' => $id]);
+
+        $content = base64_encode(file_get_contents($model->filename));
+
+        return $this->render('read',[
+            'content' => $content
+        ]);
     }
 }

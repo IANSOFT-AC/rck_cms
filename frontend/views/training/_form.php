@@ -112,7 +112,7 @@ use yii\widgets\ActiveForm;
 <!--Add Lines-->
 <div class="row">
     <div class="col-md-12">
-        <div class="card">
+        <div class="card card-primary">
             <div class="card-header">
                 <h2 class="lead text-center">Additional Training Data</h2>
             </div>
@@ -127,7 +127,7 @@ use yii\widgets\ActiveForm;
 
                             <p class="lead text-center">Client Type Lines</p>
 
-                            <?= Html::a('<i class="fa fa-plus-square"></i> New',['training-client-type-line/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add text-white']) ?>
+                            <?= Html::a('<i class="fa fa-plus-square"></i> Add',['training-client-type-line/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add text-white']) ?>
 
 
 
@@ -179,7 +179,7 @@ use yii\widgets\ActiveForm;
 
                             <p class="lead text-center">Nationality Break Down Lines</p>
 
-                            <?= Html::a('<i class="fa fa-plus-square"></i> New',['training-client-nationality-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add text-white']) ?>
+                            <?= Html::a('<i class="fa fa-plus-square"></i> Add',['training-client-nationality-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add text-white']) ?>
 
 
 
@@ -218,6 +218,59 @@ use yii\widgets\ActiveForm;
                         </div>
 
                         <!--Nationality BD div-->
+
+                        <!--M&E Uploads-->
+
+
+                        <div id="uploads">
+
+                            <p class="lead text-center">M&E Documents</p>
+
+                            <?= Html::a('<i class="fa fa-plus-square"></i> Add',['training-attachment-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add text-white']) ?>
+
+
+                            <div class="table-responsive">
+                                <table class="table my-2">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Description</th>
+                                        <th>Created By</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php $i=0; if(is_array($model->documents)):  ++$i; ?>
+
+                                        <?php foreach($model->documents as $doc): ?>
+
+                                            <tr>
+                                                <td><?= $i ?></td>
+                                                <td><?= $doc->description ?></td>
+                                                <td><?= $doc->creator->username ?></td>
+                                                <td><?= date('Y-m-d H:i:s',$doc->created_at) ?></td>
+                                                <td>
+                                                    <?= Html::a('<i class="fa fa-eye"></i>',['training/read','id' => $doc->id],['class' => 'btn btn-sm btn-outline-info']) ?>
+                                                    <?= Html::a('<i class="fa fa-edit"></i>',['training-attachment-lines/update','id' => $doc->id],['class' => 'btn btn-sm btn-outline-primary add']) ?>
+                                                    <?= Html::a('<i class="fa fa-trash"></i>',['training-attachment-lines/delete','id' => $doc->id],['class' => 'btn btn-sm btn-outline-danger delete','data' => [
+                                                        'params' => ['id' => $doc->id],
+                                                        'confirm' => 'Are you sure you want to delete this record? ',
+                                                        'method' => 'post']]) ?>
+                                                </td>
+                                            </tr>
+
+                                        <?php endforeach; ?>
+
+                                    <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+
+                        <!--/ M&E Uploads-->
 
 
                     </div><!--/col Two-->

@@ -171,7 +171,6 @@ use common\models\Helper;
                         <!--Vulnerability Assessment Uploads-->
 
 
-
                         <div id="uploads">
 
                             <p class="lead text-center">Vulnerability Assement Uploads</p>
@@ -216,7 +215,6 @@ use common\models\Helper;
                             </table>
                         </div>
 
-                        <!--/ Progress Lines-->
 
                         <!--/ Vulnerability Asssment Lines-->
 

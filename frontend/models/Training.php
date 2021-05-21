@@ -177,4 +177,9 @@ class Training extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TrainingClientNationalityLines::className(), ['training_id' => 'id']);
     }
+
+    public function getDocuments()
+    {
+        return $this->hasMany(TrainingAttachmentLines::className(), ['training_id' => 'id']);
+    }
 }
