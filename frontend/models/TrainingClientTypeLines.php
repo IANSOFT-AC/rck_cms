@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "training_client_type_lines".
@@ -33,6 +35,16 @@ class TrainingClientTypeLines extends \yii\db\ActiveRecord
     {
         return [
             [['training_id', 'client_type', 'number', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['number','client_type'], 'required'],
+            ['client_type','unique']
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+            BlameableBehavior::class,
         ];
     }
 
@@ -51,5 +63,13 @@ class TrainingClientTypeLines extends \yii\db\ActiveRecord
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
         ];
+    }
+
+
+    // Get Client Type
+
+    public function getType()
+    {
+        return $this->hasOne(AsylumType::className(),['id' => 'client_type' ]);
     }
 }

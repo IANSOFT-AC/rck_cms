@@ -67,18 +67,14 @@ class InterventionBudgetLinesController extends Controller
         $model = new InterventionBudgetLines();
         $model->intervention_id = Yii::$app->request->get('iid');
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            // return $this->redirect(['view', 'id' => $model->id]);
 
-           // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             if($model->save()){
                 Yii::$app->session->setFlash('info','Line Added Successfully.');
                 return $this->redirect(Yii::$app->request->referrer);
-               // return ['note' => '<div class="alert alert-success">Record Added Successfully. </div>'];
 
             }else{
                 Yii::$app->session->setFlash('error','Error Adding Record.');
                 return $this->redirect(Yii::$app->request->referrer);
-                //return ['note' => '<div class="alert alert-danger">Error, try again later.</div>' ];
 
             }
         }

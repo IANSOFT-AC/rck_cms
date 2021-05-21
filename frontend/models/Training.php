@@ -167,4 +167,9 @@ class Training extends \yii\db\ActiveRecord
     {
         return $this->hasOne(RckOffices::className(), ['id' => 'rck_office_id']);
     }
+
+    public function getClienttype()
+    {
+        return $this->hasMany(TrainingClientTypeLines::className(), ['training_id' => 'id']);
+    }
 }
