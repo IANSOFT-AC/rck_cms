@@ -6,29 +6,33 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Training */
 
-$this->title = $model->id;
+$this->title = ucwords($model->rOrganizer->name.' '.$model->tType->name. ' Training');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Trainings'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="training-view">
 
-    <div class="card">
+    <div class="card card-primary">
         <div class="card-header">
-            <h1><?= Html::encode($this->title) ?></h1>
 
-            <p>
-                              <?= Html::a(Yii::t('app', 'Add'), ['create'], ['class' => 'btn btn-success']) ?>
-                <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+            <div class="card-title">
+                <h2 class="lead text-left"><?= Html::encode($this->title) ?></h2>
+            </div>
+
+
+            <div class="card-tools">
+                <?= Html::a(Yii::t('app', '<i class="fa fa-plus-square"></i>'), ['create'], ['class' => 'btn btn-success','title' => 'Add a New Training.']) ?>
+                <?= Html::a(Yii::t('app', '<i class="fa fa-edit"></i>'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary','title' => 'Update a Training.']) ?>
+                <?= Html::a(Yii::t('app', '<i class="fa fa-trash"></i>'), ['delete', 'id' => $model->id,'title' => 'Delete a training.'], [
                     'class' => 'btn btn-danger',
                     'data' => [
-                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                        'confirm' => Yii::t('app', 'Are you sure you want to delete this record?'),
                         'method' => 'post',
                     ],
                 ]) ?>
-                <button type="button" class="btn bg-maroon margin" style="" id="print"><i class="nav-icon fa fa-print"></i> Print</button>
-            </p>
+                <button type="button" class="btn bg-maroon margin" style="" id="print" title="Print this page"><i class="nav-icon fa fa-print"></i></button>
+            </div>
         </div>
         <div class="card-body print">
             <div class="box box-primary">
@@ -163,7 +167,149 @@ $this->params['breadcrumbs'][] = $this->title;
             <!-- /.box-body -->
             </div>
         </div>
-    </div>
+
+
+
+       <!--Line Cards-->
+
+        <!--Client Type BD div-->
+
+        <div class="card card-primary m-2" id="client Type">
+
+            <div class="card-header">
+                <p class="lead text-center">Client Type Lines</p>
+            </div>
+            <div class="card-body">
+                <table class="table my-2">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Client Type</th>
+                        <th>Number (Attendance)</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if(is_array($model->clienttype)): ?>
+
+                        <?php $i=0; foreach($model->clienttype as $ln): ++$i; ?>
+
+                            <tr>
+                                <td><?= $i ?></td>
+                                <td><?= $ln->type->name ?></td>
+                                <td><?= $ln->number ?></td>
+
+                            </tr>
+
+                        <?php endforeach; ?>
+
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!--Client Type BD div-->
+
+
+        <!--Nationality BD div-->
+
+        <div class="card card-primary m-2" id="Nationality">
+
+            <div class="card-header">
+                <p class="lead text-center">Nationality Break Down Lines</p>
+
+
+            </div>
+            <div class="card-body">
+                <table class="table my-2 ">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nationality</th>
+                        <th>Number (Attendance)</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if(is_array($model->nationality)): ?>
+
+                        <?php $i=0; foreach($model->nationality as $n): ++$i; ?>
+
+                            <tr>
+                                <td><?= $i ?></td>
+                                <td><?= $n->country->country ?></td>
+                                <td><?= $n->number ?></td>
+
+                            </tr>
+
+                        <?php endforeach; ?>
+
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!--Nationality BD div-->
+
+        <!--M&E Uploads-->
+
+
+        <div class="card card-primary m-2" id="uploads">
+
+            <div class="card-header">
+                <p class="lead text-center">M&E Documents</p>
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table my-2 justify-content-center">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Description</th>
+                            <th>Created By</th>
+                            <th>Created At</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php $i=0; if(is_array($model->documents)):  ++$i; ?>
+
+                            <?php foreach($model->documents as $doc): ?>
+
+                                <tr>
+                                    <td><?= $i ?></td>
+                                    <td><?= $doc->description ?></td>
+                                    <td><?= $doc->creator->username ?></td>
+                                    <td><?= date('Y-m-d H:i:s',$doc->created_at) ?></td>
+
+                                </tr>
+
+                            <?php endforeach; ?>
+
+                        <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!--/ M&E Uploads-->
+
+
+
+        <!--/ Line Cards-->
+
+
+
+
+    </div><!--/Main Card-->
 
     <?php if(count($model->trainingUploads) > 0){ ?>
         <div class="card">
