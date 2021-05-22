@@ -283,6 +283,8 @@ $script = <<<JS
         if(selected == 15) 
             {
                $('#budgetlines').show();
+            }else{
+                $('#budgetlines').hide();
             }
         //Then make necessary changes
         if($('#intervention-case_id option[value=11]:selected').length > 0){

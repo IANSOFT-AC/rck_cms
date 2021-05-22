@@ -277,13 +277,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         </tr>
                         </thead>
                         <tbody>
-                        <?php $i=0; if(is_array($model->documents)):  ++$i; ?>
+                        <?php $i=0; if(is_array($model->documents)):   ?>
 
-                            <?php foreach($model->documents as $doc): ?>
+                            <?php foreach($model->documents as $doc): ++$i; ?>
 
                                 <tr>
                                     <td><?= $i ?></td>
-                                    <td><?= $doc->description ?></td>
+                                    <td><?= Html::a('<i class="fa fa-eye"></i> '.$doc->description,['read','id' => $doc->id],['class' => 'btn btn-sm btn-warning']) ?></td>
                                     <td><?= $doc->creator->username ?></td>
                                     <td><?= date('Y-m-d H:i:s',$doc->created_at) ?></td>
 
