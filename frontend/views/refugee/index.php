@@ -7,22 +7,25 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\RefugeeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Clients';
+$this->title = 'Clients List';
 $this->params['breadcrumbs'][] = ['label' => 'Client List'];
 ?>
 <div class="row">
 
     <div class="col-md-12">
-        <div class="card">
+        <div class="card card-primary">
             <div class="card-header">
-                <h1 class="header-title"><?= Html::encode($this->title) ?></h1><br>
 
-                <p>
-                    <?= Html::a('New Client', ['create'], ['class' => 'btn btn-success']) ?>
-                    <?= Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
-                </p>
+                <h2 class="card-title text-left lead text-bold"><?= Html::encode($this->title) ?></h2>
+
+
+
+                <div class="card-tools">
+                    <?= Html::a('<i class="fa fa-plus"></i> New Client', ['create'], ['class' => 'btn btn-sm btn-warning text-dark']) ?>
+                    <?php Html::a('<i class="fa fa-sync"></i> Sync Data', ['#'], ['class' => 'btn btn-warning']) ?>
+                </div>
             </div>
-            <div class="card-body table-responsive">
+            <div class="card-body">
                  <table class="table" id="refugees">                    
                 </table>
             </div>
