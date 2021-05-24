@@ -37,7 +37,7 @@ use yii\widgets\ActiveForm;
 <?php
 $script = <<<JS
  //Submit Rejection form and get results in json    
-        $('form').on('submit', function(e){
+       /* $('form').on('submit', function(e){
             e.preventDefault();
             const data = $(this).serialize();
             const url = $(this).attr('action');
@@ -48,7 +48,7 @@ $script = <<<JS
                     .html(msg.note);
         
                 },'json');
-        });
+        });*/
 JS;
 
 $this->registerJs($script);

@@ -48,7 +48,7 @@ class InterventionBudgetLines extends \yii\db\ActiveRecord
             [['intervention_id', 'year', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['amount'], 'number'],
             [['amount','year'],'required'],
-            ['year','unique']
+            //['year','unique']
         ];
     }
 

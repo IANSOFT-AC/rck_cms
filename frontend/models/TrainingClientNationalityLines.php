@@ -44,7 +44,7 @@ class TrainingClientNationalityLines extends \yii\db\ActiveRecord
         return [
             [['training_id', 'nationality', 'number', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['nationality','number'],'required'],
-            ['nationality', 'unique']
+            //['nationality', 'unique']
         ];
     }
 

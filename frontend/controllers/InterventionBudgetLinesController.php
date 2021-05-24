@@ -84,6 +84,7 @@ class InterventionBudgetLinesController extends Controller
         {
             return $this->renderAjax('create', [
                 'model' => $model,
+
             ]);
         }
 

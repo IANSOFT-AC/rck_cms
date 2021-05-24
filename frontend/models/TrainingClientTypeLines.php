@@ -36,7 +36,7 @@ class TrainingClientTypeLines extends \yii\db\ActiveRecord
         return [
             [['training_id', 'client_type', 'number', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['number','client_type'], 'required'],
-            ['client_type','unique']
+            // ['client_type','unique']
         ];
     }
 
