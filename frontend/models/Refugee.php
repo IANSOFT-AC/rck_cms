@@ -288,6 +288,7 @@ class Refugee extends \yii\db\ActiveRecord
             'custom_language' => 'Custom Language',
             'spoken_languages' => 'Spoken Languages',
             'consent' => 'Consent',
+            'torture_manifestation' => 'Direct / Indirect'
         ];
     }
 
