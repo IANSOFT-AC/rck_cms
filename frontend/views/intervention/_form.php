@@ -21,8 +21,9 @@ use common\models\Helper;
             <?php $form = ActiveForm::begin(); ?>
 
             <div class="row">
+                <?php $class = ($model->isNewRecord)? 'col-md-12': 'col-md-6' ?>
 
-                <div class="col-md-6">
+                <div  class="<?= $class ?>" >
                         <div class="col-md-12">
                             <?= $form->field($model, 'case_id[]')->dropDownList($cases,['prompt' => '-- Select Case or Issue --', 'data-live-search' => "true",'class' => 'form-control', 'options' => $model->isNewRecord ? [] : Helper::selectedGroups($model->case_id)]) ?>
                         </div>
@@ -74,6 +75,10 @@ use common\models\Helper;
                     </div>
 
                     <?php ActiveForm::end(); ?><!--/main form-->
+
+
+                <?php if(!$model->isNewRecord): ?>
+
                     <div class="col-md-6"> <!--lines sections--->
 
                         <!--Budget Lines div-->
@@ -220,7 +225,8 @@ use common\models\Helper;
 
 
                     </div>
-
+                <?php endif; ?>
+                <!--/ Only Add lines on update-->
                 </div>
 
         </div>
@@ -256,6 +262,12 @@ use common\models\Helper;
 
 $script = <<<JS
 
+$('#budgetlines').hide();
+$('#progresslines').hide();
+$('#uploads').hide();
+
+init();
+
     //hide initially
     function hideEm(){
         $('.field-intervention-court_case,\
@@ -266,26 +278,12 @@ $script = <<<JS
     }
     hideEm();
     
-    $('#intervention-case_id').select2();
     
-    caseValue = $('#intervention-case_id').val();
-    
-    if(caseValue === 15) {
-         $('#budgetlines').show();
-    }else{
-         $('#budgetlines').hide();
-    }
-
     $('#intervention-case_id').on('change', function(e){
         //Hide elements on change
-        let selected = ($(this).val());
         
-        if(selected == 15) 
-            {
-               $('#budgetlines').show();
-            }else{
-                $('#budgetlines').hide();
-            }
+        
+        
         //Then make necessary changes
         if($('#intervention-case_id option[value=11]:selected').length > 0){
             $('.field-intervention-court_case').parent().fadeIn('slow')
@@ -309,6 +307,32 @@ $script = <<<JS
     $('#intervention-intervention_type_id').on('change', function(e){
         //Hide elements on change
         console.log(this.value);
+        
+        /*Francis update*/
+        
+        // Only show budget lines if Economic Empowerment or  social assistance is selected
+        $('#budgetlines').hide();
+        let res = $('#intervention-intervention_type_id').val();
+        
+        if(res.indexOf("8")>= 0 || res.indexOf("9")>= 0) {
+            $('#budgetlines').show();
+            $('#progresslines').show();
+        }else{
+            $('#budgetlines').hide();
+            $('#progresslines').hide();
+        }
+        
+        // Condition for Vulnerability Assessment Uploads: Councelling only
+        
+         if(res.indexOf("2")>= 0 ) {
+            $('#uploads').show();
+            
+        }else{
+            $('#uploads').hide();
+           
+        }
+
+        /*End Francis Update*/
 
         //Then make necessary changes
         if($('#intervention-intervention_type_id option[value=3]:selected').length > 0){
@@ -350,6 +374,29 @@ $script = <<<JS
         var reld = location.reload(true);
         setTimeout(reld,1000);
     }); 
+    /*Initialize logic for lines view display*/
+    function init() {
+       
+        let res = $('#intervention-intervention_type_id').val();
+        
+        if(res.indexOf("8")>= 0 || res.indexOf("9")>= 0) {
+            $('#budgetlines').show();
+            $('#progresslines').show();
+        }else{
+            $('#budgetlines').hide();
+            $('#progresslines').hide();
+        }
+        
+        // Condition for Vulnerability Assessment Uploads: Councelling only
+        
+         if(res.indexOf("2")>= 0 ) {
+            $('#uploads').show();
+            
+        }else{
+            $('#uploads').hide();
+           
+        }
+    }
     
     
 JS;
