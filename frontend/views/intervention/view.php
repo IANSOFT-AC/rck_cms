@@ -7,8 +7,13 @@ use app\models\Casetype;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Intervention */
+if(isset($model->client->first_name) && isset($model->client->last_name))
+{
+    $this->title = 'Intervention for '.$model->client->first_name.' '.$model->client->last_name;
+}else{
+    $this->title = 'Intervention '.$model->id;
+}
 
-$this->title = $model->client->first_name.' '.$model->client->last_name;
 $this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['refugee/view', 'id' => $model->client_id]];
 $this->params['breadcrumbs'][] = ['label' => 'Interventions', 'url' => ['client','id' => $model->client_id]];
 $this->params['breadcrumbs'][] = ['label' => $this->title];

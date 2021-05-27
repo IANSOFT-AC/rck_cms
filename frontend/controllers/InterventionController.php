@@ -223,9 +223,11 @@ class InterventionController extends Controller
               // print_r($uploads);
               // exit();
               if(count($uploads) > 0){
+                  Yii::$app->session->setFlash('info','After uploading files, you can update the intervention to add more data.');
                   return $this->redirect(['files', 'id' => $model->id, 'uploads' => $uploads]);
               }
-              return $this->redirect(['view', 'id' => $model->id]);
+             // return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['update','id' => $model->id]);
             }else{
               foreach ($model->getErrors() as $error){
                 Yii::$app->session->setFlash('error', $error[0]);

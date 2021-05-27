@@ -5,8 +5,13 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Training */
+if( isset($model->rOrganizer->name) && isset($model->tType->name) )
+{
+    $this->title = ucwords($model->rOrganizer->name.' '.$model->tType->name. ' Training');
+}else{
+    $this->title = 'Training '.$model->id;
+}
 
-$this->title = ucwords($model->rOrganizer->name.' '.$model->tType->name. ' Training');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Trainings'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

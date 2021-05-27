@@ -179,7 +179,8 @@ class TrainingController extends Controller
                   $upload->multipleFiles = $multipleFiles;
                   $rst2 = $upload->multipleUpload("training",$model->id, 2 );
                 }
-                return $this->redirect(['view', 'id' => $model->id]);
+                // return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['update','id' => $model->id]);
             }else{
               foreach ($model->getErrors() as $error){
                 Yii::$app->session->setFlash('error', $error[0]);
