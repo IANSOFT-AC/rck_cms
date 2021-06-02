@@ -263,7 +263,7 @@ use common\models\Helper;
 $script = <<<JS
 
 $('#budgetlines').hide();
-$('#progresslines').hide();
+// $('#progresslines').hide();
 $('#uploads').hide();
 
 init();
@@ -316,10 +316,10 @@ init();
         
         if(res.indexOf("8")>= 0 || res.indexOf("9")>= 0) {
             $('#budgetlines').show();
-            $('#progresslines').show();
+            // $('#progresslines').show();
         }else{
             $('#budgetlines').hide();
-            $('#progresslines').hide();
+            // $('#progresslines').hide();
         }
         
         // Condition for Vulnerability Assessment Uploads: Councelling only
@@ -381,10 +381,10 @@ init();
         
         if(res.indexOf("8")>= 0 || res.indexOf("9")>= 0) {
             $('#budgetlines').show();
-            $('#progresslines').show();
+           // $('#progresslines').show();
         }else{
             $('#budgetlines').hide();
-            $('#progresslines').hide();
+           // $('#progresslines').hide();
         }
         
         // Condition for Vulnerability Assessment Uploads: Councelling only
