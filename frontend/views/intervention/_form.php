@@ -86,7 +86,7 @@ use common\models\Helper;
 
                         <div id="budgetlines">
 
-                            <p class="lead text-center">Social Assistance Disbursement Lines</p>
+                            <p class="lead text-center">Social Assistance / Economic Empowerment Disbursement Details</p>
 
                             <?= Html::a('New',['intervention-budget-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add']) ?>
 
