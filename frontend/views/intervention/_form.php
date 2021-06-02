@@ -132,7 +132,7 @@ use common\models\Helper;
 
                         <div id="progresslines">
 
-                            <p class="lead text-center">Intervention Progress Lines</p>
+                            <p class="lead text-center"> Progress Update</p>
 
                             <?= Html::a('New',['intervention-progress-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add']) ?>
 
