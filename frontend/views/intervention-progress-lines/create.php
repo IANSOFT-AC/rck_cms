@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\InterventionProgressLines */
 
-$this->title = 'Create Intervention Progress Lines';
+$this->title = 'Add Intervention Progress ';
 $this->params['breadcrumbs'][] = ['label' => 'Intervention Progress Lines', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
