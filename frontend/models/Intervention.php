@@ -114,6 +114,11 @@ class Intervention extends \yii\db\ActiveRecord
         return $this->hasOne(Agency::className(), ['id' => 'agency_id']);
     }
 
+    public function getInterventionType()
+    {
+        return $this->hasOne(InterventionType::className(),['id' => 'intervention_type_id']);
+    }
+
     /**
      * Gets query for [[CourtCase]].
      *

@@ -148,8 +148,12 @@ class InterventionController extends Controller
                 'intervention.client_id'=>$id
             ])
             ->joinWith('client')
+            ->joinWith('interventionType')
             ->asArray()
             ->all();
+
+        //print '<pre>';
+        //print_r($cases); exit;
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $this->prepareDatatable($cases);
@@ -420,6 +424,7 @@ class InterventionController extends Controller
             $result['data'][] = [
                 'id' => $case['id'],
                 'name' => self::prepareCaseTypesString($case['case_id']),
+                'interventionType' => !empty($case['interventionType']['intervention_type'])?$case['interventionType']['intervention_type']:'Not Set ',
                 'client' => isset($case['client']) ? $case['client']['first_name']." ".$case['client']['middle_name']." ".$case['client']['last_name'] : "No client",
                 'created_at' => date("H:ia l M j, Y",$case['created_at'])
             ];

@@ -219,9 +219,7 @@ class TrainingController extends Controller
 
             //Upload participants scan
             $scan = UploadedFile::getInstance($model, 'participants_scan');
-            // echo "<pre>";
-            // print_r($model);
-            // exit;
+
             if($scan){
               $model->save();
               $upload->imageFile = $scan;
@@ -231,10 +229,7 @@ class TrainingController extends Controller
               $model->save();
             }
 
-            //Upload photos scans
-            // echo "<pre>";
-            // print_r(UploadedFile::getInstances($model, 'photos'));
-            // exit;
+
             if(!empty(UploadedFile::getInstances($model, 'photos'))){
               $upload->multipleFiles = UploadedFile::getInstances($model, 'photos');
               $rst2 = $upload->multipleUpload("training",$model->id, 2 );

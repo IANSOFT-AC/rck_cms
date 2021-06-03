@@ -182,4 +182,24 @@ class Training extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TrainingAttachmentLines::className(), ['training_id' => 'id']);
     }
+
+    // get total client Type breakdown
+
+    public function getClienttypeCount()
+    {
+        $count = TrainingClientTypeLines::find()->where(['training_id' => $this->id])->sum('number');
+        return $count;
+
+    }
+
+    /* get Nationality Totals*/
+
+    public function getNationalityCount()
+    {
+        $count = TrainingClientNationalityLines::find()->where(['training_id' => $this->id])->sum('number');
+        return $count;
+
+    }
+
+
 }

@@ -29,7 +29,23 @@ use yii\widgets\ActiveForm;
 
                                     <div id="client Type">
 
+
+
                                         <p class="lead text-center">Training Attendance Breakdown by Client Type </p>
+
+                                        <?php if($model->ClienttypeCount > $model->no_of_participants): ?>
+                                            <div class="alert alert-danger">
+                                                <b>Capacity Error:</b> Client Type Breakdown Total is <b><?= $model->ClienttypeCount ?></b>
+                                                , it should not exceed total training capacity of <b><?= $model->no_of_participants ?></b>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <?php if($model->ClienttypeCount < $model->no_of_participants): ?>
+                                            <div class="alert alert-info">
+                                                <b>Capacity Error:</b> Client Type Breakdown Total is <b><?= $model->ClienttypeCount ?></b>
+                                                , it should be below total training capacity of <b><?= $model->no_of_participants ?></b>
+                                            </div>
+                                        <?php endif; ?>
 
                                         <?= Html::a('<i class="fa fa-plus-square"></i> Add',['training-client-type-line/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add text-white']) ?>
 
@@ -83,6 +99,22 @@ use yii\widgets\ActiveForm;
                                     <div id="Nationality">
 
                                         <p class="lead text-center">Training Nationality Attendance Break Down </p>
+
+
+                                        <?php if($model->NationalityCount > $model->no_of_participants): ?>
+                                            <div class="alert alert-danger">
+                                                <b>Capacity Error:</b> Nationality Breakdown Total is <b><?= $model->NationalityCount ?></b>
+                                                , it should not exceed total training capacity of <b><?= $model->no_of_participants ?></b>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <?php if($model->NationalityCount < $model->no_of_participants): ?>
+                                            <div class="alert alert-info">
+                                                <b>Capacity Error:</b> Nationality Breakdown Total is <b><?= $model->NationalityCount ?></b>
+                                                , it should not be below total training capacity of <b><?= $model->no_of_participants ?></b>
+                                            </div>
+                                        <?php endif; ?>
+
 
                                         <?= Html::a('<i class="fa fa-plus-square"></i> Add',['training-client-nationality-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add text-white']) ?>
 

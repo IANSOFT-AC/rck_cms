@@ -43,9 +43,9 @@ $this->params['breadcrumbs'][] = ['label' => 'interventions'];
 
 $script = <<<JS
 
-    let viewUrl = ''
-    let editUrl = ''
-    let ajaxUrl = ''
+    let viewUrl = '';
+    let editUrl = '';
+    let ajaxUrl = '';
     $('.service-container').each(function() {
         var container = $(this);
         viewUrl = container.data('viewurl');
@@ -69,6 +69,7 @@ $script = <<<JS
         columns: [
             {title : 'Id', data: 'id'},
             {title : 'Case/Issue', data: 'name'},
+            {title : 'Intervention Type', data: 'interventionType'},
             {title : 'Client', data: 'client'},
             {title : 'Created At', data: 'created_at'},
             {
