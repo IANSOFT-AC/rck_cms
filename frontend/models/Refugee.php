@@ -72,6 +72,7 @@ class Refugee extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
     public $full_names;
+    public $attachmentfile;
 
     public static function tableName()
     {
@@ -92,13 +93,20 @@ class Refugee extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['attachmentfile'],'file','maxFiles'=> 1],
+            [['attachmentfile'],'file','mimeTypes'=> ['application/pdf']],
+            [['attachmentfile'],'file','extensions'=> 'pdf'],
+            [['attachmentfile'],'file','maxSize' => '5120000'],
             [['first_name', 'last_name', 'user_group_id', 'gender', 'rck_office_id', 'country_of_origin','has_disability','victim_of_turture','asylum_status'], 'required'],
             [['user_group_id', 'user_id', 'camp', 'gender', 'country_of_origin', 'demography_id', 'id_type', 'conflict', 'created_at', 'updated_at',
                 'created_by', 'updated_by', 'return_refugee', 'rck_office_id', 'has_disability', 'asylum_status','interpreter',
                  'mode_of_entry_id', 'victim_of_turture', 'has_work_permit', 'arrested_due_to_lack_of_work_permit','consent',
                   'interested_in_work_permit', 'dependants','interested_in_citizenship','disability_type_id'
                 ], 'integer'],
-            [['disability_desc', 'reason_for_rsd_appointment', 'custom_language', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date','arrival_date', 'date_of_birth', 'physical_address',  'old_rck'], 'string'],
+
+
+            ['arrival_date','safe'],
+            [['disability_desc', 'reason_for_rsd_appointment', 'custom_language', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date', 'date_of_birth', 'physical_address',  'old_rck'], 'string'],
             [['first_name', 'middle_name', 'last_name', 'email_address'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 150],
             [['cell_number','id_no'], 'string', 'max' => 15],
@@ -194,6 +202,8 @@ class Refugee extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
+
+
         $this->arrival_date = strtotime($this->arrival_date);
         $this->date_of_birth = strtotime($this->date_of_birth);
         $this->rsd_appointment_date = strtotime($this->rsd_appointment_date);

@@ -6,6 +6,7 @@ use app\models\Counties;
 use app\models\Country;
 use app\models\IdentificationType;
 use app\models\RefugeeCamp;
+use frontend\models\Attachment;
 use frontend\models\Conflict;
 use frontend\models\Gender;
 use app\models\Dependant;
@@ -322,6 +323,14 @@ class RefugeeController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
 
+            if(!empty($_FILES['attachmentfile']) && sizeof($_FILES['attachmentfile'])){
+                $attachmentModel = new Attachment();
+
+                $attachmentModel->attachmentfile = UploadedFile::getInstanceByName('attachmentfile');
+                $attachmentModel->Document_No = $model->id;
+                $attachmentModel->upload($model->id);
+            }
+
             $model->date_of_birth = date('Y-m-d',strtotime(Yii::$app->request->post()['Refugee']['date_of_birth']));
             if(isset(Yii::$app->request->post()['Refugee']['source_of_income_id'])){
                 $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_income_id']);
@@ -375,7 +384,8 @@ class RefugeeController extends Controller
             'sourceOfInfo' => $sourceOfInfo,
             'formOfTorture' => $formOfTorture,
             'disabilityType' => $disabilityType,
-            'languages' => $languages
+            'languages' => $languages,
+            'Attachmentmodel' => new Attachment()
         ]);
     }
 
@@ -414,8 +424,18 @@ class RefugeeController extends Controller
         $sourceOfInfo[0] = 'other';
         $sourceOfIncome[0] = 'other';
         $disabilityType[0] = 'other';
+        $attachmentModel = new Attachment();
 
         if ($model->load(Yii::$app->request->post()) ) {
+
+            if(!empty($_FILES['attachmentfile']) && sizeof($_FILES['attachmentfile'])){
+                $attachmentModel = new Attachment();
+
+                $attachmentModel->attachmentfile = UploadedFile::getInstanceByName('attachmentfile');
+                $attachmentModel->Document_No = $model->id;
+                $attachmentModel->upload($model->id);
+
+            }
             // echo "<pre>";
             // print_r(Yii::$app->request->post()['Refugee']);
             // exit();
@@ -474,7 +494,8 @@ class RefugeeController extends Controller
             'sourceOfInfo' => $sourceOfInfo,
             'formOfTorture' => $formOfTorture,
             'disabilityType' => $disabilityType,
-            'languages' => $languages
+            'languages' => $languages,
+            'Attachmentmodel' => new Attachment()
         ]);
     }
 
@@ -515,5 +536,14 @@ class RefugeeController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionRead($id)
+    {
+        $model = new Attachment();
+        $path = $model->getPath($id);
+        $content = $model->readAttachment($path);
+        // Yii::$app->recruitment->printrr($content);
+        return $this->render('read',['content' => $content ]);
     }
 }

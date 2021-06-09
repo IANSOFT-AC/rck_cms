@@ -475,6 +475,14 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body row" data-read-aloud-multi-block="true">
+
+                                    <?php if($model->consent_scan){
+                                        echo '<div class="col-md-6">'. Html::a('<i class="fas fa-file"></i> Consent Document',['read','id'=> $model->id],['class' => 'btn btn-info']).'</div>';
+                                    }
+                                    ?>
+
+
+
                                     <?php
                                     foreach ($model->uploads as $file) {
                                         ?>
@@ -503,6 +511,8 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                         </div>
                     </div>
                 <?php } ?>
+
+
             </div>
         </div>
     </div>

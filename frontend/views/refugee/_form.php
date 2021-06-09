@@ -271,6 +271,15 @@ use common\models\Helper;
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Client Consent</h3>
+
+                    <div class="card-tools consent-upload">
+
+
+                            <?= $form->field($model,'attachmentfile')->fileInput(['id' => 'attachmentfile', 'name' => 'attachmentfile' ])->label(false);?>
+
+
+
+                    </div>
                 </div>
                 <div class="card-body">
                 <div class="custom-control custom-switch">
@@ -300,6 +309,12 @@ use common\models\Helper;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+
+
+
+
 
 <?php
 
@@ -462,7 +477,51 @@ $script = <<<JS
 
     $('#refugee-asylum_status').change();
     //$('#refugee-asylum_status').selectmenu('refresh', true);
+    
+    $('.consent-upload').hide();
+    
+     
+    
+    $('#consentSwitch').click(function(){
+         var consent = $("#consentSwitch").prop("selected",false);
+         //console.log(consent[0].checked);
+         if(consent[0].checked){
+            $('.consent-upload').show();             
+         }else{
+             $('.consent-upload').hide();
+         }
+    });
+    
+   
+    
 
 JS;
 
 $this->registerJs($script);
+
+$style = <<<CSS
+    
+    
+    .btn-file {
+       display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    
+    }
+    .btn-file input {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+    }
+    
+   
+CSS;
+
+$this->registerCss($style);

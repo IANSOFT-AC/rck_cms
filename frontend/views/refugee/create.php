@@ -30,7 +30,8 @@ $this->params['breadcrumbs'][] = ['label' => 'New Client'];
                 'sourceOfInfo' => $sourceOfInfo,
                 'formOfTorture' => $formOfTorture,
                 'disabilityType' => $disabilityType,
-                'languages' => $languages
+                'languages' => $languages,
+                'Attachmentmodel' => $Attachmentmodel
             ]) ?>
         </div>
     </div>
