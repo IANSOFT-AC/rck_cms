@@ -40,7 +40,7 @@ phpunit.phar
 # ignore generated files
 #/common/config/main.php
 
-
+#/common/config/main-local.php
 
 #/frontend/web/index.php
 /frontend/web/index-test.php
@@ -55,4 +55,4 @@ phpunit.phar
 .png
 .jpeg
 .jpg
-*.pdf
+.pdf
