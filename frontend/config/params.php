@@ -1,4 +1,4 @@
 <?php
 return [
-    'adminEmail' => 'info@iansoftltd.com',
+    'adminEmail' => 'cms_support@rckkenya.org',
 ];

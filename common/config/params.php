@@ -1,8 +1,8 @@
 <?php
 return [
-    'adminEmail' => 'info@iansoftltd.com',
-    'supportEmail' => 'info@iansoftltd.com',
-    'senderEmail' => 'info@iansoftltd.com',
+    'adminEmail' => 'cms_support@rckkenya.org',
+    'supportEmail' => 'cms_support@rckkenya.org',
+    'senderEmail' => 'cms_support@rckkenya.org',
     'senderName' => 'RCK Mailer',
     'user.passwordResetTokenExpire' => 3600,
     'user.passwordMinLength' => 8,
