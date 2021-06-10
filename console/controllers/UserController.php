@@ -27,15 +27,17 @@ class UserController extends \yii\console\Controller
         $user->auth_key = $security->generateRandomString();
         $user->verification_token = $security->generateRandomString(). '_' . time();
         $user->status = 10;
+        $user->role = 2;
+        $user->permissions = '4,5,7,8,9';
 
 
         if ($user->save())
         {
-            Console::output('Saved');
+            Console::output('User Saved');
         }
         else{
             var_dump($user->errors);
-            Console::output('Not Saved.');
+            Console::output('User Not Saved.');
         }
 
     }
