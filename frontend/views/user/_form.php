@@ -21,6 +21,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'role')->dropDownList($roles, ['prompt' => '--Select Role--']) ?>
 
     <div class="row">
+        <div class="col-12 col-md12 p-3 d-flex">
+            <div class="form-group ">
+                <label for="check-all">Check All Permissions</label>
+                <?= Html::checkbox('check-all',false,['id'=> 'check-all','class' => 'mx-2']) ?>
+            </div>
+        </div>
     <?php 
     foreach ($permissions as $key => $value) {
         # code...
@@ -44,3 +50,22 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<<JS
+    $('#check-all').on('click',(e) => {
+        let status = $('#check-all').prop("selected",false);
+        if(status[0].checked)
+            {
+                console.log('Check All');
+                $('input[type=checkbox]').prop("checked", true);
+            }else if(!status[0].checked) {
+                console.log('UnCheck All');
+                 $('input[type=checkbox]').prop("checked", false);
+            }
+    });
+JS;
+
+$this->registerJs($script);
+
