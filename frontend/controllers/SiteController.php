@@ -311,7 +311,7 @@ class SiteController extends Controller
             throw new BadRequestHttpException($e->getMessage());
         }
 
-        if(Yii::$app->isGuest){
+        if(Yii::$app->user->isGuest){
             $this->layout = 'login';
         }
 
