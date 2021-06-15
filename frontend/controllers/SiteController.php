@@ -16,6 +16,8 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use common\models\User;
 use app\models\Refugee;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * Site controller
@@ -250,6 +252,14 @@ class SiteController extends Controller
     {
         //$this->layout = 'login';
         $model = new SignupForm();
+
+        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()))
+        {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate();
+        }
+
+
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
@@ -267,7 +277,9 @@ class SiteController extends Controller
      */
     public function actionRequestPasswordReset()
     {
-        $this->layout = 'login';
+        if(Yii::$app->user->isGuest){
+            $this->layout = 'login';
+        }
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -299,7 +311,10 @@ class SiteController extends Controller
             throw new BadRequestHttpException($e->getMessage());
         }
 
-        $this->layout = 'login';
+        if(Yii::$app->isGuest){
+            $this->layout = 'login';
+        }
+
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             Yii::$app->session->setFlash('success', 'New password saved.');
@@ -311,6 +326,8 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+
 
     /**
      * Verify email address

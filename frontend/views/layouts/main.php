@@ -178,7 +178,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                         <div class="dropdown-divider"></div>
 
-                        <?php Html::a('<i class="fas fa-user"></i> Clearance form',['site/clearanceform'],['class'=> 'dropdown-item']); ?>
+                        <?= Html::a('<i class="fas fa-user"></i> Reset Password',['site/request-password-reset'],['class'=> 'dropdown-item']); ?>
 
                     </div>
                 </li>

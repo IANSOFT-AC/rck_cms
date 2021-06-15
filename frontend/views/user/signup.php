@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p class="card-subtitle">Please fill out the following fields to signup:</p>
 <div class="row">
     <div class="col-lg-12">
-        <?php $form = ActiveForm::begin(['action' => 'signup']); ?>
+        <?php $form = ActiveForm::begin(['id' => 'signup']); ?>
 
             <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 

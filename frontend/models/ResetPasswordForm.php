@@ -38,6 +38,8 @@ class ResetPasswordForm extends Model
         parent::__construct($config);
     }
 
+
+
     /**
      * {@inheritdoc}
      */
@@ -45,7 +47,9 @@ class ResetPasswordForm extends Model
     {
         return [
             ['password', 'required'],
+            ['password','match','pattern' => '^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$', 'message' => 'Password has to be alphanumeric containing atleast one uppercase, lowercase character, a number and atleast a special character. e.g @Cmssystem123'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['passwordConfirm','compare','compareAttribute'=>'password','message'=>'Passwords do not match, try again'],
         ];
     }
 

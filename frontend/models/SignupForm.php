@@ -37,9 +37,14 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['password','match','pattern' => '^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$', 'message' => 'Password has to be alphanumeric containing atleast one uppercase, lowercase character, a number and atleast a special character. e.g @Cmssystem123'],
             ['passwordConfirm','compare','compareAttribute'=>'password','message'=>'Passwords do not match, try again'],
         ];
     }
+
+
+
+
 
     /**
      * Signs user up.
