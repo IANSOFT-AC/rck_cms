@@ -34,10 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
     </thead>
     <tbody>
         <?php
+        $i = 0;
         foreach ($data as $key => $value):
+            $i++;
         ?>
             <tr>
-            <td><?= $value->id ?></td>
+            <td><?= $i ?></td>
             <td><?= $value->username ?></td>
             <td><a href=<?= "mailto:".$value->email ?>><?= $value->email ?></a></td>
             <td><?= $value->status ?></td>
