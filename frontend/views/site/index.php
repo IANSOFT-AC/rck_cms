@@ -220,7 +220,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Dashboard','url' => 'index'];
 
 <!--Pie Chart-->
 
-
+<input type="text" id="loginform-username" value="<?= Yii::$app->user->identity->username ?>" />
 <?php
 
 $script = <<<JS
@@ -377,5 +377,48 @@ var donutData        = {
 JS;
 
 $this->registerJs($script);
+
+?>
+
+
+<?php
+
+$script = <<<JS
+
+    $(async function(){
+            
+          let response = await fetch('/site/login-api', {
+                method: 'POST',
+                body: JSON.stringify({"username": $("#loginform-username").val()}),
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+           
+            if(response.ok){
+                let json = await response.json();
+                
+                console.log('We are Ok man!!!');
+                console.table(json);
+                      
+                //STORE TOKEN IN LOCAL STORAGE
+                window.localStorage.setItem('auth_token', json.token)
+            }else {
+                console.log('Http Error:' + response.status);
+            }
+               
+                
+           
+           
+            
+       
+    });
+    
+    
+JS;
+$this->registerJs($script);
+?>
+
 
 

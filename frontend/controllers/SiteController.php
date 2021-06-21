@@ -142,33 +142,13 @@ class SiteController extends Controller
     {
         $user = User::findByUsername(Yii::$app->request->post()['username']);
 
-        if(!Yii::$app->request->post()['username'] or !Yii::$app->request->post()['password'] or !$user){
-            //throw new UserException( "There is an error!" );
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            Yii::$app->response->statusCode = 401;
-            return $this->asJson(['error' => "Error in Authentication! Please try again","status" => 401]);
-        }
-        if ($user->validatePassword(Yii::$app->request->post()['password'])){
-
-            $model = new LoginForm();
-            $model->username = Yii::$app->request->post()['username'];
-            $model->password = Yii::$app->request->post()['password'];
-            $model->login();
-
-
-            //Yii::$app->recruitment->printrr(Yii::$app->user->identity);
-          //  print_r(Yii::$app->user->identity);
-
-            $user->generateAuthKey();
-            $user->save();
-
-            //return $user;
+        if($user){
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             Yii::$app->response->statusCode = 200;
 
             return $this->asJson([
                 'msg' => "login successful",
-                'token' => $user->getAuthKey(),
+                'token' => $user->auth_key,
                 "status" => 200
             ]);
         }
@@ -179,23 +159,7 @@ class SiteController extends Controller
         }
 
 
-        // $model = new LoginForm();
-        // if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
-        //     //return $this->goBack();
-        //     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        //     Yii::$app->response->statusCode = 200;
-        //     return $this->asJson(['msg' => "file uploaded successfully"]);
-        // } else {
-        //     // $model->password = '';
-
-        //     // return $this->render('login', [
-        //     //     'model' => $model,
-        //     // ]);
-        //     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        //     Yii::$app->response->statusCode = 400;
-        //     return $this->asJson(['error' => Yii::$app->request->post()]);
-        // }
     }
 
     /**
