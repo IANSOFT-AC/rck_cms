@@ -33,8 +33,11 @@ use yii\behaviors\BlameableBehavior;
  * @property CourtCaseSubcategory $courtCaseSubcategory
  * @property CourtProceeding $courtProceeding
  * @property Lawyer $legalOfficer
- * @property string|null $magistrate
  * @property CourtDocsUploads[] $courtDocsUploads
+ *
+ * @propert court_case_number
+ * @propert court_location
+ * @propert court_id
  */
 class CourtCases extends \yii\db\ActiveRecord
 {
@@ -59,8 +62,23 @@ class CourtCases extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['no_of_refugees', 'court_proceeding_id','offence_type', 'legal_officer_id', 'counsellor_id', 'court_case_category_id', 'court_case_subcategory_id', 'refugee_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['first_instance_interview','counsellor','legal_officer'],'string'],
+            [[
+                'no_of_refugees',
+                'court_proceeding_id',
+                'offence_type',
+                'legal_officer_id',
+                'counsellor_id',
+                'court_case_category_id',
+                'court_case_subcategory_id',
+                'refugee_id',
+                'created_at',
+                'updated_at',
+                'created_by',
+                'updated_by',
+                'court_location',
+                'court_id'
+                ], 'integer'],
+            [['first_instance_interview','counsellor','legal_officer','court_case_number'],'string'],
             [['name', 'offence', 'case_status','date_of_arrainment','next_court_date','magistrate','counsellor','legal_officer'], 'string', 'max' => 255],
             [['counsellor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Counsellors::className(), 'targetAttribute' => ['counsellor_id' => 'id']],
             [['court_case_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => CourtCaseCategory::className(), 'targetAttribute' => ['court_case_category_id' => 'id']],
@@ -102,6 +120,7 @@ class CourtCases extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'court_id' => 'Court'
         ];
     }
 

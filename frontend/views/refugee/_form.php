@@ -16,7 +16,10 @@ use common\models\Helper;
         'enableClientValidation' => true,
         'encodeErrorSummary' => false,
         'errorSummaryCssClass' => 'help-block',
-    ]); ?>
+    ],['options' => ['enctype' => 'multipart/form-data']]); ?>
+
+
+    <?= $form->errorSummary($model) ?>
 
     <?= $form->field($model, 'id')->hiddenInput(['maxlength' => true])->label(false) ?>
 
@@ -302,7 +305,10 @@ use common\models\Helper;
     <?php $form->field($model, 'updated_by')->textInput() ?>
 
     <div class="form-group" id="actions">
-        <?= Html::submitButton('Next <i class="fa fa-check"></i>', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Next <i class="fa fa-check"></i>', [
+                'class' => 'btn btn-success',
+                'id' => 'submito'
+            ]) ?>
         <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>
     </div>
 
@@ -320,6 +326,14 @@ use common\models\Helper;
 
 
 $script = <<<JS
+
+    $('#submito').on('click', function(){
+        $(this).text('Saving .....');
+        setTimeout(()=> {
+            $(this).text('Next');
+        },5000);
+        //$(this).prop('disabled', true);
+    });   
 
     //COnfirm if its new record
     let isNewRecord = $model->isNewRecord;

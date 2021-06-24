@@ -238,7 +238,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                         ?>
                                         <div class="col-md-6">
                                             <strong data-speechify-sentence=""> Disability</strong>
-                                            <?php print_r($incomes) ?>
+                                            <?php // print_r($incomes) ?>
                                             <div class="btn-group">
                                                 <?php
                                                 foreach ($incomes as $key => $value) {

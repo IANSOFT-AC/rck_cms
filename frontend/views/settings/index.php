@@ -192,6 +192,25 @@ $this->title = "RCK: Control Panel";
 	                    </p>
 	                    <br>
 	                </div>
+
+                    <!--New Grid Format-->
+
+                        <div class="col-md-6 ">
+
+
+                                <?='<p>'. Html::a('<i class="fa fa-cogs mx-2"></i><b> Court Locations</b>',['court-location/index'],['target' => '_blank']).'</p>' ?>
+
+                                <?= '<p>'.Html::a('<i class="fa fa-cogs mx-2"></i><b> Case Referers </b>',['case-referer/index'],['target' => '_blank']).'</p>' ?>
+
+                                <?= '<p>'.Html::a('<i class="fa fa-cogs mx-2"></i><b> Nature of Sentences</b>',['nature-of-sentence/index'],['target' => '_blank']).'</p>' ?>
+
+                        </div>
+                        <div class="col-md-6">
+                            <?= '<p>'.Html::a('<i class="fa fa-cogs mx-2"></i><b> Courts </b>',['court/index'],['target' => '_blank']).'</p>' ?>
+
+                            <?= '<p>'.Html::a('<i class="fa fa-cogs mx-2"></i><b> Case Outcomes</b>',['case-outcome/index'],['target' => '_blank']).'</p>' ?>
+                        </div>
+
 	            </div>
 	        </div>
 	    </div>

@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Court;
+use frontend\models\CourtLocation;
 use Yii;
 use app\models\CourtCases;
 use app\models\CourtUploads;
@@ -303,6 +305,9 @@ class CourtCasesController extends Controller
         $lawyers[0] = 'other';
         $counsellors[0] = 'other';
 
+        $locations = ArrayHelper::map(CourtLocation::find()->all(),'id','location');
+        $courts = ArrayHelper::map(Court::find()->all(), 'id','court');
+
         return $this->render('create', [
             'model' => $model,
             'natureOfProceedings' => $natureOfProceedings,
@@ -311,7 +316,9 @@ class CourtCasesController extends Controller
             'courtCaseCategories' => $courtCaseCategories,
             'refugees' => $refugees,
             'offences' => $offences,
-            'refugee_id' => $refugee_id
+            'refugee_id' => $refugee_id,
+            'locations' => $locations,
+            'courts' => $courts
         ]);
     }
 

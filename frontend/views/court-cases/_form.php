@@ -24,8 +24,24 @@ use yii\helpers\Url;
     <div class="card">
         <div class="card-header"><h5 class="card-title">Court Case</h5></div>
         <div class="card-body">
+
+            <!--Case Type Drop Down-->
+            <div class="row">
+                <div class="col-md-12">
+                    <?= $form->field($model, 'court_case_category_id')->dropDownList($courtCaseCategories,
+                        ['prompt' => '-- Choose Court Category --']) ?>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-6">
+
+                        <?= $form->field($model, 'court_case_number')->textInput() ?>
+
+                        <?= $form->field($model, 'court_location')->dropDownList($locations,['prompt' => 'Select ...']) ?>
+
+                        <?= $form->field($model, 'court_id')->dropDownList($courts,['prompt' => 'Select ...']) ?>
+
                         <?= $form->field($model, 'no_of_refugees')->textInput() ?>
 
                         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -71,19 +87,9 @@ use yii\helpers\Url;
 
                         <?= $form->field($model, 'counsellor')->textInput() ?>
 
-                        <?= $form->field($model, 'court_case_category_id')->dropDownList($courtCaseCategories,
-                            ['prompt' => '-- Choose Court Category --']) ?>
 
-                            <!--
-                                //after prompt
-                                ,'onchange'=>'
-                                 $.get( "'.Url::toRoute('court-cases/catlists').'", { id: $(this).val() } )
-                                                .done(function( data )
-                                       {
-                                                  $( "select#courtcases-court_case_subcategory_id" ).html( data );
-                                                });
-                                            '
-                             -->
+
+
 
                         <?php $form->field($model, 'court_case_subcategory_id')->dropDownList([],['prompt' => '--Select SubCategory']) ?>
 

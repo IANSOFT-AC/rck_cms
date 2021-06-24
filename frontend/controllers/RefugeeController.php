@@ -321,6 +321,8 @@ class RefugeeController extends Controller
         $sourceOfIncome[0] = 'other';
         $disabilityType[0] = 'other';
 
+
+
         if ($model->load(Yii::$app->request->post()) ) {
 
             if(!empty($_FILES['attachmentfile']) && sizeof($_FILES['attachmentfile'])){

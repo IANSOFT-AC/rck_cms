@@ -22,7 +22,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Create');
         'courtCaseCategories' => $courtCaseCategories,
         'refugees' => $refugees,
         'offences' => $offences,
-        'refugee_id' => $refugee_id
+        'refugee_id' => $refugee_id,
+        'locations' => $locations,
+        'courts' => $courts
     ]) ?>
 
 </div>

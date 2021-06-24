@@ -220,7 +220,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Dashboard','url' => 'index'];
 
 <!--Pie Chart-->
 
-<input type="text" id="loginform-username" value="<?= Yii::$app->user->identity->username ?>" />
+<input type="hidden" id="loginform-username" value="<?= Yii::$app->user->identity->username ?>" />
 <?php
 
 $script = <<<JS

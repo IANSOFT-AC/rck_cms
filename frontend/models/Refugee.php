@@ -403,6 +403,7 @@ class Refugee extends \yii\db\ActiveRecord
         return $this->hasOne(Demographics::className(), ['id' => 'demography_id']);
     }
 
+
     /**
      * Gets query for [[User]].
      *
@@ -425,4 +426,8 @@ class Refugee extends \yii\db\ActiveRecord
     public function getFullDetails(){
         return $this->first_name." ".$this->middle_name." ".$this->last_name. ", RCK No:".$this->rck_no.", Old RCK No: ". $this->old_rck;
     }
+
+
+
+
 }
