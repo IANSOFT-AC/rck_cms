@@ -19,7 +19,7 @@ use common\models\Helper;
     ],['options' => ['enctype' => 'multipart/form-data']]); ?>
 
 
-    <?= $form->errorSummary($model) ?>
+    <?= $form->errorSummary($model)   ?>
 
     <?= $form->field($model, 'id')->hiddenInput(['maxlength' => true])->label(false) ?>
 
