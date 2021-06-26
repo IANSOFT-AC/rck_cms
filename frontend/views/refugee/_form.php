@@ -277,10 +277,7 @@ use common\models\Helper;
 
                     <div class="card-tools consent-upload">
 
-
-                            <?= $form->field($model,'attachmentfile')->fileInput(['id' => 'attachmentfile', 'name' => 'attachmentfile' ])->label(false);?>
-
-
+                        <?= $form->field($model,'attachmentfile')->fileInput(['id' => 'attachmentfile', 'name' => 'attachmentfile' ])->label(false);?>
 
                     </div>
                 </div>

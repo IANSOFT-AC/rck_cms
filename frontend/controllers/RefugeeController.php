@@ -13,6 +13,7 @@ use app\models\Dependant;
 use app\models\Relationship;
 use app\models\UploadForm;
 use app\models\AsylumType;
+use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 use app\models\RefugeeUploads;
 use Yii;
@@ -120,6 +121,7 @@ class RefugeeController extends Controller
                     ],
                 ],
                 'denyCallback' => function($rule, $action) {
+                    Yii::$app->session->setFlash('error','Your Permissions are not sifficient to perform that function.');
                     Yii::$app->response->redirect(['site/login']);
                 },
             ],
@@ -325,15 +327,9 @@ class RefugeeController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
 
-            if(!empty($_FILES['attachmentfile']) && sizeof($_FILES['attachmentfile'])){
-                $attachmentModel = new Attachment();
 
-                $attachmentModel->attachmentfile = UploadedFile::getInstanceByName('attachmentfile');
-                $attachmentModel->Document_No = $model->id;
-                $attachmentModel->upload($model->id);
-            }
 
-            $model->date_of_birth = date('Y-m-d',strtotime(Yii::$app->request->post()['Refugee']['date_of_birth']));
+
             if(isset(Yii::$app->request->post()['Refugee']['source_of_income_id'])){
                 $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_income_id']);
             }
@@ -363,6 +359,7 @@ class RefugeeController extends Controller
             }
 
             if($model->save()){
+
                 return $this->redirect(['files', 'id' => $model->id]);
             }else{
                 foreach ($model->getErrors() as $error){
@@ -430,18 +427,8 @@ class RefugeeController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
 
-            if(!empty($_FILES['attachmentfile']) && sizeof($_FILES['attachmentfile'])){
-                $attachmentModel = new Attachment();
 
-                $attachmentModel->attachmentfile = UploadedFile::getInstanceByName('attachmentfile');
-                $attachmentModel->Document_No = $model->id;
-                $attachmentModel->upload($model->id);
 
-            }
-            // echo "<pre>";
-            // print_r(Yii::$app->request->post()['Refugee']);
-            // exit();
-            $model->date_of_birth = date('Y-m-d',strtotime(Yii::$app->request->post()['Refugee']['date_of_birth']));
             if(isset(Yii::$app->request->post()['Refugee']['source_of_income_id'])){
                 $model->source_of_income_id = implode(',',Yii::$app->request->post()['Refugee']['source_of_income_id']);
             }

@@ -86,43 +86,51 @@ use common\models\Helper;
 
                         <div id="budgetlines">
 
-                            <p class="lead text-center">Social Assistance / Economic Empowerment Disbursement Details</p>
+                            <div class="card">
 
-                            <?= Html::a('New',['intervention-budget-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add']) ?>
+                                <div class="card-header">
+                                    <div class="card-title display-2 text-center">Social Assistance / Economic Empowerment Disbursement Details</div>
 
+                                    <div class="card-tools">
+                                        <?= Html::a('New',['intervention-budget-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-primary add']) ?>
+                                    </div>
+                                </div>
+                                <div class="card-body">
 
-
-                            <table class="table my-2">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Year</th>
-                                    <th>Amount</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php if(is_array($model->budget)): ?>
-
-                                    <?php $i=0; foreach($model->budget as $ln): $i++; ?>
-
+                                    <table class="table my-2">
+                                        <thead>
                                         <tr>
-                                            <td><?= $i ?></td>
-                                            <td><?= $ln->year ?></td>
-                                            <td><?= $ln->amount ?></td>
-                                            <td>
-                                                <?= Html::a('<i class="fa fa-edit"></i>',['intervention-budget-lines/update','id' => $ln->id],['class' => 'btn btn-sm btn-outline-primary add']) ?>
-                                                <?= Html::a('<i class="fa fa-trash"></i>',['intervention-budget-lines/delete','id' => $ln->id],['class' => 'btn btn-sm btn-outline-danger delete','data' => [
-                                                        'params' => ['id' => $ln->id],
-                                                        'method' => 'post']]) ?>
-                                            </td>
+                                            <th>#</th>
+                                            <th>Year</th>
+                                            <th>Amount</th>
+                                            <th>Actions</th>
                                         </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if(is_array($model->budget)): ?>
 
-                                    <?php endforeach; ?>
+                                            <?php $i=0; foreach($model->budget as $ln): $i++; ?>
 
-                                <?php endif; ?>
-                                </tbody>
-                            </table>
+                                                <tr>
+                                                    <td><?= $i ?></td>
+                                                    <td><?= $ln->year ?></td>
+                                                    <td><?= $ln->amount ?></td>
+                                                    <td>
+                                                        <?= Html::a('<i class="fa fa-edit"></i>',['intervention-budget-lines/update','id' => $ln->id],['class' => 'btn btn-sm btn-outline-primary add']) ?>
+                                                        <?= Html::a('<i class="fa fa-trash"></i>',['intervention-budget-lines/delete','id' => $ln->id],['class' => 'btn btn-sm btn-outline-danger delete','data' => [
+                                                            'params' => ['id' => $ln->id],
+                                                            'method' => 'post']]) ?>
+                                                    </td>
+                                                </tr>
+
+                                            <?php endforeach; ?>
+
+                                        <?php endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
 
 
@@ -130,45 +138,54 @@ use common\models\Helper;
 
                         <!--Progress Lines-->
 
-                        <div id="progresslines">
+                        <div id="progresslines" class="my-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="lead card-title text-center"> Progress Update</div>
 
-                            <p class="lead text-center"> Progress Update</p>
-
-                            <?= Html::a('New',['intervention-progress-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add']) ?>
-
-
-
-                            <table class="table my-2">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Progress</th>
-                                    <th>Date Created</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php $i=0; if(is_array($model->progress)):  $i++; ?>
-
-                                    <?php foreach($model->progress as $pro): ?>
-
+                                    <div class="card-tools">
+                                        <?= Html::a('New',['intervention-progress-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-primary add']) ?>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table my-2">
+                                        <thead>
                                         <tr>
-                                            <td><?= $i ?></td>
-                                            <td><?= $pro->progress_update ?></td>
-                                            <td><?= date('Y-m-d H:i:s',$pro->created_at) ?></td>
-                                            <td>
-                                                <?= Html::a('<i class="fa fa-edit"></i>',['intervention-progress-lines/update','id' => $pro->id],['class' => 'btn btn-sm btn-outline-primary add']) ?>
-                                                <?= Html::a('<i class="fa fa-trash"></i>',['intervention-progress-lines/delete','id' => $pro->id],['class' => 'btn btn-sm btn-outline-danger delete','data' => [
-                                                    'params' => ['id' => $pro->id],
-                                                    'method' => 'post']]) ?>
-                                            </td>
+                                            <th>#</th>
+                                            <th>Progress</th>
+                                            <th>Date Created</th>
+                                            <th>Actions</th>
                                         </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php $i=0; if(is_array($model->progress)):  $i++; ?>
 
-                                    <?php endforeach; ?>
+                                            <?php foreach($model->progress as $pro): ?>
 
-                                <?php endif; ?>
-                                </tbody>
-                            </table>
+                                                <tr>
+                                                    <td><?= $i ?></td>
+                                                    <td><?= $pro->progress_update ?></td>
+                                                    <td><?= date('Y-m-d H:i:s',$pro->created_at) ?></td>
+                                                    <td>
+                                                        <?= Html::a('<i class="fa fa-edit"></i>',['intervention-progress-lines/update','id' => $pro->id],['class' => 'btn btn-sm btn-outline-primary add']) ?>
+                                                        <?= Html::a('<i class="fa fa-trash"></i>',['intervention-progress-lines/delete','id' => $pro->id],['class' => 'btn btn-sm btn-outline-danger delete','data' => [
+                                                            'params' => ['id' => $pro->id],
+                                                            'method' => 'post']]) ?>
+                                                    </td>
+                                                </tr>
+
+                                            <?php endforeach; ?>
+
+                                        <?php endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+
+
+
                         </div>
 
                         <!--/ Progress Lines-->
@@ -176,48 +193,58 @@ use common\models\Helper;
                         <!--Vulnerability Assessment Uploads-->
 
 
-                        <div id="uploads">
+                        <div id="uploads" class="my-3">
 
-                            <p class="lead text-center">Vulnerability Assement Uploads</p>
-
-                            <?= Html::a('New',['intervention-vulnerability-upload-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-warning add']) ?>
-
-
-
-                            <table class="table my-2">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Description</th>
-                                    <th>Created By</th>
-                                    <th>Created At</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php $i=0; if(is_array($model->documents)):  $i++; ?>
-
-                                    <?php foreach($model->documents as $doc): ?>
-
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="lead card-title text-center">Vulnerability Assement Uploads</div>
+                                    <div class="card-tools">
+                                        <?= Html::a('New',['intervention-vulnerability-upload-lines/create','iid' => $model->id],['class' => 'btn btn-sm btn-primary add']) ?>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table my-2">
+                                        <thead>
                                         <tr>
-                                            <td><?= $i ?></td>
-                                            <td><?= $doc->description ?></td>
-                                            <td><?= $doc->creator->username ?></td>
-                                            <td><?= date('Y-m-d H:i:s',$doc->created_at) ?></td>
-                                            <td>
-                                                <?= Html::a('<i class="fa fa-eye"></i>',['intervention/read','id' => $doc->id],['class' => 'btn btn-sm btn-outline-info']) ?>
-                                                <?= Html::a('<i class="fa fa-edit"></i>',['intervention-vulnerability-upload-lines/update','id' => $doc->id],['class' => 'btn btn-sm btn-outline-primary add']) ?>
-                                                <?= Html::a('<i class="fa fa-trash"></i>',['intervention-vulnerability-upload-lines/delete','id' => $doc->id],['class' => 'btn btn-sm btn-outline-danger delete','data' => [
-                                                    'params' => ['id' => $doc->id],
-                                                    'method' => 'post']]) ?>
-                                            </td>
+                                            <th>#</th>
+                                            <th>Description</th>
+                                            <th>Created By</th>
+                                            <th>Created At</th>
+                                            <th>Actions</th>
                                         </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php $i=0; if(is_array($model->documents)):  $i++; ?>
 
-                                    <?php endforeach; ?>
+                                            <?php foreach($model->documents as $doc): ?>
 
-                                <?php endif; ?>
-                                </tbody>
-                            </table>
+                                                <tr>
+                                                    <td><?= $i ?></td>
+                                                    <td><?= Html::a('<i class="fa fa-eye mx-1"></i>'.$doc->description,['intervention/read','id' => $doc->id],['class' => 'btn btn-sm btn-outline-info']) ?></td>
+                                                    <td><?= $doc->creator->username ?></td>
+                                                    <td><?= date('Y-m-d H:i:s',$doc->created_at) ?></td>
+                                                    <td>
+
+                                                        <?= Html::a('<i class="fa fa-edit"></i>',['intervention-vulnerability-upload-lines/update','id' => $doc->id],['class' => 'btn btn-sm btn-outline-primary add']) ?>
+                                                        <?= Html::a('<i class="fa fa-trash"></i>',['intervention-vulnerability-upload-lines/delete','id' => $doc->id],['class' => 'btn btn-sm btn-outline-danger delete','data' => [
+                                                            'confirm' => 'Are you sure you want to delete this file?',
+                                                            'params' => ['id' => $doc->id],
+                                                            'method' => 'post']]) ?>
+                                                    </td>
+                                                </tr>
+
+                                            <?php endforeach; ?>
+
+                                        <?php endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+
+
                         </div>
 
 

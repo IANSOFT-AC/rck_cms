@@ -9,6 +9,8 @@ use common\models\User;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use DateTime;
+use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "refugee".
@@ -106,6 +108,8 @@ class Refugee extends \yii\db\ActiveRecord
 
 
             ['arrival_date','safe'],
+            [['email_address','cell_number'],'unique'],
+            ['email_address','email'],
             [['disability_desc', 'reason_for_rsd_appointment', 'custom_language', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date', 'date_of_birth', 'physical_address',  'old_rck'], 'string'],
             [['first_name', 'middle_name', 'last_name', 'email_address'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 150],
@@ -229,9 +233,35 @@ class Refugee extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes){
         //Create the RCK id number
         if($insert){
+
+
+            if(!empty($_FILES['attachmentfile']) && sizeof($_FILES['attachmentfile']) > 1){
+
+
+                $this->attachmentfile = UploadedFile::getInstanceByName('attachmentfile');
+                if($this->attachmentfile)
+                {
+                    $fileID = Yii::$app->security->generateRandomString(8);
+                    $absolutePath = Yii::getAlias('@frontend/web/consent_attachments/'.$fileID.'.'.$this->attachmentfile->extension);
+                    $FilePath = \yii\helpers\Url::home(true).'consent_attachments/'.$fileID.'.'.$this->attachmentfile->extension;
+                    if(!is_dir(dirname($absolutePath))){
+                        FileHelper::createDirectory(dirname($absolutePath));
+                    }
+
+                    $this->attachmentfile->saveAs($absolutePath);
+
+                }
+
+            }
+
+
             $date = new DateTime();
             $this->rck_no = "RCK-".$this->rckOffice->code ."-". $this->id."-".$date->format('Y');
-            $this->updateAttributes(['rck_no' => $this->rck_no]);
+            $this->updateAttributes(
+                [
+                    'rck_no' => $this->rck_no,
+                    'consent_scan' => $FilePath
+                ]);
         }
         //parent::afterSave($insert, $changedAttributes);
     }
@@ -280,7 +310,7 @@ class Refugee extends \yii\db\ActiveRecord
             'source_of_income' => 'Source Of Income Details',
             'physical_address' => 'Physical Address',
             'job_details' => 'Job Details',
-            'id_no' => 'ID number',
+            'id_no' => 'ID / Passport number',
             'has_work_permit' => 'Has Work Permit?',
             'arrested_due_to_lack_of_work_permit' => 'Arrested Due To Lack Of Work Permit?',
             'interested_in_work_permit' => 'Interested In Getting a Work Permit?',

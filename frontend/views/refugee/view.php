@@ -463,7 +463,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                     </div>
                 </div>
 
-                <?php if(count($model->uploads) > 0){ ?>
+
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Files</h4>
@@ -476,7 +476,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                 <!-- /.box-header -->
                                 <div class="box-body row" data-read-aloud-multi-block="true">
 
-                                    <?php if($model->consent_scan){
+                                    <?php if(strlen($model->consent_scan)){
                                         echo '<div class="col-md-6">'. Html::a('<i class="fas fa-file"></i> Consent Document',['read','id'=> $model->id],['class' => 'btn btn-info']).'</div>';
                                     }
                                     ?>
@@ -484,33 +484,37 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
 
 
                                     <?php
-                                    foreach ($model->uploads as $file) {
-                                        ?>
-                                        <div class="col-md-6">
-                                            <strong data-speechify-sentence=""><i class="fas fa-file"></i> <?= (!empty($file->upload->desc) ? $file->upload->desc :"Öther" ) ?></strong>
+                                    if(count($model->uploads) > 0) {
+                                        foreach ($model->uploads as $file) {
+                                            ?>
+                                            <div class="col-md-6">
+                                                <strong data-speechify-sentence=""><i
+                                                            class="fas fa-file"></i> <?= (!empty($file->upload->desc) ? $file->upload->desc : "Öther") ?>
+                                                </strong>
 
-                                            <p class="text-muted" data-speechify-sentence="">
-                                                <?= Html::a('Preview Document: '.$file->filename, [$file->doc_path], ['class' => 'label label-primary', 'target' => '_blank', 'title'=> $file->filename]) ?>
-                                                <?= Html::a(' Delete <i class="fa fa-trash"></i>',
-                                                    ['delete-file', 'id' => $file->id],
-                                                    [
-                                                        'title' => 'delete the file?',
-                                                        'data' => [
-                                                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                                                            'method' => 'post',
-                                                        ],
-                                                    ]) ?>
-                                            </p>
-                                            <hr>
-                                        </div>
-                                        <?php
+                                                <p class="text-muted" data-speechify-sentence="">
+                                                    <?= Html::a('Preview Document: ' . $file->filename, [$file->doc_path], ['class' => 'label label-primary', 'target' => '_blank', 'title' => $file->filename]) ?>
+                                                    <?= Html::a(' Delete <i class="fa fa-trash"></i>',
+                                                        ['delete-file', 'id' => $file->id],
+                                                        [
+                                                            'title' => 'delete the file?',
+                                                            'data' => [
+                                                                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                                                'method' => 'post',
+                                                            ],
+                                                        ]) ?>
+                                                </p>
+                                                <hr>
+                                            </div>
+                                            <?php
+                                        }
                                     }
                                     ?>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <?php } ?>
+
 
 
             </div>
