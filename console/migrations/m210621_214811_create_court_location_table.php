@@ -4,6 +4,7 @@ use yii\db\Migration;
 
 /**
  * Handles the creation of table `{{%court_location}}`.
+ * Testing CI/CD
  */
 class m210621_214811_create_court_location_table extends Migration
 {
