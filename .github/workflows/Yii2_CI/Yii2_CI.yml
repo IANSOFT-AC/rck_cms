@@ -29,6 +29,7 @@ jobs:
      # use git pull to master branch instead of git checkout like indicated above
       - name: Pull new changes with git
         run: git pull origin master
+        working-directory: /var/www/cms.rckkenya.org
         
         # Runs composer install to add or update dependancies
       - name: Install dependancies via composer
