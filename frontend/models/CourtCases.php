@@ -91,7 +91,8 @@ class CourtCases extends \yii\db\ActiveRecord
                 'court_case_number',
                 'interpreter_required',
                 'case_outcome_id',
-                'nature_of_sentence_id'
+                'nature_of_sentence_id',
+                'case_referer',
                 ], 'integer'],
             [[
                 'first_instance_interview',
