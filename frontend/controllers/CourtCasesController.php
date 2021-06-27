@@ -2,8 +2,12 @@
 
 namespace frontend\controllers;
 
+use app\models\Language;
+use frontend\models\CaseOutcome;
+use frontend\models\CaseReferer;
 use frontend\models\Court;
 use frontend\models\CourtLocation;
+use frontend\models\NatureOfSentence;
 use Yii;
 use app\models\CourtCases;
 use app\models\CourtUploads;
@@ -307,6 +311,11 @@ class CourtCasesController extends Controller
 
         $locations = ArrayHelper::map(CourtLocation::find()->all(),'id','location');
         $courts = ArrayHelper::map(Court::find()->all(), 'id','court');
+        $languages = ArrayHelper::map(Language::find()->all(), 'id', 'name');
+        $case_referers = ArrayHelper::map(CaseReferer::find()->all(), 'id', 'referer');
+        $case_outcomes = ArrayHelper::map(CaseOutcome::find()->all(),'id','outcome');
+        $sentences = ArrayHelper::map(NatureOfSentence::find()->all(), 'id' , 'nature' );
+
 
         return $this->render('create', [
             'model' => $model,
@@ -318,7 +327,11 @@ class CourtCasesController extends Controller
             'offences' => $offences,
             'refugee_id' => $refugee_id,
             'locations' => $locations,
-            'courts' => $courts
+            'courts' => $courts,
+            'languages' => $languages,
+            'case_referer' => $case_referers,
+            'outcomes' => $case_outcomes,
+            'sentences' => $sentences
         ]);
     }
 

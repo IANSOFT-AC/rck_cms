@@ -19,11 +19,16 @@ use yii\helpers\Url;
 
 <div class="court-cases-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+            'enableClientValidation' => true,
+            'encodeErrorSummary' => false,
+            'errorSummaryCssClass' => 'help-block']); ?>
 
     <div class="card">
         <div class="card-header"><h5 class="card-title">Court Case</h5></div>
         <div class="card-body">
+
+            <?= $form->errorSummary($model)   ?>
 
             <!--Case Type Drop Down-->
             <div class="row">
@@ -42,12 +47,62 @@ use yii\helpers\Url;
 
                         <?= $form->field($model, 'court_id')->dropDownList($courts,['prompt' => 'Select ...']) ?>
 
-                        <?= $form->field($model, 'no_of_refugees')->textInput() ?>
 
-                        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                        <?= $form->field($model, 'court_number')->textInput() ?>
+
+                        <?= $form->field($model, 'first_instance_interview')->textarea(['rows' => 2]) ?>
+
+                        <?= $form->field($model, 'court_proceeding_id')->dropDownList($natureOfProceedings,
+                            ['prompt' => '-- Nature of Proceeding --']) ?>
+
+                        <?= $form->field($model, 'case_details')->textarea(['rows' => 2]) ?>
+
+                        <?= $form->field($model, 'date_of_court_appearance')->textInput(['type' => 'date']) ?>
+
+                        <?= $form->field($model, 'interpreter_required')->dropDownList([0 => 'No', 1 => 'Yes'],['prompt' => 'Select']) ?>
+
+                        <?= $form->field($model, 'interpreter_language')->dropDownList($languages,['prompt' => 'Select...']) ?>
+
+
+                        <?= $form->field($model, 'case_referer')->dropDownList($case_referer,['prompt' => 'Select...']) ?>
+
+                        <?= $form->field($model, 'prosecutor_name')->textInput(['maxlength' => 100]) ?>
+
+
+
                         
-                        <?= $form->field($model, 'offence_type')->dropDownList([1 => 'Civil',2 => 'Criminal'],['prompt' => '--Offence Type? --'//after prompt
-                                    ,'onchange'=>'
+                </div>
+                <div class="col-md-6">
+
+                    <?= $form->field($model, 'contacts')->textInput(['maxlength' =>  '15']) ?>
+
+                    <?= $form->field($model, 'magistrate')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'legal_officer_id')->dropDownList($lawyers,
+                        ['prompt' => '-- Choose Legal Office --']) ?>
+
+                    <?= $form->field($model, 'counsellor_id')->dropDownList($counsellors,
+                        ['prompt' => '-- Choose Counsellor --']) ?>
+
+                    <?= $form->field($model, 'case_status')->dropDownList(['open' => 'Open', 'closed' => 'Closed'],
+                        ['prompt' => '-- Select Case Status --']) ?>
+
+                    <?= $form->field($model, 'next_court_date')->textInput(['type' => 'date','class' => 'form-control no-past']) ?>
+
+                    <?= $form->field($model, 'case_outcome_id')->dropDownList( $outcomes,
+                        ['prompt' => '-- Select Case Status --']) ?>
+
+                    <?= $form->field($model, 'outcome_details')->textarea(['rows' => 2]) ?>
+
+                    <?= $form->field($model, 'nature_of_sentence_id')->dropDownList( $sentences,
+                        ['prompt' => 'Select ...']) ?>
+
+                    <?= $form->field($model, 'no_of_refugees')->textInput() ?>
+
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'offence_type')->dropDownList([1 => 'Civil',2 => 'Criminal'],['prompt' => '--Offence Type? --'//after prompt
+                        ,'onchange'=>'
                                     $.get( "'.Url::toRoute('court-cases/catlists').'", { id: $(this).val() } )
                                                 .done(function( data )
                                         {
@@ -55,35 +110,24 @@ use yii\helpers\Url;
                                         });
                                     ']) ?>
 
-                        <?= $form->field($model, 'offence_id')->dropDownList($offences,
-                            ['prompt' => '-- Choose Offence --']) ?>
+                    <?= $form->field($model, 'offence_id')->dropDownList($offences,
+                        ['prompt' => '-- Choose Offence --']) ?>
 
-                        <?= $form->field($model, 'offence')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'offence')->textInput(['maxlength' => true]) ?>
 
-                        <?= $form->field($model, 'first_instance_interview')->textarea() ?>
 
-                        <?= $form->field($model, 'magistrate')->textInput(['maxlength' => true]) ?>
 
-                        <?= $form->field($model, 'court_proceeding_id')->dropDownList($natureOfProceedings,
-                            ['prompt' => '-- Nature of Proceeding --']) ?>
-                        
-                </div>
-                <div class="col-md-6">
 
-                        <?= $form->field($model, 'date_of_arrainment')->textInput(['type' => 'date','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date_of_arrainment, 'yyyy-MM-dd')]) ?>
 
-                        <?= $form->field($model, 'case_status')->dropDownList(['open' => 'Open', 'closed' => 'Closed'],
-                            ['prompt' => '-- Select Case Status --']) ?>
 
-                        <?= $form->field($model, 'next_court_date')->textInput(['type' => 'date','class' => 'form-control no-past']) ?>
+                    <?= $form->field($model, 'date_of_arrainment')->textInput(['type' => 'date','value' => $model->isNewRecord ? null : Yii::$app->formatter->asDate($model->date_of_arrainment, 'yyyy-MM-dd')]) ?>
 
-                        <?= $form->field($model, 'legal_officer_id')->dropDownList($lawyers,
-                            ['prompt' => '-- Choose Legal Office --']) ?>
+
+
 
                         <?= $form->field($model, 'legal_officer')->textInput() ?>
 
-                        <?= $form->field($model, 'counsellor_id')->dropDownList($counsellors,
-                            ['prompt' => '-- Choose Counsellor --']) ?>
+
 
                         <?= $form->field($model, 'counsellor')->textInput() ?>
 

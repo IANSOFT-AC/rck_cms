@@ -63,6 +63,17 @@ class CourtCases extends \yii\db\ActiveRecord
     {
         return [
             [[
+                'legal_officer_id',
+                'court_location',
+                'court_id',
+                'court_case_number',
+                'interpreter_required',
+                'court_case_category_id',
+                'magistrate',
+                'prosecutor_name'
+
+            ],'required'],
+            [[
                 'no_of_refugees',
                 'court_proceeding_id',
                 'offence_type',
@@ -76,9 +87,23 @@ class CourtCases extends \yii\db\ActiveRecord
                 'created_by',
                 'updated_by',
                 'court_location',
-                'court_id'
+                'court_id',
+                'court_case_number',
+                'interpreter_required',
+                'case_outcome_id',
+                'nature_of_sentence_id'
                 ], 'integer'],
-            [['first_instance_interview','counsellor','legal_officer','court_case_number'],'string'],
+            [[
+                'first_instance_interview',
+                'counsellor',
+                'legal_officer',
+                'court_case_number',
+                'court_number',
+                'interpreter_language',
+                'prosecutor_name',
+                'contact'
+            ]
+                ,'string'],
             [['name', 'offence', 'case_status','date_of_arrainment','next_court_date','magistrate','counsellor','legal_officer'], 'string', 'max' => 255],
             [['counsellor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Counsellors::className(), 'targetAttribute' => ['counsellor_id' => 'id']],
             [['court_case_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => CourtCaseCategory::className(), 'targetAttribute' => ['court_case_category_id' => 'id']],
@@ -86,6 +111,8 @@ class CourtCases extends \yii\db\ActiveRecord
             [['court_proceeding_id'], 'exist', 'skipOnError' => true, 'targetClass' => NatureOfProceeding::className(), 'targetAttribute' => ['court_proceeding_id' => 'id']],
             [['legal_officer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Lawyer::className(), 'targetAttribute' => ['legal_officer_id' => 'id']],
             [['refugee_id'], 'exist', 'skipOnError' => true, 'targetClass' => Refugee::className(), 'targetAttribute' => ['refugee_id' => 'id']],
+            [['case_details','outcome_details'], 'string','max' => '500'],
+            [['date_of_court_appearance'], 'safe'],
         ];
     }
 
@@ -103,12 +130,12 @@ class CourtCases extends \yii\db\ActiveRecord
             'offence' => 'Describe Offence',
             'offence_id' => 'Offence',
             'first_instance_interview' => 'First Instance Interview',
-            'magistrate' => 'Magistrate',
+            'magistrate' => 'Magistrate / Judge',
             'court_proceeding_id' => 'Nature of Proceeding',
             'date_of_arrainment' => 'Date Of Arraignment',
             'case_status' => 'Case Status',
             'next_court_date' => 'Next Court Date',
-            'legal_officer_id' => 'Legal Officer',
+            'legal_officer_id' => 'Legal Officer / Advocate',
             'counsellor_id' => 'Counsellor',
             'legal_officer' => 'Legal Officer Names',
             'counsellor' => 'Counsellor Names',
@@ -120,7 +147,10 @@ class CourtCases extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
-            'court_id' => 'Court'
+            'court_id' => 'Court',
+            'case_outcome_id' => 'Case Outcome',
+            'nature_of_sentence_id' => 'Nature of Sentence'
+
         ];
     }
 
