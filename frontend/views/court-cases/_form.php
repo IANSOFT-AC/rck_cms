@@ -217,7 +217,7 @@ use yii\helpers\Url;
     <!--Immigration-->
 
 
-    <section id="sgbv" class="my-3">
+    <section id="immigration" class="my-3">
         <div class="card card-primary">
             <div class="card-header">
                 <div class="card-title">Immigration / Documentation Specific Case Information</div>
@@ -245,7 +245,7 @@ use yii\helpers\Url;
     </section>
 
 
-    <section id="sgbv" class="my-3">
+    <section id="child_custody" class="my-3">
         <div class="card card-primary">
             <div class="card-header">
                 <div class="card-title">Child Custody Specific Case Information</div>
@@ -263,7 +263,7 @@ use yii\helpers\Url;
                     </div>
                     <div class="col-md-6">
 
-                        <?= $form->field($model, 'rck_representation_id')->dropDownList($childRepresentation,['prompt' => 'Select ....']) ?>
+                        <?= $form->field($model, 'rck_representation_id')->dropDownList($childRepresentation,['prompt' => 'Select ....','id' => 'child']) ?>
 
 
                     </div>
@@ -336,6 +336,38 @@ $script = <<<JS
             $('.field-courtcases-next_court_date').fadeOut('slow')
         }
     }).change();
+    
+    
+    // Handle Court Case Category selection
+    $('#general,#sgbv,#immigration,#child_custody').hide();
+    $('#courtcases-court_case_category_id').on('change',function(){
+        // let selectedOpt = $('#courtcases-court_case_category_id option:selected').text();
+        let selectedOpt = $(this).val();
+        console.log(selectedOpt);
+        
+        if(selectedOpt == 1) {
+            $('#general').show();
+           
+        }else {
+            $('#general').hide();
+        } 
+        if(selectedOpt == 2) {
+            $('#sgbv').show(); 
+        }else{
+             $('#sgbv').hide();
+        }
+        if(selectedOpt == 3) {
+            $('#child_custody').show(); 
+        }else{
+             $('#child_custody').hide();
+        }
+        if(selectedOpt == 4) {
+            $('#immigration').show(); 
+        }else {
+            $('#immigration').hide();
+        }
+        
+    });
 JS;
 
 $this->registerJs($script);
