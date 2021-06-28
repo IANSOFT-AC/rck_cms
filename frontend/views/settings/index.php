@@ -203,12 +203,15 @@ $this->title = "RCK: Control Panel";
                                 <?= '<p>'.Html::a('<i class="fa fa-cogs mx-2"></i><b> Case Referers </b>',['case-referer/index'],['target' => '_blank']).'</p>' ?>
 
                                 <?= '<p>'.Html::a('<i class="fa fa-cogs mx-2"></i><b> Nature of Sentences</b>',['nature-of-sentence/index'],['target' => '_blank']).'</p>' ?>
+                                <?= '<p>'.Html::a('<i class="fa fa-cogs mx-2"></i><b> RCK Representation</b>',['rck-representation/index'],['target' => '_blank']).'</p>' ?>
 
                         </div>
                         <div class="col-md-6">
                             <?= '<p>'.Html::a('<i class="fa fa-cogs mx-2"></i><b> Courts </b>',['court/index'],['target' => '_blank']).'</p>' ?>
 
                             <?= '<p>'.Html::a('<i class="fa fa-cogs mx-2"></i><b> Case Outcomes</b>',['case-outcome/index'],['target' => '_blank']).'</p>' ?>
+
+                            <?= '<p>'.Html::a('<i class="fa fa-cogs mx-2"></i><b> Plea Statuses</b>',['plea-status/index'],['target' => '_blank']).'</p>' ?>
                         </div>
 
 	            </div>

@@ -149,6 +149,130 @@ use yii\helpers\Url;
         </div>
     </div>
 
+    <section id="general" class="my-3">
+        <div class="card card-primary">
+            <div class="card-header">
+                <div class="card-title">General Case Information</div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'gender')->dropDownList($gender,['prompt' => 'Select ....']) ?>
+
+                            <?= $form->field($model, 'nationality_id')->dropDownList($nationalities,['prompt' => 'Select ....']) ?>
+
+                            <?= $form->field($model, 'age')->textInput(['type' => 'number']) ?>
+
+                            <?= $form->field($model, 'contact_details')->textarea(['rows' => 2]) ?>
+
+                            <?= $form->field($model, 'asylum_status')->dropDownList($asylum_status,['prompt' => 'Select ....']) ?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'id_number')->textInput(['maxlength' => 30]) ?>
+
+                            <?= $form->field($model, 'physical_address')->textInput() ?>
+
+                            <?= $form->field($model, 'camp_id')->dropDownList($camps,['prompt' => 'Select ....']) ?>
+
+                            <?= $form->field($model, 'block_no')->textInput() ?>
+
+                            <?= $form->field($model, 'plea_status')->dropDownList($pleas,['prompt' => 'Select ....']) ?>
+                        </div>
+
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!--SGBV-->
+
+    <section id="sgbv" class="my-3">
+        <div class="card card-primary">
+            <div class="card-header">
+                <div class="card-title">SGBV Specific Case Information</div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+
+
+                        <?= $form->field($model, 'complainant_name')->textInput(['maxlength' => 100]) ?>
+
+                        <?= $form->field($model, 'bond_or_bail_amount')->textInput(['type' => 'number']) ?>
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <?= $form->field($model, 'name_of_accused')->textInput(['maxlength' => 100]) ?>
+                        <?= $form->field($model, 'rck_representation_id')->dropDownList($sgbvRepresentation,['prompt' => 'Select ....']) ?>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--Immigration-->
+
+
+    <section id="sgbv" class="my-3">
+        <div class="card card-primary">
+            <div class="card-header">
+                <div class="card-title">Immigration / Documentation Specific Case Information</div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+
+
+                        <?= $form->field($model, 'date_of_arrest')->textInput(['type' => 'date']) ?>
+
+                        <?= $form->field($model, 'place_of_arrest')->textInput() ?>
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <?= $form->field($model, 'date_of_arraignment')->textInput(['type' => 'date']) ?>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="sgbv" class="my-3">
+        <div class="card card-primary">
+            <div class="card-header">
+                <div class="card-title">Child Custody Specific Case Information</div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+
+
+                        <?= $form->field($model, 'name_of_respondent')->textInput() ?>
+
+
+
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <?= $form->field($model, 'rck_representation_id')->dropDownList($childRepresentation,['prompt' => 'Select ....']) ?>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="form-group p-2">
         <?= Html::submitButton(Yii::t('app', '<i class="fa fa-check"></i> Next'), ['class' => 'btn btn-success']); ?>
         <?= Html::a(' Cancel <i class="fa fa-eraser"></i>', Yii::$app->request->referrer, ['class' => 'btn btn-warning']) ?>

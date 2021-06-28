@@ -93,6 +93,15 @@ class CourtCases extends \yii\db\ActiveRecord
                 'case_outcome_id',
                 'nature_of_sentence_id',
                 'case_referer',
+                'gender',
+                'nationality_id',
+                'age',
+                'asylum_status',
+                'camp_id',
+                'date_of_arrest',
+                'date_of_arraignment',
+                'rck_representation_id'
+
                 ], 'integer'],
             [[
                 'first_instance_interview',
@@ -102,7 +111,18 @@ class CourtCases extends \yii\db\ActiveRecord
                 'court_number',
                 'interpreter_language',
                 'prosecutor_name',
-                'contact'
+                'contact',
+                'complainant_name',
+                'contact_details',
+                'block_no',
+                'name_of_accused',
+                'complainant_name',
+                'id_number',
+                'physical_address',
+                'place_of_arrest',
+                'name_of_respondent',
+
+
             ]
                 ,'string'],
             [['name', 'offence', 'case_status','date_of_arrainment','next_court_date','magistrate','counsellor','legal_officer'], 'string', 'max' => 255],
@@ -114,6 +134,7 @@ class CourtCases extends \yii\db\ActiveRecord
             [['refugee_id'], 'exist', 'skipOnError' => true, 'targetClass' => Refugee::className(), 'targetAttribute' => ['refugee_id' => 'id']],
             [['case_details','outcome_details'], 'string','max' => '500'],
             [['date_of_court_appearance'], 'safe'],
+            [['bond_or_bail_amount'], 'number'],
         ];
     }
 

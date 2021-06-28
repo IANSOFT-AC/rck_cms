@@ -30,7 +30,12 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         'languages' => $languages,
         'case_referer' => $case_referer,
         'outcomes' => $outcomes,
-        'sentences' => $sentences
+        'sentences' => $sentences,
+        'gender' => $gender,
+        'camps' => $camps,
+        'pleas' => $pleas,
+        'sgbvRepresentation' => $sgbvRepresentation,
+        'childRepresentation' => $childRepresentation,
     ]) ?>
 
 </div>

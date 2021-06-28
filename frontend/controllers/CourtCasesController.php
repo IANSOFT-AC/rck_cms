@@ -2,12 +2,18 @@
 
 namespace frontend\controllers;
 
+use app\models\AsylumType;
+use app\models\Country;
 use app\models\Language;
+use app\models\RefugeeCamp;
 use frontend\models\CaseOutcome;
 use frontend\models\CaseReferer;
 use frontend\models\Court;
 use frontend\models\CourtLocation;
+use frontend\models\Gender;
 use frontend\models\NatureOfSentence;
+use frontend\models\PleaStatus;
+use frontend\models\RckRepresentation;
 use Yii;
 use app\models\CourtCases;
 use app\models\CourtUploads;
@@ -315,7 +321,13 @@ class CourtCasesController extends Controller
         $case_referers = ArrayHelper::map(CaseReferer::find()->all(), 'id', 'referer');
         $case_outcomes = ArrayHelper::map(CaseOutcome::find()->all(),'id','outcome');
         $sentences = ArrayHelper::map(NatureOfSentence::find()->all(), 'id' , 'nature' );
-
+        $gender = ArrayHelper::map(Gender::find()->all(),'id','gender');
+        $nationalities = ArrayHelper::map(Country::find()->all(), 'id', 'country');
+        $asylum_status = ArrayHelper::map(AsylumType::find()->all(), 'id','name');
+        $camps = ArrayHelper::map(RefugeeCamp::find()->all(),'id','name');
+        $pleas = ArrayHelper::map(PleaStatus::find()->all(),'id','status');
+        $sgbvRepresentation = ArrayHelper::map(RckRepresentation::findAll(['case_category' => 'SGBV']),'id','representation');
+        $childRepresentation = ArrayHelper::map(RckRepresentation::findAll(['case_category' => 'Child Custody']),'id','representation');
 
         return $this->render('create', [
             'model' => $model,
@@ -331,7 +343,15 @@ class CourtCasesController extends Controller
             'languages' => $languages,
             'case_referer' => $case_referers,
             'outcomes' => $case_outcomes,
-            'sentences' => $sentences
+            'sentences' => $sentences,
+            'gender' => $gender,
+            'nationalities' => $nationalities,
+            'asylum_status' => $asylum_status,
+            'camps' => $camps,
+            'pleas' => $pleas,
+            'sgbvRepresentation' => $sgbvRepresentation,
+            'childRepresentation' => $childRepresentation,
+
         ]);
     }
 
