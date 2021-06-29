@@ -1,10 +1,10 @@
 <?php
 return [
-    'adminEmail' => 'cms_support@rckkenya.org',
-    'supportEmail' => 'cms_support@rckkenya.org',
-    'senderEmail' => 'cms_support@rckkenya.org',
+    'adminEmail' => 'rck.support@softeboard.com',
+    'supportEmail' => 'rck.support@softeboard.com',
+    'senderEmail' => 'rck.support@softeboard.com',
     'senderName' => 'RCK Mailer',
-    'user.passwordResetTokenExpire' => 60*60*24,
+    'user.passwordResetTokenExpire' => 43200,
     'user.passwordMinLength' => 8,
     'Company' => 'Refugee Consortium of Kenya',
     'generalTitle' => 'RCK CMS'
