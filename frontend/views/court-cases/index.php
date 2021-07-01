@@ -70,7 +70,7 @@ $script = <<<JS
         paging: true,
         columns: [
             {title : 'Id', data: 'id'},
-            {title : 'Name', data: 'name'},
+            {title : 'Court Case No.', data: 'name'},
             {title : 'No. of refugees', data: 'no_of_refugees'},
             {title : 'First Instance Interview', data: 'first_instance_interview'},
             {title : 'Offence', data: 'offence'},

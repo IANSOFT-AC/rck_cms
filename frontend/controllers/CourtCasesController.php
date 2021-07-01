@@ -279,8 +279,46 @@ class CourtCasesController extends Controller
      */
     public function actionView($id)
     {
+        $model = CourtCases::find()->where(['id' => $id])->one();
+        $natureOfProceedings = ArrayHelper::map(NatureOfProceeding::find()->all(), 'id', 'name');
+        $lawyers = ArrayHelper::map(Lawyer::find()->all(), 'id', 'full_names');
+        $counsellors = ArrayHelper::map(Counsellors::find()->all(), 'id', 'counsellor');
+        $courtCaseCategories = ArrayHelper::map(CourtCaseCategory::find()->all(), 'id', 'name');
+        $refugees = ArrayHelper::map(Refugee::find()->all(), 'id', 'fullNames');
+        $offences = ArrayHelper::map(Offence::find()->all(), 'id', 'name');
+        $locations = ArrayHelper::map(CourtLocation::find()->all(),'id','location');
+        $courts = ArrayHelper::map(Court::find()->all(), 'id','court');
+        $languages = ArrayHelper::map(Language::find()->all(), 'id', 'name');
+        $case_referers = ArrayHelper::map(CaseReferer::find()->all(), 'id', 'referer');
+        $case_outcomes = ArrayHelper::map(CaseOutcome::find()->all(),'id','outcome');
+        $sentences = ArrayHelper::map(NatureOfSentence::find()->all(), 'id' , 'nature' );
+        $gender = ArrayHelper::map(Gender::find()->all(),'id','gender');
+        $nationalities = ArrayHelper::map(Country::find()->all(), 'id', 'country');
+        $asylum_status = ArrayHelper::map(AsylumType::find()->all(), 'id','name');
+        $camps = ArrayHelper::map(RefugeeCamp::find()->all(),'id','name');
+        $pleas = ArrayHelper::map(PleaStatus::find()->all(),'id','status');
+        $sgbvRepresentation = ArrayHelper::map(RckRepresentation::findAll(['case_category' => 'SGBV']),'id','representation');
+        $childRepresentation = ArrayHelper::map(RckRepresentation::findAll(['case_category' => 'Child Custody']),'id','representation');
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'locations' => $locations,
+            'courts' => $courts,
+            'languages' => $languages,
+            'case_referer' => $case_referers,
+            'outcomes' => $case_outcomes,
+            'sentences' => $sentences,
+            'gender' => $gender,
+            'nationalities' => $nationalities,
+            'asylum_status' => $asylum_status,
+            'camps' => $camps,
+            'pleas' => $pleas,
+            'sgbvRepresentation' => $sgbvRepresentation,
+            'childRepresentation' => $childRepresentation,
+            'natureOfProceedings' => $natureOfProceedings,
+            'lawyers' => $lawyers,
+            'counsellors' => $counsellors,
+            'offences' => $offences,
+            'courtCaseCategories' => $courtCaseCategories
         ]);
     }
 
@@ -365,10 +403,12 @@ class CourtCasesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $refugee_id = is_null(Yii::$app->request->get('id')) ? null : Yii::$app->request->get('id');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
+
 
         $natureOfProceedings = ArrayHelper::map(NatureOfProceeding::find()->all(), 'id', 'name');
         $lawyers = ArrayHelper::map(Lawyer::find()->all(), 'id', 'full_names');
@@ -380,6 +420,20 @@ class CourtCasesController extends Controller
         $lawyers[0] = 'other';
         $counsellors[0] = 'other';
 
+        $locations = ArrayHelper::map(CourtLocation::find()->all(),'id','location');
+        $courts = ArrayHelper::map(Court::find()->all(), 'id','court');
+        $languages = ArrayHelper::map(Language::find()->all(), 'id', 'name');
+        $case_referers = ArrayHelper::map(CaseReferer::find()->all(), 'id', 'referer');
+        $case_outcomes = ArrayHelper::map(CaseOutcome::find()->all(),'id','outcome');
+        $sentences = ArrayHelper::map(NatureOfSentence::find()->all(), 'id' , 'nature' );
+        $gender = ArrayHelper::map(Gender::find()->all(),'id','gender');
+        $nationalities = ArrayHelper::map(Country::find()->all(), 'id', 'country');
+        $asylum_status = ArrayHelper::map(AsylumType::find()->all(), 'id','name');
+        $camps = ArrayHelper::map(RefugeeCamp::find()->all(),'id','name');
+        $pleas = ArrayHelper::map(PleaStatus::find()->all(),'id','status');
+        $sgbvRepresentation = ArrayHelper::map(RckRepresentation::findAll(['case_category' => 'SGBV']),'id','representation');
+        $childRepresentation = ArrayHelper::map(RckRepresentation::findAll(['case_category' => 'Child Custody']),'id','representation');
+
         return $this->render('update', [
             'model' => $model,
             'natureOfProceedings' => $natureOfProceedings,
@@ -387,7 +441,21 @@ class CourtCasesController extends Controller
             'counsellors' => $counsellors,
             'courtCaseCategories' => $courtCaseCategories,
             'refugees' => $refugees,
-            'offences' => $offences
+            'offences' => $offences,
+            'refugee_id' => $refugee_id,
+            'locations' => $locations,
+            'courts' => $courts,
+            'languages' => $languages,
+            'case_referer' => $case_referers,
+            'outcomes' => $case_outcomes,
+            'sentences' => $sentences,
+            'gender' => $gender,
+            'nationalities' => $nationalities,
+            'asylum_status' => $asylum_status,
+            'camps' => $camps,
+            'pleas' => $pleas,
+            'sgbvRepresentation' => $sgbvRepresentation,
+            'childRepresentation' => $childRepresentation,
         ]);
     }
 
@@ -435,11 +503,15 @@ class CourtCasesController extends Controller
 
         foreach ($data as $case) {
             # code...
+            if(empty($case['courtCaseCategory']['name']))
+            {
+                continue;
+            }
             $result['data'][] = [
                 'id' => $case['id'],
-                'name' => $case['name'],
+                'name' => $case['court_case_number'],
                 'no_of_refugees' => $case['no_of_refugees'],
-                'first_instance_interview' => $case['first_instance_interview'] == 1 ? true : false,
+                'first_instance_interview' => $case['first_instance_interview'] ,
                 'next_court_date' => date("l M j, Y",$case['next_court_date']),
                 'offence' => is_null($case['offence_id']) ? $case['offence'] : $case['rOffence']['name'],
                 //'magistrate' => $case['magistrate']['names'],

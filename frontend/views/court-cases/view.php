@@ -1,6 +1,8 @@
 <?php
 
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -15,7 +17,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 <div class="court-cases-view">
 
-
+    <?php $form = ActiveForm::begin(); ?>
 
     <div class="card">
       <div class="card-header">
@@ -43,123 +45,270 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                   <img src="/images/rck-logo.jpg" width="50px" class="print-logo">
                   <h3 class="box-title" data-speechify-sentence="">About This Court Case</h3>
                 </div>
-            <!-- /.box-header -->
-                <div class="box-body row" data-read-aloud-multi-block="true">
-                    <div class="col-md-6">
-                        <strong data-speechify-sentence=""><i class="fas fa-address-card"></i> Name</strong>
 
-                        <p class="text-muted" data-speechify-sentence="">
-                            <?= $model->name ?>
-                        </p>
-                        <hr>
-                    </div>
-
-                    <div class="col-md-6">
-                        <strong data-speechify-sentence=""><i class="fas fa-calculator"></i> No. of Refugees</strong>
-
-                      <p class="text-muted" data-speechify-sentence=""><?= $model->no_of_refugees ?></p>
-
-                      <hr>
-                    </div>
-
-                    <div class="col-md-6">
-                      <strong data-speechify-sentence=""><i class="fas fa-exclamation-circle"></i> Offence</strong>
-
-                      <p class="text-muted" data-speechify-sentence="">
-                      <?= is_null($model->offence_id) ? $model->offence : $model->rOffence->name ?>
-                      </p>
-
-                      <hr>
-                    </div>
-                    <div class="col-md-6">
-                          <strong data-speechify-sentence=""><i class="fas fa-question"></i> First Instance Interview</strong>
-
-                          <p class="text-muted" data-speechify-sentence=""><?= $model->first_instance_interview == 1 ? "true": "false" ?></p>
-
-                          <hr>
-                    </div>
-                    <div class="col-md-6">
-                      <strong data-speechify-sentence=""><i class="fas fa-gavel"></i> Magistrate</strong>
-
-                      <p class="text-muted" data-speechify-sentence=""><?= $model->magistrate ?></p>
-
-                      <hr>
-                    </div>
-                    <div class="col-md-6">
-                      <strong data-speechify-sentence=""> Court Proceeding</strong>
-
-                      <p class="text-muted" data-speechify-sentence=""><?= $model->courtProceeding->name ?></p>
-
-                      <hr>
-                    </div>
-                    <div class="col-md-6">
-                      <strong data-speechify-sentence=""> <i class="fas fa-calendar-day"></i> Date of Arraignment</strong>
-
-                      <p class="text-muted" data-speechify-sentence=""><?= date("l M j, Y",$model->date_of_arrainment) ?></p>
-
-                      <hr>
-                    </div>
-                    <?php
-
-                    if($model->case_status == "open"){
-
-                    ?>
-                      <div class="col-md-6">
-                        <strong data-speechify-sentence=""> <i class="fas fa-calendar-day"></i> Next Court Date</strong>
-
-                        <p class="text-muted" data-speechify-sentence=""><?= date("l M j, Y",$model->next_court_date) ?></p>
-
-                        <hr>
-                      </div>
-                      <?php
-                        }
-                      ?>
-                    <div class="col-md-6">
-                      <strong data-speechify-sentence=""> <i class="fas fa-calendar-day"></i> Case Status</strong>
-
-                      <p class="text-muted" data-speechify-sentence=""><?= $model->case_status ?></p>
-
-                      <hr>
-                    </div>
-                    <div class="col-md-6">
-                      <strong data-speechify-sentence=""> <i class="fas fa-balance-scale"></i> Legal Officer</strong>
-
-                      <p class="text-muted" data-speechify-sentence="">
-                        <?= is_null($model->legal_officer_id) ? $model->legal_officer : $model->rLegalOfficer->lawfirmName ?>
-                      </p>
-
-                      <hr>
-                    </div>
-                    <div class="col-md-6">
-                      <strong data-speechify-sentence=""> <i class="fas fa-pills"></i> Counsellor</strong>
-
-                      <p class="text-muted" data-speechify-sentence="">
-                      <?= is_null($model->counsellor_id) ? $model->counsellor : $model->rCounsellor->counsellor ?>
-                      </p>
-
-                      <hr>
-                  </div>
-                    <div class="col-md-6">
-                      <strong data-speechify-sentence=""> </i> Case Category</strong>
-
-                      <p class="text-muted" data-speechify-sentence=""><?= $model->courtCaseCategory->name ?></p>
-
-                      <hr>
-                    </div>
-                    <div class="col-md-6">
-                      <strong data-speechify-sentence=""><i class="fas fa-calendar-day"></i> Created On</strong>
-
-                      <p data-speechify-sentence=""><?= date("H:ia l M j, Y",$model->created_at)?></p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?= $form->field($model, 'court_case_category_id')->dropDownList($courtCaseCategories,
+                            ['prompt' => '-- Choose Court Category --','readonly'=>'true','disabled' => true]) ?>
                     </div>
                 </div>
-            <!-- /.box-body -->
+
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <?= $form->field($model, 'court_case_number')->textInput(['readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'court_location')->dropDownList($locations,['prompt' => 'Select ...','readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'court_id')->dropDownList($courts,['prompt' => 'Select ...','readonly'=>'true','disabled' => true]) ?>
+
+
+                        <?= $form->field($model, 'court_number')->textInput(['readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'first_instance_interview')->textarea(['rows' => 2,'readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'court_proceeding_id')->dropDownList($natureOfProceedings,
+                            ['prompt' => '-- Nature of Proceeding --','readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'case_details')->textarea(['rows' => 2,'readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'date_of_court_appearance')->textInput(['type' => 'date',
+                            'value' =>  Yii::$app->formatter->asDate($model->next_court_date, 'yyyy-MM-dd'),
+                            'readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'interpreter_required')->dropDownList([0 => 'No', 1 => 'Yes'],['prompt' => 'Select','readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'interpreter_language')->dropDownList($languages,['prompt' => 'Select...','readonly'=>'true','disabled' => true]) ?>
+
+
+                        <?= $form->field($model, 'case_referer')->dropDownList($case_referer,['prompt' => 'Select...','readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'prosecutor_name')->textInput(['maxlength' => 100,'readonly'=>'true','disabled' => true]) ?>
+
+
+
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <?= $form->field($model, 'contacts')->textInput(['maxlength' =>  '15','readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'magistrate')->textInput(['maxlength' => true,'readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'legal_officer_id')->dropDownList($lawyers,
+                            ['prompt' => '-- Choose Legal Office --','readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'counsellor_id')->dropDownList($counsellors,
+                            ['prompt' => '-- Choose Counsellor --','readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'case_status')->dropDownList(['open' => 'Open', 'closed' => 'Closed'],
+                            ['prompt' => '-- Select Case Status --','readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'next_court_date')->textInput([
+                                'class' => 'form-control no-past',
+                                'value' =>  Yii::$app->formatter->asDate($model->next_court_date, 'yyyy-MM-dd'),
+                                'readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'case_outcome_id')->dropDownList( $outcomes,
+                            ['prompt' => '-- Select Case Status --','readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'outcome_details')->textarea(['rows' => 2,'readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'nature_of_sentence_id')->dropDownList( $sentences,
+                            ['prompt' => 'Select ...','readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'no_of_refugees')->textInput(['readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+                        <?= $form->field($model, 'offence_type')->dropDownList([1 => 'Civil',2 => 'Criminal'],['prompt' => '--Offence Type? --'//after prompt
+                            ,'readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'offence_id')->dropDownList($offences,
+                            ['prompt' => '-- Choose Offence --','readonly'=>'true','disabled' => true]) ?>
+
+                        <?= $form->field($model, 'offence')->textInput(['maxlength' => true,'readonly'=>'true','disabled' => true]) ?>
+
+
+
+
+
+
+                        <?= $form->field($model, 'date_of_arrainment')->textInput([
+                                'type' => 'date','value' =>  Yii::$app->formatter->asDate($model->date_of_arrainment, 'yyyy-MM-dd'),'readonly'=>'true','disabled' => true]) ?>
+
+
+
+
+                        <?= $form->field($model, 'legal_officer')->textInput(['readonly'=>'true','disabled' => true]) ?>
+
+
+
+                        <?= $form->field($model, 'counsellor')->textInput(['readonly'=>'true','disabled' => true]) ?>
+
+
+
+
+
+                        <?php $form->field($model, 'court_case_subcategory_id')->dropDownList([],['prompt' => '--Select SubCategory']) ?>
+
+                        <?php
+                        echo $form->field($model, 'refugee_id')->hiddenInput(['value' => $model->isNewRecord ? null : $model->refugee_id ])->label(false);
+                        ?>
+
+                    </div>
+                </div>
+
+
+                <!--General Court Cases -->
+
+                <?php if($model->court_case_category_id == 1): ?>
+
+                    <section id="general" class="my-3">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="card-title">General Case Information</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <?= $form->field($model, 'gender')->dropDownList($gender,['prompt' => 'Select ....']) ?>
+
+                                    <?= $form->field($model, 'nationality_id')->dropDownList($nationalities,['prompt' => 'Select ....']) ?>
+
+                                    <?= $form->field($model, 'age')->textInput(['type' => 'number']) ?>
+
+                                    <?= $form->field($model, 'contact_details')->textarea(['rows' => 2]) ?>
+
+                                    <?= $form->field($model, 'asylum_status')->dropDownList($asylum_status,['prompt' => 'Select ....']) ?>
+                                </div>
+                                <div class="col-md-6">
+                                    <?= $form->field($model, 'id_number')->textInput(['maxlength' => 30]) ?>
+
+                                    <?= $form->field($model, 'physical_address')->textInput() ?>
+
+                                    <?= $form->field($model, 'camp_id')->dropDownList($camps,['prompt' => 'Select ....']) ?>
+
+                                    <?= $form->field($model, 'block_no')->textInput() ?>
+
+                                    <?= $form->field($model, 'plea_status')->dropDownList($pleas,['prompt' => 'Select ....']) ?>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <?php endif; ?>
+
+                <!--SGBV Cases-->
+
+
+                <?php if($model->court_case_category_id == 2): ?>
+                     <section id="sgbv" class="my-3">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="card-title">SGBV Specific Case Information</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+
+
+                                    <?= $form->field($model, 'complainant_name')->textInput(['maxlength' => 100]) ?>
+
+                                    <?= $form->field($model, 'bond_or_bail_amount')->textInput(['type' => 'number']) ?>
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <?= $form->field($model, 'name_of_accused')->textInput(['maxlength' => 100]) ?>
+                                    <?= $form->field($model, 'rck_representation_id')->dropDownList($sgbvRepresentation,['prompt' => 'Select ....']) ?>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <?php endif; ?>
+                <!--Immigration  Cases-->
+
+                <?php if($model->court_case_category_id == 4): ?>
+                    <section id="immigration" class="my-3">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="card-title">Immigration / Documentation Specific Case Information</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+
+
+                                    <?= $form->field($model, 'date_of_arrest')->textInput(['type' => 'date']) ?>
+
+                                    <?= $form->field($model, 'place_of_arrest')->textInput() ?>
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <?= $form->field($model, 'date_of_arraignment')->textInput(['type' => 'date']) ?>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <?php endif; ?>
+
+                <!--Child and Custody cases-->
+                <?php if($model->court_case_category_id == 3): ?>
+                    <section id="child_custody" class="my-3">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="card-title">Child Custody Specific Case Information</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+
+
+                                    <?= $form->field($model, 'name_of_respondent')->textInput() ?>
+
+
+
+
+                                </div>
+                                <div class="col-md-6">
+
+                                    <?= $form->field($model, 'rck_representation_id')->dropDownList($childRepresentation,['prompt' => 'Select ....','id' => 'child']) ?>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <?php endif; ?>
+                <?php
+
+                ActiveForm::end();
+
+
+                ?>
+
             </div>
         </div>
     </div>
 
 
 
-    <div class="card">
+    <div class="card my-3">
         <div class="card-header">
             <h4 class="card-title">Files</h4>
         </div>

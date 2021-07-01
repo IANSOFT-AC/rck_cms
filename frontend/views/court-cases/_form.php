@@ -149,6 +149,8 @@ use yii\helpers\Url;
         </div>
     </div>
 
+    <!--General Court Cases -->
+
     <section id="general" class="my-3">
         <div class="card card-primary">
             <div class="card-header">
@@ -184,7 +186,7 @@ use yii\helpers\Url;
         </div>
     </section>
 
-    <!--SGBV-->
+    <!--SGBV Cases-->
 
     <section id="sgbv" class="my-3">
         <div class="card card-primary">
@@ -214,7 +216,7 @@ use yii\helpers\Url;
     </section>
 
 
-    <!--Immigration-->
+    <!--Immigration  Cases-->
 
 
     <section id="immigration" class="my-3">
@@ -244,7 +246,7 @@ use yii\helpers\Url;
         </div>
     </section>
 
-
+    <!--Child and Custody cases-->
     <section id="child_custody" class="my-3">
         <div class="card card-primary">
             <div class="card-header">

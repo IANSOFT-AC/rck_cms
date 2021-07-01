@@ -62,6 +62,7 @@ class CourtCases extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            ['court_case_number','unique'],
             [[
                 'legal_officer_id',
                 'court_location',
@@ -88,7 +89,6 @@ class CourtCases extends \yii\db\ActiveRecord
                 'updated_by',
                 'court_location',
                 'court_id',
-                'court_case_number',
                 'interpreter_required',
                 'case_outcome_id',
                 'nature_of_sentence_id',
@@ -111,7 +111,7 @@ class CourtCases extends \yii\db\ActiveRecord
                 'court_number',
                 'interpreter_language',
                 'prosecutor_name',
-                'contact',
+                'contacts',
                 'complainant_name',
                 'contact_details',
                 'block_no',
@@ -121,6 +121,7 @@ class CourtCases extends \yii\db\ActiveRecord
                 'physical_address',
                 'place_of_arrest',
                 'name_of_respondent',
+                'court_case_number',
 
 
             ]
