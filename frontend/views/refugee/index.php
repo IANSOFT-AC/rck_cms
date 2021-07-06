@@ -66,7 +66,7 @@ $script = <<<JS
         columns: [
             {title : 'Id', data: 'id'},
             {title : 'First Name', data: 'first_name'},
-            {title : 'Middle Name', data: 'middle_name'},
+          
             {title : 'Last Name', data: 'last_name'},
             {title : 'ID No.', data: 'id_no'},
             {title : 'UNHCR No.', data: 'unhcr_case_no'},
@@ -75,7 +75,7 @@ $script = <<<JS
             {title : 'RCK No', data : 'rck_no'},
             {title : 'Old RCK', data : 'old_rck'},
             {title : 'Nationality', data : 'country'},
-            //{title : 'created At', data: 'created_at'},
+            {title : 'Created By', data: 'created_by'},
             {
                 title: 'Actions',
                 data: function ( row, type, val, meta ) {

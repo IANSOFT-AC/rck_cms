@@ -253,12 +253,13 @@ class RefugeeController extends Controller
         $clients = Refugee::find()
             ->joinWith('rcountry')
             ->joinWith('rgender')
+            ->joinWith('creator')
             ->asArray()
             ->all();
 
-         // echo "<pre>";
-         // print_r($clients);
-         // exit;
+        /* echo "<pre>";
+         print_r($clients);
+          exit;*/
 
         $result =[];
 
@@ -267,7 +268,7 @@ class RefugeeController extends Controller
             $result['data'][] = [
                 'id' => $case['id'],
                 'first_name' => $case['first_name'],
-                'middle_name' => $case['middle_name'],
+                //'middle_name' => $case['middle_name'],
                 'last_name' => $case['last_name'],
                 'id_no' => $case['id_no'],
                 'unhcr_case_no' => $case['nhcr_case_no'],
@@ -277,6 +278,7 @@ class RefugeeController extends Controller
                 'gender' => $case['rgender']['gender'],
                 'email' => $case['email_address'],
                 'country' => $case['rcountry']['country'],
+                'created_by' => !empty($case['creator'])?$case['creator']['username']:'',
                 'created_at' => date("H:ia l M j, Y",$case['created_at'])
             ];
         }
