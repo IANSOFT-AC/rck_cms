@@ -108,7 +108,7 @@ class Refugee extends \yii\db\ActiveRecord
 
 
             ['arrival_date','safe'],
-            [['email_address','cell_number'],'unique'],
+            [['email_address','cell_number','id_no'],'unique'],
             ['email_address','email'],
             [['disability_desc', 'reason_for_rsd_appointment', 'custom_language', 'source_of_info_abt_rck', 'form_of_torture', 'job_details','rsd_appointment_date', 'date_of_birth', 'physical_address',  'old_rck'], 'string'],
             [['first_name', 'middle_name', 'last_name', 'email_address'], 'string', 'max' => 50],
@@ -116,14 +116,14 @@ class Refugee extends \yii\db\ActiveRecord
             [['cell_number','id_no'], 'string', 'max' => 15],
             [['nhcr_case_no', 'rck_no', 'source_of_income'], 'string', 'max' => 255],
             [['camp'], 'exist', 'skipOnError' => true, 'targetClass' => RefugeeCamp::className(), 'targetAttribute' => ['camp' => 'id']],
-            [['mode_of_entry_id'], 'exist', 'skipOnError' => true, 'targetClass' => ModeOfEntry::className(), 'targetAttribute' => ['mode_of_entry_id' => 'id']],
+            // [['mode_of_entry_id'], 'exist', 'skipOnError' => true, 'targetClass' => ModeOfEntry::className(), 'targetAttribute' => ['mode_of_entry_id' => 'id']],
             [['rck_office_id'], 'exist', 'skipOnError' => true, 'targetClass' => RckOffices::className(), 'targetAttribute' => ['rck_office_id' => 'id']],
             [['user_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserGroup::className(), 'targetAttribute' => ['user_group_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['conflict'], 'exist', 'skipOnError' => true, 'targetClass' => Conflict::className(), 'targetAttribute' => ['conflict' => 'id']],
             //[['source_of_info_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfInfo::className(), 'targetAttribute' => ['source_of_info_id' => 'id']],
             //[['source_of_income_id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceOfIncome::className(), 'targetAttribute' => ['source_of_income_id' => 'id']],
-            [['asylum_status'], 'exist', 'skipOnError' => true, 'targetClass' => AsylumType::className(), 'targetAttribute' => ['asylum_status' => 'id']],
+            //[['asylum_status'], 'exist', 'skipOnError' => true, 'targetClass' => AsylumType::className(), 'targetAttribute' => ['asylum_status' => 'id']],
             [['disability_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DisabilityType::className(), 'targetAttribute' => ['disability_type_id' => 'id']],
             ['torture_manifestation', 'string'],
             //Conditional Validation
@@ -230,6 +230,7 @@ class Refugee extends \yii\db\ActiveRecord
     }
 
     //WORK ON RCK NUMBER
+
     public function afterSave($insert, $changedAttributes){
         //Create the RCK id number
         if($insert){
@@ -260,7 +261,7 @@ class Refugee extends \yii\db\ActiveRecord
             $this->updateAttributes(
                 [
                     'rck_no' => $this->rck_no,
-                    'consent_scan' => $FilePath
+                    'consent_scan' => !empty($FilePath)?$FilePath:''
                 ]);
         }
         //parent::afterSave($insert, $changedAttributes);

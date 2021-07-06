@@ -313,7 +313,7 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                 <div class="col-md-6">
                                     <strong data-speechify-sentence=""> Mode of Entry </strong>
 
-                                    <p class="text-muted" data-speechify-sentence=""><?= $model->modeOfEntry->name ?></p>
+                                    <p class="text-muted" data-speechify-sentence=""><?= !empty($model->mode_of_entry_id)?$model->modeOfEntry->name:' Not Set' ?></p>
 
                                     <hr>
                                 </div>

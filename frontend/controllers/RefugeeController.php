@@ -358,6 +358,8 @@ class RefugeeController extends Controller
               $model->consent = 0;
             }
 
+            $model->mode_of_entry_id = empty(Yii::$app->request->post()['Refugee']['mode_of_entry_id'])?0:Yii::$app->request->post()['Refugee']['mode_of_entry_id'];
+
             if($model->save()){
 
                 return $this->redirect(['files', 'id' => $model->id]);

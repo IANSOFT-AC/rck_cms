@@ -367,7 +367,7 @@ $script = <<<JS
             //Select an option for the asyslum seeker select field
             if(isNewRecord == 1){
                 $("#refugee-asylum_status option[value=" + 3 + "]").prop("selected",true);
-                $("#refugee-asylum_status").attr('disabled','disabled');
+                $("#refugee-asylum_status").attr('readonly',true);
             }
         }else{
             $('.field-refugee-conflict, .field-refugee-arrival_date,\
@@ -379,7 +379,7 @@ $script = <<<JS
             //Offset asyslum seeker select field
             if(isNewRecord == 1){
                 $("#refugee-asylum_status option:selected").prop("selected",false);
-                $("#refugee-asylum_status").removeAttr('disabled');
+                $("#refugee-asylum_status").removeAttr('readonly');
             }
         }
     }).change();
