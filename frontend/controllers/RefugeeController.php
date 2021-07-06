@@ -278,7 +278,7 @@ class RefugeeController extends Controller
                 'gender' => $case['rgender']['gender'],
                 'email' => $case['email_address'],
                 'country' => $case['rcountry']['country'],
-                'created_by' => !empty($case['creator'])?$case['creator']['username']:'',
+                'created_by' => !empty($case['creator'])?ucwords($case['creator']['username']):'',
                 'created_at' => date("H:ia l M j, Y",$case['created_at'])
             ];
         }
