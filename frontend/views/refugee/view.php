@@ -419,6 +419,14 @@ $this->params['breadcrumbs'][] = ['label' => 'View'];
                                     <hr>
                                 </div>
 
+                                <div class="col-md-6">
+                                    <strong data-speechify-sentence=""> Created By</strong>
+
+                                    <p class="text-muted" data-speechify-sentence=""><?= $model->creator->username ?></p>
+
+                                    <hr>
+                                </div>
+
 
                             </div>
                             <!-- /.box-body -->
